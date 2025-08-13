@@ -26,8 +26,6 @@ ckanext/opendata_theme/public/infog/data.json
 ckanext/opendata_theme/public/infog/data2.json
 ckanext/opendata_theme/public/infog/index_.html
 ckanext/opendata_theme/public/infog/infografica.html
-ckanext/opendata_theme/public/infog/infografica_complet.html
-ckanext/opendata_theme/public/infog/infografica_old.html
 ckanext/opendata_theme/public/infog/page.html
 ckanext/opendata_theme/public/infog/css/bootstrap-theme.min.css
 ckanext/opendata_theme/public/infog/css/bootstrap.min.css
@@ -104,11 +102,15 @@ ckanext/opendata_theme/templates/page-search.html
 ckanext/opendata_theme/templates/page.html
 ckanext/opendata_theme/templates/report.html
 ckanext/opendata_theme/templates/ckanext_pages/page.html
+ckanext/opendata_theme/templates/ckanext_pages/pages_list.html
+ckanext/opendata_theme/templates/ckanext_pages/snippets/page_item.html
+ckanext/opendata_theme/templates/ckanext_pages/snippets/pages_list.html
 ckanext/opendata_theme/templates/group/index.html
 ckanext/opendata_theme/templates/group/read.html
 ckanext/opendata_theme/templates/group/snippets/group_item.html
 ckanext/opendata_theme/templates/group/snippets/group_list.html
 ckanext/opendata_theme/templates/group/snippets/helper.html
+ckanext/opendata_theme/templates/home/about.html
 ckanext/opendata_theme/templates/home/index.html
 ckanext/opendata_theme/templates/home/layout3.html
 ckanext/opendata_theme/templates/home/snippets/about_text.html
