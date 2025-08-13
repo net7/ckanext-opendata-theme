@@ -1,0 +1,17 @@
+{% extends "page.html" %} {% block subtitle %}{{ _('About') }}{% endblock %} {%
+block breadcrumb_content %}
+<li class="active">{% link_for _('About'), named_route='home.about' %}</li>
+{% endblock %} {% block primary %}
+<div class="rtds-container">
+  <div class="rtds-grid xl:rtds-flex rtds-gap-6 xl:rtds-gap-8">
+    <section class="module-content">
+      {% block about %} {% if g.site_about %} {{ h.render_markdown(g.site_about)
+      }} {% else %}
+      <div class="rtds-grid rtds-gap-4 rtds-mt-8 rtds-mb-12">
+        <h1 class="rtds-heading-1">{{ _('About') }}</h1>
+      </div>
+      {% snippet 'home/snippets/about_text.html' %} {% endif %} {% endblock %}
+    </section>
+  </div>
+  {% endblock %} {% block secondary %}{% endblock %}
+</div>
