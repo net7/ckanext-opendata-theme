@@ -279,8 +279,9 @@
             <div class="row"></div>
 
             <!-- BEGIN CLOUD WORD -->
+            {% set count_organizations = h.count_organizations() %}
             <div class="pre-title-home"></div>
-            <div class="title-home">Dati acquisiti da oltre 35 Enti toscani</div>
+            <div class="title-home">Dati acquisiti da {{ count_organizations }} Enti toscani</div>
             <div class="row" id="cloud-container">
                 <div id="keywords-cloud" class="col-12"></div>
             </div>

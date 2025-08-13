@@ -2,6 +2,7 @@ from pyproj import Transformer
 from flask import request
 import ckan.plugins.toolkit as toolkit
 from html.parser import HTMLParser
+import random
 
 def opendata_theme_hello():
     return "Hello, opendata_theme!"
@@ -10,6 +11,19 @@ def opendata_theme_hello():
 def get_helpers():
     return {
         "opendata_theme_hello": opendata_theme_hello,
+        "convert_coordinates": convert_coordinates,
+        "is_current": is_current,
+        "get_formatted_dataset_count": get_formatted_dataset_count,
+        "get_formatted_view_count": get_formatted_view_count,
+        "get_formatted_download_count": get_formatted_download_count,
+        "get_most_viewed_datasets": get_most_viewed_datasets,
+        "get_dataset_views": get_dataset_views,
+        "get_dataset_downloads": get_dataset_downloads,
+        "get_all_organizations": get_all_organizations,
+        "get_all_organizations_random": get_all_organizations_random,
+        "count_organizations": count_organizations,
+        "get_recent_news": get_recent_news,
+        "get_page_image": get_page_image,
     }
 
 
@@ -267,8 +281,7 @@ def get_dataset_downloads(package_id):
     except Exception as e:
         return 0
 
-
-def get_all_organizations():
+def get_all_organizations(limit=None):
     """
     Restituisce tutte le organizzazioni disponibili nel sistema
     """
@@ -276,7 +289,46 @@ def get_all_organizations():
         context = {'ignore_auth': True}
         data_dict = {'all_fields': True, 'include_users': False, 'include_extras': True}
         organizations = toolkit.get_action('organization_list')(context, data_dict)
+        if limit:
+            return organizations[:limit]
         return organizations
+    except Exception as e:
+        raise ValueError(f"Errore nel recupero delle organizzazioni: {str(e)}")
+
+def get_all_organizations_random(limit=10):
+    """
+    Restituisce un numero limitato di organizzazioni in ordine casuale
+    
+    Args:
+        limit (int): Numero massimo di organizzazioni da restituire (default: 10)
+        
+    Returns:
+        list: Lista di organizzazioni selezionate casualmente
+    """
+    try:
+        context = {'ignore_auth': True}
+        data_dict = {'all_fields': True, 'include_users': False, 'include_extras': True}
+        organizations = toolkit.get_action('organization_list')(context, data_dict)
+        
+        # Se abbiamo meno organizzazioni del limite richiesto, restituisci tutte
+        if len(organizations) <= limit:
+            random.shuffle(organizations)
+            return organizations
+        
+        # Altrimenti, seleziona casualmente il numero richiesto
+        return random.sample(organizations, limit)
+    except Exception as e:
+        raise ValueError(f"Errore nel recupero delle organizzazioni: {str(e)}")
+    
+def count_organizations():
+    """
+    Restituisce il numero di organizzazioni disponibili nel sistema
+    """
+    try:
+        context = {'ignore_auth': True}
+        data_dict = {'all_fields': True, 'include_users': False, 'include_extras': True}
+        organizations = toolkit.get_action('organization_list')(context, data_dict)
+        return len(organizations)
     except Exception as e:
         raise ValueError(f"Errore nel recupero delle organizzazioni: {str(e)}")
 

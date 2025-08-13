@@ -71,6 +71,8 @@ class OpendataThemePlugin(plugins.SingletonPlugin):
             'get_dataset_downloads': helpers.get_dataset_downloads,
             'opendata_theme_get_helpers': helpers.get_helpers,
             'get_all_organizations': helpers.get_all_organizations,
+            'get_all_organizations_random': helpers.get_all_organizations_random,
+            'count_organizations': helpers.count_organizations,
             'get_recent_news': helpers.get_recent_news,
             'get_page_image': helpers.get_page_image
         }

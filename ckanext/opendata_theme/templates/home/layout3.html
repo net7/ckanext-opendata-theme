@@ -403,12 +403,13 @@
 {# Use cases END #}
 
 {% set organizations = h.get_all_organizations() %}
+{% set count_organizations = h.count_organizations() %}
 {# Enti carousel BEGIN #}
 <section class="rtds-pt-14 rtds-pb-28">
   <div class="rtds-container-sm">
 
     <div class="rtds-wrapper-title rtds-text-center rtds-mb-8">
-      <h2 class="rtds-heading-2">Dati acquisiti da oltre {{ organizations|length - 1 }} Enti toscani</h2>
+      <h2 class="rtds-heading-2">Dati acquisiti da {{ count_organizations }} Enti toscani</h2>
     </div>
 
     <div class="rtds-carousel splide" aria-label="Titolo sezione">
