@@ -1,0 +1,92 @@
+/**
+ * TYPOGRAPHY
+ *
+*/
+/* Heading typography */
+@layer base {
+    .rtds-heading-1 {
+        @apply rtds-font-heading rtds-font-bold rtds-text-2xl lg:rtds-text-3xl xl:rtds-text-4xl 2xl:rtds-text-5xl rtds-leading-none;
+    }
+
+    .rtds-heading-2 {
+        @apply rtds-font-heading rtds-font-bold rtds-text-xl lg:rtds-text-2xl 2xl:rtds-text-3xl rtds-leading-none;
+    }
+    
+    .rtds-heading-3 {
+        @apply rtds-font-heading rtds-font-bold rtds-text-lg lg:rtds-text-xl rtds-leading-tight;
+    }
+    
+    /* .rtds-heading-4 {
+        @apply rtds-font-heading rtds-font-bold rtds-text-base lg:rtds-text-lg xl:rtds-text-lg 2xl:rtds-text-lg;
+    }
+    
+    .rtds-heading-5 {
+        @apply rtds-font-heading rtds-font-bold rtds-text-sm lg:rtds-text-base xl:rtds-text-base 2xl:rtds-text-base;
+    }
+    
+    .rtds-heading-6 {
+        @apply rtds-font-heading rtds-font-bold rtds-text-xs lg:rtds-text-sm xl:rtds-text-sm 2xl:rtds-text-sm;
+    } */
+    
+    /* Display Heading typography */
+    .rtds-display-heading-1 {
+        @apply rtds-font-heading rtds-text-7xl md:rtds-text-8xl lg:rtds-text-9xl rtds-leading-none;
+    }
+    
+    .rtds-display-heading-2 {
+        @apply rtds-font-heading rtds-text-6xl md:rtds-text-7xl lg:rtds-text-8xl rtds-leading-none;
+    }
+    
+    .rtds-display-heading-3 {
+        @apply rtds-font-heading rtds-text-5xl md:rtds-text-6xl lg:rtds-text-7xl rtds-leading-none;
+    }
+    
+    .rtds-display-heading-4 {
+        @apply rtds-font-heading rtds-text-2xl md:rtds-text-3xl 2xl:rtds-text-6xl rtds-leading-none;
+    }
+    
+    /* .rtds-display-heading-5 {
+        @apply rtds-font-heading rtds-text-3xl md:rtds-text-4xl lg:rtds-text-5xl;
+    } */
+    
+    .rtds-display-heading-6 {
+        @apply rtds-font-heading rtds-text-2xl md:rtds-text-3xl lg:rtds-text-4xl rtds-leading-tight;
+    }
+
+    /* Body typography */
+    .rtds-body-xs {
+        @apply rtds-font-body rtds-text-xs rtds-leading-normal;
+    }
+
+    /* .rtds-body-xs-bold {
+        @apply rtds-font-body rtds-text-xs rtds-font-bold rtds-leading-normal;
+    } */
+
+    /* .rtds-body-xs-medium {
+        @apply rtds-font-body rtds-text-xs rtds-font-medium rtds-leading-normal;
+    } */
+
+    .rtds-body-sm {
+        @apply rtds-font-body rtds-text-sm rtds-leading-normal;
+    }
+
+    .rtds-body-base {
+        @apply rtds-font-body rtds-text-base rtds-leading-relaxed;
+    }
+
+    .rtds-body-lg {
+        @apply rtds-font-body rtds-text-lg rtds-leading-normal;
+    }
+
+    .rtds-body-xl {
+        @apply rtds-font-body rtds-text-xl rtds-leading-relaxed;
+    }
+
+    .rtds-body-2xl {
+        @apply rtds-font-body rtds-text-2xl rtds-leading-relaxed;
+    }
+
+    .rtds-body-3xl {
+        @apply rtds-font-body rtds-text-3xl rtds-leading-relaxed;
+    }
+}

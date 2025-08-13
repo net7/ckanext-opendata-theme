@@ -1,0 +1,243 @@
+{% extends "base.html" %}
+<body{% block bodytag %} {{super()}} class="interna no-intro with-sidebar" {% endblock %}>
+
+
+  
+{%- block page -%}
+<div class="wrapperCustom">
+
+  {#
+  Override the header on a page by page basis by extending this block. If
+  making sitewide header changes it is preferable to override the header.html
+  file.
+  #}
+  {%- block header %}
+    {% include "header.html" %}
+  {% endblock -%}
+<!-- 
+ <div id="nav-interna">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-3 no-padding"><a {% block navDataset %} class="pulsante" href="/dataset">CERCA DATI</a{% endblock -%}></div>
+            <div class="col-xs-3 no-padding"><a {% block navContact %} class="pulsante" href="/contact-us">SVILUPPA LA TUA IDEA</a {% endblock -%}></div>
+            <div class="col-xs-3 no-padding"><a class="pulsante nuovafinestra" href="http://open.toscana.it/web/open-data/home">PARTECIPA ALLA STANZA</a></div>
+            <div class="col-xs-3 no-padding"><a {% block navReport %} class="pulsante" href="/report">REPORT</a {% endblock -%}></div>
+        </div>
+    </div>    
+ </div>
+  
+  <div id="nav-interna-mobile"  class="collapse navbar-collapse">
+     <ul class="nav navbar-nav">
+         <li><a {% block navDatasetMobile %} class="pulsante" href="/dataset">CERCA DATI</a{% endblock -%}></li>
+         <li><a {% block navContactMobile %} class="pulsante" href="/contact-us">SVILUPPA LA TUA IDEA</a {% endblock -%}></li>
+         <li><a class="pulsante nuovafinestra" href="http://open.toscana.it/web/open-data/home">PARTECIPA ALLA STANZA</a></li>
+         <li><a {% block navReportMobile %} class="pulsante" href="/report">REPORT</a {% endblock -%}></li>
+     </ul>
+ </div>
+ -->
+
+  {# The content block allows you to replace the content of the page if needed #}
+  {%- block content %}
+    
+  <!-- ***********    CONTENUTO	*********** -->
+  <div id="skip-link">
+      <a class="sr-only" href="#main-content">Vai al contenuto principale</a>
+  </div>
+
+  {% block intro %}<div>{% endblock %}
+  
+  {% block ricercaSection %}
+  {% set placeholder = _('Cerca dataset...') %}
+    <!-- *****  RICERCA    ***** 
+    <section id="ricerca" class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-3  col-lg-2">
+                    <h2>Cerca dati</h2>
+                </div>
+                <div class="col-xs-12 col-md-9 col-lg-10">
+                    <form class="form-inline" role="form" action="/dataset" method="post" data-module="select-switch">
+                            <label class="sr-only" for="testo">Inserisci testo</label>
+      			    <input id="testo" type="text" class="form-control search" name="q" value="{{ c.q }}" autocomplete="off" placeholder="{{ placeholder }}">
+                            <button type="submit" value="search" class="btn btn-dati inlinea">Cerca</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+-->
+  {% endblock -%}
+  
+<div id="main">
+  <div id="content-wrapper" class="container">
+    <div class="row" id="row-content">
+      
+
+    
+    {% block maintag %}<div>{% endblock %}
+    
+        <!-- ********     SIDEBAR LEFT, FILTER    ********* -->
+        <div class="responsive-button">
+            <i class="fa fa-angle-right"></i>
+        </div>
+        
+          {% block secondary %}
+              <aside id="sidebar-left" class="col-sm-3 no-padding closed">
+
+                {#
+                The secondary_content block can be used to add content to the
+                sidebar of the page. This is the main block that is likely to be
+                used within a template.
+
+                Example:
+
+                  {% block secondary_content %}
+                    <h2>A sidebar item</h2>
+                    <p>Some content for the item</p>
+                  {% endblock %}
+                #}
+                {% block secondary_content %}{% endblock %}
+
+              </aside>
+            {% endblock %}
+      <!-- ********     end SIDEBAR LEFT, FILTER    ********* -->    
+    
+    
+    <!-- *********  MAIN CONTENT    *********** -->
+
+        {% block main_content %}
+        <div id="content" class="{% block main_content_class %}col-sm-9 cerca-dati{% endblock %}">
+          <div class="content-padding">          
+          {% block flash %}
+            {% set flash_messages = h.flash.pop_messages() | list %}
+            <div class="flash-messages">
+              {% for message in flash_messages %}
+                <div class="alert fade in {{ message.category }}">
+                  {{ h.literal(message) }}
+                </div>
+              {% endfor %}
+            </div>
+          {% endblock %}
+
+
+
+          <div class="wrapper{% block wrapper_class %}{% endblock %}{% if self.secondary()|trim == '' %} no-nav{% endif %}">
+
+          
+            {#
+            The pre_primary block can be used to add content to before the
+            rendering of the main content columns of the page.
+            #}
+            
+            
+            {% block pre_primary %}
+              {% block toolbar %}
+                
+                  {% block breadcrumb %}
+                    {% if self.breadcrumb_content() | trim %}
+                      <div id="breadcrumbs" class="row">
+                        <div class="col-xs-12">
+                          <ol class="breadcrumb">
+                            {% snippet 'snippets/home_breadcrumb_item.html' %}
+                            {% block breadcrumb_content %}{% endblock %}
+                          </ol>
+                        </div>
+                      </div>
+                    {% endif %}
+                  {% endblock %}
+                
+              {% endblock %}                              
+            {% endblock %}
+
+            {% block primary %}
+              
+                {#
+                The primary_content block can be used to add content to the page.
+                This is the main block that is likely to be used within a template.
+
+                Example:
+
+                  {% block primary_content %}
+                    <h1>My page content</h1>
+                    <p>Some content for the page</p>
+                  {% endblock %}
+                #}
+                {% block primary_content %}
+
+                    {% block page_header %}
+                      <header class="page-header">
+                        {% if self.content_action() | trim %}
+                          <div class="content_action">
+                            {% block content_action %}{% endblock %}
+                          </div>
+                        {% endif %}
+                        <ul class="nav nav-tabs">
+                          {% block content_primary_nav %}{% endblock %}
+                        </ul>
+                      </header>
+                    {% endblock %}
+                    
+                    <div class="content-page">
+                      {% if self.page_primary_action() | trim %}
+                        <div class="page_primary_action">
+                          {% block page_primary_action %}{% endblock %}
+                        </div>
+                      {% endif %}
+                      {% block primary_content_inner %}
+                      {% endblock %}
+                    </div>
+                  
+                {% endblock %}
+              
+            {% endblock %}
+
+            
+          </div>
+          
+          </div>
+        </div>  
+        {% endblock %}
+
+    
+      </div>
+    </div>     <!-- content --> 
+  {% endblock -%}
+
+
+            </div>  <!-- row-content -->
+         </div>  <!-- content-wrapper -->
+      </div> <!-- end main -->
+
+      
+  <div class="pushCustom"></div>
+  
+  
+</div> <!-- end wrapperCustom -->
+  
+
+
+<div class="footerCustom">
+    {#
+    Override the footer on a page by page basis by extending this block. If
+    making sitewide header changes it is preferable to override the footer.html-u
+    file.
+    #}
+    {%- block footer %}
+      {% include "footer.html" %}
+    {% endblock -%}
+
+{%- endblock -%}
+
+{%- block scripts %}
+    {% asset 'base/main' %}
+    {% asset 'base/ckan' %}
+    {% if g.tracking_enabled %}
+      {% asset 'base/tracking' %}
+    {% endif %}
+    {{ super() }}
+
+</div>
+
+{% endblock -%}
+
+</body>

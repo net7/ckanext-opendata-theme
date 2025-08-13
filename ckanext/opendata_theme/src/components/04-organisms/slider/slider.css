@@ -1,0 +1,161 @@
+/**
+ * SLIDER
+ *
+*/
+@layer components {
+    .rtds-slider {
+        @apply rtds-min-w-0;
+    }
+
+    .rtds-slide__title {
+        @apply rtds-text-2xl lg:rtds-text-3xl xl:rtds-text-5xl rtds-font-bold rtds-leading-[1.1] lg:rtds-leading-[1.1] xl:rtds-leading-[1.1] 2xl:rtds-leading-[1.1];
+    }
+
+    .rtds-slide__link {
+        @apply rtds-inline-block hover:rtds-underline group-hover/slide:rtds-underline;
+    }
+
+    .rtds-slide__excerpt {
+        @apply rtds-text-base xl:rtds-text-xl rtds-leading-relaxed;
+    }
+
+    .rtds-slide__excerpt p {
+        @apply rtds-text-[inherit];
+    }
+
+    /* Slider buttons arrows - next/prev */
+    .rtds-slider__arrow {
+        @apply rtds-flex rtds-items-center rtds-justify-center rtds-rounded-sm rtds-w-8 rtds-h-auto md:rtds-w-16 lg:rtds-w-20 rtds-bg-black/75 rtds-top-0 rtds-bottom-0 rtds-transition rtds-translate-y-0;
+    }
+
+    .rtds-slider__arrow svg {
+        @apply rtds-w-5 rtds-h-5 md:rtds-w-10 md:rtds-h-10 lg:rtds-w-12 lg:rtds-h-12;
+    }
+
+    .rtds-slider__arrow--prev, .rtds-slider__arrow--next {
+        @apply rtds-z-20;
+    }
+
+    .rtds-slider__arrow--prev {
+        @apply rtds-left-0;
+    }
+
+    .rtds-slider__arrow--next {
+        @apply rtds-right-0;
+    }
+
+    .rtds-slider__arrow .rtds-slider__arrow-svg {
+        @apply rtds-text-white;
+    }
+
+    /* SLIDE */
+    .rtds-slide_image {
+        --width-slide-img: 100%;
+        --width-slide-img-tablet: theme('width.[6/12]');
+        --width-slide-img-desktop: 60%;
+        --width-slide-img-wide-desktop: theme('width.[8/12]');
+        @apply rtds-aspect-video rtds-w-full rtds-h-auto md:rtds-w-[--width-slide-img-tablet] xl:rtds-w-[--width-slide-img-desktop] 2xl:rtds-w-[--width-slide-img-wide-desktop] rtds-object-cover rtds-object-center rtds-transition-all rtds-duration-300 rtds-ease-in-out group-hover/slide:rtds-opacity-85;
+    }
+    
+    /* SLIDER HOMEPAGE */
+    .rtds-slider--homepage {
+        /* Used in slider.js for dinamic padding */
+        --slider-padding: theme('spacing.20');
+        --slider-padding-desktop: theme('spacing.0');
+        --slider-padding-tablet: theme('spacing.0');
+        --slider-padding-mobile: theme('spacing.0');
+        --pagination-height: calc(var(--pagination-height-temp) * 1rem / 16);
+
+        @apply rtds-border-b rtds-border-gray-03;
+    }
+    
+    .rtds-slider--homepage .rtds-slide_image {
+        @apply md:rtds-left-0 md:rtds-right-0;
+    }
+
+
+    .rtds-slider--homepage .rtds-slider__arrow {
+        /* Uses custom properties defined in slider and used in slider.js */
+        @apply rtds-w-[--slider-padding-mobile] xs:rtds-w-[--slider-padding-tablet] md:rtds-w-[--slider-padding-desktop] lg:rtds-w-[--slider-padding] rtds-bottom-[--pagination-height];
+    }
+
+    /* Stile base della slide */
+    .rtds-slider__slide {
+        @apply rtds-transition-all rtds-duration-300 rtds-ease-in-out rtds-relative rtds-background-05;
+    }
+
+    .rtds-slide__content-wrapper {
+        @apply rtds-transition-all rtds-duration-300 rtds-ease-in-out rtds-opacity-100;
+        box-shadow: rgba(100, 100, 111, 0.4) 0px 7px 29px 0px;
+    }
+
+    .rtds-slide__content {
+        @apply rtds-p-5 md:rtds-p-6 lg:rtds-px-8;
+
+    }
+
+    .rtds-slide__cta {
+        @apply rtds-hidden lg:rtds-flex lg:rtds-absolute lg:rtds-bottom-4 lg:rtds-right-4 rtds-opacity-0 rtds-invisible group-hover/slide:rtds-opacity-100 group-hover/slide:rtds-visible rtds-bg-white;
+    }
+
+   /*.rtds-slider--homepage .rtds-slide__content {
+        /*--_slider-decoration-image: var(--slider-decoration-image, url('/images/slider-decoration.svg'));
+        background-image: var(--_slider-decoration-image);
+        @apply rtds-pr-10 rtds-bg-no-repeat rtds-bg-right-bottom rtds-bg-auto md:rtds-bg-[size:4rem] lg:rtds-bg-[size:6rem];
+
+    }*/
+
+    /*.rtds-slider--homepage .rtds-slide__cta {
+        @apply -rtds-mr-8 md:-rtds-mr-4;
+    }*/
+
+    .rtds-slider__slide.is-prev .rtds-slide__content-wrapper,
+    .rtds-slider__slide.is-next .rtds-slide__content-wrapper {
+        @apply rtds-opacity-0 rtds-pointer-events-none;
+    }
+
+    .rtds-slider__slide.is-moving .rtds-slide__content-wrapper,
+    .rtds-slider__slide.is-active .rtds-slide__content-wrapper,
+    .rtds-slider__slide.is-active .rtds-slide__slide-wrapper {
+        @apply rtds-opacity-100;
+    }
+
+    /* Pagination */
+    .rtds-slider__pagination {
+        @apply rtds-flex md:rtds-justify-center lg:rtds-justify-start rtds-gap-2 rtds-px-4 lg:rtds-px-0 lg:rtds-gap-6 rtds-overflow-x-auto md:rtds-overflow-x-visible rtds-border-t rtds-border-gray-02 md:rtds-border-t-2 md:rtds-border-secondary-500;
+    }
+
+    .rtds-slider__pagination-item {
+        @apply rtds-flex rtds-flex-col rtds-py-2 lg:rtds-pt-3 lg:rtds-px-3 lg:rtds-pb-1.5 rtds-flex-grow rtds-basis-12 md:rtds-flex-grow-0 lg:rtds-flex-grow lg:rtds-flex-shrink lg:rtds-max-w-[20%] lg:rtds-basis-[20%] rtds-transition-all rtds-duration-300 rtds-ease-in-out;
+    }
+
+    .rtds-slider__pagination-item.is-current-slide {
+        @apply rtds-flex-grow-0 rtds-w-8 lg:rtds-w-auto lg:rtds-flex-grow;
+    }
+
+    .rtds-slider__pagination-button {
+        @apply rtds-relative rtds-flex rtds-items-start rtds-py-2 rtds-text-left rtds-text-base rtds-font-bold rtds-leading-tight rtds-content-02 lg:rtds-pt-0 lg:rtds-h-full lg:rtds-border-b-4 lg:rtds-border-b-transparent;
+    }
+
+    /* Pagination button after decoration */
+    .rtds-slider__pagination-button:after {
+        @apply rtds-content-[''] rtds-border-solid rtds-border-t-4 rtds-border-white rtds-transition-all rtds-duration-300 rtds-ease-in-out rtds-w-full rtds-h-4 rtds-bg-secondary-300 lg:rtds-hidden;
+    }
+
+    .rtds-slider__pagination-button:hover {
+        @apply lg:rtds-content-primary lg:rtds-border-b-current;
+    }
+
+    .rtds-slider__pagination-button:hover:after {
+        @apply rtds-bg-secondary-700 lg:rtds-bg-transparent;
+    }
+
+    .rtds-slider__pagination-button[aria-selected="true"] {
+        @apply rtds-bg-white lg:rtds-border-b-current rtds-content-primary after:rtds-bg-secondary-700 after:rtds-border-secondary-700;
+    }
+
+    .rtds-slider__pagination-button-label {
+        @apply rtds-sr-only lg:rtds-not-sr-only;
+    }
+
+}

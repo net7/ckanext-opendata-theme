@@ -1,0 +1,74 @@
+/**
+ * CHIP
+ *
+*/
+@layer components {
+    .rtds-chip {
+        @apply rtds-inline-flex rtds-px-3 rtds-py-1 rtds-items-center rtds-border rtds-text-sm rtds-rounded-2xl rtds-font-bold rtds-border-gray-04 rtds-content-01;
+    }
+
+    .rtds-chip--sm {
+        @apply rtds-px-2 rtds-py-0.5 rtds-rounded-xl rtds-text-xs;
+    }
+
+    .rtds-chip--lg {
+        @apply rtds-px-4 rtds-py-2 rtds-rounded-3xl rtds-text-sm;
+    }
+
+    /* Chip category */
+    .rtds-chip--category {
+        @apply rtds-content-info rtds-border-current rtds-bg-white;
+    }
+
+    /* Chip link - interactive */
+    .rtds-chip--interactive {
+        @apply rtds-bg-transparent hover:rtds-background-02 focus:rtds-bg-white focus:rtds-border-gray-01 active:rtds-background-06 active:rtds-text-white active:rtds-border-gray-01;
+    }
+
+    .rtds-chip.is-selected {
+        @apply rtds-background-06 rtds-text-white;
+    }
+
+    .rtds-chip__close {
+        @apply rtds-inline-flex rtds-items-center rtds-justify-center rtds-rounded-full hover:rtds-background-02 hover:rtds-content-01 focus:rtds-background-02 focus:rtds-content-01 active:rtds-background-02 active:rtds-content-01 rtds-transition-all;
+    }
+
+    .rtds-chip__close {
+        @apply after:rtds-content-[''] after:rtds-block after:rtds-right-0 after:rtds-w-8 after:rtds-h-8 after:rtds-absolute;
+    }
+
+    .rtds-chip.has-button-close {
+        @apply rtds-pr-2 rtds-relative;
+    }
+
+    .rtds-chip.has-button-close.rtds-chip--sm {
+        @apply rtds-pr-2;
+    }
+
+    .rtds-chip.has-button-close.rtds-chip--lg {
+        @apply rtds-pr-2;
+    }
+
+    /* CHIP STATUS */
+    .rtds-chip--status.is-open {
+        @apply rtds-bg-bando-aperto rtds-border-bando-aperto rtds-text-black;
+    }
+
+    .rtds-chip--status.is-in-progress {
+        @apply rtds-bg-bando-in-attivazione rtds-border-bando-in-attivazione rtds-text-black;
+    }
+
+    .rtds-chip--status.is-closed {
+        @apply rtds-bg-archiviato rtds-border-archiviato rtds-text-white;
+    }
+
+    /* CHIP FILTER */
+    .rtds-chip--filter {
+        @apply rtds-gap-2 rtds-background-06 rtds-text-white;
+    }
+
+    /* Chip tag */
+    .rtds-chip--tag {
+        @apply rtds-content-01 rtds-background-primary-light rtds-border-0 rtds-font-normal;
+    }
+}

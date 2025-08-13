@@ -1,0 +1,18 @@
+Metadata-Version: 2.1
+Name: ckanext-opendata-theme
+Version: 1.0.0
+Summary: Opendata Theme
+Home-page: https://gitlab.netseven.it/net7-main/ckan/ckanext-opendata-theme
+Author: Net7
+Author-email: info@netseven.it
+License: AGPL
+Classifier: Development Status :: 4 - Beta
+Classifier: License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+Tema OpenData per CKAN

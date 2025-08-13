@@ -1,0 +1,262 @@
+import click
+from ckan.plugins import toolkit
+
+
+@click.group(short_help='OpenData Theme useful actions')
+def opendata():
+    """OpenData Theme CLI commands."""
+    pass
+
+
+@opendata.command()
+@click.argument('package_id')
+def list_resources(package_id):
+    """Lista tutte le risorse di un dataset.
+    
+    Args:
+        package_id: ID o nome del dataset
+    """
+    try:
+        context = {'ignore_auth': True}
+        package = toolkit.get_action('package_show')(
+            context, {'id': package_id})
+        
+        if not package.get('resources'):
+            click.echo(f"Nessuna risorsa trovata nel dataset {package_id}")
+            return
+
+        click.echo(f"\nRisorse del dataset {package_id}:")
+        for res in package.get('resources', []):
+            click.echo(f"- {res['id']}: {res['name']} ({res['format']})")
+            
+    except Exception as e:
+        click.echo(f"Errore: {str(e)}", err=True)
+
+
+@opendata.command()
+@click.argument('package_id')
+@click.option('-y', '--yes', is_flag=True, help='Conferma automaticamente l\'eliminazione senza chiedere')
+def delete_resources(package_id, yes):
+    """Elimina tutte le risorse di un dataset.
+    
+    Args:
+        package_id: ID o nome del dataset
+    """
+    try:
+        # Prima mostra le risorse che verranno eliminate
+        context = {'ignore_auth': True}
+        package = toolkit.get_action('package_show')(
+            context, {'id': package_id})
+        
+        if not package.get('resources'):
+            click.echo(f"Nessuna risorsa da eliminare nel dataset {package_id}")
+            return
+
+        click.echo(f"\nLe seguenti risorse verranno eliminate:")
+        for res in package.get('resources', []):
+            click.echo(f"- {res['id']}: {res['name']}")
+            
+        # Chiedi conferma solo se l'opzione -y non è stata specificata
+        if not yes and not click.confirm('\nVuoi procedere con l\'eliminazione?'):
+            click.echo('Operazione annullata')
+            return
+
+        # Elimina le risorse
+        for res in package.get('resources', []):
+            toolkit.get_action('resource_delete')(
+                context, {'id': res['id']})
+        
+        click.echo(f"\nEliminate {len(package['resources'])} risorse dal dataset {package_id}")
+    except Exception as e:
+        click.echo(f"Errore: {str(e)}", err=True)
+
+
+@opendata.command()
+@click.argument('resource_id')
+@click.option('-y', '--yes', is_flag=True, help='Conferma automaticamente l\'eliminazione senza chiedere')
+def delete_resource(resource_id, yes):
+    """Elimina una risorsa specifica in base al suo ID.
+    
+    Args:
+        resource_id: ID della risorsa da eliminare
+    """
+    try:
+        context = {'ignore_auth': True}
+        
+        # Ottieni informazioni sulla risorsa
+        try:
+            resource = toolkit.get_action('resource_show')(
+                context, {'id': resource_id})
+        except toolkit.ObjectNotFound:
+            click.echo(f"Errore: Risorsa con ID {resource_id} non trovata", err=True)
+            return
+            
+        # Mostra dettagli della risorsa
+        click.echo(f"\nStai per eliminare la seguente risorsa:")
+        click.echo(f"- ID: {resource['id']}")
+        click.echo(f"- Nome: {resource['name']}")
+        click.echo(f"- Dataset: {resource['package_id']}")
+        
+        # Chiedi conferma solo se l'opzione -y non è stata specificata
+        if not yes and not click.confirm('\nVuoi procedere con l\'eliminazione?'):
+            click.echo('Operazione annullata')
+            return
+            
+        # Elimina la risorsa
+        toolkit.get_action('resource_delete')(
+            context, {'id': resource_id})
+        
+        click.echo(f"\nRisorsa {resource_id} eliminata con successo")
+    except Exception as e:
+        click.echo(f"Errore: {str(e)}", err=True)
+
+
+@opendata.command()
+@click.argument('username')
+def list_api_tokens(username):
+    """Lista tutti gli API token di un utente.
+    
+    Args:
+        username: Nome utente di cui visualizzare i token
+    """
+    try:
+        context = {'ignore_auth': True}
+        
+        # Verifica che l'utente esista
+        try:
+            user = toolkit.get_action('user_show')(
+                context, {'id': username})
+        except toolkit.ObjectNotFound:
+            click.echo(f"Errore: Utente {username} non trovato", err=True)
+            return
+            
+        # Ottieni i token dell'utente
+        tokens = toolkit.get_action('api_token_list')(
+            context, {'user': username})
+        
+        if not tokens:
+            click.echo(f"\nNessun API token trovato per l'utente {username}")
+            return
+            
+        click.echo(f"\nAPI token dell'utente {username}:")
+        for token in tokens:
+            # Mostra informazioni sul token
+            click.echo(f"- ID: {token['id']}")
+            click.echo(f"  Nome: {token.get('name', 'Nessun nome')}")
+            click.echo(f"  Data creazione: {token['created_at']}")
+            click.echo(f"  Data scadenza: {token.get('expires_at', 'Nessuna scadenza')}")
+            
+            # Controlla diverse possibili chiavi per l'ultimo accesso
+            last_access = token.get('last_access') or token.get('lastAccess') or token.get('last_used')
+            if last_access and last_access != 'None' and last_access != 'null':
+                click.echo(f"  Ultimo accesso: {last_access}")
+            else:
+                click.echo(f"  Ultimo accesso: Mai utilizzato")
+            
+            click.echo("")
+            
+    except Exception as e:
+        click.echo(f"Errore: {str(e)}", err=True)
+
+
+@opendata.command()
+@click.argument('token_id')
+@click.option('-y', '--yes', is_flag=True, help='Conferma automaticamente l\'eliminazione senza chiedere')
+def delete_api_token(token_id, yes):
+    """Elimina un API token specifico in base al suo ID.
+    
+    Args:
+        token_id: ID del token da eliminare
+    """
+    try:
+        context = {'ignore_auth': True}
+        
+        # Ottieni informazioni sul token
+        # Nota: CKAN non ha un'azione per ottenere un singolo token per ID
+        # quindi dobbiamo procedere direttamente con l'eliminazione
+        
+        # Chiedi conferma solo se l'opzione -y non è stata specificata
+        if not yes and not click.confirm(f'\nVuoi eliminare il token con ID {token_id}?'):
+            click.echo('Operazione annullata')
+            return
+            
+        # Elimina il token
+        toolkit.get_action('api_token_revoke')(
+            context, {'jti': token_id})
+        
+        click.echo(f"\nAPI token {token_id} eliminato con successo")
+    except toolkit.ObjectNotFound:
+        click.echo(f"Errore: Token con ID {token_id} non trovato", err=True)
+    except Exception as e:
+        click.echo(f"Errore: {str(e)}", err=True)
+
+
+@opendata.command()
+@click.argument('username')
+@click.option('-y', '--yes', is_flag=True, help='Conferma automaticamente l\'eliminazione senza chiedere')
+def delete_unused_tokens(username, yes):
+    """Elimina tutti gli API token non utilizzati di un utente.
+    
+    Args:
+        username: Nome utente di cui eliminare i token non utilizzati
+    """
+    try:
+        context = {'ignore_auth': True}
+        
+        # Verifica che l'utente esista
+        try:
+            user = toolkit.get_action('user_show')(
+                context, {'id': username})
+        except toolkit.ObjectNotFound:
+            click.echo(f"Errore: Utente {username} non trovato", err=True)
+            return
+            
+        # Ottieni i token dell'utente
+        tokens = toolkit.get_action('api_token_list')(
+            context, {'user': username})
+        
+        if not tokens:
+            click.echo(f"\nNessun API token trovato per l'utente {username}")
+            return
+        
+        # Filtra i token non utilizzati
+        unused_tokens = []
+        for token in tokens:
+            last_access = token.get('last_access') or token.get('lastAccess') or token.get('last_used')
+            if not last_access or last_access == 'None' or last_access == 'null':
+                unused_tokens.append(token)
+        
+        if not unused_tokens:
+            click.echo(f"\nNessun token non utilizzato trovato per l'utente {username}")
+            return
+            
+        # Mostra i token che verranno eliminati
+        click.echo(f"\nI seguenti token non utilizzati verranno eliminati:")
+        for token in unused_tokens:
+            click.echo(f"- ID: {token['id']}")
+            click.echo(f"  Nome: {token.get('name', 'Nessun nome')}")
+            click.echo(f"  Data creazione: {token['created_at']}")
+            click.echo("")
+            
+        # Chiedi conferma solo se l'opzione -y non è stata specificata
+        if not yes and not click.confirm('\nVuoi procedere con l\'eliminazione?'):
+            click.echo('Operazione annullata')
+            return
+            
+        # Elimina i token
+        deleted_count = 0
+        for token in unused_tokens:
+            try:
+                toolkit.get_action('api_token_revoke')(
+                    context, {'jti': token['id']})
+                deleted_count += 1
+            except Exception as e:
+                click.echo(f"Errore nell'eliminazione del token {token['id']}: {str(e)}", err=True)
+        
+        click.echo(f"\nEliminati {deleted_count} token non utilizzati dell'utente {username}")
+    except Exception as e:
+        click.echo(f"Errore: {str(e)}", err=True)
+
+
+def get_commands():
+    return [opendata]

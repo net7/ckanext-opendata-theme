@@ -1,0 +1,30 @@
+/**
+ * CONTAINER UTILITIES
+ *
+*/
+@layer utilities {
+    /* CONTAINER */
+    /* Custom container utility */
+
+    .rtds-container-xxs {
+        @apply rtds-max-w-screen-sm rtds-w-[90%] rtds-mx-auto;
+    }
+
+    .rtds-container-xs {
+        @apply rtds-max-w-screen-lg rtds-w-[90%] rtds-mx-auto;
+    }
+
+    .rtds-container-sm {
+        @apply rtds-max-w-screen-xl rtds-w-[90%] rtds-mx-auto;
+    }
+
+    .rtds-container {
+        @apply rtds-max-w-screen-2xl rtds-w-[90%] rtds-mx-auto;
+    }
+
+    /* RULE FOR NESTED CONTAINERS - prevent horizontal margin */
+    [class*="rtds-container"] [class*="rtds-container"] {
+        @apply rtds-mx-0 rtds-w-full;
+    }
+
+}

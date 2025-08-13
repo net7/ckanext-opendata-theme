@@ -1,0 +1,35 @@
+@layer base {
+    html {
+        @apply rtds-scroll-smooth;
+    }
+
+    body {
+        @apply rtds-flex rtds-flex-col rtds-min-h-screen rtds-text-sm md:rtds-text-base rtds-font-body rtds-content-01;
+    }
+
+    address {
+        @apply rtds-not-italic;
+    }
+
+    /* ACCESSIBLE FOCUS - hack for :focus-visible (focus only via keyboard)
+        * using is and :focus-visible
+    */
+
+    :is(a, button, input, select, textarea, summary,[tabindex="0"]) {
+        @apply focus-visible:rtds-ring focus-visible:rtds-ring-offset-2 focus-visible:rtds-ring-offset-white focus-visible:rtds-ring-focusring focus-visible:rtds-shadow-[0_0_0_7px_rgba(255,255,255,1)] focus-visible:rtds-outline-none;
+    }
+
+    /* Remove all animations and transitions
+    for people that prefer not to see them */
+    @media (prefers-reduced-motion: reduce) {
+
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
+    }
+}

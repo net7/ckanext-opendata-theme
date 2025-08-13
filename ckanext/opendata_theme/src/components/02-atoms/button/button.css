@@ -1,0 +1,98 @@
+
+/**
+ * BUTTON
+ *
+*/
+@layer components {
+    .rtds-btn {
+        @apply rtds-py-3 rtds-px-4 rtds-rounded-md rtds-border rtds-inline-flex rtds-gap-1 rtds-items-center rtds-justify-center rtds-font-bold rtds-text-lg rtds-tracking-wide rtds-transition-all rtds-duration-200 rtds-ease-out rtds-leading-none;
+    }
+
+    .rtds-btn--primary {
+        @apply rtds-button-primary rtds-content-02 hover:rtds-button-primary-hover focus:rtds-button-primary-hover active:rtds-button-primary-active;
+    }
+
+    .rtds-btn--secondary {
+        @apply rtds-button-secondary rtds-text-white hover:rtds-button-secondary-hover focus:rtds-button-secondary-hover active:rtds-button-secondary-active;
+    }
+
+    .rtds-btn--only-text {
+        @apply rtds-bg-transparent rtds-button-only-text hover:rtds-button-only-text-hover focus:rtds-button-only-text-hover focus:rtds-background-01 active:rtds-button-only-text-active;
+    }
+
+    .rtds-btn--outlined {
+        @apply rtds-bg-transparent rtds-button-outline rtds-border rtds-border-current hover:rtds-button-primary hover:rtds-text-white focus:rtds-button-outline-hover focus:rtds-background-01;
+    }
+
+    .rtds-btn--inverted {
+        @apply rtds-button-inverted rtds-button-inverted-text hover:rtds-button-inverted-hover hover:rtds-button-inverted-text-hover focus:rtds-button-inverted-focus focus:rtds-button-inverted-text-focus active:rtds-button-inverted-active active:rtds-button-inverted-text-active;
+    }
+
+    .rtds-btn--text-inverted {
+        @apply rtds-button-text-inverted rtds-button-text-inverted-text hover:rtds-button-text-inverted-hover hover:rtds-button-text-inverted-text-hover focus:rtds-button-text-inverted-focus focus:rtds-button-text-inverted-text-focus active:rtds-button-text-inverted-active active:rtds-button-text-inverted-text-active;
+    }
+
+    /* UTILITY VARIANTS FOR SIZE MANAGING AND ICON MANAGING */
+
+    .rtds-btn--icon {
+        @apply rtds-rounded-lg rtds-justify-center rtds-p-0 rtds-w-9 rtds-h-9;
+    }
+
+    .rtds-btn--icon-right,
+    .rtds-btn--icon-left {
+        @apply rtds-justify-between;
+    }
+
+    .rtds-btn--icon-right {
+        @apply rtds-pr-3;
+    }
+
+    .rtds-btn--icon-left {
+        @apply rtds-pl-3;
+    }
+
+    .rtds-btn--icon-right .rtds-icon,
+    .rtds-btn--icon-left .rtds-icon {
+        @apply rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform;
+    }
+
+    /* SIZE MANAGEMENT */
+    .rtds-btn--s {
+        @apply rtds-gap-0.5 rtds-text-sm;
+    }
+
+    .rtds-btn--l {
+        @apply rtds-gap-2 rtds-px-6 rtds-py-3 rtds-text-xl;
+    }
+
+    /* SPACING MANAGEMENT FOR BUTTON WITH ICON */
+    .rtds-btn--s:where(.rtds-btn--icon) {
+        @apply rtds-w-6 rtds-h-6;
+    }
+
+    .rtds-btn--s:where(.rtds-btn--icon-right) {
+        @apply rtds-pr-3;
+    }
+
+    .rtds-btn--s:where(.rtds-btn--icon-left) {
+        @apply rtds-pl-3;
+    }
+
+    .rtds-btn--l:where(.rtds-btn--icon) {
+        @apply rtds-w-12 rtds-h-12;
+    }
+    
+    .rtds-btn--l:where(.rtds-btn--icon-right) {
+        @apply rtds-pr-4;
+    }
+
+    .rtds-btn--l:where(.rtds-btn--icon-left) {
+        @apply rtds-pl-4;
+    }
+
+    .rtds-btn--s:where(.rtds-btn--icon),
+    .rtds-btn--l:where(.rtds-btn--icon) {
+        @apply rtds-px-0;
+    }
+
+}

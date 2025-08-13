@@ -1,0 +1,180 @@
+:root {
+    --color-primary-50: #CDEDFF;
+    --color-primary-100: #ABE2FF;
+    --color-primary-200: #81D3FF;
+    --color-primary-300: #57C4FF;
+    --color-primary-400: #2DB6FF;
+    --color-primary-500: #03A7FF;
+    --color-primary-600: #038BD4;
+    --color-primary-700: #026FAA;
+    --color-primary-800: #025480;
+    --color-primary-900: #013855;
+  
+    --color-secondary-50: #FFE1E1;
+    --color-secondary-100: #FFCECE;
+    --color-secondary-200: #FFB5B5;
+    --color-secondary-300: #FF9C9C;
+    --color-secondary-400: #FF8484;
+    --color-secondary-500: #FF6B6B;
+    --color-secondary-600: #D45959;
+    --color-secondary-700: #AA4747;
+    --color-secondary-800: #803636;
+    --color-secondary-900: #552424;
+  
+    --color-neutral-50: #F6F6FA;
+    --color-neutral-100: #EFF1F6;
+    --color-neutral-200: #E7E9F1;
+    --color-neutral-300: #E0E2ED;
+    --color-neutral-400: #D8DBE8;
+    --color-neutral-500: #D0D4E4;
+    --color-neutral-600: #ADB1BE;
+    --color-neutral-700: #8B8D98;
+    --color-neutral-800: #686A72;
+    --color-neutral-900: #2A2A2E;
+
+    --color-success-dark: #166534;
+    --color-success: #16a34a;
+    --color-success-light: #bbf7d0;
+  
+    --color-error-dark: #991b1b;
+    --color-error: #ef4444;
+    --color-error-light: #fecaca;
+  
+    --color-warn-dark: #9a3412;
+    --color-warn: #f97316;
+    --color-warn-light: #fed7aa;
+  
+    --color-info-dark: #075985;
+    --color-info: #0ea5e9;
+    --color-info-light: #bae6fd;
+
+    --color-allerta-verde: #92D048;
+    --color-allerta-giallo: #FFFE54;
+    --color-allerta-arancione: #F2A83B;
+    --color-allerta-rosso: #EA3223;
+  
+    --color-brand-00: #3A9FD5;
+    --color-brand-01: #2B2B2B;
+  
+    --color-salvia: #4A7769;
+    --color-bando-aperto: #A1CCB1;
+    --color-bando-in-attivazione: #FCD07B;
+    --color-archiviato: #1F2937;
+  
+    --color-focusring: #025ECC;
+
+    --color-social-facebook: #1877F2;
+    --color-social-instagram: #5851db;
+    --color-social-linkedin: #0077B5;
+    --color-social-x: #000000;
+    --color-social-youtube: #FF0000;
+
+    /* DEFINE SPACING UNIT */
+    --spacing-base: 0.25rem; /* 4px/16 = 0.25 - Valore base configurabile */
+    
+    /* Spaziature basate sui fattori moltiplicativi forniti */
+    --spacing-0: calc(var(--spacing-base) * 0);       /* 0x */
+    --spacing-0-5: calc(var(--spacing-base) * 0.5);   /* 0.5x */
+    --spacing-1: calc(var(--spacing-base) * 1);       /* 1x */
+    --spacing-1-5: calc(var(--spacing-base) * 1.5);   /* 1.5x */
+    --spacing-2: calc(var(--spacing-base) * 2);       /* 2x */
+    --spacing-2-5: calc(var(--spacing-base) * 2.5);   /* 2.5x */
+    --spacing-3: calc(var(--spacing-base) * 3);       /* 3x */
+    --spacing-3-5: calc(var(--spacing-base) * 3.5);   /* 3.5x */
+    --spacing-4: calc(var(--spacing-base) * 4);       /* 4x */
+    --spacing-5: calc(var(--spacing-base) * 5);       /* 5x */
+    --spacing-6: calc(var(--spacing-base) * 6);       /* 6x */
+    --spacing-7: calc(var(--spacing-base) * 7);       /* 7x */
+    --spacing-8: calc(var(--spacing-base) * 8);       /* 8x */
+    --spacing-9: calc(var(--spacing-base) * 9);       /* 9x */
+    --spacing-10: calc(var(--spacing-base) * 10);     /* 10x */
+    --spacing-11: calc(var(--spacing-base) * 11);     /* 11x */
+    --spacing-12: calc(var(--spacing-base) * 12);     /* 12x */
+    --spacing-14: calc(var(--spacing-base) * 14);     /* 14x */
+    --spacing-16: calc(var(--spacing-base) * 16);     /* 16x */
+    --spacing-20: calc(var(--spacing-base) * 20);     /* 20x */
+    --spacing-24: calc(var(--spacing-base) * 24);     /* 24x */
+    --spacing-28: calc(var(--spacing-base) * 28);     /* 28x */
+    --spacing-32: calc(var(--spacing-base) * 32);     /* 32x */
+    --spacing-36: calc(var(--spacing-base) * 36);     /* 36x */
+    --spacing-40: calc(var(--spacing-base) * 40);     /* 40x */
+    --spacing-44: calc(var(--spacing-base) * 44);     /* 44x */
+    --spacing-48: calc(var(--spacing-base) * 48);     /* 48x */
+    --spacing-52: calc(var(--spacing-base) * 52);     /* 52x */
+    --spacing-56: calc(var(--spacing-base) * 56);     /* 56x */
+    --spacing-60: calc(var(--spacing-base) * 60);     /* 60x */
+    --spacing-64: calc(var(--spacing-base) * 64);     /* 64x */
+    --spacing-72: calc(var(--spacing-base) * 72);     /* 72x */
+    --spacing-80: calc(var(--spacing-base) * 80);     /* 80x */
+    --spacing-96: calc(var(--spacing-base) * 96);     /* 96x */
+
+    /* GRADIENTS     */
+    --gradient-01: linear-gradient(6deg, #FBFBFB 2.33%, #E7F3E4 92.69%);
+    --gradient-02: linear-gradient(231deg, #1280B4 27.41%, #056FA6 54.59%, #0C79B3 92.9%);
+    --gradient-03: linear-gradient(26deg, #FFFAF2 -0.02%, #FFEDD2 74.53%);
+    --gradient-04: linear-gradient(133deg, #FFF 1.61%, #EEF3FA 98.28%);
+    --gradient-05: linear-gradient(271deg, rgba(255, 153, 0, 0.00) -0.54%, rgba(134, 91, 7, 0.60) 48.53%, rgba(24, 15, 5, 0.60) 81.24%);
+
+    /* DEFINE PROJECT FONT SETTINGS */
+    --fontfamily-body: 'Open Sans';
+    --fontfamily-heading: 'Montserrat';
+
+    --fontsize-text-xs: 0.75rem;
+    --fontsize-text-sm: 0.875rem;
+    --fontsize-text-base: 1rem;
+    --fontsize-text-lg: 1.125rem;
+    --fontsize-text-xl: 1.25rem;
+    --fontsize-text-2xl: 1.5rem;
+    /* --fontsize-text-3xl: 1.875rem; */
+    --fontsize-text-3xl: 2rem;
+    --fontsize-text-4xl: 2.25rem;
+    --fontsize-text-5xl: 3rem;
+    --fontsize-text-6xl: 3.75rem;
+    --fontsize-text-7xl: 4.5rem;
+    --fontsize-text-8xl: 6rem;
+    --fontsize-text-9xl: 8rem;
+
+    /* Custom Typography Properties */
+    --custom-prose-body: var(--color-neutral-800);
+    --custom-prose-headings: var(--color-neutral-900);
+    --custom-prose-lead: var(--color-neutral-700);
+    --custom-prose-links: var(--color-secondary-500);
+    --custom-prose-bold: var(--color-neutral-900);
+    --custom-prose-counters: currentColor;
+    --custom-prose-bullets: currentColor;
+    --custom-prose-hr: var(--color-neutral-600);
+    --custom-prose-quotes: var(--color-neutral-900);
+    --custom-prose-quote-borders: var(--color-neutral-600);
+    --custom-prose-captions: var(--color-neutral-800);
+    --custom-prose-code: var(--color-neutral-900);
+    --custom-prose-pre-code: var(--color-neutral-100);
+    --custom-prose-pre-bg: var(--color-neutral-900);
+    --custom-prose-th-borders: var(--color-neutral-500);
+    --custom-prose-td-borders: var(--color-neutral-400);
+    
+    /* Invert variants */
+    --custom-prose-invert-body: var(--color-neutral-200);
+    --custom-prose-invert-headings: var(--color-white);
+    --custom-prose-invert-lead: var(--color-neutral-300);
+    --custom-prose-invert-links: var(--color-white);
+    --custom-prose-invert-bold: var(--color-white);
+    --custom-prose-invert-counters: var(--color-neutral-400);
+    --custom-prose-invert-bullets: var(--color-neutral-600);
+    --custom-prose-invert-hr: var(--color-neutral-700);
+    --custom-prose-invert-quotes: var(--color-neutral-100);
+    --custom-prose-invert-quote-borders: var(--color-neutral-700);
+    --custom-prose-invert-captions: var(--color-neutral-400);
+    --custom-prose-invert-code: var(--color-white);
+    --custom-prose-invert-pre-code: var(--color-neutral-300);
+    --custom-prose-invert-pre-bg: rgba(0, 0, 0, 0.5);
+    --custom-prose-invert-th-borders: var(--color-neutral-600);
+    --custom-prose-invert-td-borders: var(--color-neutral-700);
+}
+
+@layer base {
+    :root {
+        --adminbar-height: 0px;
+        --header-height: calc(var(--header-offset) + var(--adminbar-height));
+        --header-top-position: calc(var(--adminbar-height) + 0px);
+    }
+}

@@ -1,0 +1,55 @@
+$(function () {
+
+			Chart.defaults.global.defaultFontFamily = "Segoe UI','Arial','Helvetica','sans-serif'";
+			
+            var ctx = document.getElementById('myChart');
+                    var myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+                            datasets: [{
+                                label: '# visualizzazioni',
+                                data: [35000, 40000, 98000, 150000, 160000, 200000, 180000, 200000],
+                                borderColor: [
+                                    'rgba(30, 139, 195, 1)'
+                                ],
+                                borderWidth: 5,
+                                fill: false,
+                                lineTension: 0
+                            },
+                            {
+                                label: '# download',
+                                data: [null, null, null, null, null, 99000, 100000, 110000],
+                                borderColor: [
+                                    'rgba(245, 171, 53, 1)'
+                                ],
+                                borderWidth: 5,
+                                fill: false,
+                                lineTension: 0
+                            }]
+                        },
+                        options: {
+							layout: {
+								padding: {
+									left: 0,
+									right: 0,
+									top: 0,
+									bottom: 0
+								}
+							},
+                            scales: {
+								xAxes: [{
+                                    ticks: {
+										fontSize: 40
+                                    }
+                                }],
+								yAxes: [{
+                                    ticks: {
+										fontSize: 48,
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+});

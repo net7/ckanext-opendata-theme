@@ -1,0 +1,28 @@
+/**
+ * TAB
+ * 
+ *
+*/
+/* BASE */
+@layer components {
+    .rtds-tab {
+        @apply rtds-flex rtds-justify-center rtds-text-base rtds-font-bold rtds-p-3 rtds-border-b-[3px] rtds-border-transparent rtds-transition-all;
+    }
+
+    .rtds-tab--default {
+        @apply rtds-content-01 hover:rtds-background-02 aria-selected:rtds-border-gray-04;
+    }
+
+    /* .rtds-tab--default.is-active {
+        @apply rtds-border-gray-04;
+    } */
+
+    /* BORDERLESS */
+    .rtds-tab--borderless {
+        @apply rtds-p-4 lg:rtds-py-6 lg:rtds-px-12 xl:rtds-py-6 xl:rtds-px-16 rtds-background-03;
+    }
+
+    .rtds-tab--borderless.is-active {
+        @apply rtds-bg-white rtds-content-primary;
+    }
+}

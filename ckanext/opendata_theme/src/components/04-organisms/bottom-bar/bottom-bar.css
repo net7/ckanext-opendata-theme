@@ -1,0 +1,10 @@
+/**
+ * PRIMARY NAVIGATION
+ *
+*/
+@layer components {
+    .rtds-bottom-bar {
+        @apply lg:rtds-flex lg:rtds-background-01;
+    }
+
+}

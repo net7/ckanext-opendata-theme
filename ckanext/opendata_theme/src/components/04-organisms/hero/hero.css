@@ -1,0 +1,21 @@
+/**
+ * HERO
+ *
+*/
+
+@layer components {
+    /* HERO FULLIMG */
+    .rtds-hero--fullimg {
+        --min-height: 36rem;
+        --height: 55.8vw;
+        --max-height: 45rem;
+        --md-min-height: 24rem;
+        --md-height: 60vw;
+        --md-max-height: 45rem;
+        --lg-min-height: 39rem;
+        /* --lg-height: 42.68vw; */
+        --lg-height: 45vw;
+        --lg-max-height: 45rem;
+        @apply rtds-min-h-[--min-height] rtds-h-[--height] rtds-max-h-[--max-height] md:rtds-min-h-[--md-min-height] md:rtds-h-[--md-height] md:rtds-max-h-[--md-max-height] lg:rtds-min-h-[--lg-min-height] lg:rtds-h-[--lg-height] lg:rtds-max-h-[--lg-max-height];
+    }
+}

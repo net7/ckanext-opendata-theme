@@ -1,0 +1,53 @@
+/**
+ * PRIMARY NAVIGATION
+ *
+*/
+@layer components {
+    .rtds-primary-navigation {
+        @apply rtds-flex;
+    }
+
+    .rtds-primary-navigation__item {
+        @apply lg:rtds-flex lg:rtds-justify-end lg:rtds-items-center rtds-font-bold;
+    }
+
+    .rtds-primary-navigation__panel {
+        @apply rtds-flex-col rtds-bg-white rtds-transition-all rtds-invisible rtds-w-[88%] lg:rtds-bg-transparent lg:rtds-w-auto rtds-fixed lg:rtds-static lg:rtds-visible rtds-top-[--header-height] rtds-bottom-0 rtds-left-[12%] lg:rtds-left-0 rtds-border-l rtds-border-primary lg:rtds-border-l-0 rtds-overflow-y-auto lg:rtds-overflow-visible rtds-translate-x-full lg:rtds-transform-none;
+    }
+        
+    .rtds-primary-navigation__panel.is-open {
+        @apply rtds-bg-white rtds-translate-x-0 rtds-visible rtds-flex rtds-z-20 rtds-left-[12%];
+    }
+
+    body.rtds-overflow-hidden .rtds-primary-navigation__backdrop {
+        @apply rtds-fixed rtds-right-0 rtds-bottom-0 rtds-left-0 lg:rtds-hidden rtds-z-10;
+    }
+
+    .rtds-primary-navigation__list {
+        @apply rtds-grid lg:rtds-flex lg:rtds-justify-end rtds-gap-2 lg:rtds-gap-4 xl:rtds-gap-8;
+    }
+
+    .rtds-primary-navigation__link.is-current,
+    .rtds-primary-navigation__link:hover {
+        @apply rtds-content-02 rtds-relative after:rtds-absolute after:rtds-block after:rtds-bg-transparent after:rtds-border-t-2 after:rtds-border-current after:rtds-h-[1px] after:rtds-w-full after:rtds-left-0 after:rtds-bottom-0;
+    }
+
+    .rtds-primary-navigation__link {
+        @apply rtds-min-h-14 rtds-w-full lg:rtds-h-full rtds-flex rtds-items-center lg:rtds-justify-center lg:rtds-text-center rtds-leading-tight rtds-p-3 rtds-gap-2 hover:rtds-no-underline hover:rtds-content-02 focus:rtds-content-02;
+    }
+
+    /* MOBILE MENU */
+    .rtds-primary-navigation__module {
+        @apply rtds-p-2 lg:rtds-p-0 rtds-grid rtds-items-start lg:rtds-block lg:rtds-flex-1 rtds-border-b rtds-border-gray-01 last:rtds-border-b-0;
+    }
+
+    /* MEGAMENU  container fix */
+    .rtds-primary-navigation .rtds-dropdown-menu__megamenu.is-open {
+        @apply lg:rtds-flex lg:rtds-justify-center;
+    }
+
+    .rtds-primary-navigation .rtds-dropdown-menu__list {
+        @apply lg:rtds-flex-1;
+    }
+
+}

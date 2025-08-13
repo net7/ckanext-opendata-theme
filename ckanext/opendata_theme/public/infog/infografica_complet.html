@@ -1,0 +1,292 @@
+{% extends "page.html" %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="Dati Toscana">
+    <meta name="format-detection" content="telephone=no">
+    <link href='/css/googlefonts.css' rel='stylesheet' type='text/css'>
+    
+    <script src="/js/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	
+
+    <link rel="stylesheet" href="/css/font-awesome590.min.css">
+
+    <script src="./vendor/jqcloud.js"></script>
+    <link rel="stylesheet" href="./vendor/jqcloud.css">
+
+    <script src="./vendor/Chart.js"></script>
+    <link rel="stylesheet" href="./vendor/Chart.css">
+
+    <link rel="stylesheet" type="text/css" href="./css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="./css/mediaquery.css" />
+    <script src="./js/chart.js"></script>
+    <script src="./js/timeline.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/timeline.css" />
+    <script src="./js/cloudwords.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/cloudwords.css" />
+
+    <script type="text/javascript" src="data.json"></script>
+    <script type="text/javascript">
+        function load() {
+            var mydata = JSON.parse(data);
+
+            this.loadTimelines('timeline-container', mydata.timelines.times, mydata.timelines.colors);
+            this.loadKeywords('#keywords', 'cloud-container', mydata.keywords.words, mydata.keywords.colors);
+
+            jQuery(window).on('resize', function () {
+                window.location.reload();
+                //this.loadKeywords('#keywords', 'cloud-container', mydata.keywords.words, mydata.keywords.colors);
+            });
+        }
+    </script>
+
+    <!-- IE8 support for HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        {% asset 'rt_theme/html5shiv-and-respond-js' %}
+      <![endif]
+      {% asset 'rt_theme/tablesorter-js' %}
+
+    {% endblock %}-->
+
+</head>
+
+<body onload="load()" {% block bodytag %} data-site-root="{{ h.url('/', locale='default', qualified=true) }}" data-locale-root="{{ h.url('/', qualified=true) }}" class="interna no-intro" {% endblock %}>
+
+    {% block breadcrumb_content %}
+    <li class="active"><a href="#">Infografica</a></li>
+    {% endblock %} {% block main_content_class %}col-xs-12{% endblock %} {% block primary_content %}
+
+    
+	<section class="jumbotron">
+        <div class="container" id="container">
+
+            <div class="row" id="header">
+                <div class="col-xs-12">
+                    <div class="row text-center" >
+                        <div class="col-xs-12 col-sm-6 col-sm-offset-3 categories-container-opacity header-opendata">
+                            <div class="row">
+                                <div class="col-sm-12 title-header">
+                                    <div class="title-header"><span style="font-weight:bold">Open</span>Data</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 header-opentoscana">
+                                    <img src="./images/logo-open-toscana.png" style="border-top: 8px solid #00A0E3" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="notice-row" class="row text-center">
+                        <div class="col-xs-4 col-12">
+                            <div class="row">
+                                <div class="col-xs-11 categories-container-opacity category col-centered col-notice">
+                                    <div><i class="fa fa-eye" style="font-size:71px;color:#000"></i></div>
+                                    <div class="header-data-text-title">
+                                        Visualizzazioni
+                                    </div>
+                                    <div class="notice-data">
+                                        <span class="header-data-text">+</span> <span class="header-data-value">1</span> <span class="header-data-text">milione</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-12">
+                            <div class="row">
+                                <div class="col-xs-11 categories-container-opacity category col-centered col-notice">
+                                    <div><i class="fa fa-users" style="font-size:60px;margin-top:10px;color:#000"></i></div>
+                                    <div class="header-data-text-title">
+                                        Utenti
+                                    </div>
+                                    <div class="notice-data">
+                                        <span class="header-data-text">+</span> <span class="header-data-value">216</span> <span class="header-data-text">mila</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-12">
+                            <div class="row">
+                                <div class="col-xs-11 categories-container-opacity category col-centered col-notice">
+                                    <div>
+                                        <i class="fa fa-database" style="font-size:60px;margin-top:10px;color:#000"></i>
+                                    </div>
+                                    <div class="header-data-text-title">Dataset</div>
+                                    <div class="notice-data">
+                                        <span class="header-data-text">+</span> <span class="header-data-value">4</span> <span class="header-data-text">mila</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END QUADRETTONI -->
+            </div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+
+            <!-- BEGIN GRAFICO TIMELINE -->
+            <div id="timeline-row" class="row">
+                <div class="flex-parent" id="timeline-parent">
+                    <div class="input-flex-container" id="timeline-container">
+                    </div>
+                </div>
+            </div>
+            <!-- END GRAFICO TIMELINE -->
+            <br />
+            <br />
+
+            <div class="row">
+                <div class="categories-container">
+                    <div class="row p-xs">
+                        <div class="text-left col-md-4 vert-separator">
+                            <div class="row">
+                                <div class="col-sm-12 category">
+                                    <div class="row image-notice">
+                                        <div class="col-xs-12">
+                                            <img src="./images/dati-gov.jpg" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 text-notice text-notice-hr">
+                                            Al secondo posto
+                                            in Italia per n. di
+                                            dati pubblicati
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-left col-md-4 vert-separator">
+                            <div class="row">
+                                <div class="col-sm-12 category">
+                                    <div class="row image-notice">
+                                        <div class="col-xs-12">
+                                            <img src="./images/agid.png" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 text-notice text-notice-hr">
+                                            Aderenza allo standard
+                                            DCAT-AP_IT, come da
+                                            linee guida AgID
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-left col-md-4">
+                            <div class="row" style="margin-top:10px">
+                                <div class="col-sm-12 category">
+                                    <div class="row image-notice">
+                                        <div class="col-xs-12">
+                                            <img src="./images/google.png" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 text-notice">
+                                            Integrato con
+                                            Google
+                                            Dataset Search
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pre-title-home"></div>
+            <div class="title-home">Statistiche visualizzazione e download</div>
+
+            <!-- BEGIN CHART DIAGRAM -->
+            <div class="row">
+			<div style="height:585px; position:relative">
+					<canvas id="myChart" style="background-color:white"></canvas>
+			</div>
+            </div>
+            <!-- END CHART DIAGRAM -->
+            <br />
+            <br />
+
+            <div class="pre-title-home"></div>
+            <div class="title-home">I dati più scaricati</div>
+            <div class="row">
+                <div class="col-sm-8 col-xs-12 list-notice">
+                    <ul>
+                        <li><a href="http://dati.toscana.it/dataset/ctr2k" target="_blank">Regione Toscana - CTR 1:2.000</a></li>
+                        <li><a href="http://dati.toscana.it/dataset/lidar" target="_blank">Regione Toscana - Rilievi Lidar</a></li>
+                        <li><a href="http://dati.toscana.it/dataset/prezzario-lavori-pubblici" target="_blank">Prezzario dei Lavori Pubblici della Toscana</a></li>
+                        <li><a href="http://dati.toscana.it/dataset/ortofotocarta2k" target="_blank">Ortofotocarta2K</a></li>
+                        <li><a href="http://dati.toscana.it/dataset/rt-strutric" target="_blank">Regione Toscana - Strutture ricettive</a></li>
+                    </ul>
+                </div class="col-sm-4 col-xs-12">
+				<!--<div class="text-center"><i class="fa fa-download" style="font-size:71px;color:#000"></i></div>-->
+                <div class="image-download">
+					<img src="./images/download-icon-grey.png" style="width:140px"/>
+                </div>
+            </div>
+            <div class="row">
+            </div>
+            <br><br>
+
+            <div class="pre-title-home"></div>
+            <div class="title-home">Informazioni sempre aggiornate</div>
+            <div class="row">
+                <div class="row p-xs text-center">
+                    <div onclick="window.open('http://dati.toscana.it/dataset/rt-oraritb','Orari trasporto pubblico');" style="cursor: pointer;" class="col-sm-4 col-xs-12">
+                        <div class="row cat-margin-right">
+                            <div class="col-sm-11 col-xs-12 categories-container category cat-margin-left info-category">
+                                <img src="./images/treno.png" />
+                                <br />
+                                Orari trasporto<br />pubblico
+                            </div>
+                        </div>
+                    </div>
+                    <div onclick="window.open('http://dati.toscana.it/dataset/sistmontraf-centraline','Centraline traffico');" style="cursor: pointer;" class="col-sm-4 col-xs-12">
+                        <div class="row cat-margin-right">
+                            <div class="col-sm-11 col-xs-12 categories-container category cat-margin-left info-category">
+                                <img src="./images/auto.png" />
+                                <br />
+                                Centraline<br />traffico
+                            </div>
+                        </div>
+                    </div>
+                    <div onclick="window.open('http://dati.toscana.it/dataset/rt-eventi-sistcult','Eventi culturali');" style="cursor: pointer;" class="col-sm-4 col-xs-12">
+                        <div class="row cat-margin-right">
+                            <div class="col-sm-11 col-xs-12 categories-container category cat-margin-left info-category">
+                                <img src="./images/arte.png" />
+                                <br />
+                                Eventi<br />culturali
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row"></div>
+
+            <!-- BEGIN CLOUD WORD -->
+            <div class="pre-title-home"></div>
+            <div class="title-home">Dati acquisiti da oltre 35 Enti toscani</div>
+            <div class="row" id="cloud-container">
+                <div id="keywords" class="col-12"></div>
+            </div>
+            <!-- END CLOUD WORD -->
+        </div>
+
+    </section>
+	
+	
+	
+
+    {% endblock %}
+
+    </body>
+

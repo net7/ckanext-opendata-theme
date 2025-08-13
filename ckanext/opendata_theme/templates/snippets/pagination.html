@@ -1,0 +1,79 @@
+{% set current_page = pager.page %}
+{% set total_pages = pager.page_count %}
+{% set radius = 2 %}
+
+<nav class="rtds-pagination" role="navigation" aria-label="Paginazione">
+  <ul class="rtds-pagination__list">
+    {% if current_page > 1 %}
+    <li>
+      <a class="rtds-pagination__link rtds-pagination__link-button" href="{{ h.add_url_param(new_params={'page': 1}) }}" aria-label="{{ _('First page') }}">
+        <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-5 md:rtds-w-5 md:rtds-h-5" aria-hidden="true" focusable="false" role="img">
+          <use href="/icons.svg#mini--chevron-double-left" />
+        </svg>
+      </a>
+    </li>
+    <li>
+      <a class="rtds-pagination__link rtds-pagination__link-button" href="{{ h.add_url_param(new_params={'page': current_page - 1}) }}" aria-label="{{ _('Previous page') }}">
+        <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-5 md:rtds-w-5 md:rtds-h-5" aria-hidden="true" focusable="false" role="img">
+          <use href="/icons.svg#mini--chevron-left" />
+        </svg>
+      </a>
+    </li>
+    {% endif %}
+    
+    {# Prima pagina (se non è nel raggio della pagina corrente) #}
+    {% if current_page - radius > 1 %}
+    <li>
+      <a class="rtds-pagination__link rtds-pagination__link-button rtds-pagination__link-text" href="{{ h.add_url_param(new_params={'page': 1}) }}" aria-label="{{ _('page {0}').format(1) }}">1</a>
+    </li>
+    {% endif %}
+    
+    {# Puntini di sospensione a sinistra #}
+    {% if current_page - radius > 2 %}
+    <li>
+      <span class="rtds-pagination__link rtds-pagination__link-text">...</span>
+    </li>
+    {% endif %}
+    
+    {# Pagine nel raggio della pagina corrente #}
+    {% for index in range(
+      [1, current_page - radius]|max, 
+      [current_page + radius + 1, total_pages + 1]|min
+    ) %}
+    <li>
+      <a class="rtds-pagination__link rtds-pagination__link-button rtds-pagination__link-text {% if index == current_page %}rtds-background-primary rtds-border-primary rtds-text-white hover:rtds-content-01{% endif %}" {% if index == current_page %}aria-current="true"{%endif %} href="{{ h.add_url_param(new_params={'page': index}) }}" aria-label="{{ _('page {0}').format(index) }}">{{ index }}</a>
+    </li>
+    {% endfor %}
+    
+    {# Puntini di sospensione a destra #}
+    {% if current_page + radius < total_pages - 1 %}
+    <li>
+      <span class="rtds-pagination__link rtds-pagination__link-text">...</span>
+    </li>
+    {% endif %}
+    
+    {# Ultima pagina (se non è nel raggio della pagina corrente) #}
+    {% if current_page + radius < total_pages %}
+    <li>
+      <a class="rtds-pagination__link rtds-pagination__link-button rtds-pagination__link-text" href="{{ h.add_url_param(new_params={'page': total_pages}) }}" aria-label="{{ _('page {0}').format(total_pages) }}">{{ total_pages }}</a>
+    </li>
+    {% endif %}
+    
+    {% if current_page < total_pages %}
+    <li>
+      <a class="rtds-pagination__link rtds-pagination__link-button" href="{{ h.add_url_param(new_params={'page': current_page + 1}) }}" aria-label="{{ _('Next page') }}">
+        <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-5 md:rtds-w-5 md:rtds-h-5" aria-hidden="true" focusable="false" role="img">
+          <use href="/icons.svg#mini--chevron-right" />
+        </svg>
+      </a>
+    </li>
+    <li>
+      <a class="rtds-pagination__link rtds-pagination__link-button" href="{{ h.add_url_param(new_params={'page': total_pages}) }}" aria-label="{{ _('Last page') }}">
+        <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-5 md:rtds-w-5 md:rtds-h-5" aria-hidden="true" focusable="false" role="img">
+          <use href="/icons.svg#mini--chevron-double-right" />
+        </svg>
+      </a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>

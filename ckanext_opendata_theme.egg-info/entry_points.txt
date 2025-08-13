@@ -1,0 +1,2 @@
+[ckan.plugins]
+opendata_theme = ckanext.opendata_theme.plugin:OpendataThemePlugin

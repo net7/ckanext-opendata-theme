@@ -1,0 +1,9 @@
+/**
+ * PRIMARY NAVIGATION
+ *
+*/
+@layer components {
+    .rtds-secondary-navigation__list {
+        @apply rtds-grid lg:rtds-flex;
+    }
+}

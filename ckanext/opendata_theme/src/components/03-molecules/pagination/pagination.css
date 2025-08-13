@@ -1,0 +1,29 @@
+ /**
+ * PAGINATION
+ *
+*/
+@layer components {
+    .rtds-pagination {
+        @apply  rtds-flex rtds-p-2 rtds-justify-center;
+    }
+
+    .rtds-pagination__list {
+        @apply rtds-flex rtds-gap-2 rtds-flex-wrap;
+    }
+
+    .rtds-pagination__link {
+        @apply rtds-flex rtds-items-center rtds-justify-center rtds-h-7 md:rtds-h-8 rtds-transition-all;
+    }
+
+    .rtds-pagination__link-button {
+        @apply rtds-w-7 md:rtds-w-8 rtds-border rtds-rounded rtds-border-gray-01 rtds-bg-white hover:rtds-background-02;
+    }
+
+    .rtds-pagination__link-text {
+        @apply rtds-text-xs md:rtds-text-sm rtds-font-medium hover:rtds-underline;
+    }
+
+    .rtds-pagination--rounded .rtds-pagination__link-button {
+        @apply rtds-rounded-full;
+    }
+}

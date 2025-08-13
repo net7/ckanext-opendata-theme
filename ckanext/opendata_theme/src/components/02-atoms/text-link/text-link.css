@@ -1,0 +1,22 @@
+/* LINK */
+@layer components {
+    .rtds-text-link {
+        @apply rtds-inline-flex rtds-gap-2 rtds-p-2 rtds-items-center rtds-content-02 hover:rtds-underline hover:rtds-content-02 focus:rtds-content-02 active:rtds-content-01 rtds-text-sm md:rtds-text-base;
+    }
+
+    .rtds-text-link--has-cta {
+        @apply rtds-grid md:rtds-flex rtds-gap-2 rtds-items-center;
+    }
+
+    .rtds-text-link--s {
+        @apply rtds-p-1 md:rtds-p-2 rtds-text-xs md:rtds-text-sm;
+    }
+
+    .rtds-text-link--contact {
+        @apply rtds-p-0 rtds-underline hover:rtds-no-underline focus:rtds-no-underline hover:rtds-content-primary rtds-break-words;
+    }
+
+    .rtds-text-link--inverse {
+        @apply rtds-content-inverse hover:rtds-content-inverse focus:rtds-content-inverse;
+    }
+}

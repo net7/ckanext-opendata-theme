@@ -1,0 +1,72 @@
+{# {% extends "page.html" %} #}
+{% extends "page-search.html" %}
+
+{% block subtitle %}{{ h.humanize_entity_type('organization', group_type, 'page title') or _('Organizations') }}{% endblock %}
+
+{% block breadcrumb_content %}
+  <li class="active">{% link_for h.humanize_entity_type('organization', group_type, 'breadcrumb') or _('Organizations'), named_route=group_type+'.index' %}</li>
+{% endblock %}
+
+{% block page_header %}{% endblock %}
+
+{% block pre_primary %}
+<div class="rtds-grid rtds-gap-4 rtds-mt-8 rtds-mb-12">
+  <div class="rtds-flex">
+    <a href="#" class="rtds-text-link rtds-content-03 rtds-text-link--s">
+      <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-flex-shrink-0 rtds-flex-grow-0" aria-hidden="true" focusable="false" role="img">
+        <use href="../../icons.svg#solid--arrow-left" />
+      </svg>
+      Torna indietro
+    </a>
+  </div>
+  <h1 class="rtds-heading-1">Organizations</h1>
+</div>
+{% endblock %}
+
+
+{% block primary_content %}
+  {% block primary_content_inner %}
+    <section>
+      <div class="rtds-grid">
+        {# {% block page_primary_action %}
+          {% if h.check_access('organization_create') %}
+            {% link_for h.humanize_entity_type('organization', group_type, 'add link') or _('Add Organization'), named_route=group_type ~ '.new', class_='btn btn-primary', icon='plus-square' %}
+          {% endif %}
+        {% endblock %} #}
+        <h1 class="hide-heading">{% block page_heading %}{{ h.humanize_entity_type('organization', group_type, 'page title') or _('Organizations') }}{% endblock %}</h1>
+        {% block organizations_search_form %}
+          {% snippet 'snippets/search_form.html', form_id='organization-search-form', type=group_type, query=q, sorting_selected=sort_by_selected, count=page.item_count, placeholder=h.humanize_entity_type('organization', group_type, 'search placeholder') or _('Search organizations...'), show_empty=request.args, no_bottom_border=true if page.items, sorting = [(_('Name Ascending'), 'title asc'), (_('Name Descending'), 'title desc')] %}
+        {% endblock %}
+        {% block organizations_list %}
+          {% if page.items or request.args %}
+            {% if page.items %}
+              {% snippet "organization/snippets/organization_list.html", organizations=page.items %}
+            {% endif %}
+          {% else %}
+          <p class="empty">
+            {{ _('There are currently no organizations for this site') }}.
+            {% if h.check_access('organization_create') %}
+              {% link_for _('How about creating one?'), named_route=group_type+'.new' %}</a>.
+            {% endif %}
+          </p>
+          {% endif %}
+        {% endblock %}
+      </div>
+      
+      {% block page_pagination %}
+        {# {{ page.pager(q=q or '', sort=sort_by_selected or '') }} #}
+        {% snippet 'snippets/pagination.html', pager=g.page %}
+      {% endblock %}
+    </section>
+  {% endblock %}
+{% endblock %}
+
+
+
+{% block secondary_content %}
+<div class="rtds-hidden lg:rtds-block">
+  <div class="rtds-grid rtds-bg-white rtds-rounded-lg rtds-px-6 rtds-py-4">
+    {% snippet "organization/snippets/helper.html", group_type=group_type %}
+  </div>
+</div>
+{% endblock %}

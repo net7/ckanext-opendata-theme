@@ -1,0 +1,9 @@
+/**
+ * ICON
+ *
+*/
+@layer components {
+    .rtds-icon {
+        @apply  rtds-inline-block rtds-align-middle;
+    }
+}

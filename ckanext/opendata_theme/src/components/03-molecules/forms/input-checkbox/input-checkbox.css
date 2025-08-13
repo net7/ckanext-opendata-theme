@@ -1,0 +1,28 @@
+/**
+ * INPUT
+ * 
+ *
+*/
+@layer components {
+    .rtds-input-checkbox input[type="checkbox"] {
+        @apply rtds-w-5 rtds-h-5 rtds-border-input rtds-rounded;
+    }
+
+    .rtds-input-checkbox__label {
+        @apply rtds-text-sm rtds-font-medium rtds-cursor-pointer;
+    }
+
+    /* SIZES */
+
+    .rtds-input--sm input[type="checkbox"] {
+        @apply rtds-w-4 rtds-h-4;
+    }
+
+    .rtds-input--lg input[type="checkbox"] {
+        @apply rtds-w-6 rtds-h-6;
+    }
+
+    .has-error input[type="checkbox"]{
+        @apply rtds-border-error-dark rtds-border-2;
+    }
+}

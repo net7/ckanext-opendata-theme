@@ -1,0 +1,135 @@
+{# {% extends "page.html" %} #}
+{% extends "page-search.html" %}
+{% set dataset_type = h.default_package_type() %}
+{% set organization = group_dict %}
+
+{% block subtitle %}{{ group_dict.display_name }} {{ g.template_title_delimiter }} {{ h.humanize_entity_type('organization', group_type, 'page title') or _('Organizations') }}{% endblock %}
+
+{% block breadcrumb_content %}
+  <li>{% link_for h.humanize_entity_type('organization', group_type, 'breadcrumb') or _('Organizations'), named_route=group_type+'.index' %}</li>
+  <li class="active">{% link_for group_dict.display_name|truncate(35), named_route=group_type+'.read', id=group_dict.name, title=group_dict.display_name %}</li>
+{% endblock %}
+
+{% block page_header %}{% endblock %}
+
+{% block pre_primary %}
+<div class="rtds-grid rtds-gap-4 rtds-mt-8 rtds-mb-12">
+  <div class="rtds-flex">
+    <a href="#" class="rtds-text-link rtds-content-03 rtds-text-link--s">
+      <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-flex-shrink-0 rtds-flex-grow-0" aria-hidden="true" focusable="false" role="img">
+        <use href="../../icons.svg#solid--arrow-left" />
+      </svg>
+      Torna indietro
+    </a>
+  </div>
+  <h1 class="rtds-heading-1">{{ organization.title or organization.name }}</h1>
+</div>
+{% endblock %}
+
+{% block primary_content %}
+  {% block primary_content_inner %}
+  <section>
+    <div class="rtds-grid">
+    </div>
+  </section>
+  {% endblock %}
+{% endblock %}
+
+
+{% block content_action %}
+  {% if h.check_access('organization_update', {'id': group_dict.id}) %}
+    {% link_for _('Manage'), named_route=group_type+'.edit', id=group_dict.name, class_='btn btn-default', icon='wrench' %}
+  {% endif %}
+{% endblock %}
+
+{# 
+{% block content_primary_nav %}
+  {{ h.build_nav_icon(group_type + '.read', h.humanize_entity_type('package', dataset_type, 'content tab') or _('Datasets'), id=group_dict.name, icon='sitemap') }}
+  {{ h.build_nav_icon(group_type + '.about', _('About'), id=group_dict.name, icon='info-circle') }}
+{% endblock %}
+#}
+
+{% block secondary_content %}
+<div class="rtds-hidden lg:rtds-block">
+  <div class="rtds-grid rtds-bg-white rtds-rounded-lg rtds-px-6 rtds-py-4">
+    {# {% snippet 'snippets/organization.html', organization=group_dict, show_nums=false, group_type=group_type %} #}
+
+    {% block info %}
+    {% block image %}
+    <section class="rtds-background-03 rtds-rounded-2xl rtds-p-4 rtds-w-fit rtds-pr-16 rtds-mb-4">
+      {# <a href="{{ url }}"> #}
+        {# <img src="{{ organization.image_display_url or h.url_for_static('/base/images/placeholder-organization.png') }}" width="200" alt="{{ organization.name }}" /> #}
+        <img class="rtds-max-h-[100px]" src="{{ organization.image_display_url }}" width="" height="" alt="{{ organization.name }}" />
+        {# </a> #}
+    </section>
+    {% endblock %}
+    
+    <section class="rtds-grid rtds-gap-4 rtds-pr-16">
+      {# {% if has_context_title %}
+      <h2 class="module-heading"><i class="fa fa-building"></i> {{ h.humanize_entity_type('organization', organization.type, 'sidebar label') or _('Organization') }}</h2>
+      {% endif %} #}
+    
+      {# <section class="module-content"> #}
+        {% block inner %}
+        {% block heading %}
+        {# <h3 class="rtds-body-lg rtds-font-bold">{{ organization.title or organization.name }}
+          {% if organization.state == 'deleted' %}
+          [{{ _('Deleted') }}]
+          {% endif %}
+        </h3> #}
+        {% endblock %}
+    
+        {% block description %}
+        {% if organization.description %}
+        <p>
+          {{ h.markdown_extract(organization.description, 180) }}
+        </p>
+        {# <p>
+          {% link_for _('read more'), named_route=organization.type ~ '.about', id=organization.name %}
+        </p> #}
+        {% else %}
+        <p>{{ h.humanize_entity_type('organization', organization.type, 'no description') or _('There is no description for this organization') }}</p>
+        {% endif %}
+        {% endblock %}
+    
+        {% if show_nums %}
+        {% block nums %}
+        <div class="nums">
+          <dl>
+            <dt>{{ _('Followers') }}</dt>
+            <dd data-module="followers-counter" data-module-id="{{ organization.id }}" data-module-num_followers="{{ organization.num_followers }}">{{ h.SI_number_span(organization.num_followers) }}</dd>
+          </dl>
+          <dl>
+            <dt>{{ h.humanize_entity_type('package', dataset_type, 'facet label') or _('Datasets') }}</dt>
+            <dd>{{ h.SI_number_span(organization.package_count) }}</dd>
+          </dl>
+        </div>
+        {% endblock %}
+    
+        {% block follow %}
+        <div class="follow_button">
+          {{ h.follow_button('group', organization.id) }}
+        </div>
+        {% endblock %}
+        {% endif %}
+        {% endblock %}
+
+        {% if h.check_access('organization_update', {'id': group_dict.id}) %}
+          {% link_for _('Manage'), named_route=group_type+'.edit', id=group_dict.name, class_='btn btn-default', icon='wrench' %}
+        {% endif %}
+        {#
+      </section> #}
+    </section>
+    {# {{ super() }}
+    {% block package_openness %}ertert{% endblock %} #}
+    {% endblock %}
+    {# {% block organization_facets %}{% endblock %} #}
+    {# {% snippet "organization/snippets/helper.html", group_type=group_type %} #}
+  </div>
+</div>  
+{% endblock %}
+
+{# {% block links %}
+  {{ super() }}
+  {% include "organization/snippets/feeds.html" %}
+{% endblock %} #}

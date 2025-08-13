@@ -1,0 +1,508 @@
+{% set dataset_type = h.default_package_type() %}
+{# Hero BEGIN #}
+<section class="rtds-hero rtds-grid rtds-bg-primary-700 rtds-pt-6">
+  {# <div class="overlay bg-black/10 row-span-full col-span-full"></div> #}
+  <div class="rtds-container-xs rtds-hero--fullimg rtds-grid rtds-gap-6 lg:rtds-gap-16 xl:rtds-gap-32 rtds-justify-center rtds-content-center rtds-text-center rtds-content-inverse rtds-col-span-full rtds-bg-cover rtds-bg-center" style="background-image: url('/images/hero-background.png');">
+    <div class="rtds-hero__content rtds-grid rtds-gap-8">
+      <h1 class="rtds-heading-1">
+        {{ _('Open Data, the open access to public data in Tuscany') }}
+      </h1>
+      <p class="rtds-body-lg lg:rtds-body-2xl">
+        {{ _('Discover how open data can promote transparency, improve public services and foster economic and social development.') }}
+      </p>
+      <form role="search" class="rtds-flex rtds-gap-2 rtds-justify-center" method="get" action="{% url_for dataset_type ~ '.search' %}">
+        <div class="rtds-input-field rtds-gap-1 rtds-flex-1 rtds-max-w-[720px]">
+          <div class="rtds-input has-icon">
+            <svg class="rtds-icon rtds-fill-current rtds-input__icon" aria-hidden="true" focusable="false" role="img">
+              <use href="/icons.svg#mini--magnifying-glass" />
+            </svg>
+            <input aria-label="{% block header_site_search_label %}{{ h.humanize_entity_type('package', dataset_type, 'search placeholder') or _('Search datasets') }}{% endblock %}" id="inputSearch" class="rtds-text-sm rtds-input-placeholder" type="search" name="q" value="" autocomplete="off" placeholder="{{ _('Insert keywords (e.g. air quality, hospitals, transport networks)...') }}">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="rtds-hero__numbers rtds-flex rtds-flex-wrap rtds-gap-6 lg:rtds-gap-16 rtds-justify-center">
+      <div class="rtds-grid rtds-gap-3">
+        <h3 class="rtds-body-lg">{{ _('Number of datasets') }}</h3>
+        <div class="rtds-display-heading-4 rtds-font-bold" style="text-shadow: 0px 0px 10px rgba(2, 252, 206, 0.80);">
+          {{ h.get_formatted_dataset_count() }}
+        </div>
+      </div>
+      <div class="rtds-grid rtds-gap-3">
+        <h3 class="rtds-body-lg">{{ _('Annual views') }}</h3>
+        <div class="rtds-display-heading-4 rtds-font-bold" style="text-shadow: 0px 0px 10px rgba(2, 252, 206, 0.80);">
+          {{ h.get_formatted_view_count() }}
+        </div>
+      </div>
+      <div class="rtds-grid rtds-gap-3">
+        <h3 class="rtds-body-lg">{{ _('Annual downloads') }}</h3>
+        <div class="rtds-display-heading-4 rtds-font-bold" style="text-shadow: 0px 0px 10px rgba(2, 252, 206, 0.80);">
+          {{ h.get_formatted_download_count() }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{# Hero END #}
+
+{# Piattaforme BEGIN #}
+<section class="rtds-platforms rtds-py-10 rtds-border-b rtds-border-primary-700">
+  <div class="rtds-container-xs rtds-grid rtds-gap-8 lg:rtds-flex lg:rtds-gap-14 rtds-body-sm rtds-font-bold rtds-text-center">
+    <div class="rtds-grid rtds-justify-items-center">
+      <img class="" src="/images/logo-dati-gov.svg" alt="Logo dati.gov.it" width="240" height="40" />
+      <p>Da anni ai primi posti in Italia per n. di dati pubblicati</p>
+    </div>
+    <div class="rtds-hidden lg:rtds-block rtds-border-r rtds-border-gray-03"></div>
+    <div class="rtds-grid rtds-justify-items-center">
+      <img class="" src="/images/logo-agid.svg" alt="Logo AgID" width="240" height="40" />
+      <p>Aderenza allo standard DCAT-AP_IT, come da linee guida AgID</p>
+    </div>
+    <div class="rtds-hidden lg:rtds-block rtds-border-r rtds-border-gray-03"></div>
+    <div class="rtds-grid rtds-justify-items-center">
+      <img class="" src="/images/logo-google.svg" alt="Logo Google" width="240" height="40" />
+      <p>Integrato con Google Dataset Search</p>
+    </div>
+  </div>
+</section>
+{# Piattaforme END #}
+
+{# Temi BEGIN #}
+<section class="rtds-temi rtds-py-10 lg:rtds-py-20">
+  <div class="rtds-container-xs rtds-grid rtds-gap-6 lg:rtds-gap-10">
+    <div class="rtds-grid rtds-gap-6 lg:rtds-gap-10">
+      <div class="rtds-flex rtds-items-center rtds-gap-2">
+        <h2 class="rtds-heading-2">{{ _('Themes') }}</h2>
+        <div class="rtds-w-4 rtds-h-16 rtds-ml-4" style="transform: rotate(20.661deg);background: radial-gradient(49.74% 49.74% at 0.95% 51.26%, rgba(171, 171, 171, 0.64) 0%, #C0C0C0 0.01%, rgba(233, 233, 233, 0.00) 100%);"></div>
+        <div class="rtds-flex rtds-items-center">
+          <span class="rtds-body-base">{{ _('see all') }}</span>
+          <a href="{% url_for dataset_type ~ '.search' %}" class="rtds-btn rtds-btn--only-text rtds-btn--icon-right rtds-group/button">
+            {{ _('the themes') }}
+            <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+              <use href="/icons.svg#mini--arrow-right" />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <p>{{ _('Explore data by theme. From transport to health, from education to the environment, find easily the datasets you are looking for') }}</p>
+    </div>
+    <ul role="list" class="rtds-grid rtds-gap-6 md:rtds-grid-cols-2 lg:rtds-grid-cols-4">
+      <li class="rtds-col">
+        <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
+          <div class="rtds-card__icon">
+            <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
+              <use href="/icons.svg#leaf--nature-environment-leaf-ecology-plant-plants-eco" />
+            </svg>
+          </div>
+          <div class="rtds-card__content">
+            <div class="rtds-card__heading">
+              <h3 class="rtds-card__title">
+                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_groups_limit=0&dcat_theme=ENVI">{{ _('Environment') }}</a>
+              </h3>
+            </div>
+            <div class="rtds-card__description ">
+              <p>{{ _('Open data for environmental protection and sustainability in Tuscany.') }}</p>
+            </div>
+          </div>
+        </article>
+      </li>
+      <li class="rtds-col">
+        <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
+          <div class="rtds-card__icon">
+            <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
+              <use href="/icons.svg#outline--building-office" />
+            </svg>
+          </div>
+          <div class="rtds-card__content">
+            <div class="rtds-card__heading">
+              <h3 class="rtds-card__title">
+                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_groups_limit=0&dcat_theme=REGI">{{ _('Regions and cities') }}</a>
+              </h3>
+            </div>
+            <div class="rtds-card__description ">
+              <p>{{ _('Local development data for more inclusive and participatory development.') }}</p>
+            </div>
+          </div>
+        </article>
+      </li>
+      <li class="rtds-col">
+        <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
+          <div class="rtds-card__icon">
+            <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
+              <use href="/icons.svg#outline--building-library" />
+            </svg>
+          </div>
+          <div class="rtds-card__content">
+            <div class="rtds-card__heading">
+              <h3 class="rtds-card__title">
+                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_groups_limit=0&dcat_theme=GOVE">{{ _('Government and public sector') }}</a>
+              </h3>
+            </div>
+            <div class="rtds-card__description ">
+              <p>{{ _('Transparency and participation in public processes.') }}</p>
+            </div>
+          </div>
+        </article>
+      </li>
+      <li class="rtds-col">
+        <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
+          <div class="rtds-card__icon">
+            <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
+              <use href="/icons.svg#outline--beaker" />
+            </svg>
+          </div>
+          <div class="rtds-card__content">
+            <div class="rtds-card__heading">
+              <h3 class="rtds-card__title">
+                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_groups_limit=0&dcat_theme=TECH">{{ _('Science and technology') }}</a>
+              </h3>
+            </div>
+            <div class="rtds-card__description ">
+              <p>{{ _('Innovation and progress accessible to everyone.') }}</p>
+            </div>
+          </div>
+        </article>
+      </li>
+      <li class="rtds-col">
+        <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
+          <div class="rtds-card__icon">
+            <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
+              <use href="/icons.svg#outline--map" />
+            </svg>
+          </div>
+          <div class="rtds-card__content">
+            <div class="rtds-card__heading">
+              <h3 class="rtds-card__title">
+                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_groups_limit=0&dcat_theme=TRAN">{{ _('Transport') }}</a>
+              </h3>
+            </div>
+            <div class="rtds-card__description ">
+              <p>{{ _('Smart mobility for a more connected Tuscany.') }}</p>
+            </div>
+          </div>
+        </article>
+      </li>
+      <li class="rtds-col">
+        <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
+          <div class="rtds-card__icon">
+            <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
+              <use href="/icons.svg#outline--presentation-chart-bar" />
+            </svg>
+          </div>
+          <div class="rtds-card__content">
+            <div class="rtds-card__heading">
+              <h3 class="rtds-card__title">
+                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_groups_limit=0&dcat_theme=ECON">{{ _('Economy and finance') }}</a>
+              </h3>
+            </div>
+            <div class="rtds-card__description ">
+              <p>{{ _('Economic data to support businesses and citizens.') }}</p>
+            </div>
+          </div>
+        </article>
+      </li>
+      <li class="rtds-col">
+        <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
+          <div class="rtds-card__icon">
+            <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
+              <use href="/icons.svg#outline--bolt" />
+            </svg>
+          </div>
+          <div class="rtds-card__content">
+            <div class="rtds-card__heading">
+              <h3 class="rtds-card__title">
+                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_groups_limit=0&dcat_theme=ENER">{{ _('Energy') }}</a>
+              </h3>
+            </div>
+            <div class="rtds-card__description ">
+              <p>{{ _('Energy sustainability for a greener future.') }}</p>
+            </div>
+          </div>
+        </article>
+      </li>
+      <li class="rtds-col">
+        <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
+          <div class="rtds-card__icon">
+            <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
+              <use href="/icons.svg#outline--book-open" />
+            </svg>
+          </div>
+          <div class="rtds-card__content">
+            <div class="rtds-card__heading">
+              <h3 class="rtds-card__title">
+                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_groups_limit=0&dcat_theme=EDUC">{{ _('Education, culture and sport') }}</a>
+              </h3>
+            </div>
+            <div class="rtds-card__description ">
+              <p>{{ _('We value knowledge and cultural activities.') }}</p>
+            </div>
+          </div>
+        </article>
+      </li>
+    </ul>
+  </div>
+</section>
+{# Temi END #}
+
+{# Info BEGIN #}
+<section class="rtds-info rtds-bg-gradient-02 rtds-py-10 lg:rtds-py-20">
+  <div class="rtds-container-xs rtds-grid rtds-gap-5 lg:rtds-gap-10">
+    <h2 class="rtds-heading-2 rtds-content-inverse">Informazioni sempre aggiornate</h2>
+    <ul role="list" class="rtds-grid rtds-gap-4 md:rtds-grid-cols-2 lg:rtds-grid-cols-3">
+      <li class="rtds-col">
+        <article class="rtds-card rtds-card--news is-card-fullclickable rtds-group/card">
+          <picture class="rtds-card__image-wrapper">
+            <img class="rtds-card__image" alt="" src="/images/home-info-01.jpg" />
+          </picture>
+          <div class="rtds-card__content">
+            <div class="rtds-card__heading">
+              <h3 class="rtds-card__title">
+                <a class="group-hover/card:rtds-underline" href="{{ h.url_for('dataset.search') }}?_groups_limit=0&dcat_theme=TRAN">Orari trasporto pubblico</a>
+              </h3>
+            </div>
+          </div>
+        </article>
+      </li>
+      <li class="rtds-col">
+        <article class="rtds-card rtds-card--news is-card-fullclickable rtds-group/card">
+          <picture class="rtds-card__image-wrapper">
+            <img class="rtds-card__image" alt="" src="/images/home-info-02.png" />
+          </picture>
+          <div class="rtds-card__content">
+            <div class="rtds-card__heading">
+              <h3 class="rtds-card__title">
+                <a class="group-hover/card:rtds-underline" href="{{ h.url_for('dataset.search') }}?groups=infrastrutture-e-trasporti">Centraline traffico</a>
+              </h3>
+            </div>
+          </div>
+        </article>
+      </li>
+      <li class="rtds-col">
+        <article class="rtds-card rtds-card--news is-card-fullclickable rtds-group/card">
+          <picture class="rtds-card__image-wrapper">
+            <img class="rtds-card__image" alt="" src="/images/home-info-03.jpg" />
+          </picture>
+          <div class="rtds-card__content">
+            <div class="rtds-card__heading">
+              <h3 class="rtds-card__title">
+                <a class="group-hover/card:rtds-underline" href="{{ h.url_for('dataset.search') }}?_groups_limit=0&groups=turismo-e-tempo-libero">Eventi culturali</a>
+              </h3>
+            </div>
+          </div>
+        </article>
+      </li>
+    </ul>
+  </div>
+</section>
+{# Info END #}
+
+{% snippet "home/snippets/most_viewed_datasets.html" %}
+
+{# Use cases BEGIN #}
+{#
+<section class="rtds-use-cases rtds-bg-gradient-02">
+  <div class="rtds-container rtds-py-24 2xl:rtds-bg-[url('/images/icona-goccia.svg')] rtds-bg-no-repeat rtds-bg-right-top">
+    <div class="rtds-container-xs !rtds-mx-auto rtds-grid rtds-gap-10">
+      <div class="rtds-grid rtds-gap-4 rtds-content-inverse">
+        <h2 class="rtds-heading-2">Use case in evidenza</h2>
+        <p>Scopri come gli Open Data stanno trasformando la Toscana!<br>In questa sezione, presentiamo progetti innovativi e storie di successo che utilizzano i nostri dataset. Dai servizi pubblici migliorati a soluzioni per le imprese, lasciati ispirare dagli esempi di utilizzo concreto</p>
+      </div>
+      <ul class="rtds-grid md:rtds-grid-cols-2 rtds-gap-6">
+        <li class="rtds-h-full">
+          <article class="rtds-card rtds-card--news rtds-card--news-small rtds-card--horizontal  rtds-card--horizontal-left  is-card-fullclickable rtds-group/card rtds-h-full">
+            <picture class="rtds-card__image-wrapper rtds-h-full rtds-background-04 rtds-flex rtds-items-center">
+              <img class="rtds-card__image" alt="" src="/images/home-use-case-01.jpg" />
+            </picture>
+            <div class="rtds-card__content">
+              <div class="rtds-card__heading rtds-gap-2">
+                <h3 class="rtds-card__title rtds-body-lg">
+                  <a class="group-hover/card:rtds-underline" href="">WebSolutions</a>
+                </h3>
+                <div class="rtds-card__metadata">
+                  <div class="rtds-card__date rtds-font-normal">
+                    <time datetime="2023-09-30">30.09.2023</time>
+                  </div>
+                </div>
+              </div>
+              <div class="rtds-card__description ">
+                <p>WebSolutions è una Startup Innovativa che opera nel settore dell'alta formazione in competenze digitali e proximity...</p>
+              </div>
+            </div>
+          </article>
+        </li>
+        <li class="rtds-h-full">
+          <article class="rtds-card rtds-card--news rtds-card--news-small rtds-card--horizontal  rtds-card--horizontal-left  is-card-fullclickable rtds-group/card rtds-h-full">
+            <picture class="rtds-card__image-wrapper rtds-h-full rtds-background-04 rtds-flex rtds-items-center">
+              <img class="rtds-card__image" alt="" src="/images/home-use-case-02.jpg" />
+            </picture>
+            <div class="rtds-card__content">
+              <div class="rtds-card__heading rtds-gap-2">
+                <h3 class="rtds-card__title rtds-body-lg">
+                  <a class="group-hover/card:rtds-underline" href="">Bring s.r.l</a>
+                </h3>
+                <div class="rtds-card__metadata">
+                  <div class="rtds-card__date rtds-font-normal">
+                    <time datetime="2023-09-30">30.09.2023</time>
+                  </div>
+                </div>
+              </div>
+              <div class="rtds-card__description ">
+                <p>WebSolutions è una Startup Innovativa che opera nel settore dell'alta formazione in competenze digitali e proximity...</p>
+              </div>
+            </div>
+          </article>
+        </li>
+        <li class="rtds-h-full">
+          <article class="rtds-card rtds-card--news rtds-card--news-small rtds-card--horizontal  rtds-card--horizontal-left  is-card-fullclickable rtds-group/card rtds-h-full">
+            <picture class="rtds-card__image-wrapper rtds-h-full rtds-background-04 rtds-flex rtds-items-center">
+              <img class="rtds-card__image" alt="" src="/images/home-use-case-03.png" />
+            </picture>
+            <div class="rtds-card__content">
+              <div class="rtds-card__heading rtds-gap-2">
+                <h3 class="rtds-card__title rtds-body-lg">
+                  <a class="group-hover/card:rtds-underline" href="">Lorem Ipsum dolor sit</a>
+                </h3>
+                <div class="rtds-card__metadata">
+                  <div class="rtds-card__date rtds-font-normal">
+                    <time datetime="2023-09-30">30.09.2023</time>
+                  </div>
+                </div>
+              </div>
+              <div class="rtds-card__description ">
+                <p>WebSolutions è una Startup Innovativa che opera nel settore dell'alta formazione in competenze digitali e proximity...</p>
+              </div>
+            </div>
+          </article>
+        </li>
+        <li class="rtds-h-full">
+          <article class="rtds-card rtds-card--news rtds-card--news-small rtds-card--horizontal  rtds-card--horizontal-left  is-card-fullclickable rtds-group/card rtds-h-full">
+            <picture class="rtds-card__image-wrapper rtds-h-full rtds-background-04 rtds-flex rtds-items-center">
+              <img class="rtds-card__image" alt="" src="/images/home-use-case-04.jpg" />
+            </picture>
+            <div class="rtds-card__content">
+              <div class="rtds-card__heading rtds-gap-2">
+                <h3 class="rtds-card__title rtds-body-lg">
+                  <a class="group-hover/card:rtds-underline" href="">Kode</a>
+                </h3>
+                <div class="rtds-card__metadata">
+                  <div class="rtds-card__date rtds-font-normal">
+                    <time datetime="2023-09-30">30.09.2023</time>
+                  </div>
+                </div>
+              </div>
+              <div class="rtds-card__description ">
+                <p>WebSolutions è una Startup Innovativa che opera nel settore dell'alta formazione in competenze digitali e proximity...</p>
+              </div>
+            </div>
+          </article>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+#}
+{# Use cases END #}
+
+{% set organizations = h.get_all_organizations() %}
+{# Enti carousel BEGIN #}
+<section class="rtds-pt-14 rtds-pb-28">
+  <div class="rtds-container-sm">
+
+    <div class="rtds-wrapper-title rtds-text-center rtds-mb-8">
+      <h2 class="rtds-heading-2">Dati acquisiti da oltre {{ organizations|length - 1 }} Enti toscani</h2>
+    </div>
+
+    <div class="rtds-carousel splide" aria-label="Titolo sezione">
+      <div class="rtds-carousel__arrows splide__arrows">
+        <button class="rtds-carousel__arrow rtds-carousel__arrow--prev splide__arrow splide__arrow--prev">
+          <svg class="rtds-icon rtds-fill-current rtds-carousel__arrow-svg" aria-hidden="true" focusable="false" role="img">
+            <use href="/icons.svg#mini--chevron-right" />
+          </svg>
+          <span class="rtds-sr-only">Precedente</span>
+        </button>
+        <button class="rtds-carousel__arrow rtds-carousel__arrow--next splide__arrow splide__arrow--next">
+          <svg class="rtds-icon rtds-fill-current rtds-carousel__arrow-svg" aria-hidden="true" focusable="false" role="img">
+            <use href="/icons.svg#mini--chevron-right" />
+          </svg>
+          <span class="rtds-sr-only">Successiva</span>
+        </button>
+      </div>
+
+      <div class="rtds-carousel-wrapper splide__track">
+        <ul class="rtds-carousel__list splide__list rtds-space-y-6 md:rtds-space-y-0">
+
+          {% for org in organizations %}
+          {% set org_url = h.url_for('organization.read', id=org.name) %}
+
+          <li class="rtds-carousel-col splide__slide">
+            <article class="rtds-card rtds-shadow-none">
+
+              <picture class="rtds-card__image-wrapper">
+                <img class="rtds-card__image rtds-object-contain" alt="{{ org.name }}" src="{{ org.image_display_url }}" />
+              </picture>
+
+              <div class="rtds-card__content">
+                <div class="rtds-card__heading">
+                  <h3 class="rtds-card__title lg:rtds-body-sm rtds-font-bold rtds-text-center">
+                    <a class="group-hover/card:rtds-underline" href="{{ org_url }}">{{ org.title }}</a>
+                  </h3>
+                </div>
+              </div>
+
+            </article>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+{# Enti carousel END #}
+
+{# Notizie BEGIN #}
+<section class="rtds-dati rtds-py-8 lg:rtds-py-16 rtds-background-01">
+  <div class="rtds-container-xs rtds-grid rtds-gap-6 lg:rtds-gap-10">
+    <div class="rtds-grid rtds-gap-6 lg:rtds-gap-10">
+      <div class="rtds-flex rtds-items-center rtds-gap-2">
+        <h2 class="rtds-heading-2">Notizie</h2>
+        <div class="rtds-w-4 rtds-h-16 rtds-ml-4" style="transform: rotate(20.661deg);background: radial-gradient(49.74% 49.74% at 0.95% 51.26%, rgba(171, 171, 171, 0.64) 0%, #C0C0C0 0.01%, rgba(233, 233, 233, 0.00) 100%);"></div>
+        <div class="rtds-flex rtds-items-center">
+          <a href="{{ h.url_for('pages.pages_index') }}" class="rtds-btn rtds-btn--only-text rtds-btn--icon-right rtds-group/button">
+            leggi le notizie
+            <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+              <use href="/icons.svg#mini--arrow-right" />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <p>Rimani aggiornato sulle ultime novità in materia di Open Data</p>
+    </div>
+    <ul role="list" class="rtds-grid rtds-gap-8 md:rtds-grid-cols-2 lg:rtds-grid-cols-4">
+
+      {% set page_list = h.get_recent_news() %}
+
+      {% for page in page_list %}
+        {% set url = h.url_for('pages.show', page=page.name) %}
+        <li class="rtds-col">
+          <article class="rtds-card rtds-card--news rtds-card--news-small rtds-card--news-image-fullwidth rtds-bg-white is-card-fullclickable rtds-group/card">
+            <picture class="rtds-card__image-wrapper">
+              <img class="rtds-card__image rtds-h-full" alt="" src="{{ page.image }}" />
+            </picture>
+            <div class="rtds-card__content">
+              <div class="rtds-card__heading">
+                <h3 class="rtds-card__title">
+                  <a class="group-hover/card:rtds-underline" href="{{ url }}">{{ page.title }}</a>
+                </h3>
+                <div class="rtds-card__metadata">
+                  <div class="rtds-card__date rtds-font-normal">
+                    <time datetime="{{ h.render_datetime(page.publish_date) }}">{{ h.render_datetime(page.publish_date) }}</time>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+{# Notizie END #}

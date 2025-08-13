@@ -1,0 +1,42 @@
+/**
+ * INPUT FIELD
+ *
+*/
+@layer components {
+    .rtds-input-field {
+        @apply rtds-grid rtds-content-start;
+    }
+
+    .rtds-input-field__label {
+        @apply rtds-block rtds-text-sm rtds-font-bold rtds-content-03;
+    }
+    label.rtds-input-field__label:after {
+    display: none;
+}
+
+    legend:where(.rtds-input-field__label) {
+        @apply rtds-mb-1;
+    }
+
+    .rtds-input-field__error {
+        @apply rtds-text-sm rtds-font-medium rtds-content-error;
+    }
+
+    .rtds-input-field__description {
+        @apply rtds-text-sm rtds-font-medium rtds-content-03;
+    }
+
+    .rtds-input-field.has-error input {
+        @apply rtds-border-2 rtds-border-error-dark;
+    }
+
+    /* INPUT FIELD INLINE */
+    .rtds-field-inline {
+        @apply rtds-flex rtds-items-center rtds-gap-2;
+    }
+
+    .rtds-field-inline .rtds-input,
+    .rtds-field-inline .rtds-select {
+        @apply rtds-flex-1;
+    }
+}

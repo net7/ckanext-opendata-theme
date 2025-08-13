@@ -1,0 +1,20 @@
+/**
+ * SIDE NAVIGATION
+ *
+*/
+@layer components {
+    .rtds-top-bar {
+        @apply rtds-flex rtds-items-center rtds-background-01;
+    }
+
+    .rtds-top-bar__container {
+        @apply rtds-flex rtds-items-center lg:rtds-flex-1;
+    }
+
+    /*.rtds-top-bar__navigation {
+    }*/
+
+    /*.rtds-top-bar__utilities-area {
+        @apply rtds-flex rtds-ml-auto;
+    }*/
+}

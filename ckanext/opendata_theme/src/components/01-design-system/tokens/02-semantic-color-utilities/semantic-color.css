@@ -1,0 +1,356 @@
+/**
+ * SEMANTIC COLOR UTILITIES
+ *
+*/
+@layer utilities {
+    /* CONTENT TEXT COLOR UTILITIES */
+    .rtds-content-01 {
+        @apply rtds-text-neutral-900;
+    }
+
+    .rtds-content-02 {
+        @apply rtds-text-primary-900;
+    }
+
+    .rtds-content-03 {
+        @apply rtds-text-neutral-800;
+    }
+
+    .rtds-content-04 {
+        @apply rtds-text-neutral-700;
+    }
+
+    .rtds-content-05 {
+        @apply rtds-text-primary-700;
+    }
+
+    .rtds-content-inverse {
+        @apply rtds-text-neutral-50;
+    }
+
+    .rtds-content-05-light {
+        @apply rtds-text-neutral-700;
+    }
+
+    .rtds-content-disabled {
+        @apply rtds-text-neutral-600;
+    }
+
+    .rtds-content-primary {
+        @apply rtds-text-primary-600;
+    }
+
+    .rtds-content-error {
+        @apply rtds-text-error-dark;
+    }
+
+    .rtds-content-warn {
+        @apply rtds-text-warn-dark;
+    }
+
+    .rtds-content-success {
+        @apply rtds-text-success-dark;
+    }
+
+    .rtds-content-info {
+        @apply rtds-text-info-dark;
+    }
+
+    .rtds-content-placeholder {
+        @apply rtds-text-secondary-500;
+    }
+
+    .rtds-input-placeholder {
+        @apply rtds-content-03;
+    }
+
+    .rtds-content-primary-dark {
+        @apply rtds-text-primary-900;
+    }
+
+    .rtds-content-primary-light {
+        @apply rtds-text-primary-100;
+    }
+
+    .rtds-content-secondary {
+        @apply rtds-text-secondary-500;
+    }
+
+    .rtds-content-secondary-dark {
+        @apply rtds-text-secondary-900;
+    }
+
+    .rtds-content-secondary-light {
+        @apply rtds-text-secondary-100;
+    }
+
+    /* BUTTON COLOR UTILITIES */
+    .rtds-button-primary {
+        @apply rtds-bg-primary-300 rtds-border-primary-300;
+    }
+
+    .rtds-button-primary-hover {
+        @apply rtds-bg-primary-400 rtds-border-primary-400;
+    }
+
+    .rtds-button-primary-active {
+        @apply rtds-bg-primary-200 rtds-border-primary-200;
+    }
+
+    .rtds-button-secondary {
+        @apply rtds-bg-secondary-500 rtds-border-secondary-500;
+    }
+
+    .rtds-button-secondary-hover {
+        @apply rtds-bg-secondary-600 rtds-border-secondary-600;
+    }
+
+    .rtds-button-secondary-active {
+        @apply rtds-bg-secondary-700 rtds-border-secondary-700;
+    }
+
+    .rtds-button-disabled {
+        @apply rtds-bg-secondary-300 rtds-border-secondary-300;
+    }
+
+    .rtds-button-outline {
+        @apply rtds-text-primary-500 rtds-border-primary-500;
+    }
+
+    .rtds-button-outline-hover {
+        @apply rtds-text-primary-600 rtds-border-primary-600;
+    }
+
+    .rtds-button-outline-active {
+        @apply rtds-text-primary-700 rtds-border-primary-700;
+    }
+
+    .rtds-button-only-text {
+        @apply rtds-text-primary-700 rtds-border-transparent;
+    }
+
+    .rtds-button-only-text-hover {
+        @apply rtds-text-primary-900 rtds-border-transparent;
+    }
+
+    .rtds-button-only-text-active {
+        @apply rtds-text-primary-700 rtds-border-transparent;
+    }
+
+    .rtds-button-inverted {
+        @apply rtds-bg-neutral-50 rtds-border-neutral-50;
+    }
+
+    .rtds-button-inverted-hover {
+        @apply rtds-bg-neutral-50 rtds-border-neutral-50;
+    }
+
+    .rtds-button-inverted-focus {
+        @apply rtds-bg-neutral-50 rtds-border-neutral-50;
+    }
+
+    .rtds-button-inverted-active {
+        @apply rtds-bg-neutral-100 rtds-border-neutral-100;
+    }
+
+    .rtds-button-inverted-text {
+        @apply rtds-content-02;
+    }
+
+    .rtds-button-inverted-text-hover {
+        @apply rtds-content-01;
+    }
+
+    .rtds-button-inverted-text-focus {
+        @apply rtds-content-02;
+    }
+
+    .rtds-button-inverted-text-active {
+        @apply rtds-content-02;
+    }
+
+    .rtds-button-text-inverted {
+        @apply rtds-bg-transparent rtds-border-transparent;
+    }
+
+    .rtds-button-text-inverted-hover {
+        @apply rtds-bg-black/50 rtds-border-black/50;
+    }
+
+    .rtds-button-text-inverted-focus {
+        @apply rtds-bg-transparent rtds-border-transparent;
+    }
+
+    .rtds-button-text-inverted-active {
+        @apply rtds-bg-black/20 rtds-border-black/20;
+    }
+
+    .rtds-button-text-inverted-text {
+        @apply rtds-content-inverse;
+    }
+
+    .rtds-button-text-inverted-text-hover {
+        @apply rtds-content-inverse;
+    }
+
+    .rtds-button-text-inverted-text-focus {
+        @apply rtds-content-inverse;
+    }
+
+    .rtds-button-text-inverted-text-active {
+        @apply rtds-content-inverse;
+    }
+
+
+    /* LINK TEXT COLOR UTILITIES */
+    .rtds-link-primary {
+        @apply rtds-text-secondary-700;
+    }
+
+    .rtds-link-visited {
+        @apply rtds-text-secondary-900;
+    }
+
+    .rtds-link-inverse {
+        @apply rtds-text-secondary-300;
+    }
+
+    .rtds-link-primary-hover {
+        @apply rtds-text-secondary-800;
+    }
+
+    .rtds-link-inverse-hover {
+        @apply rtds-text-secondary-200;
+    }
+
+    .rtds-link-inverse-visited {
+        @apply rtds-text-secondary-50;
+    }
+
+    /* BACKGROUND CUSTOM UTILITIES */
+    .rtds-background-01 {
+        @apply rtds-bg-neutral-50;
+    }
+
+    .rtds-background-02 {
+        @apply rtds-bg-neutral-100;
+    }
+
+    .rtds-background-03 {
+        @apply rtds-bg-neutral-300;
+    }
+
+    .rtds-background-04 {
+        @apply rtds-bg-neutral-400;
+    }
+
+    .rtds-background-05 {
+        @apply rtds-bg-neutral-700;
+    }
+
+    .rtds-background-06 {
+        @apply rtds-bg-neutral-800;
+    }
+
+    .rtds-background-07 {
+        @apply rtds-bg-neutral-900;
+    }
+
+    .rtds-background-08 {
+        @apply rtds-bg-secondary-600;
+    }
+
+    .rtds-background-09 {
+        @apply rtds-bg-secondary-50;
+    }
+
+    .rtds-background-primary {
+        @apply rtds-bg-primary-500;
+    }
+
+    .rtds-background-primary-light {
+        @apply rtds-bg-primary-50;
+    }
+    
+    .rtds-background-inverse {
+        @apply rtds-bg-neutral-50;
+    }
+
+    .rtds-background-primary-dark {
+        @apply rtds-bg-primary-900;
+    }
+
+    .rtds-background-secondary {
+        @apply rtds-bg-secondary-500;
+    }
+
+    .rtds-background-secondary-light {
+        @apply rtds-bg-secondary-200;
+    }
+
+    .rtds-background-secondary-dark {
+        @apply rtds-bg-secondary-900;
+    }
+
+    /* BORDER CUSTOM */
+    .rtds-border-gray-01 {
+        @apply rtds-border-neutral-300;
+    }
+
+    .rtds-divide-gray-01 {
+        @apply rtds-divide-neutral-300;
+    }
+
+    .rtds-border-gray-02 {
+        @apply rtds-border-neutral-400;
+    }
+
+    .rtds-divide-gray-02 {
+        @apply rtds-divide-neutral-400;
+    }
+
+    .rtds-border-gray-03 {
+        @apply rtds-border-neutral-600;
+    }
+
+    .rtds-divide-gray-03 {
+        @apply rtds-divide-neutral-600;
+    }
+
+    .rtds-border-gray-04 {
+        @apply rtds-border-neutral-800;
+    }
+
+    .rtds-divide-gray-04 {
+        @apply rtds-divide-neutral-800;
+    }
+
+    .rtds-border-input {
+        @apply rtds-border-gray-03;
+    }
+
+    .rtds-border-primary {
+        @apply rtds-border-primary-500;
+    }
+
+    .rtds-divide-primary {
+        @apply rtds-divide-primary-500;
+    }
+
+    .rtds-border-secondary {
+        @apply rtds-border-secondary-500;
+    }
+
+    .rtds-divide-secondary {
+        @apply rtds-divide-secondary-500;
+    }
+
+    .rtds-border-inverse {
+        @apply rtds-bg-neutral-50;
+    }
+
+    .rtds-divide-inverse {
+        @apply rtds-divide-neutral-50;
+    }
+
+}

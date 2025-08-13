@@ -1,0 +1,27 @@
+@layer components {
+    .rtds-facets {
+        @apply rtds-border-solid rtds-border-b rtds-border-gray-01 last:rtds-border-b-0;
+    }
+
+    legend.rtds-facets__legend {
+        @apply rtds-w-full;
+    }
+
+    .rtds-facets__toggle {
+        @apply rtds-flex rtds-items-center rtds-justify-between rtds-w-full rtds-text-sm md:rtds-text-base rtds-font-bold rtds-content-03 rtds-gap-2;
+    }
+
+    .rtds-facets__item {
+        @apply rtds-py-1;
+    }
+    
+    .rtds-facets__label {
+        @apply rtds-flex rtds-gap-2 rtds-flex-1 after:rtds-content-none;
+    }
+
+    .rtds-facets__item-count {
+        @apply rtds-content-04 rtds-ml-auto rtds-self-start rtds-inline-flex rtds-px-2 rtds-items-center rtds-justify-center rtds-font-bold rtds-text-sm;
+    }
+
+    
+}

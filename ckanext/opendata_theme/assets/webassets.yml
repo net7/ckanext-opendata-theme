@@ -1,0 +1,29 @@
+opendata_theme_js:
+  filter: rjsmin
+  output: opendata-theme/%(version)s-opendata_theme.js
+  contents:
+    - js/opendata_theme.js
+  extra:
+    preload:
+      - base/main
+
+splide_js:
+  filter: rjsmin
+  output: opendata-theme/%(version)s-splide.min.js
+  contents:
+    - js/splide.min.js
+  extra:
+    preload:
+      - base/main
+
+font_css:
+  filter: cssrewrite
+  output: opendata-theme/%(version)s-font.css
+  contents:
+    - css/font.css
+
+opendata_theme_css:
+  filter: cssrewrite
+  output: opendata-theme/%(version)s-opendata_theme.css
+  contents:
+    - css/opendata_theme.css

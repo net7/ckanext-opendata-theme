@@ -1,0 +1,195 @@
+/**
+ * INPUT
+ * 
+ *
+*/
+@layer components {
+    .rtds-input {
+        @apply rtds-flex rtds-items-center rtds-relative;
+    }
+
+    .rtds-input [type='text'],
+    .rtds-input input:where(:not([type])),
+    .rtds-input [type='email'],
+    .rtds-input [type='url'],
+    .rtds-input [type='password'],
+    .rtds-input [type='number'],
+    .rtds-input [type='date'],
+    .rtds-input [type='datetime-local'],
+    .rtds-input [type='month'],
+    .rtds-input [type='search'],
+    .rtds-input [type='tel'],
+    .rtds-input [type='time'],
+    .rtds-input [type='week'],
+    .rtds-input [multiple],
+    .rtds-input textarea {
+        @apply rtds-w-full rtds-py-2 rtds-px-3 rtds-border rtds-border-input rtds-rounded-lg;
+    }
+
+
+    .rtds-input [type='text'],
+    .rtds-input input:where(:not([type])),
+    .rtds-input [type='email'],
+    .rtds-input [type='url'],
+    .rtds-input [type='password'],
+    .rtds-input [type='number'],
+    .rtds-input [type='date'],
+    .rtds-input [type='datetime-local'],
+    .rtds-input [type='month'],
+    .rtds-input [type='search'],
+    .rtds-input [type='tel'],
+    .rtds-input [type='time'],
+    .rtds-input [type='week'],
+    .rtds-input [multiple] {
+        @apply rtds-h-11;
+    }
+
+    /* ICON STYLES */
+    .rtds-input__icon {
+        @apply rtds-absolute rtds-left-4 rtds-input-placeholder rtds-w-6 rtds-h-6;
+    }
+
+    .rtds-input--sm .rtds-input__icon {
+        @apply rtds-w-4 rtds-h-4 rtds-left-3;
+    }
+
+    .rtds-input--lg .rtds-input__icon {
+        @apply rtds-w-8 rtds-h-8 rtds-left-4;
+    }
+
+    /* HAS ICON SIZE STYLE */
+    .has-icon.rtds-input [type='text'],
+    .has-icon.rtds-input input:where(:not([type])),
+    .has-icon.rtds-input [type='email'],
+    .has-icon.rtds-input [type='url'],
+    .has-icon.rtds-input [type='password'],
+    .has-icon.rtds-input [type='number'],
+    .has-icon.rtds-input [type='date'],
+    .has-icon.rtds-input [type='datetime-local'],
+    .has-icon.rtds-input [type='month'],
+    .has-icon.rtds-input [type='search'],
+    .has-icon.rtds-input [type='tel'],
+    .has-icon.rtds-input [type='time'],
+    .has-icon.rtds-input [type='week'],
+    .has-icon.rtds-input [multiple],
+    .has-icon.rtds-input textarea {
+        @apply rtds-pl-12;
+    }
+
+
+    /* VALIDATION STYLES */
+    .is-invalid .rtds-input input,
+    .rtds-input input[aria-invalid="true"],
+    .has-error.rtds-input input {
+        @apply rtds-border-2 rtds-border-error-dark;
+    }
+
+
+    /* SIZE STYLES */
+    .rtds-input--sm [type='text'],
+    .rtds-input--sm input:where(:not([type])),
+    .rtds-input--sm [type='email'],
+    .rtds-input--sm [type='url'],
+    .rtds-input--sm [type='password'],
+    .rtds-input--sm [type='number'],
+    .rtds-input--sm [type='date'],
+    .rtds-input--sm [type='datetime-local'],
+    .rtds-input--sm [type='month'],
+    .rtds-input--sm [type='search'],
+    .rtds-input--sm [type='tel'],
+    .rtds-input--sm [type='time'],
+    .rtds-input--sm [type='week'],
+    .rtds-input--sm [multiple] {
+        @apply rtds-h-8;
+    }
+
+    .rtds-input--sm [type='text'],
+    .rtds-input--sm input:where(:not([type])),
+    .rtds-input--sm [type='email'],
+    .rtds-input--sm [type='url'],
+    .rtds-input--sm [type='password'],
+    .rtds-input--sm [type='number'],
+    .rtds-input--sm [type='date'],
+    .rtds-input--sm [type='datetime-local'],
+    .rtds-input--sm [type='month'],
+    .rtds-input--sm [type='search'],
+    .rtds-input--sm [type='tel'],
+    .rtds-input--sm [type='time'],
+    .rtds-input--sm [type='week'],
+    .rtds-input--sm [multiple],
+    .rtds-input--sm textarea {
+        @apply rtds-py-1 rtds-px-2;
+    }
+
+    .has-icon.rtds-input--sm [type='text'],
+    .has-icon.rtds-input--sm input:where(:not([type])),
+    .has-icon.rtds-input--sm [type='email'],
+    .has-icon.rtds-input--sm [type='url'],
+    .has-icon.rtds-input--sm [type='password'],
+    .has-icon.rtds-input--sm [type='number'],
+    .has-icon.rtds-input--sm [type='date'],
+    .has-icon.rtds-input--sm [type='datetime-local'],
+    .has-icon.rtds-input--sm [type='month'],
+    .has-icon.rtds-input--sm [type='search'],
+    .has-icon.rtds-input--sm [type='tel'],
+    .has-icon.rtds-input--sm [type='time'],
+    .has-icon.rtds-input--sm [type='week'],
+    .has-icon.rtds-input--sm [multiple],
+    .has-icon.rtds-input--sm textarea {
+        @apply rtds-pl-10;
+    }
+
+    .rtds-input--lg [type='text'],
+    .rtds-input--lg input:where(:not([type])),
+    .rtds-input--lg [type='email'],
+    .rtds-input--lg [type='url'],
+    .rtds-input--lg [type='password'],
+    .rtds-input--lg [type='number'],
+    .rtds-input--lg [type='date'],
+    .rtds-input--lg [type='datetime-local'],
+    .rtds-input--lg [type='month'],
+    .rtds-input--lg [type='search'],
+    .rtds-input--lg [type='tel'],
+    .rtds-input--lg [type='time'],
+    .rtds-input--lg [type='week'],
+    .rtds-input--lg [multiple] {
+        @apply rtds-h-14;
+    }
+
+    .rtds-input--lg [type='text'],
+    .rtds-input--lg input:where(:not([type])),
+    .rtds-input--lg [type='email'],
+    .rtds-input--lg [type='url'],
+    .rtds-input--lg [type='password'],
+    .rtds-input--lg [type='number'],
+    .rtds-input--lg [type='date'],
+    .rtds-input--lg [type='datetime-local'],
+    .rtds-input--lg [type='month'],
+    .rtds-input--lg [type='search'],
+    .rtds-input--lg [type='tel'],
+    .rtds-input--lg [type='time'],
+    .rtds-input--lg [type='week'],
+    .rtds-input--lg [multiple],
+    .rtds-input--lg textarea {
+        @apply rtds-py-3 rtds-px-3;
+    }
+
+
+    .has-icon.rtds-input--lg [type='text'],
+    .has-icon.rtds-input--lg input:where(:not([type])),
+    .has-icon.rtds-input--lg [type='email'],
+    .has-icon.rtds-input--lg [type='url'],
+    .has-icon.rtds-input--lg [type='password'],
+    .has-icon.rtds-input--lg [type='number'],
+    .has-icon.rtds-input--lg [type='date'],
+    .has-icon.rtds-input--lg [type='datetime-local'],
+    .has-icon.rtds-input--lg [type='month'],
+    .has-icon.rtds-input--lg [type='search'],
+    .has-icon.rtds-input--lg [type='tel'],
+    .has-icon.rtds-input--lg [type='time'],
+    .has-icon.rtds-input--lg [type='week'],
+    .has-icon.rtds-input--lg [multiple],
+    .has-icon.rtds-input--lg textarea {
+        @apply rtds-pl-14;
+    }
+}

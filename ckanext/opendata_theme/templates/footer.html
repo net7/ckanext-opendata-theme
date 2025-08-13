@@ -1,0 +1,109 @@
+<footer class="rtds-footer rtds-background-01 rtds-border-t rtds-border-gray-01">
+  <div class="rtds-footer__navigation-row rtds-container rtds-grid rtds-gap-x-10 rtds-gap-y-4 rtds-py-6 md:rtds-flex">
+    <!-- Right block -->
+    <div class="rtds-grid rtds-gap-6 md:rtds-gap-3 md:rtds-flex-1">
+      <!-- Menu footer  -->
+      <nav class="-rtds-ml-4" aria-label="Contatti e utilità">
+        <ul class="rtds-grid md:rtds-flex rtds-gap-y-3 md:rtds-gap-y-4 rtds-flex-wrap">
+          {% if not c.userobj %}
+            <li class="rtds-group md:rtds-border-r md:rtds-border-gray-01 md:last:rtds-border-r-0">
+              <a href="{{ h.url_for('user.login') }}" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-02 rtds-font-bold rtds-uppercase">{{ _('Login') }}</a>
+            </li>
+          {% else %}
+            <li class="rtds-group md:rtds-border-r md:rtds-border-gray-01 md:last:rtds-border-r-0">
+              <a href="{{ h.url_for('user.logout') }}" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-02 rtds-font-bold rtds-uppercase">{{ _('Logout') }}</a>
+            </li>
+            <li class="rtds-group md:rtds-border-r md:rtds-border-gray-01 md:last:rtds-border-r-0">
+              <a href="{{ h.url_for('harvest.search') }}" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-02 rtds-font-bold rtds-uppercase">{{ _('Harvests') }}</a>
+            </li>
+            <li class="rtds-group md:rtds-border-r md:rtds-border-gray-01 md:last:rtds-border-r-0">
+              <a href="{{ h.url_for('organization.index') }}" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-02 rtds-font-bold rtds-uppercase">{{ _('Organizations') }}</a>
+            </li>
+            <li class="rtds-group md:rtds-border-r md:rtds-border-gray-01 md:last:rtds-border-r-0">
+              <a href="{{ h.url_for('group.index') }}" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-02 rtds-font-bold rtds-uppercase">{{ _('Groups') }}</a>
+            </li>
+            <li class="rtds-group md:rtds-border-r md:rtds-border-gray-01 md:last:rtds-border-r-0">
+              <a href="{{ h.url_for('pages.pages_index') }}" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-02 rtds-font-bold rtds-uppercase">{{ _('Pages') }}</a>
+            </li>
+          {% endif %}
+
+          {#
+          <li class="rtds-group md:rtds-border-r md:rtds-border-gray-01 md:last:rtds-border-r-0">
+            <a href="{{ h.url_for('opendata_theme_credits.index') }}" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-02 rtds-font-bold rtds-uppercase">{{ _('Credits') }}</a>
+          </li>
+
+          <li class="rtds-group md:rtds-border-r md:rtds-border-gray-01 md:last:rtds-border-r-0">
+            <a href="{{ h.url_for('opendata_theme_report.index') }}" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-02 rtds-font-bold rtds-uppercase">{{ _('Reports') }}</a>
+          </li>
+
+          <li class="rtds-group md:rtds-border-r md:rtds-border-gray-01 md:last:rtds-border-r-0">
+            <a href="{{ h.url_for('opendata_theme_infog.index') }}" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-02 rtds-font-bold rtds-uppercase">{{ _('Infografiche') }}</a>
+          </li>
+          #}
+
+          {# 
+          <li class="rtds-group md:rtds-border-r md:rtds-border-gray-01 md:last:rtds-border-r-0">
+            <a href="" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-02 rtds-font-bold rtds-uppercase">{{ _('Resources and tools') }}</a>
+          </li>
+           #}
+
+          {#
+          <li class="rtds-group md:rtds-border-r md:rtds-border-gray-01 md:last:rtds-border-r-0">
+            <a href="" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-02 rtds-font-bold rtds-uppercase">{{ _('Support and FAQ') }}</a>
+          </li>
+          #}
+
+          <!-- Who we are -->
+          <li class="rtds-group md:rtds-border-r md:rtds-border-gray-01 md:last:rtds-border-r-0">
+            <a href="{{ h.url_for('home.about') }}" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-02 rtds-font-bold rtds-uppercase">{{ _('Who we are') }}</a>
+          </li>
+
+          <!-- News -->
+          <li class="rtds-group md:rtds-border-r md:rtds-border-gray-01 md:last:rtds-border-r-0">
+            <a href="{{ h.url_for('pages.pages_index', page='news') }}" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-02 rtds-font-bold rtds-uppercase">{{ _('News') }}</a>
+          </li>
+
+          {# 
+          <li class="rtds-group md:rtds-border-r md:rtds-border-gray-01 md:last:rtds-border-r-0">
+            <a href="" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-02 rtds-font-bold rtds-uppercase">{{ _('Accessibility') }}</a>
+          </li>
+          #}
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Footer bottom bar -->
+  <div class="rtds-footer__bottom-bar rtds-py-6 lg:rtds-pt-0 rtds-border-t rtds-border-gray-01">
+    <div class="rtds-container rtds-grid rtds-gap-6 md:rtds-flex rtds-items-center rtds-justify-between">
+      <div class="rtds-footer__bottom-bar-left">
+        <!-- Utilities and other -->
+        <div class="-rtds-ml-4 rtds-flex rtds-gap-y-3 rtds-gap-x-5 md:rtds-gap-y-1 rtds-flex-wrap rtds-content-01">
+          <small class="rtds-py-1 rtds-px-4 md:rtds-py-4 rtds-content-04 rtds-text-sm rtds-font-bold">{{ _('VAT') }} 01386030488</small>
+        </div>
+      </div>
+
+      <!-- Menu footer  -->
+      <nav class="-rtds-ml-4 rtds-grow" aria-label="Altre informazioni">
+        <ul class="rtds-grid sm:rtds-flex rtds-flex-wrap sm:rtds-flex-nowrap rtds-gap-y-3 md:rtds-gap-y-4">
+
+          <!-- Legal notes and copyright
+          <li class="rtds-group">
+            <a href="" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-04 rtds-font-bold">{{ _('Legal notes and copyright') }}</a>
+          </li>
+          -->
+          <li class="rtds-group">
+            <a href="https://www.regione.toscana.it/privacy" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-04 rtds-font-bold" target="_blank">{{ _('Privacy and cookies') }}</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="rtds-footer__bottom-bar-right rtds-px-2 md:rtds-px-0">
+        <!-- Logos -->
+        <div class="rtds-site-logo rtds-w-40 rtds-h-auto md:rtds-w-44 lg:rtds-w-auto">
+          <img class="rtds-w-full rtds-h-full rtds-object-contain rtds-object-left-top" src="/images/regione-toscana-logo-footer.png" srcset="/images/regione-toscana-logo-footer.png 1x, /images/regione-toscana-logo-footer@2x.png 2x" alt="Regione Toscana" width="220" height="65" />
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

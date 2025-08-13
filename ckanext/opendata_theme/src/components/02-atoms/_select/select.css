@@ -1,0 +1,34 @@
+/**
+ * SELECT COMPONENT
+ *
+ *
+*/
+@layer components {
+    .rtds-select {
+        @apply rtds-flex rtds-items-center rtds-relative;
+    }
+    
+    :where(.rtds-select) select {
+        @apply rtds-w-full rtds-h-11 rtds-input-placeholder rtds-content-placeholder rtds-py-2 rtds-pl-3 rtds-pr-10 rtds-border rtds-border-input rtds-rounded-lg rtds-text-sm rtds-font-semibold;
+    }
+    
+    /* Error */
+    .rtds-select.has-error select,
+    .is-invalid .rtds-select select {
+        @apply rtds-border-2 rtds-border-error-dark;
+    }
+
+    /* Sizes */
+    :where(.rtds-select--sm) select {
+        @apply rtds-h-8 rtds-py-0.5 rtds-pl-2 rtds-pr-8 rtds-bg-[right_0.25rem_center];
+    }
+
+    :where(.rtds-select--lg) select {
+        @apply rtds-h-14 rtds-py-3 rtds-pl-3 rtds-pr-12 rtds-bg-[right_0.75rem_center];
+    }
+
+    /* Select light */
+    :where(.rtds-select--light) select {
+        @apply rtds-rounded-none rtds-border-0 rtds-background-02;
+    }
+}

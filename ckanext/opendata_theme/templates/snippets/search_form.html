@@ -1,0 +1,149 @@
+{% import 'macros/form.html' as form %}
+
+{% set placeholder = placeholder if placeholder else _('Search datasets...') %}
+{% set sorting = sorting if sorting else [(_('Name Ascending'), 'name asc'), (_('Name Descending'), 'name desc')] %}
+{% set search_class = search_class if search_class else 'search-giant' %}
+{% set no_bottom_border = no_bottom_border if no_bottom_border else false %}
+{% set form_id = form_id if form_id else false %}
+
+<form {% if form_id %}id="{{ form_id }}" {% endif %}class="lg:rtds-mx-6 rtds-grid rtds-gap-8" method="get" data-module="select-switch">
+  <div class="rtds-grid rtds-gap-4 rtds-pb-12 rtds-border-b rtds-border-gray-03">
+    <h2 class="rtds-heading-3">Ricerca</h2>
+    <p class="rtds-text-sm rtds-content-03">{{ _('Insert keywords (e.g. air quality, hospitals, transport networks)...') }}</p>
+
+    {% block search_input %}
+    <div class="rtds-input-field rtds-gap-1">
+      <div class="rtds-input has-icon rtds-input-placeholder">
+        <input aria-label="{% block header_site_search_label %}{{ placeholder }}{% endblock %}" id="field-giant-search" type="text" class="rtds-text-sm" name="q" value="{{ query }}" autocomplete="off" placeholder="{{ _('Insert keywords (e.g. air quality, hospitals, transport networks)...') }}">
+        <svg class="rtds-icon rtds-fill-current rtds-input__icon" aria-hidden="true" focusable="false" role="img">
+          <use href="/icons.svg#mini--magnifying-glass"></use>
+        </svg>
+      </div>
+    </div>
+
+    {% if facets %}
+      {% for field in facets.fields %}
+      <ul class="rtds-flex rtds-gap-1 rtds-flex-wrap">
+        <li>
+          <span>{{ facets.titles.get(field) }}: </span>
+          {% for value in facets.fields[field] %}
+          <span class="rtds-chip has-button-close rtds-chip--filter">
+            {{ value }}
+            <button data-module="opendata_theme_click" data-module-url="{{ facets.remove_field(field, value) }}"
+              class="rtds-chip__close rtds-w-5 rtds-h-5" aria-label="{{ _('Remove') }}">
+              <svg class="rtds-icon rtds-fill-current rtds-w-5 rtds-h-5" aria-hidden="true" focusable="false" role="img">
+                <use href="/icons.svg#mini--x-mark"></use>
+              </svg>
+
+              {%- if facets.translated_fields and (field,value) in facets.translated_fields -%}
+                <span class="rtds-sr-only">{{ _('Remove') }} {{ facets.translated_fields[(field,value)] }}</span>
+              {%- else -%}
+                <span class="rtds-sr-only">{{ _('Remove') }} {{ h.list_dict_filter(search_facets_items, 'name', 'display_name', value) }}</span>
+              {%- endif %}
+            </button>
+          </span>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endfor %}
+    {% endif %}
+
+    {% endblock %}
+  </div>
+
+
+  {% block search_search_fields %}
+  {% if fields -%}
+  <span>{{ form.hidden_from_list(fields=fields) }}</span>
+  {%- endif %}
+  {% endblock %}
+
+  <div class="rtds-grid lg:rtds-flex rtds-justify-between rtds-items-center rtds-mt-4 rtds-mb-2">
+    {% block search_title %}
+    {% if not error %}
+    <div class="rtds-flex rtds-gap-2">
+      <span class="rtds-heading-3">{{ count }}</span>
+      <span class="rtds-content-03">{% snippet 'snippets/search_result_text.html', query=query, count=count, type=type %}</span>
+    </div>
+    {% else %}
+    <div>Error</div>
+    {% endif %}
+    {% endblock %}
+
+    {% block search_sortby %}
+    {% if sorting %}
+    <div class="rtds-flex-1 md:rtds-flex-none">
+      <div class="rtds-input-field rtds-select-field rtds-field-inline rtds-select-field--sm">
+        <label for="field-order-by" class="rtds-input-field__label">{{ _('Order by') }}</label>
+        {# <label for="select-field-1">
+          Rivolto a
+        </label> #}
+        <div class="rtds-select rtds-select--light">
+          <select id="field-order-by" name="sort">
+            {% for label, value in sorting %}
+            {% if label and value %}
+            <option value="{{ value }}" {% if sorting_selected==value %} selected="selected" {% endif %}>{{ label }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+
+    {# <div>
+      <label for="field-order-by">{{ _('Order by') }}</label>
+      <select id="field-order-by" name="sort" class="form-control form-select">
+        {% for label, value in sorting %}
+        {% if label and value %}
+        <option value="{{ value }}" {% if sorting_selected==value %} selected="selected" {% endif %}>{{ label }}
+        </option>
+        {% endif %}
+        {% endfor %}
+      </select>
+      {% block search_sortby_button %}
+      <button class="btn btn-default js-hide" type="submit">{{ _('Go') }}</button>
+      {% endblock %}{% set search_facets_items = facets.search.get(field)['items'] if facets.search and field in
+      facets.search else []
+      %}
+    </div> #}
+    {% endif %}
+    {% endblock %}
+  </div>
+
+  {% block search_facets %}
+  {% if facets %}
+  {# <p class="filter-list">
+    {% for field in facets.fields %}
+    {% set search_facets_items = facets.search.get(field)['items'] if facets.search and field in facets.search else []
+    %}
+    <span class="facet">{{ facets.titles.get(field) }}:</span>
+    {% for value in facets.fields[field] %}
+    <span class="filtered pill">
+      {%- if facets.translated_fields and (field,value) in facets.translated_fields -%}
+      {{ facets.translated_fields[(field,value)] }}
+      {%- else -%}
+      {{ h.list_dict_filter(search_facets_items, 'name', 'display_name', value) }}
+      {%- endif %}
+      <a href="{{ facets.remove_field(field, value) }}" class="remove" title="{{ _('Remove') }}"><i
+          class="fa fa-times"></i></a>
+    </span>
+    {% endfor %}
+    {% endfor %}
+  </p>
+  <a class="show-filters btn btn-default">{{ _('Filter Results') }}</a> #}
+  {% endif %}
+  {% endblock %}
+
+</form>
+
+{% if show_empty and count == 0 and not error %}
+{% trans %}
+<p class="extra">Please try another search.</p>
+{% endtrans %}
+{% endif %}
+
+{% if error %}
+{% trans %}
+<p id="search-error"><strong>There was an error while searching.</strong> Please try again.</p>
+{% endtrans %}
+{% endif %}

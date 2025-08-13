@@ -1,0 +1,11 @@
+/**
+ * PRIMARY NAVIGATION
+ *
+*/
+@layer components {
+    .rtds-header {
+        @apply md-max-w-480-min-h:rtds-pt-[--header-offset] lg-min-w-480-min-h:rtds-pt-[--topbar-offset] rtds-z-30;
+    }
+
+
+}

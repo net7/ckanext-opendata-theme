@@ -1,0 +1,139 @@
+body {
+    font-family: "Segoe UI",Arial,Helvetica,sans-serif;
+}
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#header {
+    position: relative;
+    height: 475px;
+    background: url(../images/profilo_toscana.png) no-repeat center top;
+}
+.header-first-row{
+	margin-top:30px;
+}
+.header-opentoscana {
+    height: 50px;
+    /*background: url(../images/logo-open-toscana.png) no-repeat center top;*/
+}
+.header-opendata{
+	margin-top: 30px;
+    padding-bottom: 50px;
+}
+.title-header {
+    font-size: 80px;
+}
+.header-data-value {
+    color: #00A0E3;
+    font-size:60px;
+}
+.header-data-text {
+    font-size: 25px;
+    color: #000;
+}
+.header-data-text-title {
+    font-size: 18px;
+    color: #101010;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+.title-home {
+    z-index: 5;
+    height: 66px;
+    color: #222222;
+    /*font-family: Arial, Helvetica, sans-serif;*/
+    font-size: 32px;
+    /*font-weight: 700;*/
+    line-height: 39px;
+    display: inline-block;
+    padding-left: 4px;
+}
+.pre-title-home
+{
+    z-index: 5;
+    width: 10px;
+    height: 23px;
+    background: #3ba5cb;
+    display: inline-block;
+	margin-left: -15px;
+	vertical-align: top;
+    margin-top: 10px;
+}
+.categories-container
+{
+	background-color: #FFFFFF;
+   	padding: 0 20px 20px;
+	margin-bottom: 50px;
+}
+.categories-container-opacity {
+    background-color: #ffffffeb;
+    padding: 0 20px 20px;
+    margin-bottom: 50px;
+	opacity: 0.8;
+}
+.category {
+    color: #555555;
+    font-size: 20px;
+    /*font-weight: 700;*/
+    line-height: 30px;
+    position: relative;
+    float: left;
+    margin-top: 10px;
+}
+.info-category img{
+	height:80%;
+}
+.cat-margin-left{
+	margin-left: 15px;
+}
+.cat-margin-right{
+	
+}
+.col-notice{
+	padding-bottom:0px;
+}
+.col-centered {
+    float: none !important;
+    margin: 0 auto;
+}
+.categories-container, .timeline-Widget, #dati .table-wrapper {
+	-webkit-box-shadow: 6px 6px 14px -6px rgba(0,0,0,0.72);
+	-moz-box-shadow: 6px 6px 14px -6px rgba(0,0,0,0.72);
+	box-shadow: 6px 6px 14px -6px rgba(0,0,0,0.72);
+}
+.notice-data {
+	margin-bottom:-20px;
+}
+.list-notice {
+    /*font-family: Arial, Helvetica, sans-serif;*/
+    font-size: 20px;
+}
+.list-notice ul {
+    list-style-type: square;
+}
+.image-download {
+    text-align:right;
+}
+.image-notice {
+    text-align:center;
+    /*height: 100px;*/
+}
+.text-notice {
+    padding-left: 30px;
+    padding-right: 30px;
+	padding-bottom:10px;
+}
+.text-notice-hr {
+    /*border-bottom:0px;*/
+}
+.p-xs {
+    padding-top: 10px;
+}
+.orizz-separator {
+    display: none;
+}
+.vert-separator {
+    border-right: 6px solid #EBECEC;
+}

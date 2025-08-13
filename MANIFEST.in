@@ -1,0 +1,7 @@
+include README.md
+include LICENSE
+include requirements.txt
+recursive-include ckanext/opendata_theme *.html *.json *.js *.css *.mo *.yml
+recursive-include ckanext/opendata_theme/migration *.ini *.py *.mako
+# Escludi la cartella node_modules
+prune ckanext/opendata_theme/node_modules

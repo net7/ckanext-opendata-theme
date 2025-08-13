@@ -1,0 +1,67 @@
+{#
+Renders a media item for a organization. This should be used in a list.
+
+organization - A organization dict.
+
+Example:
+
+    <ul class="media-grid">
+      {% for organization in organizations %}
+        {% snippet "organization/snippets/organization_item.html", organization=organization %}
+      {% endfor %}
+    </ul>
+#}
+{% set url = h.url_for(organization.type ~ '.read', id=organization.name) %}
+{% block item %}
+<li>
+  {% block item_inner %}
+  <article class="rtds-card rtds-card--information-02 rtds-h-full is-card-fullclickable rtds-group/card">
+    <div class="rtds-card__content">
+      {% block image %}
+      <div>
+        <img src="{{ organization.image_display_url or h.url_for_static('/base/images/placeholder-organization.png') }}" alt="{{ organization.name }}" class="rtds-max-w-20 rtds-max-h-20">
+      </div>
+      {% endblock %}
+      {% block title %}
+      <div class="rtds-card__heading">
+        <h3 class="rtds-card__title">
+          <a class="group-hover/card:rtds-underline " href="{{ url }}">{{ organization.display_name }}</a>
+        </h3>
+      </div>
+        {# <h2>{{ organization.display_name }}</h2> #}
+      {% endblock %}
+      {% block description %}
+        {% if organization.description %}
+          <div class="rtds-card__description">
+            <p>{{ h.markdown_extract(organization.description, extract_length=80) }}</p>
+          </div>
+          {# <p>{{ h.markdown_extract(organization.description, extract_length=80) }}</p> #}
+        {% endif %}
+      {% endblock %}
+      {% block datasets %}
+        <div class="rtds-body-sm">
+          {% if organization.package_count %}
+            <strong>{{ ungettext('{num} Dataset', '{num} Datasets', organization.package_count).format(num=organization.package_count) }}</strong>
+          {% else %}
+            <strong>{{ _('0 Datasets') }}</strong>
+          {% endif %}
+        </div>
+      {% endblock %}
+      {% block capacity %}
+        {% if show_capacity and organization.capacity %}
+        <p><span>{{ h.roles_translated().get(organization.capacity, organization.capacity) }}</span></p>
+        {% endif %}
+      {% endblock %}
+      {# {% block link %}
+      <a href="{{ url }}" title="{{ _('View {organization_name}').format(organization_name=organization.display_name) }}">
+        <span>{{ _('View {organization_name}').format(organization_name=organization.display_name) }}</span>
+      </a>
+      {% endblock %} #}
+    </div>
+  </article>
+  {% endblock %}
+</li>
+{% endblock %}
+{# {% if position is divisibleby 3 %}
+  <li class="clearfix js-hide"></li>
+{% endif %} #}

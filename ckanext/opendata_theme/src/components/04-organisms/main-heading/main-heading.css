@@ -1,0 +1,32 @@
+/* MAIN HEADING */
+@layer components {
+    .rtds-main-heading {
+        @apply rtds-bg-white rtds-flex rtds-items-center rtds-px-4 rtds-py-3 lg:rtds-pt-1 lg:rtds-pb-0 rtds-border-b rtds-border-primary lg:rtds-border-b-0 md-max-w-480-min-h:rtds-fixed md-max-w-480-min-h:rtds-top-[--header-top-position] md-max-w-480-min-h:rtds-right-0 md-max-w-480-min-h:rtds-left-0 md-max-w-480-min-h:rtds-z-30;
+    }
+
+    /* SITE BRANDING */
+    .rtds-site-branding {
+        --_branding-max-width: var(--branding-max-width, 217px);
+        --_branding-max-width-xl: var(--branding-max-width-xl, 326px);
+        @apply rtds-flex rtds-items-center lg:rtds-max-w-[--_branding-max-width] xl:rtds-max-w-[--_branding-max-width-xl];
+    }
+
+    /* LOGOS SIZE */
+    .rtds-logo--main {
+        @apply rtds-w-auto rtds-h-10 sm:rtds-flex-1 md:rtds-h-14 lg:rtds-h-auto;
+    }
+
+    .rtds-logo--secondary {
+        @apply rtds-w-auto rtds-h-10 sm:rtds-flex-1 md:rtds-h-14 lg:rtds-h-auto;
+    }
+
+    /* Secondary logo */
+    .rtds-site-branding__secondary {
+        @apply rtds-hidden md:rtds-flex rtds-items-center rtds-gap-2 rtds-w-auto rtds-flex-1;
+    }
+
+    /* Logo tema */
+    .rtds-logo-tema {
+        @apply rtds-max-w-[118px];
+    }
+}   

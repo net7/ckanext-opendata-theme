@@ -1,0 +1,63 @@
+{#
+Renders a media item for a group. This should be used in a list.
+
+group - A group dict.
+
+Example:
+
+    <ul class="media-grid">
+      {% for group in groups %}
+        {% snippet "group/snippets/group_item.html", group=group %}
+      {% endfor %}
+    </ul>
+#}
+{% set type = group.type or 'group' %}
+{% set url = h.url_for(type ~ '.read', id=group.name) %}
+{% block item %}
+<li>
+  {% block item_inner %}
+  <article class="rtds-card rtds-card--information-02 rtds-h-full is-card-fullclickable rtds-group/card">
+    <div class="rtds-card__content">
+      {% block image %}
+      <div>
+        <img src="{{ group.image_display_url or h.url_for_static('/base/images/placeholder-group.png') }}" alt="{{ group.name }}" class="rtds-max-w-20 rtds-max-h-20">
+      </div>
+      {% endblock %}
+      {% block title %}
+      <div class="rtds-card__heading">
+        <h3 class="rtds-card__title">
+          <a class="group-hover/card:rtds-underline " href="{{ url }}">{{ group.display_name }}</a>
+        </h3>
+      </div>
+      {% endblock %}
+      {% block description %}
+        {% if group.description %}
+        <div class="rtds-card__description">
+          <p>{{ h.markdown_extract(group.description, extract_length=80) }}</p>
+        </div>
+        {% endif %}
+      {% endblock %}
+      {% block datasets %}
+        <div class="rtds-body-sm">
+        {% if group.package_count %}
+          <strong>{{ ungettext('{num} Dataset', '{num} Datasets', group.package_count).format(num=group.package_count) }}</strong>
+        {% elif group.package_count == 0 %}
+          <strong>{{ _('0 Datasets') }}</strong>
+        {% endif %}
+      {% endblock %}
+      {# {% block link %}
+      <a href="{{ url }}" title="{{ _('View {name}').format(name=group.display_name) }}" class="media-view">
+        <span>{{ _('View {name}').format(name=group.display_name) }}</span>
+      </a>
+      {% endblock %} #}
+      {% if group.user_member %}
+        <input name="group_remove.{{ group.id }}" value="{{ _('Remove') }}" type="submit" class="btn btn-danger btn-sm media-edit" title="{{ _('Remove dataset from this group') }}"/>
+      {% endif %}
+    </div>
+  </article>
+  {% endblock %}
+</li>
+{% endblock %}
+{# {% if position is divisibleby 3 %}
+  <li class="clearfix js-hide"></li>
+{% endif %} #}

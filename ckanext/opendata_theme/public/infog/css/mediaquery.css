@@ -1,0 +1,132 @@
+/* Schermi grandi o ad alta risoluzione */
+@media all and (max-width: 1690px) {
+    .vert-separator {
+        margin-top:10px;
+    }
+	/*.orizz-separator{
+		display: none;
+	}*/
+}
+/* Schermi Desktop o Portatili */
+@media all and (min-width: 1280px) and (max-width: 1689px) {}
+/* Tablet in modalità orizzontale */
+@media all and (min-width: 737px) and (max-width: 1279px) {}
+/* Tablet in modalità verticale */
+@media all and (min-width: 481px) and (max-width: 736px) {}
+/* Smartphone o piccoli Tablet */
+@media all and (max-width: 480px) {}
+
+/* Smartphone o piccoli Tablet */
+@media all and (max-width: 998px) {
+    .text-notice-hr {
+        border-bottom: 6px solid #EBECEC;
+    }
+}
+@media all and (min-width: 400px) {
+.header-opendata{
+	margin-top: 30px;
+    padding-bottom: 50px;
+}
+}
+@media all and (max-width: 400px) {
+	.info-category {
+		font-size:15px;
+		line-height: 20px;
+	}
+	.info-category img{
+		width:40%;
+	}
+	.notice-data{
+		margin-bottom: 0px;
+	}
+	.fa-eye::before{
+		font-size:51px;
+	}
+	.fa-users::before{
+		font-size:40px;
+	}
+	.fa-database::before{
+		font-size:40px;
+	}
+	.header-first-row{
+		margin:0px;
+	}
+	.title-header {
+		font-size: 40px;
+	}
+	.header-opendata{
+		margin-top: 0px;
+		padding-bottom:0px;
+	}
+	.header-opentoscana img{
+		width:80%;
+	}
+	.image-notice img{
+		width:80%;
+	}
+	.image-notice {
+		height: auto;
+	}
+	.col-12{
+		width:100%;
+	}
+	.header-data-value {
+		font-size:24px;
+	}
+	.header-data-text {
+		font-size: 18px;
+	}
+	.header-data-text-title {
+		font-size: 18px;
+		line-height: 2px;
+		padding-bottom: 10px;
+	}
+	.text-notice{
+		margin-left:0px;
+		margin-right:0px;
+		font-size: 20px;
+		line-height: 20px;
+		margin-bottom:10px;
+		padding-bottom: 20px;
+	}
+}
+@media all and (max-width: 510px) {
+	.header-data-value {
+		font-size:18px;
+		line-height: 2px;
+	}
+	.header-data-text {
+		font-size: 12px;
+		line-height: 2px;
+	}
+	.header-data-text-title {
+		font-size: 12px;
+		/*line-height: 2px;*/
+	}
+	/*.col-12{
+		width:100%;
+	}
+	*/
+}
+/* Smartphone o piccoli Tablet */
+@media all and (max-width: 770px) {
+	.image-download {
+		text-align:center;
+	}
+	.container{
+		margin-left:15px;
+		margin-right:15px;
+	}
+	.cat-margin-right{
+		margin-right: 15px;
+	}
+	/*.orizz-separator{
+		
+	}*/
+}
+/* Schermi non grandi */
+@media all and (max-width: 1200px) {
+    .vert-separator {
+        border-right:0px;
+    }
+}

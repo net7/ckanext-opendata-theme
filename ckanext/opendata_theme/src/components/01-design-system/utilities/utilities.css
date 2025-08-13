@@ -1,0 +1,90 @@
+/**
+ * CUSTOM UTILITIES
+ *
+*/
+@layer utilities {
+     /* Override generic styles for text field */
+    .rtds-article-body h2 {
+        @apply rtds-heading-2 rtds-mb-8;
+    }
+
+    .rtds-article-body * + h2 {
+        @apply rtds-mt-16;
+    }
+
+    .rtds-article-body h3 {
+        @apply rtds-heading-3 rtds-mb-6;
+    }
+
+    .rtds-article-body * + h3 {
+        @apply rtds-mt-12;
+    }
+
+    .rtds-article-body h4 {
+        @apply rtds-heading-4 rtds-mb-4;
+    }
+
+    .rtds-article-body * + h4 {
+        @apply rtds-mt-8;
+    }
+
+    .rtds-article-body h5 {
+        @apply rtds-heading-5;
+    }
+
+    .rtds-article-body * + h5 {
+        @apply rtds-mt-7;
+    }
+
+    .rtds-article-body h6 {
+        @apply rtds-heading-6;
+    }
+
+    .rtds-article-body * + h6 {
+        @apply rtds-mt-6;
+    }
+
+    .rtds-article-body ol,
+    .rtds-article-body ul,
+    .rtds-article-body p {
+        @apply rtds-text-base lg:rtds-text-lg xl:rtds-text-lg 2xl:rtds-text-lg rtds-leading-relaxed md:rtds-leading-relaxed lg:rtds-leading-relaxed;
+    }
+
+    .rtds-article-body p + p,
+    .rtds-article-body ul + p,
+    .rtds-article-body ol + p,
+    .rtds-article-body * + ol,
+    .rtds-article-body * + ul
+        {
+        @apply rtds-mt-7 md:rtds-mt-8 lg:rtds-mt-9;
+    }
+
+    .rtds-article-body ol {
+        @apply rtds-list-decimal;
+    }
+
+    .rtds-article-body ul {
+        @apply rtds-list-disc;
+    }
+
+    .rtds-article-body ol,
+    .rtds-article-body ul
+    {
+        @apply rtds-ml-[1em];
+    }
+
+    .rtds-article-body ol li + li,
+    .rtds-article-body ul li + li {
+        @apply rtds-mt-3;
+    }
+
+    .rtds-article-body a {
+        @apply rtds-content-03 rtds-underline hover:rtds-link-primary-hover;
+    }
+}
+
+@layer utilities {
+    .rtds-block-full {
+        @apply rtds-w-full;
+    }
+}

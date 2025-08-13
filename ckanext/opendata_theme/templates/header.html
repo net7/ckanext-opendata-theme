@@ -1,0 +1,244 @@
+{% set dataset_type = h.default_package_type() %}
+
+{% block header_wrapper %}
+  <header class="rtds-header rtds-border-b-2 rtds-border-gray-03" id="siteHeader" aria-label="{{ _('Site header') }}">
+    <!-- Top bar -->
+    <div class="rtds-top-bar rtds-py-1 md:rtds-py-2 rtds-px-4 rtds-hidden lg:rtds-flex">
+      <div class="rtds-top-bar__container rtds-container">
+
+        <div class="rtds-site-branding rtds-branding rtds-gap-4">
+          <a class="rtds-site-logo rtds-logo--main rtds-logo--main rtds-w-max rtds-flex-initial" href="{{ h.url_for('home.index') }}">
+            <img class="rtds-w-auto rtds-h-full rtds-object-contain rtds-object-left-top" src="/images/marchio-rt.svg" alt="Opendata Toscana" width="248" height="81" />
+          </a>
+        
+          <div class="rtds-site-branding__secondary">
+            <div class="rtds-site-logo rtds-logo--secondary rtds-logo--secondary rtds-w-auto">
+              <a class="rtds-site-logo rtds-logo--main rtds-logo--main rtds-w-max rtds-flex-initial" href="{{ h.url_for('home.index') }}">
+                <img class="rtds-w-full rtds-h-full rtds-object-contain rtds-object-left-top" src="/images/logo-td.svg" alt="Opendata Toscana" width="160" height="33" />
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="rtds-top-bar__utilities-area rtds-flex lg:rtds-gap-4 xl:rtds-gap-6 rtds-ml-auto">
+
+          <!-- Social links component -->
+
+          <div class="rtds-social-links rtds-grid rtds-gap-1 md:rtds-flex md:rtds-gap-6 ">
+            <ul id="headerSocial" class="rtds-flex rtds-items-center rtds-gap-4 lg:rtds-gap-2 xl:rtds-gap-4 rtds-p-2 lg:rtds-p-0">
+              <li class="rtds-flex rtds-items-center">
+                <a href="https://www.facebook.com/opentoscana" class="rtds-btn rtds-btn--icon rtds-btn--only-text rtds-text-2xl rtds-content-01 rtds-p-2 xl:rtds-p-1 undefined" target="_blank">
+                  <span class="rtds-sr-only">{{ _('Go to Facebook profile') }}</span>
+                  <svg class="rtds-icon rtds-fill-current rtds-w-8 rtds-h-8 lg:rtds-w-5 lg:rtds-h-5 xl:rtds-w-6 xl:rtds-h-6" aria-hidden="true" focusable="false" role="img">
+                    <use href="/icons.svg#mini--facebook" />
+                  </svg>
+                </a>
+              </li>
+
+              <li class="rtds-flex rtds-items-center">
+                <a href="https://x.com/opentoscana" class="rtds-btn rtds-btn--icon rtds-btn--only-text rtds-text-2xl rtds-content-01 rtds-p-2 xl:rtds-p-1 undefined" target="_blank">
+                  <span class="rtds-sr-only">{{ _('Go to X profile') }}</span>
+                  <svg class="rtds-icon rtds-fill-current rtds-w-8 rtds-h-8 lg:rtds-w-5 lg:rtds-h-5 xl:rtds-w-6 xl:rtds-h-6" aria-hidden="true" focusable="false" role="img">
+                    <use href="/icons.svg#mini--x" />
+                  </svg>
+                </a>
+              </li>
+
+              <li class="rtds-flex rtds-items-center">
+                <a href="https://it.linkedin.com/in/opentoscana" class="rtds-btn rtds-btn--icon rtds-btn--only-text rtds-text-2xl rtds-content-01 rtds-p-2 xl:rtds-p-1 undefined" target="_blank">
+                  <span class="rtds-sr-only">{{ _('Go to LinkedIn profile') }}</span>
+                  <svg class="rtds-icon rtds-fill-current rtds-w-8 rtds-h-8 lg:rtds-w-5 lg:rtds-h-5 xl:rtds-w-6 xl:rtds-h-6" aria-hidden="true" focusable="false" role="img">
+                    <use href="/icons.svg#solid--linkedin" />
+                  </svg>
+                </a>
+              </li>
+
+              <li class="rtds-flex rtds-items-center">
+                <a href="https://www.youtube.com/opentoscana" class="rtds-btn rtds-btn--icon rtds-btn--only-text rtds-text-2xl rtds-content-01 rtds-p-2 xl:rtds-p-1 undefined" target="_blank">
+                  <span class="rtds-sr-only">{{ _('Go to YouTube channel') }}</span>
+                  <svg class="rtds-icon rtds-fill-current rtds-w-8 rtds-h-8 lg:rtds-w-5 lg:rtds-h-5 xl:rtds-w-6 xl:rtds-h-6" aria-hidden="true" focusable="false" role="img">
+                    <use href="/icons.svg#mini--youtube" />
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Search component -->
+          <div class="rtds-hidden lg:rtds-block">
+            <button type="button" id="searchModalTrigger" class="rtds-btn rtds-btn--outline rtds-btn--icon rtds-w-6 rtds-h-6 md:rtds-w-10 md:rtds-h-10 rtds-border-gray-03 hover:rtds-text-white focus:rtds-text-white active:rtds-text-white hover:rtds-button-primary-hover focus:rtds-button-primary-hover active:rtds-button-primary-hover">
+              <span class="rtds-sr-only">{{ _('Search in site - open modal') }}</span>
+              <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 md:rtds-w-5 md:rtds-h-5" aria-hidden="true" focusable="false" role="img">
+                <use href="/icons.svg#mini--magnifying-glass" />
+              </svg>
+            </button>
+
+            <!-- Search Modal -->
+            <div id="searchModal" class="rtds-fixed rtds-items-center rtds-content-center rtds-inset-0 rtds-bg-black rtds-bg-opacity-50 rtds-overflow-y-auto rtds-h-full rtds-w-full" style="display:none;" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+              <div class="rtds-relative rtds-h-full lg:rtds-h-full lg:rtds-w-full rtds-mx-auto rtds-p-6 lg:rtds-p-16 rtds-shadow-lg rtds-bg-white">
+                <div class="rtds-modal-content rtds-container rtds-px-16 rtds-grid rtds-gap-14">
+                  <div class="rtds-flex rtds-justify-between rtds-items-center">
+                    <h2 id="modalTitle" class="rtds-text-3xl md:rtds-text-5xl lg:rtds-text-6xl">{{ _('Search in site') }}</h2>
+                    <button id="closeModal" class="rtds-btn rtds-btn--icon rtds-border-0 hover:rtds-background-primary hover:rtds-text-white">
+                      <span class="rtds-sr-only">{{ _('Close') }}</span>
+                      <svg class="rtds-icon rtds-fill-current rtds-w-8 rtds-h-8" aria-hidden="true" focusable="false" role="img">
+                        <use href="/icons.svg#mini--x-mark" />
+                      </svg>
+                    </button>
+                  </div>
+                  <form role="search" class="rtds-flex rtds-gap-2" method="get" action="{% url_for dataset_type ~ '.search' %}">
+                    <div class="rtds-input-field rtds-gap-1 rtds-flex-1 ">
+                      <label for="inputSearch" class="rtds-input-field__label">
+                        {{ _('Search services, information, help...') }}
+                      </label>
+                      <div class="rtds-input has-icon">
+                        <svg class="rtds-icon rtds-fill-current rtds-input__icon" aria-hidden="true" focusable="false" role="img">
+                          <use href="/icons.svg#mini--magnifying-glass" />
+                        </svg>
+                        <input aria-label="{% block header_site_search_label %}{{ h.humanize_entity_type('package', dataset_type, 'search placeholder') or _('Search datasets') }}{% endblock %}" id="inputSearch" class="rtds-text-sm rtds-input-placeholder" type="search" name="q" value="" autocomplete="off" placeholder="{{ _('Search') }}">
+                      </div>
+                    </div>
+                    <button type="button" class="rtds-btn rtds-btn--icon-right rtds-group/button rtds-btn--primary rtds-self-end">
+                      {{ _('Search in site') }}
+                      <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 md:rtds-w-5 md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+                        <use href="/icons.svg#mini--chevron-right" />
+                      </svg>
+                    </button>
+                  </form>
+                </div><!-- /END MODAL CONTENT -->
+              </div>
+            </div>
+          </div><!--/ END SEARCH WRAPPER -->
+        </div>
+        <!--/ END TOP BAR UTILITIES -->
+      </div>
+    </div><!-- /END TOPBAR -->
+
+    <!-- Main heading -->
+    <div class="rtds-main-heading">
+      <div class="rtds-main-heading__container rtds-container rtds-mx-auto rtds-flex rtds-items-center rtds-flex-1">
+        <div class="rtds-site-branding rtds-branding" style="--branding-max-width: 217px; --branding-max-width-xl: 326px;">
+          <a class="rtds-site-logo rtds-logo--main rtds-logo--main rtds-w-auto" href="{{ h.url_for('home.index') }}">
+            <img class="rtds-w-full rtds-h-full rtds-object-contain rtds-object-left-top" src="/images/logo-open-data-toscana.svg" alt="Alt logo image" width="326" height="95" />
+          </a>
+        </div>
+
+        <div class="rtds-main-headings__center rtds-flex-1 lg:rtds-ml-auto lg:rtds-justify-end">
+          <nav class="rtds-primary-navigation lg:rtds-justify-end" aria-label="Principale" id="siteNavWrapper">
+            <button type="button" class="rtds-btn rtds-btn--only-text rtds-rounded-0 lg:rtds-hidden rtds-ml-auto rtds-btn--icon rtds-group" aria-expanded="false" aria-controls="mainNavPanel" id="mobileNavToggle">
+              <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 md:rtds-w-5
+      md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 rtds-m-0 rtds-p-0
+      rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform
+      group-hover:rtds-translate-none is-show-menu
+      group-aria-expanded:rtds-hidden" aria-hidden="true" focusable="false" role="img">
+                <use href="/icons.svg#mini--bars-3" />
+              </svg>
+              <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 md:rtds-w-5
+      md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 rtds-m-0 rtds-p-0 rtds-transition-all
+      rtds-duration-200 rtds-ease-out rtds-transform
+      group-hover:rtds-translate-none is-close-menu rtds-hidden
+      group-aria-expanded:rtds-inline-block" aria-hidden="true" focusable="false" role="img">
+                <use href="/icons.svg#mini--x-mark" />
+              </svg>
+
+              <span class="rtds-sr-only is-show-menu group-aria-expanded:rtds-hidden">
+                {{ _('Menu') }}
+              </span>
+              <span class="rtds-sr-only is-close-menu rtds-hidden group-aria-expanded:rtds-block">
+                {{ _('Close menu') }}
+              </span>
+            </button>
+            <!-- Mobile panel -->
+            <div class="rtds-primary-navigation__panel" id="mainNavPanel">
+              <!-- Main nav -->
+              <div class="rtds-primary-navigation__module is-main lg:rtds-border-b-0">
+                <ul class="rtds-primary-navigation__list ">
+                  {% if c.userobj %}
+                    <li class="rtds-primary-navigation__item">
+                      <a href="{{ h.url_for('harvest.search') }}" class="rtds-primary-navigation__first-level rtds-primary-navigation__link rtds-group rtds-text-base">
+                        {{ _('Harvests') }}
+                      </a>
+                    </li>
+                    <li class="rtds-primary-navigation__item">
+                      <a href="{{ h.url_for('organization.index') }}" class="rtds-primary-navigation__first-level rtds-primary-navigation__link rtds-group rtds-text-base">
+                        {{ _('Organizations') }}
+                      </a>
+                    </li>
+                    <li class="rtds-primary-navigation__item">
+                      <a href="{{ h.url_for('group.index') }}" class="rtds-primary-navigation__first-level rtds-primary-navigation__link rtds-group rtds-text-base">
+                        {{ _('Groups') }}
+                      </a>
+                    </li>
+                    <li class="rtds-primary-navigation__item">
+                      <a href="{{ h.url_for('pages.pages_index') }}" class="rtds-primary-navigation__first-level rtds-primary-navigation__link rtds-group rtds-text-base">
+                        {{ _('Pages') }}
+                      </a>
+                    </li>
+                  {% endif %}
+                  <li class="rtds-primary-navigation__item">
+                    <a href="{{ h.url_for('home.about') }}" class="rtds-primary-navigation__first-level rtds-primary-navigation__link rtds-group rtds-text-base {{ h.is_current('projects', 'is-current') }}" {{ h.is_current('projects', 'aria-current="page"') }}>
+                      {{ _('Project') }}
+                    </a>
+                  </li>
+                  {#
+                  <li class="rtds-primary-navigation__item">
+                    <a href="" class="rtds-primary-navigation__first-level rtds-primary-navigation__link rtds-group rtds-text-base">
+                      {{ _('Data impact') }}
+                    </a>
+                  </li>
+                  #}
+                  <li class="rtds-primary-navigation__item">
+                    <a href="{{ h.url_for('dataset.search') }}" class="rtds-primary-navigation__first-level rtds-primary-navigation__link rtds-group rtds-text-base {{ h.is_current('dataset', 'is-current') }}" {{ h.is_current('dataset', 'aria-current="page"') }}>
+                      {{ _('Data') }}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Mobile search in panel -->
+              <div class="rtds-primary-navigation__module is-main lg:rtds-hidden is-last-element">
+                <form role="search" class="rtds-flex rtds-items-end rtds-p-3 rtds-gap-1">
+                  <div class="rtds-input-field rtds-gap-1 rtds-flex-1 ">
+                    <label for="inputSearchMobile" class="rtds-input-field__label">
+                      {{ _('Search') }}
+                      {{ _('services, information, help...') }}
+                    </label>
+                    <div class="rtds-input">
+                      <input id="inputSearchMobile" class="rtds-rounded-l-lg rtds-rounded-r-none rtds-text-sm rtds-input-placeholder" type="search" placeholder="{{ _('Search') }}">
+                    </div>
+                  </div>
+                  <button type="button" class="rtds-btn rtds-btn--secondary rtds-btn--icon rtds-w-11 rtds-h-11 rtds-rounded-lg">
+                    <span class="rtds-sr-only">{{ _('Search') }}</span>
+                    <svg class="rtds-icon rtds-fill-current rtds-w-5 rtds-h-5" aria-hidden="true" focusable="false" role="img">
+                      <use href="/icons.svg#mini--magnifying-glass" />
+                    </svg>
+                  </button>
+                </form>
+              </div>
+            </div>
+            <div class="rtds-primary-navigation__backdrop rtds-bg-black/25 rtds-top-[--header-height] lg:rtds-hidden"></div>
+          </nav>
+        </div>
+
+        <div class="rtds-main-heading__actions rtds-grid lg:rtds-flex rtds-gap-3 lg:rtds-ml-2 rtds-px-2 rtds-py-4 lg:rtds-p-4 lg:rtds-pr-0">
+          {% if c.userobj %}
+            <button type="button" class="rtds-btn rtds-btn--icon-right rtds-group/button rtds-btn--primary rtds-btn--s" data-module="opendata_theme_click" data-module-url="{{ h.url_for('user.read', id=c.userobj.name) }}">
+              {{ c.userobj.name }}
+              <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+                <use href="/icons.svg#mini--user" />
+              </svg>
+            </button>
+          {% endif %}
+
+          {#
+          <button type="button" class="rtds-btn rtds-btn--icon-right rtds-group/button rtds-btn--primary rtds-btn--s">
+            {{ _('Send data') }}
+            <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+              <use href="/icons.svg#mini--chevron-right" />
+            </svg>
+          </button>
+          #}
+        </div>
+      </div>
+    </div>
+  </header>
+{% endblock %}

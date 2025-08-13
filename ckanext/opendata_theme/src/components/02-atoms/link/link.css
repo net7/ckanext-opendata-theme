@@ -1,0 +1,18 @@
+/* LINK */
+@layer components {
+    .rtds-link {
+        @apply rtds-inline-flex rtds-items-center rtds-link-primary hover:rtds-underline hover:rtds-link-primary-hover focus:rtds-text-primary-800 rtds-text-base md:rtds-text-base;
+    }
+
+    .rtds-link--sm {
+        @apply rtds-text-sm;
+    }
+
+    .rtds-link--lg {
+        @apply rtds-text-lg;
+    }
+
+    .rtds-link--underline {
+        @apply rtds-underline;
+    }
+}

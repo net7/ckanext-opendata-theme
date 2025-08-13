@@ -1,0 +1,106 @@
+{#
+Construct a facet module populated with links to filtered results.
+
+name
+The field name identifying the facet field, eg. "tags"
+
+title
+The title of the facet, eg. "Tags", or "Tag Cloud"
+
+label_function
+Renders the human-readable label for each facet value.
+If defined, this should be a callable that accepts a `facet_item`.
+eg. lambda facet_item: facet_item.display_name.upper()
+By default it displays the facet item's display name, which should
+usually be good enough
+
+if_empty
+A string, which if defined, and the list of possible facet items is empty,
+is displayed in lieu of an empty list.
+
+count_label
+A callable which accepts an integer, and returns a string. This controls
+how a facet-item's count is displayed.
+
+extras
+Extra info passed into the add/remove params to make the url
+
+alternative_url
+URL to use when building the necessary URLs, instead of the default
+ones returned by url_for. Useful eg for dataset types.
+
+hide_empty
+Do not show facet if there are none, Default: false.
+
+search_facets
+Dictionary with search facets
+
+#}
+{% block facet_list %}
+{% set hide_empty = hide_empty or false %}
+{% with items = items or h.get_facet_items_dict(name, search_facets) %}
+{% if items or not hide_empty %}
+{% block facet_list_item %}
+<div class="rtds-grid rtds-py-6 rtds-gap-4 md:rtds-gap-6">
+  {% block facet_list_heading %}
+    <legend class="rtds-facets__legend">
+      <button type="button" class="rtds-facets__toggle rtds-group/facet" aria-expanded="true" aria-controls="facet-section-{{ facet_titles_loop.index0 }}" id="facet-id-{{ facet_titles_loop.index0 }}">
+        {{ title }}
+        <svg class="rtds-icon rtds-fill-current rtds-w-6 rtds-h-6 rtds-transition-transform rtds-duration-300 group-aria-expanded/facet:-rtds-rotate-180" aria-hidden="true" focusable="false" role="img">
+          <use href="/icons.svg#solid--chevron-down"></use>
+        </svg>
+      </button>
+    </legend>
+  {% endblock %}
+  {% block facet_list_items %}
+  {% with items = items or h.get_facet_items_dict(name, search_facets) %}
+  {% if items %}
+    <div class="rtds-facets__content rtds-space-y-2 has-show-more" id="facet-section-{{ facet_titles_loop.index0 }}" role="region" aria-labelledby="facet-id-{{ facet_titles_loop.index0 }}">
+      <ul class="rtds-facets__list rtds-space-y-2">
+        {% for item in items %}
+        {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
+        {% set label = label_function(item) if label_function else item.display_name %}
+        {% set label_truncated = label|truncate(22) if not label_function else label %}
+        {% set count = count_label(item['count']) if count_label else ('%d' % item['count']) %}
+        <li class="rtds-facets__item">
+          <div class="rtds-input rtds-input-field rtds-input-checkbox">
+            <div class="rtds-flex rtds-gap-2 rtds-items-center">
+              <input id="checkbox{{ facet_titles_loop.index0 }}{{ loop.index0 }}" {% if item.active %}checked="checked"{% endif %} name="checkbox{{ facet_titles_loop.index0 }}{{ loop.index0 }}" class="" type="checkbox" data-module="opendata_theme_click" data-module-url="{{ href }}">
+              <label class="rtds-input-checkbox__label rtds-facets__label" for="checkbox{{ facet_titles_loop.index0 }}{{ loop.index0 }}">
+                <span class="rtds-facets__item-name">{{ label_truncated }}</span> <span class="rtds-facets__item-count">{{ count }}<span class="rtds-sr-only"> risultati</span></span>
+              </label>
+            </div>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+      {% if h.get_param_int('_%s_limit' % name) %}
+        {% if h.has_more_facets(name, search_facets) %}
+          <button data-module="opendata_theme_click" data-module-url="{{ h.remove_url_param('_%s_limit' % name, replace=0, extras=extras, alternative_url=alternative_url) }}" type="button" class="rtds-w-full rtds-btn rtds-btn--s rtds-btn--inverted rtds-btn--icon-right rtds-group/button rtds-justify-center rtds-btn--show-more rtds-facets__show-more" aria-expanded="false">
+            <span class="rtds-sr-only">{{ title }}</span>
+            <span class="rtds-btn__label-show">{{ _('Show More {facet_type}').format(facet_type=title) }}</span>
+            <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 group-aria-expanded/button:-rtds-rotate-180 rtds-icon rtds-fill-current rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-scale-200" aria-hidden="true" focusable="false" role="img">
+              <use href="/icons.svg#outline--chevron-down"></use>
+            </svg>
+          </button>
+        {% endif %}
+      {% else %}
+        <button data-module="opendata_theme_click" data-module-url="{{ h.remove_url_param('_%s_limit' % name, extras=extras, alternative_url=alternative_url) }}" type="button" class="rtds-w-full rtds-btn rtds-btn--s rtds-btn--inverted rtds-btn--icon-right rtds-group/button rtds-justify-center rtds-btn--show-more rtds-facets__show-more" aria-expanded="false">
+          <span class="rtds-sr-only">{{ title }}</span>
+          <span class="rtds-btn__label-show">{{ _('Show Only Popular {facet_type}').format(facet_type=title) }}</span>
+          <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 group-aria-expanded/button:-rtds-rotate-180 rtds-icon rtds-fill-current rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-scale-200" aria-hidden="true" focusable="false" role="img">
+            <use href="/icons.svg#outline--chevron-up"></use>
+          </svg>
+        </button>
+      {% endif %}
+    </div>
+  {% else %}
+    <p id="facet-section-{{ facet_titles_loop.index0 }}" role="region" aria-labelledby="facet-id-{{ facet_titles_loop.index0 }}">{{ _('There are no {facet_type} that match this search').format(facet_type=title) }}</p>
+  {% endif %}
+  {% endwith %}
+  {% endblock %}
+</div>
+{% endblock %}
+{% endif %}
+{% endwith %}
+{% endblock %}

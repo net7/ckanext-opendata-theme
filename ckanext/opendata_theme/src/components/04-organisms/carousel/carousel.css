@@ -1,0 +1,78 @@
+/**
+ * SLIDER
+ *
+*/
+@layer components {
+
+    /* CARD SLIDE OVERRIDINGS */
+    .rtds-carousel .rtds-card,
+    .rtds-carousel-col {
+        @apply rtds-inline-grid rtds-h-full;
+    }
+    .rtds-carousel-col {
+        @apply rtds-w-full lg:rtds-w-auto;
+    }
+
+    /* Slider buttons arrows - next/prev */
+
+    .rtds-carousel .splide__arrow {
+        @apply rtds-btn rtds-w-8 rtds-h-8 md:rtds-w-10 md:rtds-h-10 lg:rtds-w-12 lg:rtds-h-12 rtds-p-0 lg:rtds-flex lg:rtds-absolute lg:rtds-bottom-4 lg:rtds-right-4 rtds-content-primary rtds-bg-white rtds-border rtds-border-solid rtds-border-current rtds-rounded-full hover:rtds-background-primary hover:rtds-text-white rtds-transition-all focus-visible:rtds-outline-focusring;
+    }
+
+    .rtds-carousel .splide__arrow--next, .rtds-carousel .splide__arrow--prev {
+        @apply rtds-z-20;
+    }
+
+    .rtds-carousel .splide__arrow--prev {
+        @apply -rtds-left-4 md:-rtds-left-6 lg:-rtds-left-12 xl:-rtds-left-16;
+    }
+
+    .rtds-carousel .splide__arrow--next {
+        @apply -rtds-right-4 md:-rtds-right-6 lg:-rtds-right-12 xl:-rtds-right-16;
+    }
+
+    /* Icon overriding */
+
+    .rtds-carousel.is-focus-in .splide__arrow:focus {
+        @apply rtds-outline-focusring;
+    }
+
+    .rtds-carousel .splide__arrow svg {
+       fill: currentColor;
+    }
+
+    .rtds-carousel .splide__arrow .splide__arrow-svg {
+        @apply rtds-text-white;
+    }
+
+    .rtds-carousel .splide__arrow .splide__arrow-svg {
+        @apply rtds-text-white;
+    }
+
+    .rtds-carousel .splide__arrow.splide__arrow--disabled {
+        @apply rtds-opacity-70 hover:rtds-button-secondary;
+    }
+
+    /* SLIDER DOTS CUSTOMIZATION */
+    .rtds-carousel .splide__dots {
+        @apply rtds-bottom-0;
+    }
+
+
+    .rtds-carousel .splide__pagination {
+        @apply md:-rtds-bottom-10 rtds-flex rtds-justify-center rtds-items-center rtds-gap-2 focus:rtds-outline-focusring;
+    }
+
+    .rtds-carousel.is-focus-in .splide__pagination__page:focus {
+        @apply rtds-outline-secondary-500 rtds-outline-2;
+    }
+
+    .rtds-carousel .splide__pagination__page {
+        @apply rtds-w-2.5 rtds-h-2.5 rtds-opacity-100 rtds-background-05 hover:rtds-background-primary;
+    }
+
+    .rtds-carousel .splide__pagination__page.is-active {
+        @apply rtds-background-primary rtds-w-3 rtds-h-3;
+    }
+
+}

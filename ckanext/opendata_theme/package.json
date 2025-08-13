@@ -1,0 +1,30 @@
+{
+    "scripts": {
+        "prefix-tailwind": "node tailwindPrefixer.js",
+        "build-css": "rm -f src/css/main.processed.css assets/css/opendata_theme.css && NODE_ENV=development npx postcss src/css/main.css -o src/css/main.processed.css && npx tailwindcss -c tailwind.config.js -i src/css/main.processed.css -o assets/css/opendata_theme.css",
+        "build-svg-sprite": "svg-sprite -s --symbol-dest public/ --symbol-sprite icons.svg --symbol-example true --symbol-example-dest svg-index.html 'public/svgs/./**/*.svg'",
+        "write-svgs-config-yml": "node generateSvgsConfig.js",
+        "build-svgs": "npm run build-svg-sprite && npm run write-svgs-config-yml"
+    },
+    "dependencies": {
+        "glob": "^11.0.0",
+        "svg-sprite": "^2.0.2"
+    },
+    "devDependencies": {
+        "@tailwindcss/aspect-ratio": "^0.4.2",
+        "@tailwindcss/forms": "^0.5.7",
+        "@tailwindcss/typography": "^0.5.16",
+        "autoprefixer": "^10.4.16",
+        "concurrently": "^8.2.2",
+        "css-loader": "^6.8.1",
+        "mini-css-extract-plugin": "^2.7.6",
+        "glob": "^11.0.0",
+        "postcss": "^8.4.35",
+        "postcss-cli": "^11.0.0",
+        "postcss-import": "^16.0.1",
+        "postcss-import-ext-glob": "^2.1.1",
+        "postcss-loader": "^7.3.3",
+        "rimraf": "^5.0.5",
+        "tailwindcss": "^3.3.5"
+    }
+}
