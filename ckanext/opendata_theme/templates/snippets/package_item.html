@@ -1,128 +1,109 @@
-{# Displays a single of dataset. package - A package to display. item_class -
-The class name to use on the list item. hide_resources - If true hides the
-resources (default: false). Example: {% snippet 'snippets/package_item.html',
-package=c.datasets[0] %} #} {% set title = package.title or package.name %} {%
-set notes = h.markdown_extract(package.notes, extract_length=180) %} {% block
-package_item %}
+{#
+Displays a single of dataset.
+
+package - A package to display.
+item_class - The class name to use on the list item.
+hide_resources - If true hides the resources (default: false).
+
+Example:
+
+{% snippet 'snippets/package_item.html', package=c.datasets[0] %}
+
+#}
+{% set title = package.title or package.name %}
+{% set notes = h.markdown_extract(package.notes, extract_length=180) %}
+
+{# Debug: mostra dati di tracking disponibili (rimuovi in produzione) #}
+{# {{ h.debug_inspect(package.tracking_summary) if package.tracking_summary else "No tracking summary" }} #}
+
+{% block package_item %}
 <li>
   {% block content %}
-  <article
-    class="rtds-card rtds-card--information-02 is-card-fullclickable rtds-group/card"
-  >
+  <article class="rtds-card rtds-card--information-02 is-card-fullclickable rtds-group/card">
     <div class="rtds-card__content">
-      {% block heading %} {% block heading_title %}
+      {% block heading %}
+      {% block heading_title %}
       <div class="rtds-card__heading">
         <h3 class="rtds-card__title">
-          <a
-            class="group-hover/card:rtds-underline"
-            href="{{ h.url_for('%s.read' % package.type, id=package.name) }}"
-            >{{title|truncate(80)}}</a
-          >
+          <a class="group-hover/card:rtds-underline " href="{{ h.url_for('%s.read' % package.type, id=package.name) }}">{{title|truncate(80)}}</a>
         </h3>
       </div>
-      {% endblock %} {% endblock %} {% block notes %} {% if notes %}
+      {% endblock %}
+      {% endblock %}
+
+      {% block notes %}
+      {% if notes %}
       <div class="rtds-card__description">
         <p>{{ notes|urlize }}</p>
       </div>
-      {% endif %} {% endblock %}
-
-      <div
-        class="rtds-space-y-2 md:rtds-space-y-0 md:rtds-flex md:rtds-items-center md:rtds-justify-between md:rtds-gap-2"
-      >
+      {% endif %}
+      {% endblock %}
+      
+      <div class="rtds-space-y-2 md:rtds-space-y-0 md:rtds-flex md:rtds-items-center md:rtds-justify-between md:rtds-gap-2">
         <ul class="rtds-card__tags rtds-mt-0" aria-label="Categorie">
           {% for resource in h.dict_list_reduce(package.resources, 'format') %}
           <li>
             <span class="rtds-chip rtds-chip--sm rtds-chip--tag">
               <span class="rtds-sr-only">{{ _('Category:') }} </span>
-              <a
-                href="{{ h.url_for(package.type ~ '.read', id=package.name) }}"
-                data-format="{{ resource.lower() }}"
-                >{{ resource }}</a
-              >
+              <a href="{{ h.url_for(package.type ~ '.read', id=package.name) }}" data-format="{{ resource.lower() }}">{{ resource }}</a>
             </span>
           </li>
           {% endfor %}
         </ul>
-        <div class="rtds-flex rtds-items-center rtds-body-sm rtds-font-bold">
-          {% if package.groups and package.groups|length > 0 and
-          package.groups[0].name %} {% set group = package.groups[0] %} {% set
-          theme = package.extras|selectattr('key', 'equalto',
-          'dcat_theme')|map(attribute='value')|first|default('GOVE') %}
-          <a
-            class="rtds-btn rtds-btn--s rtds-btn--only-text rtds-btn--icon-left"
-            href="{% url_for dataset_type ~ '.search' %}?_groups_limit=0&dcat_theme={{ theme }}"
-          >
-            <svg
-              class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1"
-              aria-hidden="true"
-              focusable="false"
-              role="img"
-            >
-              <use href="/icons.svg#outline--building-office-2" />
-            </svg>
-            {{ group.display_name }}
-          </a>
-          <span
-            class="rtds-border-r rtds-border-gray-04 rtds-h-4 rtds-my-3 rtds-mr-2 -rtds-ml-2"
-          ></span>
-          {% endif %}
-          <span
-            class="rtds-border-r rtds-border-gray-04 rtds-h-4 rtds-my-3 rtds-mr-2 -rtds-ml-2"
-          ></span>
-          <span>Visualizations: {{ package.view_count }}</span>
-        </div>
+        {# rimosso codice visualizzazioni #}
       </div>
     </div>
   </article>
 
-  {#
-  <div class="dataset-content">
+  {# <div class="dataset-content">
     {% block heading %}
     <h2 class="dataset-heading">
-      {% block heading_private %} {% if package.private %}
+      {% block heading_private %}
+      {% if package.private %}
       <span class="dataset-private badge bg-secondary">
         <i class="fa fa-lock"></i>
         {{ _('Private') }}
       </span>
-      {% endif %} {% endblock %} {% block heading_title %}
-      <a
-        href="{{ h.url_for('%s.read' % package.type, id=package.name) }}"
-        title="{{ title }}"
-      >
+      {% endif %}
+      {% endblock %}
+      {% block heading_title %}
+      <a href="{{ h.url_for('%s.read' % package.type, id=package.name) }}" title="{{ title }}">
         {{title|truncate(80)}}
       </a>
-      {% endblock %} {% block heading_meta %} {% if package.get('state',
-      '').startswith('draft') %}
+      {% endblock %}
+      {% block heading_meta %}
+      {% if package.get('state', '').startswith('draft') %}
       <span class="badge bg-info">{{ _('Draft') }}</span>
       {% elif package.get('state', '').startswith('deleted') %}
       <span class="badge bg-danger">{{ _('Deleted') }}</span>
-      {% endif %} {{ h.popular('recent views', package.tracking_summary.recent,
-      min=10) if package.tracking_summary }} {% endblock %}
+      {% endif %}
+      {{ h.popular('recent views', package.tracking_summary.recent, min=10) if package.tracking_summary }}
+      {% endblock %}
     </h2>
-    {% endblock %} {% block notes %} {% if notes %}
+    {% endblock %}
+    {% block notes %}
+    {% if notes %}
     <div>{{ notes|urlize }}</div>
     {% else %}
-    <p class="empty">
-      {{ h.humanize_entity_type('package', package.type, 'no description') or
-      _("There is no description for this dataset") }}
-    </p>
-    {% endif %} {% endblock %}
-  </div>
-  #} {# {% block resources %} {% if package.resources and not hide_resources %}
+    <p class="empty">{{ h.humanize_entity_type('package', package.type, 'no description') or _("There is no description for this dataset") }}</p>
+    {% endif %}
+    {% endblock %}
+  </div> #}
+  {# {% block resources %}
+  {% if package.resources and not hide_resources %}
   {% block resources_outer %}
   <ul class="dataset-resources list-unstyled">
-    {% block resources_inner %} {% for resource in
-    h.dict_list_reduce(package.resources, 'format') %}
+    {% block resources_inner %}
+    {% for resource in h.dict_list_reduce(package.resources, 'format') %}
     <li>
-      <a
-        href="{{ h.url_for(package.type ~ '.read', id=package.name) }}"
-        class="badge badge-default"
-        data-format="{{ resource.lower() }}"
-        >{{ resource }}</a
-      >
+      <a href="{{ h.url_for(package.type ~ '.read', id=package.name) }}" class="badge badge-default" data-format="{{ resource.lower() }}">{{ resource }}</a>
     </li>
-    {% endfor %} {% endblock %}
+    {% endfor %}
+    {% endblock %}
   </ul>
-  {% endblock %} {% endif %} {% endblock %} #} {% endblock %}
+  {% endblock %}
+  {% endif %}
+  {% endblock %} #}
+  {% endblock %}
 </li>
 {% endblock %}
