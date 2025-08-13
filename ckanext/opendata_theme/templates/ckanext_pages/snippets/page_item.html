@@ -1,0 +1,31 @@
+<article
+  class="rtds-card rtds-card--information-02 is-card-fullclickable rtds-group/card"
+  style="cursor: pointer"
+>
+  <div class="rtds-card__content">
+    <div class="rtds-card__heading">
+      {% block page_item_image %} {% if page.image %}
+      <picture class="rtds-card__image-wrapper">
+        <img
+          class="rtds-card__image_ rtds-text-center rtds-h-full"
+          alt=""
+          src="{{page.image}}"
+        />
+      </picture>
+      {% endif %} {% endblock %}
+      <h3 class="rtds-card__title">
+        <a class="group-hover/card:rtds-underline" href="{{ url }}"
+          >{{ page.title }}</a
+        >
+      </h3>
+    </div>
+
+    <div class="rtds-card__description">
+      {% block page_item_content %} {% if page.content %} {% if editor %}
+      <p>{{page.content|striptags|truncate}}</p>
+      {% else %} {{ h.markdown_extract(page.content) }} {% endif %} {% else %}
+      <p class="empty">{{ _('This page currently has no content') }}</p>
+      {% endif %} {% endblock %}
+    </div>
+  </div>
+</article>
