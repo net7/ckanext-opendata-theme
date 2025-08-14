@@ -150,11 +150,14 @@ If ckanext-opendata-theme should be available on PyPI you can follow these steps
 
 ### Comandi per la gestione delle organizzazioni:
 
+* `ckan -c ckan.ini opendata check-org-datasets <organization_id>`
 * `ckan -c ckan.ini opendata list-org-datasets <organization_id>`
 * `ckan -c ckan.ini opendata delete-org-datasets <organization_id>`
 * `ckan -c ckan.ini opendata delete-organization <organization_id>`
 
-Es.: elencare i dataset dell'organizzazione "my-org", eliminare tutti i dataset dell'organizzazione o eliminare l'intera organizzazione:
+Es.: controllare tutti i dataset (inclusi quelli eliminati), elencare i dataset attivi, eliminare tutti i dataset dell'organizzazione o eliminare l'intera organizzazione:
+
+```ckan -c ckan.ini opendata check-org-datasets my-org```
 
 ```ckan -c ckan.ini opendata list-org-datasets my-org```
 
