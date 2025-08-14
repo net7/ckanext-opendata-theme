@@ -44,7 +44,7 @@ Dictionary with search facets
 <div class="rtds-grid rtds-py-6 rtds-gap-4 md:rtds-gap-6">
   {% block facet_list_heading %}
     <legend class="rtds-facets__legend">
-      <button type="button" class="rtds-facets__toggle rtds-group/facet" aria-expanded="true" aria-controls="facet-section-{{ facet_titles_loop.index0 }}" id="facet-id-{{ facet_titles_loop.index0 }}">
+      <button type="button" class="rtds-facets__toggle rtds-group/facet" aria-expanded="true" aria-controls="facet-section-{{ facet_titles_loop.index0 if facet_titles_loop else 0 }}" id="facet-id-{{ facet_titles_loop.index0 if facet_titles_loop else 0 }}">
         {{ title }}
         <svg class="rtds-icon rtds-fill-current rtds-w-6 rtds-h-6 rtds-transition-transform rtds-duration-300 group-aria-expanded/facet:-rtds-rotate-180" aria-hidden="true" focusable="false" role="img">
           <use href="/icons.svg#solid--chevron-down"></use>
@@ -55,7 +55,7 @@ Dictionary with search facets
   {% block facet_list_items %}
   {% with items = items or h.get_facet_items_dict(name, search_facets) %}
   {% if items %}
-    <div class="rtds-facets__content rtds-space-y-2 has-show-more" id="facet-section-{{ facet_titles_loop.index0 }}" role="region" aria-labelledby="facet-id-{{ facet_titles_loop.index0 }}">
+    <div class="rtds-facets__content rtds-space-y-2 has-show-more" id="facet-section-{{ facet_titles_loop.index0 if facet_titles_loop else 0 }}" role="region" aria-labelledby="facet-id-{{ facet_titles_loop.index0 if facet_titles_loop else 0 }}">
       <ul class="rtds-facets__list rtds-space-y-2">
         {% for item in items %}
         {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
@@ -65,8 +65,8 @@ Dictionary with search facets
         <li class="rtds-facets__item">
           <div class="rtds-input rtds-input-field rtds-input-checkbox">
             <div class="rtds-flex rtds-gap-2 rtds-items-center">
-              <input id="checkbox{{ facet_titles_loop.index0 }}{{ loop.index0 }}" {% if item.active %}checked="checked"{% endif %} name="checkbox{{ facet_titles_loop.index0 }}{{ loop.index0 }}" class="" type="checkbox" data-module="opendata_theme_click" data-module-url="{{ href }}">
-              <label class="rtds-input-checkbox__label rtds-facets__label" for="checkbox{{ facet_titles_loop.index0 }}{{ loop.index0 }}">
+              <input id="checkbox{{ facet_titles_loop.index0 if facet_titles_loop else 0 }}{{ loop.index0 }}" {% if item.active %}checked="checked"{% endif %} name="checkbox{{ facet_titles_loop.index0 if facet_titles_loop else 0 }}{{ loop.index0 }}" class="" type="checkbox" data-module="opendata_theme_click" data-module-url="{{ href }}">
+              <label class="rtds-input-checkbox__label rtds-facets__label" for="checkbox{{ facet_titles_loop.index0 if facet_titles_loop else 0 }}{{ loop.index0 }}">
                 <span class="rtds-facets__item-name">{{ label_truncated }}</span> <span class="rtds-facets__item-count">{{ count }}<span class="rtds-sr-only"> risultati</span></span>
               </label>
             </div>
@@ -95,7 +95,7 @@ Dictionary with search facets
       {% endif %}
     </div>
   {% else %}
-    <p id="facet-section-{{ facet_titles_loop.index0 }}" role="region" aria-labelledby="facet-id-{{ facet_titles_loop.index0 }}">{{ _('There are no {facet_type} that match this search').format(facet_type=title) }}</p>
+    <p id="facet-section-{{ facet_titles_loop.index0 if facet_titles_loop else 0 }}" role="region" aria-labelledby="facet-id-{{ facet_titles_loop.index0 if facet_titles_loop else 0 }}">{{ _('There are no {facet_type} that match this search').format(facet_type=title) }}</p>
   {% endif %}
   {% endwith %}
   {% endblock %}
