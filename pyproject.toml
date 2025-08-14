@@ -1,0 +1,74 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ckanext-opendata-theme"
+version = "0.0.1"
+description = "Tema OpenData Regione Toscana"
+readme = "README.md"
+license = {text = "AGPL"}
+authors = [
+    {name = "Net7", email = "info@netseven.it"}
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+]
+keywords = ["CKAN"]
+requires-python = ">=3.7"
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/net7/ckanext-opendata-theme"
+
+[project.entry-points."ckan.plugins"]
+opendata_theme = "ckanext.opendata_theme.plugin:OpendataThemePlugin"
+
+[project.entry-points."babel.extractors"]
+ckan = "ckan.lib.extract:extract_ckan"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+namespaces = false
+
+[tool.setuptools.package-data]
+"*" = ["*.html", "*.css", "*.js", "*.svg", "*.png", "*.jpg", "*.ico", "*.woff2"]
+
+# Babel configuration
+[tool.babel.extract_messages]
+keywords = "translate isPlural"
+add_comments = "TRANSLATORS:"
+output_file = "ckanext/opendata_theme/i18n/ckanext-opendata_theme.pot"
+width = 80
+
+[tool.babel.init_catalog]
+domain = "ckanext-opendata_theme"
+input_file = "ckanext/opendata_theme/i18n/ckanext-opendata_theme.pot"
+output_dir = "ckanext/opendata_theme/i18n"
+
+[tool.babel.update_catalog]
+domain = "ckanext-opendata_theme"
+input_file = "ckanext/opendata_theme/i18n/ckanext-opendata_theme.pot"
+output_dir = "ckanext/opendata_theme/i18n"
+previous = true
+
+[tool.babel.compile_catalog]
+domain = "ckanext-opendata_theme"
+directory = "ckanext/opendata_theme/i18n"
+statistics = true
+
+# PyTest configuration
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore::sqlalchemy.exc.SADeprecationWarning",
+    "ignore::sqlalchemy.exc.SAWarning",
+    "ignore::DeprecationWarning"
+]
+addopts = "--ckan-ini test.ini"
