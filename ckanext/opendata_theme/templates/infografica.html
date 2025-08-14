@@ -1,16 +1,26 @@
 {% extends "page.html" %}
-<body {% block bodytag %} data-site-root="{{ h.url_for('/', locale='default', qualified=true) }}" data-locale-root="{{ h.url_for('/', qualified=true) }}" class="interna no-intro" {% endblock %}>
 
-    {% block breadcrumb_content %}
-    <li class="active"><a href="#">Infografica</a></li>
-    {% endblock %} {% block main_content_class %}col-xs-12{% endblock %} {% block primary_content %}
+{% block subtitle %}{{ _('Infografica') }}{% endblock %}
 
+{% block breadcrumb_content %}
+<li class="active"><a href="#">Infografica</a></li>
+{% endblock %}
 
-	<link href='/css/googlefonts.css' rel='stylesheet' type='text/css'>
+{% block primary %}
+<div class="rtds-container">
+  <div class="rtds-grid xl:rtds-flex rtds-gap-6 xl:rtds-gap-8">
+    <section class="module-content">
+      <div class="ckanext-pages-content rtds-container rtds-px-10 rtds-py-6">
+        <h1 class="rtds-heading-1">{{ _('Infografica') }}</h1>
+      </div>
+
+	<link href='/infog/css/googlefonts.css' rel='stylesheet' type='text/css'>
     	{% asset 'vendor/font-awesome' %}
    
-    <link rel="stylesheet" href="/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<script src="/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- jQuery deve essere caricato prima di Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="/infog/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="/infog/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     
 
@@ -21,6 +31,56 @@
 
     <link rel="stylesheet" type="text/css" href="/infog/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="/infog/css/mediaquery.css" />
+    
+    <style>
+        /* Fix per contenere l'infografica nel layout responsive */
+        .module-content {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+        .module-content .container {
+            max-width: 100%;
+            padding: 0;
+        }
+        .module-content .jumbotron {
+            margin-bottom: 0;
+            padding: 10px 0;
+        }
+        
+        /* Fix specifici per le statistiche in alto */
+        .module-content #notice-row {
+            margin-bottom: 20px;
+        }
+        .module-content .notice-data {
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 5px;
+            padding: 5px;
+            margin-top: 10px;
+        }
+        .module-content .header-data-value {
+            white-space: nowrap;
+            display: inline-block;
+        }
+        .module-content .categories-container-opacity {
+            background: rgba(255, 255, 255, 0.95) !important;
+            padding: 22px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        /* Responsive fixes per sezioni specifiche */
+        @media (max-width: 768px) {
+            .module-content .col-xs-12 {
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+            .module-content .notice-data {
+                font-size: 14px;
+            }
+        }
+    </style>
     <script src="/infog/js/chart.js"></script>
     <script src="/infog/js/timeline.js"></script>
     <link rel="stylesheet" type="text/css" href="/infog/css/timeline.css" />
@@ -28,13 +88,15 @@
 	<script src="/infog/js/cloudwords.js"></script>
     
 	<link rel="stylesheet" type="text/css" href="/infog/css/cloudwords.css" />
-    <script type="text/javascript" src="/infog/data2.json"></script>
 	
 	
     <script type="text/javascript">
 	
 		window.onload = function(){
-			var mydata = JSON.parse(data);
+			// Carica i dati JSON via AJAX
+			fetch('/infog/data.json')
+				.then(response => response.json())
+				.then(function(mydata) {
 
             loadTimelines('timeline-container', mydata.timelines.times, mydata.timelines.colors);
 			
@@ -57,6 +119,10 @@
             jQuery(window).on('resize', function () {
                 window.location.reload();
             });
+				})
+				.catch(function(error) {
+					console.error('Errore nel caricamento dei dati:', error);
+				});
 		}
 	
 		jQuery(document).ready(function(){
@@ -107,7 +173,7 @@
                                         Utenti
                                     </div>
                                     <div class="notice-data">
-                                        <span class="header-data-text">+</span> <span class="header-data-value">216</span> <span class="header-data-text">mila</span>
+                                        <span class="header-data-value">+216 mila</span>
                                     </div>
                                 </div>
                             </div>
@@ -249,7 +315,7 @@
                             <div class="col-sm-11 col-xs-12 categories-container category cat-margin-left info-category">
                                 <img src="/infog/images/treno.png" />
                                 <br />
-                                Orari trasporto<br />pubblico
+                                Orari trasporto pubblico
                             </div>
                         </div>
                     </div>
@@ -258,7 +324,7 @@
                             <div class="col-sm-11 col-xs-12 categories-container category cat-margin-left info-category">
                                 <img src="/infog/images/auto.png" />
                                 <br />
-                                Centraline<br />traffico
+                                Centraline traffico
                             </div>
                         </div>
                     </div>
@@ -267,7 +333,7 @@
                             <div class="col-sm-11 col-xs-12 categories-container category cat-margin-left info-category">
                                 <img src="/infog/images/arte.png" />
                                 <br />
-                                Eventi<br />culturali
+                                Eventi culturali
                             </div>
                         </div>
                     </div>
@@ -287,7 +353,9 @@
         </div>
 
     </section>
-	
-    {% endblock %}
+    </section>
+  </div>
+</div>
+{% endblock %}
 
-    </body>
+{% block secondary %}{% endblock %}

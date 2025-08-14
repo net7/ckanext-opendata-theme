@@ -1,14 +1,22 @@
 {% extends "page.html" %}
-<body{% block bodytag %} data-site-root="{{ h.url_for('/', locale='default', qualified=true) }}" data-locale-root="{{ h.url_for('/', qualified=true) }}" class="interna no-intro" {% endblock %}>
 
-    {% block breadcrumb_content %}
-    <li class="active"><a href="#">Credits</a></li>
-    {% endblock %} {% block main_content_class %}col-xs-12{% endblock %} {% block primary_content %}
+{% block subtitle %}{{ _('Credits') }}{% endblock %}
+
+{% block breadcrumb_content %}
+<li class="active"><a href="#">Credits</a></li>
+{% endblock %}
+
+{% block primary %}
+<div class="rtds-container">
+  <div class="rtds-grid xl:rtds-flex rtds-gap-6 xl:rtds-gap-8">
+    <section class="module-content">
+      <div class="ckanext-pages-content rtds-container rtds-px-10 rtds-py-6">
+        <h1 class="rtds-heading-1">{{ _('Credits') }}</h1>
+      </div>
 
     <div class="row">
         <div class="col-md-4"></div>
         <div class="col-md-7">
-            <h2 class="page_heading">Credits</h2>
         </div>
     </div>
 
@@ -162,8 +170,10 @@
             <p><a href="http://ckan.org/">http://ckan.org.eu/</a><br><br></p>
         </div>
     </div>
+    </section>
+  </div>
+</div>
+{% endblock %}
 
-    {% endblock %}
-
-    </body>
+{% block secondary %}{% endblock %}
 

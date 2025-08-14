@@ -3,55 +3,63 @@
 {% block navReport %} class="pulsante active" {{ super() }} {% endblock %}
 {% block navReportMobile %} class="pulsante active" {{ super() }} {% endblock %}
 
-{% block title %}{{ _('Report') }} - {{ super() }}{% endblock %}
+{% block subtitle %}{{ _('Report') }}{% endblock %}
 
 {% block breadcrumb_content %}
+  <li class="active">{% link_for _('Report'), named_route='home.about' %}</li>
 {% endblock %}
 
-{% block primary_content_inner %}
-  <div class="dataset">
-    <div id="reports" class="row">
-      {% for report in reports %}
-        {% if loop.index0%4==0 %}<div class="clearfix visible-lg"></div>{% endif %}
-        {% if loop.index0%3==0 %}<div class="clearfix visible-md clearfix-ie7"></div>{% endif %}
-        {% if loop.index0%2==0 %}<div class="clearfix visible-sm"></div>{% endif %}
-        <div class="col-lg-3 col-md-4 col-sm-6">
-          {% set report_url=h.url_for('report.view', report_name=report.name, **h.report__explicit_default_options(report.name)) %}
-          <div class="report-summary">
-            <a href="{{ report_url }}" class="report-header">
-              <div class="report-title">{{ report.title }}</div>
-            </a>
-            <div class="report-body">
-              <div class="report-description">{{ report.description }}</div>
-              <div class="clearfix clearfix-ie7"> &nbsp;</div>
-              <a class="view-report-link" href="{{ report_url }}">
-                {{ _('Vedi Report') }}
-              </a>
+{% block primary %}
+<div class="rtds-container">
+  <div class="rtds-grid xl:rtds-flex rtds-gap-6 xl:rtds-gap-8">
+    <section class="module-content">
+      <div class="ckanext-pages-content rtds-container rtds-px-10 rtds-py-6">
+        <h1 class="rtds-heading-1">{{ _('Report') }}</h1>
+      </div>
+      <div class="dataset">
+        <div id="reports" class="row">
+          {% for report in reports %}
+            {% if loop.index0%4==0 %}<div class="clearfix visible-lg"></div>{% endif %}
+            {% if loop.index0%3==0 %}<div class="clearfix visible-md clearfix-ie7"></div>{% endif %}
+            {% if loop.index0%2==0 %}<div class="clearfix visible-sm"></div>{% endif %}
+            <div class="col-lg-3 col-md-4 col-sm-6">
+              {% set report_url=h.url_for('report.view', report_name=report.name, **h.report__explicit_default_options(report.name)) %}
+              <div class="report-summary">
+                <a href="{{ report_url }}" class="report-header">
+                  <div class="report-title">{{ report.title }}</div>
+                </a>
+                <div class="report-body">
+                  <div class="report-description">{{ report.description }}</div>
+                  <div class="clearfix clearfix-ie7"> &nbsp;</div>
+                  <a class="view-report-link" href="{{ report_url }}">
+                    {{ _('Vedi Report') }}
+                  </a>
+                </div>
+              </div>
             </div>
-          </div>
+            <hr />
+          {% endfor %}
         </div>
-        <hr />
-      {% endfor %}
-    </div>
-  </div>
-{% endblock%}
-
-{% block secondary %}
-<aside id="sidebar-left" class="col-sm-3 no-padding closed">
-  <div class="module module-narrow module-shallow">
-  <h2 class="module-heading">
-    <i class="icon-info-sign"></i>
-    Data Quality e Report
-  </h2>
-  <div class="module-content">
-    <p>
-      I report sono generati automaticamente ogni giorno.
-    </p>
-    <p>
-      Si ringrazia <a href="http://data.gov.uk">Data Gov UK</a> per il supporto ed i suggerimenti nella costruzione dei report.
-    </p>
+      </div>
+      
+      <div class="module module-narrow module-shallow">
+        <h2 class="module-heading">
+          <i class="icon-info-sign"></i>
+          Data Quality e Report
+        </h2>
+        <div class="module-content">
+          <p>
+            I report sono generati automaticamente ogni giorno.
+          </p>
+          <p>
+            Si ringrazia <a href="http://data.gov.uk">Data Gov UK</a> per il supporto ed i suggerimenti nella costruzione dei report.
+          </p>
+        </div>
+      </div>
+    </section>
   </div>
 </div>
-</aside>
 {% endblock %}
+
+{% block secondary %}{% endblock %}
 
