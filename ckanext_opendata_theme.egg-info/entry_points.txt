@@ -1,2 +1,5 @@
+[babel.extractors]
+ckan = ckan.lib.extract:extract_ckan
+
 [ckan.plugins]
 opendata_theme = ckanext.opendata_theme.plugin:OpendataThemePlugin
