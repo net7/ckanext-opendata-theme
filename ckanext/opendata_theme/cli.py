@@ -258,5 +258,176 @@ def delete_unused_tokens(username, yes):
         click.echo(f"Errore: {str(e)}", err=True)
 
 
+@opendata.command()
+@click.argument('organization_id')
+def list_org_datasets(organization_id):
+    """Lista tutti i dataset di un'organizzazione.
+    
+    Args:
+        organization_id: ID o nome dell'organizzazione
+    """
+    try:
+        context = {'ignore_auth': True}
+        
+        # Verifica che l'organizzazione esista
+        try:
+            org = toolkit.get_action('organization_show')(
+                context, {'id': organization_id})
+        except toolkit.ObjectNotFound:
+            click.echo(f"Errore: Organizzazione {organization_id} non trovata", err=True)
+            return
+            
+        # Ottieni i dataset dell'organizzazione
+        packages = toolkit.get_action('package_search')(
+            context, {
+                'fq': f'owner_org:{org["id"]}',
+                'rows': 1000  # Limite alto per ottenere tutti i dataset
+            })
+        
+        if not packages['results']:
+            click.echo(f"\nNessun dataset trovato nell'organizzazione {organization_id}")
+            return
+            
+        click.echo(f"\nDataset dell'organizzazione {org['display_name']} ({org['name']}):")
+        click.echo(f"Totale dataset: {packages['count']}")
+        click.echo("")
+        
+        for package in packages['results']:
+            click.echo(f"- {package['id']}: {package['title']} ({package['name']})")
+            click.echo(f"  Stato: {package.get('state', 'attivo')}")
+            click.echo(f"  Risorse: {len(package.get('resources', []))}")
+            click.echo("")
+            
+    except Exception as e:
+        click.echo(f"Errore: {str(e)}", err=True)
+
+
+@opendata.command()
+@click.argument('organization_id')
+@click.option('-y', '--yes', is_flag=True, help='Conferma automaticamente l\'eliminazione senza chiedere')
+def delete_org_datasets(organization_id, yes):
+    """Elimina tutti i dataset di un'organizzazione.
+    
+    Args:
+        organization_id: ID o nome dell'organizzazione
+    """
+    try:
+        context = {'ignore_auth': True}
+        
+        # Verifica che l'organizzazione esista
+        try:
+            org = toolkit.get_action('organization_show')(
+                context, {'id': organization_id})
+        except toolkit.ObjectNotFound:
+            click.echo(f"Errore: Organizzazione {organization_id} non trovata", err=True)
+            return
+            
+        # Ottieni i dataset dell'organizzazione
+        packages = toolkit.get_action('package_search')(
+            context, {
+                'fq': f'owner_org:{org["id"]}',
+                'rows': 1000  # Limite alto per ottenere tutti i dataset
+            })
+        
+        if not packages['results']:
+            click.echo(f"\nNessun dataset da eliminare nell'organizzazione {organization_id}")
+            return
+            
+        # Mostra i dataset che verranno eliminati
+        click.echo(f"\nI seguenti {packages['count']} dataset verranno eliminati dall'organizzazione {org['display_name']}:")
+        for package in packages['results']:
+            click.echo(f"- {package['id']}: {package['title']} ({package['name']})")
+            
+        # Chiedi conferma solo se l'opzione -y non è stata specificata
+        if not yes and not click.confirm(f'\nVuoi procedere con l\'eliminazione di tutti i {packages["count"]} dataset?'):
+            click.echo('Operazione annullata')
+            return
+            
+        # Elimina i dataset
+        deleted_count = 0
+        for package in packages['results']:
+            try:
+                toolkit.get_action('package_delete')(
+                    context, {'id': package['id']})
+                deleted_count += 1
+                click.echo(f"Eliminato dataset: {package['name']}")
+            except Exception as e:
+                click.echo(f"Errore nell'eliminazione del dataset {package['id']}: {str(e)}", err=True)
+        
+        click.echo(f"\nEliminati {deleted_count} dataset dall'organizzazione {organization_id}")
+    except Exception as e:
+        click.echo(f"Errore: {str(e)}", err=True)
+
+
+@opendata.command()
+@click.argument('organization_id')
+@click.option('-y', '--yes', is_flag=True, help='Conferma automaticamente l\'eliminazione senza chiedere')
+def delete_organization(organization_id, yes):
+    """Elimina un'organizzazione e tutti i suoi dataset.
+    
+    Args:
+        organization_id: ID o nome dell'organizzazione da eliminare
+    """
+    try:
+        context = {'ignore_auth': True}
+        
+        # Verifica che l'organizzazione esista
+        try:
+            org = toolkit.get_action('organization_show')(
+                context, {'id': organization_id})
+        except toolkit.ObjectNotFound:
+            click.echo(f"Errore: Organizzazione {organization_id} non trovata", err=True)
+            return
+            
+        # Ottieni i dataset dell'organizzazione
+        packages = toolkit.get_action('package_search')(
+            context, {
+                'fq': f'owner_org:{org["id"]}',
+                'rows': 1000  # Limite alto per ottenere tutti i dataset
+            })
+        
+        # Mostra informazioni sull'organizzazione
+        click.echo(f"\nStai per eliminare l'organizzazione:")
+        click.echo(f"- ID: {org['id']}")
+        click.echo(f"- Nome: {org['name']}")
+        click.echo(f"- Titolo: {org['display_name']}")
+        click.echo(f"- Dataset associati: {packages['count']}")
+        
+        if packages['results']:
+            click.echo(f"\nI seguenti dataset verranno eliminati insieme all'organizzazione:")
+            for package in packages['results']:
+                click.echo(f"- {package['name']}: {package['title']}")
+        
+        # Chiedi conferma solo se l'opzione -y non è stata specificata
+        if not yes and not click.confirm(f'\nVuoi procedere con l\'eliminazione dell\'organizzazione e di tutti i suoi {packages["count"]} dataset?'):
+            click.echo('Operazione annullata')
+            return
+            
+        # Prima elimina tutti i dataset
+        deleted_datasets = 0
+        if packages['results']:
+            click.echo(f"\nEliminazione dei dataset in corso...")
+            for package in packages['results']:
+                try:
+                    toolkit.get_action('package_delete')(
+                        context, {'id': package['id']})
+                    deleted_datasets += 1
+                    click.echo(f"Eliminato dataset: {package['name']}")
+                except Exception as e:
+                    click.echo(f"Errore nell'eliminazione del dataset {package['id']}: {str(e)}", err=True)
+        
+        # Poi elimina l'organizzazione
+        try:
+            toolkit.get_action('organization_delete')(
+                context, {'id': org['id']})
+            click.echo(f"\nOrganizzazione {org['name']} eliminata con successo")
+            click.echo(f"Eliminati anche {deleted_datasets} dataset associati")
+        except Exception as e:
+            click.echo(f"Errore nell'eliminazione dell'organizzazione: {str(e)}", err=True)
+            
+    except Exception as e:
+        click.echo(f"Errore: {str(e)}", err=True)
+
+
 def get_commands():
     return [opendata]

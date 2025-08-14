@@ -148,6 +148,26 @@ If ckanext-opendata-theme should be available on PyPI you can follow these steps
 
  ```ckan -c ckan.ini opendata delete-unused-tokens ckan_admin```
 
+### Comandi per la gestione delle organizzazioni:
+
+* `ckan -c ckan.ini opendata list-org-datasets <organization_id>`
+* `ckan -c ckan.ini opendata delete-org-datasets <organization_id>`
+* `ckan -c ckan.ini opendata delete-organization <organization_id>`
+
+Es.: elencare i dataset dell'organizzazione "my-org", eliminare tutti i dataset dell'organizzazione o eliminare l'intera organizzazione:
+
+```ckan -c ckan.ini opendata list-org-datasets my-org```
+
+```ckan -c ckan.ini opendata delete-org-datasets my-org```
+
+```ckan -c ckan.ini opendata delete-organization my-org```
+
+**Nota:** I comandi di eliminazione richiedono conferma dell'utente. Per automatizzare l'operazione senza conferma, aggiungere l'opzione `--yes` o `-y`:
+
+```ckan -c ckan.ini opendata delete-org-datasets my-org --yes```
+
+```ckan -c ckan.ini opendata delete-organization my-org -y```
+
 ## License
 
 [AGPL](https://www.gnu.org/licenses/agpl-3.0.en.html)
