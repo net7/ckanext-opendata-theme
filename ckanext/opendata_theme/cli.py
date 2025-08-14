@@ -549,6 +549,39 @@ def delete_organization(organization_id, yes):
                     except Exception as e2:
                         click.echo(f"Errore nell'eliminazione del dataset {package['id']}: {str(e2)}", err=True)
         
+        # Se non abbiamo trovato dataset ma CKAN dice che ci sono, forza la pulizia del database
+        if len(all_packages) == 0:
+            click.echo(f"\nNessun dataset trovato ma CKAN potrebbe avere riferimenti fantasma.")
+            click.echo(f"Tentativo di pulizia forzata dal database...")
+            
+            try:
+                import ckan.model as model
+                
+                # Elimina tutti i package dell'organizzazione direttamente dal database
+                db_packages = model.Session.query(model.Package).filter(
+                    model.Package.owner_org == org['id']
+                ).all()
+                
+                click.echo(f"Trovati {len(db_packages)} dataset nel database da eliminare...")
+                
+                for db_pkg in db_packages:
+                    try:
+                        # Prima prova l'API
+                        toolkit.get_action('dataset_purge')(
+                            context, {'id': db_pkg.id})
+                        click.echo(f"Purgato via API: {db_pkg.name}")
+                    except Exception:
+                        try:
+                            # Se l'API fallisce, elimina direttamente dal database
+                            model.Session.delete(db_pkg)
+                            model.Session.commit()
+                            click.echo(f"Eliminato dal database: {db_pkg.name}")
+                        except Exception as e3:
+                            click.echo(f"Errore nell'eliminazione di {db_pkg.name}: {str(e3)}", err=True)
+                            
+            except Exception as e:
+                click.echo(f"Errore nella pulizia forzata: {str(e)}", err=True)
+        
         # Poi elimina l'organizzazione
         try:
             toolkit.get_action('organization_delete')(
@@ -557,6 +590,129 @@ def delete_organization(organization_id, yes):
             click.echo(f"Eliminati anche {deleted_datasets} dataset associati")
         except Exception as e:
             click.echo(f"Errore nell'eliminazione dell'organizzazione: {str(e)}", err=True)
+            
+            # Se fallisce ancora, prova a eliminare l'organizzazione direttamente dal database
+            click.echo(f"\nTentativo di eliminazione forzata dell'organizzazione dal database...")
+            try:
+                import ckan.model as model
+                
+                # Trova l'organizzazione nel database
+                db_org = model.Session.query(model.Group).filter(
+                    model.Group.id == org['id']
+                ).first()
+                
+                if db_org:
+                    # Elimina prima tutte le associazioni
+                    model.Session.query(model.Member).filter(
+                        model.Member.group_id == org['id']
+                    ).delete()
+                    
+                    # Poi elimina l'organizzazione
+                    model.Session.delete(db_org)
+                    model.Session.commit()
+                    click.echo(f"Organizzazione {org['name']} eliminata forzatamente dal database")
+                else:
+                    click.echo(f"Organizzazione non trovata nel database")
+                    
+            except Exception as e2:
+                click.echo(f"Errore nell'eliminazione forzata: {str(e2)}", err=True)
+            
+    except Exception as e:
+        click.echo(f"Errore: {str(e)}", err=True)
+
+
+@opendata.command()
+@click.argument('organization_id')
+@click.option('-y', '--yes', is_flag=True, help='Conferma automaticamente l\'operazione senza chiedere')
+def force_clean_org(organization_id, yes):
+    """Pulisce forzatamente un'organizzazione eliminando tutti i dataset fantasma dal database.
+    
+    Args:
+        organization_id: ID o nome dell'organizzazione da pulire
+    """
+    try:
+        context = {'ignore_auth': True}
+        
+        # Verifica che l'organizzazione esista
+        try:
+            org = toolkit.get_action('organization_show')(
+                context, {'id': organization_id})
+        except toolkit.ObjectNotFound:
+            click.echo(f"Errore: Organizzazione {organization_id} non trovata", err=True)
+            return
+            
+        click.echo(f"\nPulizia forzata dell'organizzazione {org['display_name']} ({org['name']})")
+        click.echo(f"ID organizzazione: {org['id']}")
+        
+        try:
+            import ckan.model as model
+            
+            # Trova tutti i package dell'organizzazione nel database
+            db_packages = model.Session.query(model.Package).filter(
+                model.Package.owner_org == org['id']
+            ).all()
+            
+            click.echo(f"\nTrovati {len(db_packages)} dataset nel database:")
+            for db_pkg in db_packages:
+                click.echo(f"- {db_pkg.name}: {db_pkg.title or 'N/A'} (stato: {db_pkg.state})")
+            
+            if not db_packages:
+                click.echo("Nessun dataset fantasma trovato nel database")
+                return
+                
+            # Chiedi conferma solo se l'opzione -y non è stata specificata
+            if not yes and not click.confirm(f'\nVuoi procedere con l\'eliminazione forzata di tutti i {len(db_packages)} dataset dal database?'):
+                click.echo('Operazione annullata')
+                return
+                
+            # Elimina i dataset
+            deleted_count = 0
+            for db_pkg in db_packages:
+                try:
+                    # Prima prova l'API
+                    toolkit.get_action('dataset_purge')(
+                        context, {'id': db_pkg.id})
+                    deleted_count += 1
+                    click.echo(f"Purgato via API: {db_pkg.name}")
+                except Exception:
+                    try:
+                        # Se l'API fallisce, elimina direttamente dal database
+                        
+                        # Prima elimina le risorse associate
+                        model.Session.query(model.Resource).filter(
+                            model.Resource.package_id == db_pkg.id
+                        ).delete()
+                        
+                        # Elimina le associazioni nei gruppi
+                        model.Session.query(model.Member).filter(
+                            model.Member.table_id == db_pkg.id
+                        ).delete()
+                        
+                        # Elimina i tag associati
+                        model.Session.query(model.PackageTag).filter(
+                            model.PackageTag.package_id == db_pkg.id
+                        ).delete()
+                        
+                        # Elimina gli extra
+                        model.Session.query(model.PackageExtra).filter(
+                            model.PackageExtra.package_id == db_pkg.id
+                        ).delete()
+                        
+                        # Infine elimina il package
+                        model.Session.delete(db_pkg)
+                        model.Session.commit()
+                        
+                        deleted_count += 1
+                        click.echo(f"Eliminato forzatamente dal database: {db_pkg.name}")
+                    except Exception as e:
+                        click.echo(f"Errore nell'eliminazione di {db_pkg.name}: {str(e)}", err=True)
+                        model.Session.rollback()
+            
+            click.echo(f"\nEliminati {deleted_count} dataset fantasma dall'organizzazione")
+            click.echo(f"Ora dovresti poter eliminare l'organizzazione normalmente")
+            
+        except Exception as e:
+            click.echo(f"Errore nell'accesso al database: {str(e)}", err=True)
             
     except Exception as e:
         click.echo(f"Errore: {str(e)}", err=True)
