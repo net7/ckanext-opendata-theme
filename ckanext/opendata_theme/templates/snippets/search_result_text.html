@@ -38,24 +38,27 @@ Example:
   {% set text_no_query_singular = _('dataset found') %}
   {% set text_no_query_plural = _('datasets found') %}
   {% set text_no_query_none_plural = _('datasets found') %}
-{% endif %}
-
-{% if type == 'group' %}
+{% elif type == 'group' %}
   {% set text_query_singular = _('group found') %}
   {% set text_query_plural = _('groups found') %}
   {% set text_query_none_plural = _('groups found') %}
   {% set text_no_query_singular = _('group found') %}
   {% set text_no_query_plural = _('groups found') %}
   {% set text_no_query_none_plural = _('groups found') %}
-{% endif %}
-
-{% if type == 'organization' %}
+{% elif type == 'organization' %}
   {% set text_query_singular = _('organization found') %}
   {% set text_query_plural = _('organizations found') %}
   {% set text_query_none_plural = _('organizations found') %}
   {% set text_no_query_singular = _('organization found') %}
   {% set text_no_query_plural = _('organizations found') %}
   {% set text_no_query_none_plural = _('organizations found') %}
+{% else %}
+  {% set text_query_singular = _(type + ' found') %}
+  {% set text_query_plural = _(type + 's found') %}
+  {% set text_query_none_plural = _(type + 's found') %}
+  {% set text_no_query_singular = _(type + ' found') %}
+  {% set text_no_query_plural = _(type + 's found') %}
+  {% set text_no_query_none_plural = _(type + 's found') %}
 {% endif %}
 
 {% set text_query = ungettext(text_query_singular, text_query_plural, count) %}

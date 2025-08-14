@@ -163,6 +163,10 @@ file.
             {% snippet "snippets/license.html", pkg_dict=pkg %}
             {% endblock %}
 
+            {% if h.check_access('package_update', {'id': pkg.id}) %}
+            {% link_for _('Manage'), named_route=pkg.type+'.edit', id=pkg.name, class_='rtds-btn rtds-btn--primary rtds-w-fit', icon='wrench' %}
+            {% endif %}
+
           </div>
           {% endblock %}
         </aside>

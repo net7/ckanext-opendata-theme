@@ -230,6 +230,10 @@ file.
             {% snippet "snippets/license.html", pkg_dict=pkg %}
             {% endblock %}
 
+            {% if h.check_access('resource_update', {'id': res.id}) %}
+              {% link_for _('Manage'), named_route='resource.edit', id=pkg.name, resource_id=res.id, class_='rtds-btn rtds-btn--primary rtds-w-fit', icon='wrench' %}
+            {% endif %}
+
           </div>
           {% endblock %}
         </aside>
