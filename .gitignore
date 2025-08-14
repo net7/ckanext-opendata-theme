@@ -3,3 +3,5 @@
 *.code-workspace
 
 ckanext/opendata_theme/__pycache__
+
+ckanext/opendata_theme/templates/home/robots.txt
