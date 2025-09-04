@@ -1,20 +1,18 @@
 {% set pages_total = pages|length %} {% set action = '{0}_show'.format(type) %}
 {% set ckan_29_or_higher = h.ckan_version().split('.')[1] | int >= 9 %}
-<div class="rtds-container">
-  <div class="rtds-grid rtds-gap-4 rtds-mt-8 rtds-mb-12">
+{# <div class="rtds-container"> #}
+  {# <div class="rtds-grid rtds-gap-4 rtds-mt-8 rtds-mb-12">
     <h1 class="rtds-heading-1">
       {{ title or "Blog" if type == "blog" else "News in evidenza" }}
     </h1>
-  </div>
+  </div> #}
 
   {% if pages %}
-  <div
-    class="rtds-grid lg:rtds-grid-cols-12 rtds-gap-6 lg:rtds-gap-8 2xl:rtds-mr-16"
-  >
+  {# <div class="rtds-grid lg:rtds-grid-cols-12 rtds-gap-6 lg:rtds-gap-8 2xl:rtds-mr-16">
     <div class="md:rtds-col-span-8">
       <section>
-        <div class="rtds-grid">
-          <ul class="rtds-grid rtds-gap-4">
+        <div class="rtds-grid"> #}
+          <ul class="rtds-grid rtds-gap-6 sm:rtds-grid-cols-2 lg:rtds-grid-cols-3 xl:rtds-grid-cols-4">
             {% set editor = h.pages_get_wysiwyg_editor() %} {% for page in pages
             %} {% if ckan_29_or_higher %} {% if id %} {# this is for orgs and
             groups #} {% set url =
@@ -33,13 +31,13 @@
             %} {%- snippet 'ckanext_pages/snippets/page_item.html', url=url,
             page=page -%} {% endfor %}
           </ul>
-        </div>
+        {# </div>
       </section>
-    </div>
+    </div> #}
     {% else %} {% if type == 'blog' %}
     <p class="empty">{{ _('There are currently no blog articles here') }}</p>
     {% else %}
     <p class="empty">{{ _('There are currently no pages here') }}</p>
     {% endif %} {% endif %}
-  </div>
-</div>
+  {# </div>
+</div> #}

@@ -2,8 +2,8 @@
 {% set total_pages = pager.page_count %}
 {% set radius = 2 %}
 
-<nav class="rtds-pagination" role="navigation" aria-label="Paginazione">
-  <ul class="rtds-pagination__list">
+<nav class="rtds-pagination rtds-justify-center" role="navigation" aria-label="Paginazione">
+  <ul class="rtds-pagination__list rtds-justify-center">
     {% if current_page > 1 %}
     <li>
       <a class="rtds-pagination__link rtds-pagination__link-button" href="{{ h.add_url_param(new_params={'page': 1}) }}" aria-label="{{ _('First page') }}">
@@ -41,7 +41,7 @@
       [current_page + radius + 1, total_pages + 1]|min
     ) %}
     <li>
-      <a class="rtds-pagination__link rtds-pagination__link-button rtds-pagination__link-text {% if index == current_page %}rtds-background-primary rtds-border-primary rtds-text-white hover:rtds-content-01{% endif %}" {% if index == current_page %}aria-current="true"{%endif %} href="{{ h.add_url_param(new_params={'page': index}) }}" aria-label="{{ _('page {0}').format(index) }}">{{ index }}</a>
+      <a class="rtds-pagination__link rtds-pagination__link-button rtds-pagination__link-text {% if index == current_page %}rtds-background-primary-medium rtds-border-primary-dark rtds-text-white hover:rtds-content-01{% endif %}" {% if index == current_page %}aria-current="true"{%endif %} href="{{ h.add_url_param(new_params={'page': index}) }}" aria-label="{{ _('page {0}').format(index) }}">{{ index }}</a>
     </li>
     {% endfor %}
     

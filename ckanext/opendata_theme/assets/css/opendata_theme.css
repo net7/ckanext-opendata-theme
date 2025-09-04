@@ -1736,6 +1736,7 @@ address {
 
 .rtds-card {
   display: grid;
+  place-content: start;
   align-items: flex-start;
   gap: var(--spacing-3);
   border-radius: 0.25rem;
@@ -1927,7 +1928,6 @@ address {
 
 .rtds-card__date {
   font-size: var(--fontsize-text-sm);
-  font-weight: 700;
   color: var(--color-neutral-800);
 }
 
@@ -1980,7 +1980,7 @@ address {
 /* Card NEWS */
 
 .rtds-card--news {
-  background-color: var(--color-neutral-50);
+  /* @apply rtds-background-01; */
 }
 
 :where(.rtds-card--news:not(.rtds-card--news-small)) .rtds-card__description {
@@ -2052,7 +2052,7 @@ body:where(.rtds-card--news) .rtds-card__image-wrapper .rtds-primary-navigation_
 
 .rtds-card--news-image-fullwidth,
     .rtds-card--news-image-left-fullwidth {
-  gap: var(--spacing-3);
+  gap: var(--spacing-6);
   padding: var(--spacing-0);
 }
 
@@ -2358,8 +2358,8 @@ legend:where(.rtds-input-field__label) {
 }
 
 .rtds-pagination {
+  margin-top: var(--spacing-8);
   display: flex;
-  justify-content: center;
   padding: var(--spacing-2);
 }
 
@@ -3352,6 +3352,10 @@ legend.rtds-facets__legend {
   margin-top: var(--spacing-10);
 }
 
+.rtds-mt-16 {
+  margin-top: var(--spacing-16);
+}
+
 .rtds-mt-4 {
   margin-top: var(--spacing-4);
 }
@@ -4035,8 +4039,8 @@ legend.rtds-facets__legend {
   background-color: var(--color-neutral-400);
 }
 
-.rtds-background-primary {
-  background-color: var(--color-primary-500);
+.rtds-background-primary-medium {
+  background-color: var(--color-primary-700);
 }
 
 /* BORDER CUSTOM */
@@ -4055,10 +4059,6 @@ legend.rtds-facets__legend {
 
 .rtds-border-gray-04 {
   border-color: var(--color-neutral-800);
-}
-
-.rtds-border-primary {
-  border-color: var(--color-primary-500);
 }
 
 /* Override generic styles for text field */
@@ -4540,6 +4540,10 @@ legend.rtds-facets__legend {
     width: auto;
   }
 
+  .sm\:rtds-grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .sm\:rtds-flex-nowrap {
     flex-wrap: nowrap;
   }
@@ -4866,6 +4870,10 @@ legend.rtds-facets__legend {
 
   .xl\:rtds-grid-cols-12 {
     grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .xl\:rtds-grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .xl\:rtds-gap-32 {

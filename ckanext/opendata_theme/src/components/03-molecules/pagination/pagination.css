@@ -4,7 +4,7 @@
 */
 @layer components {
     .rtds-pagination {
-        @apply  rtds-flex rtds-p-2 rtds-justify-center;
+        @apply  rtds-flex rtds-p-2 rtds-mt-8;
     }
 
     .rtds-pagination__list {

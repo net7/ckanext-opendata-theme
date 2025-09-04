@@ -1,24 +1,23 @@
 <li>
-  <article
-    class="rtds-card rtds-card--information-02 is-card-fullclickable rtds-group/card"
-    style="cursor: pointer"
-  >
+  <article class="rtds-card rtds-card--news rtds-card--news-image-fullwidth rtds-h-full is-card-fullclickable rtds-group/card">
+    {% block page_item_image %} {% if page.image %}
+    <picture class="rtds-card__image-wrapper">
+      <img class="rtds-card__image rtds-h-full" alt="" src="{{page.image}}" />
+    </picture>
+    {% endif %} {% endblock %}
     <div class="rtds-card__content">
       <div class="rtds-card__heading">
-        {% block page_item_image %} {% if page.image %}
-        <picture class="rtds-card__image-wrapper">
-          <img
-            class="rtds-card__image_ rtds-text-center rtds-h-full"
-            alt=""
-            src="{{page.image}}"
-          />
-        </picture>
-        {% endif %} {% endblock %}
         <h3 class="rtds-card__title">
-          <a class="group-hover/card:rtds-underline" href="{{ url }}"
-            >{{ page.title }}</a
-          >
+          <a class="group-hover/card:rtds-underline" href="{{ url }}">
+            {{ page.title }}
+          </a>
         </h3>
+
+        <div class="rtds-card__metadata">
+          <div class="rtds-card__date">
+            <time datetime="2025-06-13">13 giu 2025</time>
+          </div>
+        </div>
       </div>
 
       <div class="rtds-card__description">
@@ -28,6 +27,13 @@
         <p class="empty">{{ _('This page currently has no content') }}</p>
         {% endif %} {% endblock %}
       </div>
+
+      {# <div class="rtds-card__categories">
+        <span class="rtds-category ">
+          Categoria
+        </span>
+      </div> #}
+
     </div>
   </article>
 </li>

@@ -5,7 +5,7 @@
 @layer components {
     /* BASE */
     .rtds-card {
-        @apply rtds-grid rtds-items-start rtds-gap-3 md:rtds-gap-4 rtds-p-2 rtds-bg-white rtds-shadow-md rtds-rounded;
+        @apply rtds-grid rtds-items-start rtds-place-content-start rtds-gap-3 md:rtds-gap-4 rtds-p-2 rtds-bg-white rtds-shadow-md rtds-rounded;
     }
 
     /* CARD IN GRID COL */
@@ -95,7 +95,7 @@
     }
 
     .rtds-card__date {
-        @apply rtds-text-sm rtds-font-bold rtds-content-03;
+        @apply rtds-text-sm rtds-content-03;
     }
 
     :where(.rtds-card--event) .rtds-card__date {
@@ -152,7 +152,7 @@
 
     /* Card NEWS */
     .rtds-card--news {
-        @apply rtds-background-01;
+        /* @apply rtds-background-01; */
     }
 
     :where(.rtds-card--news:not(.rtds-card--news-small)) .rtds-card__description {
@@ -187,7 +187,7 @@
 
     .rtds-card--news-image-fullwidth,
     .rtds-card--news-image-left-fullwidth {
-        @apply rtds-gap-3 rtds-p-0;
+        @apply rtds-gap-6 rtds-p-0;
     }
 
     :where(.rtds-card--news-image-fullwidth) .rtds-card__image-wrapper,

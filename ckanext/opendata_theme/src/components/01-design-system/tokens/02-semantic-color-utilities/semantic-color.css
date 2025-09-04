@@ -276,6 +276,10 @@
         @apply rtds-bg-neutral-50;
     }
 
+    .rtds-background-primary-medium {
+        @apply rtds-bg-primary-700;
+    }
+
     .rtds-background-primary-dark {
         @apply rtds-bg-primary-900;
     }

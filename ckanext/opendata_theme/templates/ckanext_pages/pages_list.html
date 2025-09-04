@@ -1,6 +1,5 @@
 {% extends 'ckanext_pages/edit_base.html' %}
-
-{% block page_primary_action %}
+{# {% block page_primary_action %}
   {% if h.check_access('ckanext_pages_update', {}) %}
     {% if h.ckan_version().split('.')[1] | int >= 9 %}
       {% link_for _('Add page'), named_route='pages.new', page='', class_='btn btn-primary', icon='plus-square' %}
@@ -8,15 +7,32 @@
       {% link_for _('Add page'), controller='ckanext.pages.controller:PagesController', action='pages_edit', page='', class_='btn btn-primary', icon='plus-square' %}
     {% endif %}
   {% endif %}
-{% endblock %}
+{% endblock %} #}
 
 {% block primary_content_inner %}
   {% snippet 'ckanext_pages/snippets/pages_list.html', pages=c.page.items %}
-  {{ c.page.pager() }}
+  {# {{ c.page.pager() }} #}
+  {% snippet 'snippets/pagination.html', pager=g.page %}
 {% endblock %}
 
 {% block main_content %}
-   <div class="wrapper no-nav">
-     {{ self.primary_content() }}
-   </div>
+  <div class="rtds-container">
+
+    {% block pre_primary %}
+    <div class="rtds-grid rtds-gap-2 rtds-mt-16 rtds-mb-12">
+      <div class="rtds-flex">
+        <a href="#" class="rtds-text-link rtds-text-link--s">
+          <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-flex-shrink-0 rtds-flex-grow-0" aria-hidden="true" focusable="false" role="img">
+            <use href="/icons.svg#solid--arrow-left" />
+          </svg>
+          Torna indietro
+        </a>
+      </div>
+      <h1 class="rtds-heading-1 rtds-max-w-5xl">{{ title or "Blog" if type == "blog" else "News in evidenza" }}</h1>
+    </div>
+    {% endblock %}
+
+    {{ self.primary_content() }}
+
+  </div>
 {% endblock %}
