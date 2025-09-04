@@ -90,17 +90,17 @@
         <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
           <div class="rtds-card__icon">
             <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
-              <use href="/icons.svg#leaf--nature-environment-leaf-ecology-plant-plants-eco" />
+              <use href="/icons.svg#outline--sun" />
             </svg>
           </div>
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_groups_limit=0&dcat_theme=ENVI">{{ _('Environment') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_dcat_theme_limit=0&dcat_theme=ENVI">{{ _('Environment') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
-              <p>{{ _('Open data for environmental protection and sustainability in Tuscany.') }}</p>
+              <p>Dati su qualità dell'aria, acque superficiali, suolo, aree protette, gestione dei rifiuti e rischio idrogeologico in Toscana.</p>
             </div>
           </div>
         </article>
@@ -115,11 +115,11 @@
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_groups_limit=0&dcat_theme=REGI">{{ _('Regions and cities') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_dcat_theme_limit=0&dcat_theme=REGI">{{ _('Regions and cities') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
-              <p>{{ _('Local development data for more inclusive and participatory development.') }}</p>
+              <p>Informazioni demografiche, urbanistiche e geografiche sui comuni e le province toscane.</p>
             </div>
           </div>
         </article>
@@ -134,11 +134,11 @@
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_groups_limit=0&dcat_theme=GOVE">{{ _('Government and public sector') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_dcat_theme_limit=0&dcat_theme=GOVE">{{ _('Government and public sector') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
-              <p>{{ _('Transparency and participation in public processes.') }}</p>
+              <p>Dati su bilanci regionali, spesa pubblica, servizi offerti ai cittadini e organizzazione amministrativa.</p>
             </div>
           </div>
         </article>
@@ -153,11 +153,11 @@
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_groups_limit=0&dcat_theme=TECH">{{ _('Science and technology') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_dcat_theme_limit=0&dcat_theme=TECH">{{ _('Science and technology') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
-              <p>{{ _('Innovation and progress accessible to everyone.') }}</p>
+              <p>Dati su ricerca, innovazione, sviluppo tecnologico e digitalizzazione nel territorio toscano.</p>
             </div>
           </div>
         </article>
@@ -172,11 +172,11 @@
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_groups_limit=0&dcat_theme=TRAN">{{ _('Transport') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_dcat_theme_limit=0&dcat_theme=TRAN">{{ _('Transport') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
-              <p>{{ _('Smart mobility for a more connected Tuscany.') }}</p>
+              <p>Dati su infrastrutture stradali, ferrovie, mobilità urbana e trasporti pubblici in Toscana.</p>
             </div>
           </div>
         </article>
@@ -191,11 +191,11 @@
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_groups_limit=0&dcat_theme=ECON">{{ _('Economy and finance') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_dcat_theme_limit=0&dcat_theme=ECON">{{ _('Economy and finance') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
-              <p>{{ _('Economic data to support businesses and citizens.') }}</p>
+              <p>Dati su bilanci pubblici, occupazione, produzione industriale e altri indicatori economici del territorio toscano.</p>
             </div>
           </div>
         </article>
@@ -210,11 +210,11 @@
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_groups_limit=0&dcat_theme=ENER">{{ _('Energy') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_dcat_theme_limit=0&dcat_theme=ENER">{{ _('Energy') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
-              <p>{{ _('Energy sustainability for a greener future.') }}</p>
+              <p>Dati su produzione, consumo e fonti energetiche, incluse le rinnovabili, in Toscana.</p>
             </div>
           </div>
         </article>
@@ -229,11 +229,106 @@
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_groups_limit=0&dcat_theme=EDUC">{{ _('Education, culture and sport') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_dcat_theme_limit=0&dcat_theme=EDUC">{{ _('Education, culture and sport') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
-              <p>{{ _('We value knowledge and cultural activities.') }}</p>
+              <p>Dati su scuole, università, musei, eventi culturali e impianti sportivi del territorio toscano.</p>
+            </div>
+          </div>
+        </article>
+      </li>
+      <li class="rtds-col">
+        <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
+          <div class="rtds-card__icon">
+            <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
+              <use href="/icons.svg#outline--user-group" />
+            </svg>
+          </div>
+          <div class="rtds-card__content">
+            <div class="rtds-card__heading">
+              <h3 class="rtds-card__title">
+                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_dcat_theme_limit=0&dcat_theme=SOCI">{{ _('Popolazione e società') }}</a>
+              </h3>
+            </div>
+            <div class="rtds-card__description ">
+              <p>I dati sulla popolazione e le dinamiche sociali.</p>
+            </div>
+          </div>
+        </article>
+      </li>
+      <li class="rtds-col">
+        <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
+          <div class="rtds-card__icon">
+            <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
+              <use href="/icons.svg#outline--server" />
+            </svg>
+          </div>
+          <div class="rtds-card__content">
+            <div class="rtds-card__heading">
+              <h3 class="rtds-card__title">
+                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_dcat_theme_limit=0&dcat_theme=OP_DATPRO">{{ _('Dati provvisori') }}</a>
+              </h3>
+            </div>
+            <div class="rtds-card__description ">
+              <p>Dati in fase di elaborazione e verifica. </p>
+            </div>
+          </div>
+        </article>
+      </li>
+      <li class="rtds-col">
+        <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
+          <div class="rtds-card__icon">
+            <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
+              <use href="/icons.svg#heart-rate-pulse-graph" />
+            </svg>
+          </div>
+          <div class="rtds-card__content">
+            <div class="rtds-card__heading">
+              <h3 class="rtds-card__title">
+                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_dcat_theme_limit=0&dcat_theme=HEAL">{{ _('Salute') }}</a>
+              </h3>
+            </div>
+            <div class="rtds-card__description ">
+              <p>Dati su strutture sanitarie, servizi medici, statistiche di popolazione e salute pubblica in Toscana.</p>
+            </div>
+          </div>
+        </article>
+      </li>
+      <li class="rtds-col">
+        <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
+          <div class="rtds-card__icon">
+            <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
+              <use href="/icons.svg#leaf--nature-environment-leaf-ecology-plant-plants-eco" />
+            </svg>
+          </div>
+          <div class="rtds-card__content">
+            <div class="rtds-card__heading">
+              <h3 class="rtds-card__title">
+                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_dcat_theme_limit=0&dcat_theme=AGRI">{{ _('Agricoltura') }}</a>
+              </h3>
+            </div>
+            <div class="rtds-card__description ">
+              <p>Dati su produzioni agricole, zootecnia, viticoltura, forestazione e gestione del territorio rurale in Toscana.</p>
+            </div>
+          </div>
+        </article>
+      </li>
+      <li class="rtds-col">
+        <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
+          <div class="rtds-card__icon">
+            <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
+              <use href="/icons.svg#outline--scale" />
+            </svg>
+          </div>
+          <div class="rtds-card__content">
+            <div class="rtds-card__heading">
+              <h3 class="rtds-card__title">
+                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_dcat_theme_limit=0&dcat_theme=JUST">{{ _('Giustizia e sicurezza pubblica') }}</a>
+              </h3>
+            </div>
+            <div class="rtds-card__description ">
+              <p>Dati su sicurezza, infrazioni stradali e attività giudiziaria in Toscana.</p>
             </div>
           </div>
         </article>
@@ -284,7 +379,7 @@
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{{ h.url_for('dataset.search') }}?_groups_limit=0&groups=turismo-e-tempo-libero">Eventi culturali</a>
+                <a class="group-hover/card:rtds-underline" href="{{ h.url_for('dataset.search') }}?_groups_limit=0&groups=meteo">Meteo</a>
               </h3>
             </div>
           </div>
