@@ -96,6 +96,8 @@ ckanext/opendata_theme/templates/credits.html
 ckanext/opendata_theme/templates/footer.html
 ckanext/opendata_theme/templates/header.html
 ckanext/opendata_theme/templates/infografica.html
+ckanext/opendata_theme/templates/page-detail.html
+ckanext/opendata_theme/templates/page-list.html
 ckanext/opendata_theme/templates/page-organization.html
 ckanext/opendata_theme/templates/page-read.html
 ckanext/opendata_theme/templates/page-resource.html

@@ -19,16 +19,16 @@
   <div class="rtds-container">
 
     {% block pre_primary %}
-    <div class="rtds-grid rtds-gap-2 rtds-mt-16 rtds-mb-12">
+    <div class="rtds-grid rtds-gap-4 rtds-mt-8 rtds-mb-12">
       <div class="rtds-flex">
-        <a href="#" class="rtds-text-link rtds-text-link--s">
+        <a href="#" class="rtds-text-link rtds-content-03 rtds-text-link--s">
           <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-flex-shrink-0 rtds-flex-grow-0" aria-hidden="true" focusable="false" role="img">
-            <use href="/icons.svg#solid--arrow-left" />
+            <use href="../../icons.svg#solid--arrow-left" />
           </svg>
           Torna indietro
         </a>
       </div>
-      <h1 class="rtds-heading-1 rtds-max-w-5xl">{{ title or "Blog" if type == "blog" else "News in evidenza" }}</h1>
+      <h1 class="rtds-heading-1">{{ title or "Blog" if type == "blog" else "News in evidenza" }}</h1>
     </div>
     {% endblock %}
 
