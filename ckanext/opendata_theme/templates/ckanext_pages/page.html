@@ -45,8 +45,10 @@
           </div>
           <hr>
           <div class="rtds-grid rtds-gap-2">
-            <span>Creato il <time datetime="2025-06-13">13 giugno 2025</time></span>
-            <span>Aggiornamento al <time datetime="2025-08-25">25 agosto 2025</time></span>
+            <span>Creato il <time datetime="{{ h.format_date(c.page.created, 'ymd') }}">{{ h.format_date(c.page.created, 'dmmy') }}</time></span>
+            {% if c.page.updated %}
+              <span>Aggiornamento al <time datetime="{{ h.format_date(c.page.updated, 'ymd') }}">{{ h.format_date(c.page.updated, 'dmmy') }}</time></span>
+            {% endif %}
           </div>
         {% else %}
           <p class="empty">{{ _('This page currently has no content') }}</p>
