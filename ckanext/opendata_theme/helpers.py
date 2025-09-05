@@ -3,6 +3,7 @@ from flask import request
 import ckan.plugins.toolkit as toolkit
 from html.parser import HTMLParser
 import random
+from datetime import datetime
 
 def opendata_theme_hello():
     return "Hello, opendata_theme!"
@@ -375,12 +376,33 @@ def get_page_image(content):
     except Exception as e:
         return None
     
-
-def format_date(date_obj, format='dmy'):
-    """Format a datetime object to Italian format like '20 lug 2024'"""
-    if not date_obj:
+def format_date(date_input, format='dmy'):
+    """
+    Formatta una data (stringa ISO o oggetto datetime) in formato italiano
+    
+    Args:
+        date_input: Può essere una stringa ISO (es. "2024-07-20T11:34:23.364783") o un oggetto datetime
+        format (str): Formato di output ('dmy' per "20 lug 2024", 'dmmy' per "20 luglio 2024", 'ymd' per "2024-07-20")
+    
+    Returns:
+        str: Data formattata in italiano o None se errore
+    """
+    if not date_input:
         return None
     
+    # Se è una stringa, convertila in oggetto datetime
+    if isinstance(date_input, str):
+        try:
+            # Gestisce stringhe ISO con o senza microsecondi e timezone
+            date_obj = datetime.fromisoformat(date_input.replace('Z', '+00:00'))
+        except (ValueError, AttributeError):
+            # Se non riesce a convertire, restituisce la stringa originale
+            return date_input
+    else:
+        # È già un oggetto datetime
+        date_obj = date_input
+    
+    # Dizionari per i mesi in italiano
     italian_months_short = {
         1: 'gen', 2: 'feb', 3: 'mar', 4: 'apr', 5: 'mag', 6: 'giu',
         7: 'lug', 8: 'ago', 9: 'set', 10: 'ott', 11: 'nov', 12: 'dic'
@@ -391,14 +413,14 @@ def format_date(date_obj, format='dmy'):
         7: 'luglio', 8: 'agosto', 9: 'settembre', 10: 'ottobre', 11: 'novembre', 12: 'dicembre'
     }
     
-    # Format: day month year (e.g., "20 lug 2024")
+    # Formattazione in base al formato richiesto
     if format == 'dmy':
         day = date_obj.day
         month = italian_months_short[date_obj.month]
         year = date_obj.year
         return f"{day} {month} {year}"
     
-    if format == 'dmmy':
+    elif format == 'dmmy':
         day = date_obj.day
         month = italian_months_long[date_obj.month]
         year = date_obj.year
