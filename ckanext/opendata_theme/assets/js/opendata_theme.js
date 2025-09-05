@@ -858,6 +858,323 @@ window.addEventListener("load", function () {
 });
 /** Tablist.js END **/
 
+/** side-navigation.js BEGIN **/
+/*
+ *   This content is licensed according to the W3C Software License at
+ *   https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document
+ *
+ *   Supplemental JS for the disclosure menu keyboard behavior
+ */
+
+'use strict';
+// Helper function to find the closest ancestor with a specific tag name
+function findAncestor(element, tagName) {
+  while (element) {
+    if (element.tagName.toLowerCase() === tagName) {
+      return element;
+    }
+    element = element.parentElement;
+  }
+  return null;
+}
+
+class submenuDisclosure {
+  constructor(domNode) {
+    this.rootNode = domNode;
+    this.parentNav = domNode.closest('.rtds-side-navigation');
+    this.controlledNodes = [];
+    this.openIndex = null;
+    this.useArrowKeys = true;
+    this.topLevelNodes = [
+      ...this.rootNode.querySelectorAll(
+        '.rtds-nav-link, .rtds-nav-toggle'
+      ),
+    ];
+
+    this.topLevelNodes.forEach((node) => {
+      // handle button + menu
+      if (
+        node.tagName.toLowerCase() === 'button' &&
+        node.hasAttribute('aria-controls')
+      ) {
+        const menuLiParent = node.closest('li');
+        const menu = menuLiParent.querySelector('ul');
+
+        if (menu) {
+          // save ref controlled menu
+          this.controlledNodes.push(menu);
+
+          // collapse menus
+          if (menu.querySelector('.is-current') || node.classList.contains('is-current')) {
+            node.setAttribute('aria-expanded', 'true');
+            this.toggleMenu(menu, true);
+          } else {
+            node.setAttribute('aria-expanded', 'false');
+            this.toggleMenu(menu, false);
+          }
+
+          // attach event listeners
+          menu.addEventListener('keydown', this.onMenuKeyDown.bind(this));
+          node.addEventListener('click', this.onButtonClick.bind(this));
+          node.addEventListener('keydown', this.onButtonKeyDown.bind(this));
+        }
+      }
+      // handle links
+      else {
+        this.controlledNodes.push(null);
+        node.addEventListener('keydown', this.onLinkKeyDown.bind(this));
+      }
+    });
+
+    // Gestione specifica per i sub-submenu
+    const subSubmenuToggleButtons = this.rootNode.querySelectorAll('.rtds-side-navigation__sub-submenu');
+    subSubmenuToggleButtons.forEach(subMenu => {
+      const toggleButton = subMenu.previousElementSibling.querySelector('.rtds-nav-toggle');
+      if (toggleButton) {
+        toggleButton.addEventListener('click', this.onSubSubmenuToggleClick.bind(this));
+      }
+    });
+
+    // MODIFICATO: Rimosso l'ascoltatore di eventi focusout/blur
+    // this.rootNode.addEventListener('focusout', this.onBlur.bind(this));
+
+    // Aggiungiamo il riferimento al toggle button principale
+    this.mainMenuToggle = this.parentNav.querySelector('.rtds-nav-list-toggle');
+
+    // Aggiungiamo il listener per l'Escape sul menu principale
+    this.rootNode.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && window.innerWidth < 768) {
+        // Verifichiamo se il menu principale è aperto
+        if (this.mainMenuToggle && this.mainMenuToggle.getAttribute('aria-expanded') === 'true') {
+          this.mainMenuToggle.setAttribute('aria-expanded', 'false');
+          this.mainMenuToggle.focus();
+        }
+      }
+    });
+  }
+
+  // Nuovo metodo per gestire i toggle dei sub-submenu
+  onSubSubmenuToggleClick(event) {
+    event.stopPropagation(); // Impedisce la propagazione dell'evento ai livelli superiori
+    
+    const button = event.currentTarget;
+    const isExpanded = button.getAttribute('aria-expanded') === 'true';
+    const controlledMenuId = button.getAttribute('aria-controls');
+    const controlledMenu = document.getElementById(controlledMenuId);
+    
+    // Toggle aria-expanded
+    button.setAttribute('aria-expanded', (!isExpanded).toString());
+    
+    // Toggle visualizzazione menu
+    if (controlledMenu) {
+      controlledMenu.style.display = isExpanded ? 'none' : 'block';
+    }
+  }
+
+  controlFocusByKey(keyboardEvent, nodeList, currentIndex) {
+    switch (keyboardEvent.key) {
+      case 'ArrowUp':
+      case 'ArrowLeft':
+        keyboardEvent.preventDefault();
+        if (currentIndex > -1) {
+          var prevIndex = Math.max(0, currentIndex - 1);
+          nodeList[prevIndex].focus();
+        }
+        break;
+      case 'ArrowDown':
+      case 'ArrowRight':
+        keyboardEvent.preventDefault();
+        if (currentIndex > -1) {
+          var nextIndex = Math.min(nodeList.length - 1, currentIndex + 1);
+          nodeList[nextIndex].focus();
+        }
+        break;
+      case 'Home':
+        keyboardEvent.preventDefault();
+        nodeList[0].focus();
+        break;
+      case 'End':
+        keyboardEvent.preventDefault();
+        nodeList[nodeList.length - 1].focus();
+        break;
+    }
+  }
+
+  // public function to close open menu
+  close() {
+    this.toggleExpand(this.openIndex, false);
+  }
+
+  // MODIFICATO: Rimosso o commentato il metodo onBlur
+  /*
+  onBlur(event) {
+    var menuContainsFocus = this.rootNode.contains(event.relatedTarget);
+    if (!menuContainsFocus && this.openIndex !== null) {
+      this.toggleExpand(this.openIndex, false);
+    }
+  }
+  */
+
+  onButtonClick(event) {
+    var target = event.target;
+    
+    // Controlla se questo è un bottone di sub-submenu
+    if (target.closest('.rtds-side-navigation__second-level-label')) {
+      // Lascia che l'evento venga gestito da onSubSubmenuToggleClick
+      return;
+    }
+
+    // Check if the target is not a button but is a descendant of a button
+    if (target.tagName.toLowerCase() !== 'button') {
+      var buttonAncestor = findAncestor(target, 'button');
+
+      // If an ancestor button is found, trigger the click on that button
+      if (buttonAncestor) {
+        buttonAncestor.click();
+        return; // Stop further processing since the click is handled
+      }
+    }
+
+    var button = event.currentTarget;
+    var buttonIndex = this.topLevelNodes.indexOf(button);
+    var buttonExpanded = button.getAttribute('aria-expanded') === 'true';
+    this.toggleExpand(buttonIndex, !buttonExpanded);
+  }
+
+  onButtonKeyDown(event) {
+    var targetButtonIndex = this.topLevelNodes.indexOf(document.activeElement);
+
+    // close on escape
+    if (event.key === 'Escape') {
+      this.toggleExpand(this.openIndex, false);
+    }
+
+    // move focus into the open menu if the current menu is open
+    else if (
+      this.useArrowKeys &&
+      this.openIndex === targetButtonIndex &&
+      event.key === 'ArrowDown'
+    ) {
+      event.preventDefault();
+      this.controlledNodes[this.openIndex].querySelector('a').focus();
+    }
+
+    // handle arrow key navigation between top-level buttons, if set
+    else if (this.useArrowKeys) {
+      this.controlFocusByKey(event, this.topLevelNodes, targetButtonIndex);
+    }
+  }
+
+  onLinkKeyDown(event) {
+    var targetLinkIndex = this.topLevelNodes.indexOf(document.activeElement);
+
+    // handle arrow key navigation between top-level buttons, if set
+    if (this.useArrowKeys) {
+      this.controlFocusByKey(event, this.topLevelNodes, targetLinkIndex);
+    }
+  }
+
+  onMenuKeyDown(event) {
+    if (this.openIndex === null) {
+      return;
+    }
+
+    var menuLinks = Array.prototype.slice.call(
+      this.controlledNodes[this.openIndex].querySelectorAll('a')
+    );
+    var currentIndex = menuLinks.indexOf(document.activeElement);
+
+    // close on escape
+    if (event.key === 'Escape') {
+      this.topLevelNodes[this.openIndex].focus();
+      this.toggleExpand(this.openIndex, false);
+    }
+
+    // handle arrow key navigation within menu links, if set
+    else if (this.useArrowKeys) {
+      this.controlFocusByKey(event, menuLinks, currentIndex);
+    }
+  }
+
+  toggleExpand(index, expanded) {
+    // close open menu, if applicable
+    if (this.openIndex !== index) {
+      this.toggleExpand(this.openIndex, false);
+    }
+
+    // handle menu at called index
+    if (this.topLevelNodes[index]) {
+      this.openIndex = expanded ? index : null;
+      this.topLevelNodes[index].setAttribute('aria-expanded', expanded);
+      this.toggleMenu(this.controlledNodes[index], expanded);
+    }
+  }
+
+  toggleMenu(domNode, show) {
+    if (domNode) {
+      domNode.style.display = show ? 'block' : 'none';
+    }
+  }
+
+  updateKeyControls(useArrowKeys) {
+    this.useArrowKeys = useArrowKeys;
+  }
+}
+
+/* Initialize Disclosure Menus */
+
+window.addEventListener(
+  'load',
+  function () {
+    const navListToggle = document.querySelector('.rtds-nav-list-toggle');
+    if (navListToggle) {
+      // Funzione per aggiornare aria-expanded in base alla visibilità
+      //const updateAriaExpanded = () => {
+      ////};
+
+      // Gestione del click
+      navListToggle.addEventListener('click', function() {
+        const currentState = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', (!currentState).toString());
+      });
+
+      // Gestione dello scroll
+      let lastScrollTop = 0;
+      window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        // Se stiamo scrollando verso l'alto e il menu è aperto
+        if (scrollTop < lastScrollTop && navListToggle.getAttribute('aria-expanded') === 'true') {
+          // Manteniamo il menu aperto
+          navListToggle.setAttribute('aria-expanded', 'true');
+        }
+        lastScrollTop = scrollTop;
+      });
+    }
+
+    // Inizializza i menu dropdown
+    var dropdownMenus = document.querySelectorAll('.has-nav-dropdown');
+    var disclosureMenus = [];
+
+    for (var i = 0; i < dropdownMenus.length; i++) {
+      disclosureMenus[i] = new submenuDisclosure(dropdownMenus[i]);
+    }
+
+    // listen to arrow key checkbox
+    var arrowKeySwitch = document.getElementById('arrow-behavior-switch');
+    if (arrowKeySwitch) {
+      arrowKeySwitch.addEventListener('change', function () {
+        var checked = arrowKeySwitch.checked;
+        for (var i = 0; i < disclosureMenus.length; i++) {
+          disclosureMenus[i].updateKeyControls(checked);
+        }
+      });
+    }
+
+  },
+  false
+);
+/** side-navigation.js END **/
+
 /** Sidebar collapse/expand BEGIN **/
 document.addEventListener("DOMContentLoaded", function () {
     "use strict";

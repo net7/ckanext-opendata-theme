@@ -1,0 +1,73 @@
+/**
+ * SIDE NAVIGATION
+ *
+*/
+@layer components {
+    .rtds-side-navigation__title {
+        @apply rtds-grid rtds-gap-3 rtds-content-03 rtds-text-base rtds-font-bold;
+    }
+
+    .rtds-side-navigation__label-context {
+        @apply rtds-text-lg md:rtds-text-xl lg:rtds-text-2xl rtds-block rtds-heading-3 rtds-content-01;
+    }
+
+    .rtds-side-navigation__item {
+        @apply rtds-content-03 rtds-flex rtds-flex-wrap rtds-items-stretch rtds-text-base;
+    }
+
+    .rtds-side-navigation__first-level-label {
+        @apply rtds-flex rtds-flex-1 rtds-font-bold;
+    }
+
+    .rtds-side-navigation__link {
+        @apply rtds-text-current rtds-border-transparent rtds-flex rtds-flex-1 rtds-items-center rtds-gap-2 rtds-p-4 rtds-transition hover:rtds-content-primary hover:rtds-underline;
+    }
+
+    .rtds-side-navigation__label {
+        @apply rtds-inline-block;
+    }
+
+    .rtds-side-navigation__link:where(.is-current) {
+        @apply rtds-content-primary rtds-border-current;
+    }
+
+    :where(.rtds-side-navigation__link.is-current) .rtds-side-navigation__label {
+        @apply rtds-pb-1 rtds-border-b-2 rtds-border-current;
+    }
+
+    .rtds-side-navigation__nav-toggle {
+        @apply rtds-flex rtds-items-center rtds-justify-center rtds-w-8 hover:rtds-content-primary;
+    }
+
+    /* MOBILE */
+    .rtds-side-navigation__list-toggle {
+        @apply rtds-w-full rtds-justify-between rtds-items-end rtds-pl-0 rtds-border-y-0 rtds-border-l-0 rtds-border-r-0 rtds-border-b rtds-rounded-none rtds-border-gray-01 rtds-font-medium rtds-content-03 rtds-text-sm md:rtds-text-base hover:rtds-border-gray-02;
+    }
+
+    .rtds-side-navigation__list-toggle:where([aria-expanded="false"]) .rtds-icon {
+        @apply -rtds-rotate-180;
+    }
+
+    .rtds-side-navigation__list-toggle:where([aria-expanded="false"]) ~ .rtds-side-navigation__list {
+        @apply rtds-hidden md:rtds-block;
+    }
+
+    /* sub-navigation */
+    .rtds-side-navigation__submenu {
+        @apply rtds-pl-4;
+    }
+
+
+    /* ANCHOR NAVIGATION */
+    .rtds-side-navigation--anchor {
+        @apply rtds-scroll-m-[--header-height] md:rtds-scroll-m-0;
+    }
+
+    :where(.rtds-side-navigation--anchor) .rtds-side-navigation__link {
+        @apply rtds-border-b-0 rtds-border-l-4;
+    }
+
+    :where(.rtds-side-navigation--anchor .rtds-side-navigation__link.is-current) .rtds-side-navigation__label {
+        @apply rtds-pb-0 rtds-border-b-0;
+    }
+}

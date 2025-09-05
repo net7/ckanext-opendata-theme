@@ -57,7 +57,7 @@
     .rtds-article-body * + ol,
     .rtds-article-body * + ul
         {
-        @apply rtds-mt-7 md:rtds-mt-8 lg:rtds-mt-9;
+        @apply rtds-mt-4;
     }
 
     .rtds-article-body ol {
