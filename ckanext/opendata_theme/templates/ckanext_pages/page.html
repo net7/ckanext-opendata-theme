@@ -1,42 +1,61 @@
-{% extends 'page-organization.html' %}
+{% extends 'page-detail.html' %} 
 
 {% block subtitle %}{{ c.page.title }}{% endblock %}
-{% block pre_primary %}{% endblock %}
+{% block pre_primary %}
+    <div class="rtds-grid rtds-gap-4 rtds-mt-8 rtds-mb-12">
+      <div class="rtds-flex">
+        <a href="#" class="rtds-text-link rtds-content-03 rtds-text-link--s">
+          <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-flex-shrink-0 rtds-flex-grow-0" aria-hidden="true" focusable="false" role="img">
+            <use href="../../icons.svg#solid--arrow-left" />
+          </svg>
+          Torna indietro
+        </a>
+      </div>
+      <h1 class="rtds-heading-1">{{ c.page.title }}</h1>
+    </div>
+{% endblock %}
 
 {% block primary %}
-  <section class="module-content">
+  {# <section class="module-content"> #}
 
     {% block ckanext_pages_actions %}
-      {% if h.check_access('ckanext_pages_update') %}
+      {# {% if h.check_access('ckanext_pages_update') %}
           {% asset 'pages/main-css' %}
           {% link_for _('Edit'), named_route='pages.edit', page=c.page.name, class_='btn btn-primary pull-right', icon='edit' %}
           {% link_for _('Revisions'), named_route='pages.pages_revisions', page=c.page.name, class_='btn btn-primary pull-right me-2', icon='eye' %}
-      {% endif %}
+      {% endif %} #}
     {% endblock %}
-    <div class="rtds-grid rtds-gap-4 rtds-mt-8 rtds-mb-12">
+    {# <div class="rtds-grid rtds-gap-4 rtds-mt-8 rtds-mb-12">
       <h1 class="rtds-heading-1">{{ c.page.title }}</h1>
-    </div>
+    </div> #}
       {% block ckanext_pages_content %}
+      <div class="rtds-grid rtds-grid-cols-12">
+        <div class="rtds-col-span-12 md:rtds-col-span-9 xl:rtds-col-span-7 rtds-grid rtds-gap-8">
         {% if c.page.content %}
-          <div class="ckanext-pages-content rtds-container rtds-px-10 rtds-py-6">
-            {% set editor = h.pages_get_wysiwyg_editor() %}
-            <picture class="rtds-card__image-wrapper">
-              <img class="rtds-card__image_ rtds-text-center rtds-h-full" alt="" src="{{ h.get_page_image(c.page.content) }}" />
-            </picture>
-            {% if editor %}
-              <div>
-                  {{c.page.content|safe}}
-              </div>
-            {% else %}
-              {{ h.render_content(c.page.content) }}
-            {% endif %}
+          {% set editor = h.pages_get_wysiwyg_editor() %}
+          <picture class="rtds-card__image-wrapper">
+            <img class="rtds-card__image_ rtds-text-center rtds-h-full" alt="" src="{{ h.get_page_image(c.page.content) }}" />
+          </picture>
+          <div class="rtds-article-body">
+          {% if editor %}
+            {{c.page.content|safe}}
+          {% else %}
+            {{ h.render_content(c.page.content) }}
+          {% endif %}
+          </div>
+          <hr>
+          <div class="rtds-grid rtds-gap-2">
+            <span>Creato il <time datetime="2025-06-13">13 giugno 2025</time></span>
+            <span>Aggiornamento al <time datetime="2025-08-25">25 agosto 2025</time></span>
           </div>
         {% else %}
           <p class="empty">{{ _('This page currently has no content') }}</p>
         {% endif %}
+        </div>
+      </div>
 
       {% endblock %}
-  </section>
+  {# </section> #}
 {% endblock %}
 
 {% block secondary %}{% endblock %}
