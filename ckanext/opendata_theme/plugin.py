@@ -74,7 +74,8 @@ class OpendataThemePlugin(plugins.SingletonPlugin):
             'get_all_organizations_random': helpers.get_all_organizations_random,
             'count_organizations': helpers.count_organizations,
             'get_recent_news': helpers.get_recent_news,
-            'get_page_image': helpers.get_page_image
+            'get_page_image': helpers.get_page_image,
+            'format_date': helpers.format_date,
         }
 
     # IValidators
