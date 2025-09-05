@@ -30,7 +30,7 @@
     </div> #}
       {% block ckanext_pages_content %}
       <div class="rtds-grid rtds-grid-cols-12">
-        <div class="rtds-col-span-7 rtds-grid rtds-grid-cols-1 rtds-gap-8">
+        <div class="rtds-col-span-12 md:rtds-col-span-9 xl:rtds-col-span-7 rtds-grid rtds-gap-8">
         {% if c.page.content %}
           {% set editor = h.pages_get_wysiwyg_editor() %}
           <picture class="rtds-card__image-wrapper">

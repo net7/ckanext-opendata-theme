@@ -3268,12 +3268,12 @@ legend.rtds-facets__legend {
   top: var(--header-height);
 }
 
-.rtds-col-span-3 {
-  grid-column: span 3 / span 3;
+.rtds-col-span-12 {
+  grid-column: span 12 / span 12;
 }
 
-.rtds-col-span-7 {
-  grid-column: span 7 / span 7;
+.rtds-col-span-3 {
+  grid-column: span 3 / span 3;
 }
 
 .rtds-col-span-9 {
@@ -3508,10 +3508,6 @@ legend.rtds-facets__legend {
 
 .rtds-transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.rtds-grid-cols-1 {
-  grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
 .rtds-grid-cols-12 {
@@ -4727,6 +4723,10 @@ legend.rtds-facets__legend {
     grid-column: span 8 / span 8;
   }
 
+  .md\:rtds-col-span-9 {
+    grid-column: span 9 / span 9;
+  }
+
   .md\:rtds-flex {
     display: flex;
   }
@@ -4999,6 +4999,10 @@ legend.rtds-facets__legend {
 @media (min-width: 1280px) {
   .xl\:rtds-col-span-4 {
     grid-column: span 4 / span 4;
+  }
+
+  .xl\:rtds-col-span-7 {
+    grid-column: span 7 / span 7;
   }
 
   .xl\:rtds-col-span-8 {
