@@ -31,19 +31,19 @@
             <li class="rtds-group md:rtds-border-r md:rtds-border-gray-01 md:last:rtds-border-r-0">
               <a href="{{ h.url_for('pages.pages_index') }}" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-02 rtds-font-bold rtds-uppercase">{{ _('Pages') }}</a>
             </li>
+
+            <li class="rtds-group md:rtds-border-r md:rtds-border-gray-01 md:last:rtds-border-r-0">
+              <a href="{{ h.url_for('opendata_theme_credits.index') }}" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-02 rtds-font-bold rtds-uppercase">{{ _('Credits') }}</a>
+            </li>
+
+            <li class="rtds-group md:rtds-border-r md:rtds-border-gray-01 md:last:rtds-border-r-0">
+              <a href="{{ h.url_for('opendata_theme_report.index') }}" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-02 rtds-font-bold rtds-uppercase">{{ _('Reports') }}</a>
+            </li>
+
+            <li class="rtds-group md:rtds-border-r md:rtds-border-gray-01 md:last:rtds-border-r-0">
+              <a href="{{ h.url_for('opendata_theme_infog.index') }}" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-02 rtds-font-bold rtds-uppercase">{{ _('Infografiche') }}</a>
+            </li>
           {% endif %}
-
-          <li class="rtds-group md:rtds-border-r md:rtds-border-gray-01 md:last:rtds-border-r-0">
-            <a href="{{ h.url_for('opendata_theme_credits.index') }}" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-02 rtds-font-bold rtds-uppercase">{{ _('Credits') }}</a>
-          </li>
-
-          <li class="rtds-group md:rtds-border-r md:rtds-border-gray-01 md:last:rtds-border-r-0">
-            <a href="{{ h.url_for('opendata_theme_report.index') }}" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-02 rtds-font-bold rtds-uppercase">{{ _('Reports') }}</a>
-          </li>
-
-          <li class="rtds-group md:rtds-border-r md:rtds-border-gray-01 md:last:rtds-border-r-0">
-            <a href="{{ h.url_for('opendata_theme_infog.index') }}" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-02 rtds-font-bold rtds-uppercase">{{ _('Infografiche') }}</a>
-          </li>
 
           {# 
           <li class="rtds-group md:rtds-border-r md:rtds-border-gray-01 md:last:rtds-border-r-0">
@@ -57,10 +57,12 @@
           </li>
           #}
 
+          {#
           <!-- Who we are -->
           <li class="rtds-group md:rtds-border-r md:rtds-border-gray-01 md:last:rtds-border-r-0">
             <a href="{{ h.url_for('home.about') }}" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-02 rtds-font-bold rtds-uppercase">{{ _('Who we are') }}</a>
           </li>
+          #}
 
           <!-- News -->
           <li class="rtds-group md:rtds-border-r md:rtds-border-gray-01 md:last:rtds-border-r-0">
