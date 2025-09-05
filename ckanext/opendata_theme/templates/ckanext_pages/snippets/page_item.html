@@ -13,11 +13,13 @@
           </a>
         </h3>
 
-        <div class="rtds-card__metadata">
-          <div class="rtds-card__date">
-            <time datetime="2025-06-13">13 giu 2025</time>
+        {% if page.date %}
+          <div class="rtds-card__metadata">
+            <div class="rtds-card__date">
+              <time datetime="{{ h.format_date(page.date, 'ymd') }}">{{ h.format_date(page.date, 'dmy') }}</time>
+            </div>
           </div>
-        </div>
+        {% endif %}
       </div>
 
       <div class="rtds-card__description">

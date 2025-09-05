@@ -24,6 +24,7 @@ def get_helpers():
         "count_organizations": count_organizations,
         "get_recent_news": get_recent_news,
         "get_page_image": get_page_image,
+        "format_date": format_date,
     }
 
 
@@ -344,7 +345,7 @@ def get_recent_news(number=4):
         pages_list = toolkit.get_action('ckanext_pages_list')({}, {
             'private': False,
         })
-        return pages_list[:number]  
+        return pages_list[:number]
         
     except Exception as e:
         raise ValueError(f"Errore nel recupero delle pagine: {str(e)}")
@@ -373,3 +374,30 @@ def get_page_image(content):
         return image_url
     except Exception as e:
         return None
+    
+
+def format_date(date_obj, format='dmy'):
+    """Format a datetime object to Italian format like '20 lug 2024'"""
+    if not date_obj:
+        return None
+    
+    # Italian month abbreviations
+    italian_months = {
+        1: 'gen', 2: 'feb', 3: 'mar', 4: 'apr', 5: 'mag', 6: 'giu',
+        7: 'lug', 8: 'ago', 9: 'set', 10: 'ott', 11: 'nov', 12: 'dic'
+    }
+    
+    # Format: day month year (e.g., "20 lug 2024")
+    if format == 'dmy':
+        day = date_obj.day
+        month = italian_months[date_obj.month]
+        year = date_obj.year
+        return f"{day} {month} {year}"
+        
+    elif format == 'ymd':
+        day = f"{date_obj.day:02d}"
+        month = f"{date_obj.month:02d}"
+        year = date_obj.year
+        return f"{year}-{month}-{day}"
+    
+    return None
