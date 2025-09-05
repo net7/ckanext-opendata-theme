@@ -152,27 +152,29 @@
               <!-- Main nav -->
               <div class="rtds-primary-navigation__module is-main lg:rtds-border-b-0">
                 <ul class="rtds-primary-navigation__list ">
-                  {% if c.userobj %}{% endif %}
-                  <li class="rtds-primary-navigation__item">
-                    <a href="{{ h.url_for('harvest.search') }}" class="rtds-primary-navigation__first-level rtds-primary-navigation__link rtds-group rtds-text-base">
-                      {{ _('Harvests') }}
-                    </a>
-                  </li>
-                  <li class="rtds-primary-navigation__item">
-                    <a href="{{ h.url_for('organization.index') }}" class="rtds-primary-navigation__first-level rtds-primary-navigation__link rtds-group rtds-text-base">
-                      {{ _('Organizations') }}
-                    </a>
-                  </li>
-                  <li class="rtds-primary-navigation__item">
-                    <a href="{{ h.url_for('group.index') }}" class="rtds-primary-navigation__first-level rtds-primary-navigation__link rtds-group rtds-text-base">
-                      {{ _('Groups') }}
-                    </a>
-                  </li>
-                  <li class="rtds-primary-navigation__item">
-                    <a href="{{ h.url_for('pages.pages_index') }}" class="rtds-primary-navigation__first-level rtds-primary-navigation__link rtds-group rtds-text-base">
-                      {{ _('Pages') }}
-                    </a>
-                  </li>
+                  {% if c.userobj %}
+                    <li class="rtds-primary-navigation__item">
+                      <a href="{{ h.url_for('harvest.search') }}" class="rtds-primary-navigation__first-level rtds-primary-navigation__link rtds-group rtds-text-base">
+                        {{ _('Harvests') }}
+                      </a>
+                    </li>
+                    <li class="rtds-primary-navigation__item">
+                      <a href="{{ h.url_for('organization.index') }}" class="rtds-primary-navigation__first-level rtds-primary-navigation__link rtds-group rtds-text-base">
+                        {{ _('Organizations') }}
+                      </a>
+                    </li>
+                    <li class="rtds-primary-navigation__item">
+                      <a href="{{ h.url_for('group.index') }}" class="rtds-primary-navigation__first-level rtds-primary-navigation__link rtds-group rtds-text-base">
+                        {{ _('Groups') }}
+                      </a>
+                    </li>
+                    <li class="rtds-primary-navigation__item">
+                      <a href="{{ h.url_for('pages.pages_index') }}" class="rtds-primary-navigation__first-level rtds-primary-navigation__link rtds-group rtds-text-base">
+                        {{ _('Pages') }}
+                      </a>
+                    </li>
+                  {% endif %}
+
                   <li class="rtds-primary-navigation__item">
                     <a href="{{ h.url_for('home.about') }}" class="rtds-primary-navigation__first-level rtds-primary-navigation__link rtds-group rtds-text-base {{ h.is_current('projects', 'is-current') }}" {{ h.is_current('projects', 'aria-current="page"') }}>
                       {{ _('Project') }}
