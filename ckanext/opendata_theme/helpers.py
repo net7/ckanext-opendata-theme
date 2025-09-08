@@ -362,14 +362,27 @@ def get_home_organizations():
             'comune-di-montevarchi'
         ]
         organizations = []
+        context = {'ignore_auth': True}
+        
         for org_name in organizations_names:
-            org = toolkit.get_action('organization_show')(
-            {}, {'id': org_name, 'include_datasets': True})
-            organizations.append(org)
+            try:
+                org = toolkit.get_action('organization_show')(
+                    context, {'id': org_name, 'include_datasets': True})
+                organizations.append(org)
+            except toolkit.ObjectNotFound:
+                # Organizzazione non trovata, salta silenziosamente
+                continue
+            except toolkit.NotAuthorized:
+                # Utente non autorizzato, salta silenziosamente
+                continue
         
         return organizations
     except Exception as e:
-        raise ValueError(f"Errore nel recupero delle organizzazioni: {str(e)}")
+        # Log dell'errore ma non interrompere il caricamento della pagina
+        import logging
+        log = logging.getLogger(__name__)
+        log.error(f"Errore nel recupero delle organizzazioni: {str(e)}")
+        return []
 
 
 def count_organizations():
