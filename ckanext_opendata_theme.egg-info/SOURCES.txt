@@ -83,13 +83,13 @@ ckanext/opendata_theme/src/components/04-organisms/header/header.css
 ckanext/opendata_theme/src/components/04-organisms/header/header.js
 ckanext/opendata_theme/src/components/04-organisms/hero/hero.css
 ckanext/opendata_theme/src/components/04-organisms/main-heading/main-heading.css
+ckanext/opendata_theme/src/components/04-organisms/side-navigation/side-navigation.css
 ckanext/opendata_theme/src/components/04-organisms/slider/slider.css
 ckanext/opendata_theme/src/components/04-organisms/tablist/tablist.js
 ckanext/opendata_theme/src/components/04-organisms/top-bar/top-bar.css
 ckanext/opendata_theme/src/css/custom-base.css
 ckanext/opendata_theme/src/css/custom-properties.css
 ckanext/opendata_theme/src/css/main.css
-ckanext/opendata_theme/src/css/main.processed.css
 ckanext/opendata_theme/src/css/splide.min.css
 ckanext/opendata_theme/templates/base.html
 ckanext/opendata_theme/templates/credits.html
