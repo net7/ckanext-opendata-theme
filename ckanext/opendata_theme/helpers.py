@@ -22,6 +22,7 @@ def get_helpers():
         "get_dataset_downloads": get_dataset_downloads,
         "get_all_organizations": get_all_organizations,
         "get_all_organizations_random": get_all_organizations_random,
+        "get_home_organizations": get_home_organizations,
         "count_organizations": count_organizations,
         "get_recent_news": get_recent_news,
         "get_page_image": get_page_image,
@@ -319,6 +320,49 @@ def get_all_organizations_random(limit=10):
         
         # Altrimenti, seleziona casualmente il numero richiesto
         return random.sample(organizations, limit)
+    except Exception as e:
+        raise ValueError(f"Errore nel recupero delle organizzazioni: {str(e)}")
+    
+def get_home_organizations():
+    """
+    Restituisce le organizzazioni disponibili nel sistema:
+    
+     - Comune di Arezzo
+     - Comune di Cantagallo
+     - Comune di Livorno
+     - Città Metropolitana di Firenze
+     - Comune di Montemurlo
+     - Comune di Poggibonsi
+     - Comune di Vernio
+     - Comune di Vaiano
+     - Comune di Siena
+     - Comune di Firenze
+     - Consorzio LaMMA Toscana
+     - Comune di Piombino
+     - Comune di Montevarchi
+    """
+    try:
+        organizations_names = [
+            'Comune di Arezzo',
+            'Comune di Cantagallo',
+            'Comune di Livorno',
+            'Città Metropolitana di Firenze',
+            'Comune di Montemurlo',
+            'Comune di Poggibonsi',
+            'Comune di Vernio',
+            'Comune di Vaiano',
+            'Comune di Siena',
+            'Comune di Firenze',
+            'Consorzio LaMMA Toscana',
+            'Comune di Piombino',
+            'Comune di Montevarchi'
+        ]
+        organizations = []
+        for org_name in organizations_names:
+            org = toolkit.get_action('organization_show')({}, {'id': org_name})
+            organizations.append(org)
+        
+        return organizations
     except Exception as e:
         raise ValueError(f"Errore nel recupero delle organizzazioni: {str(e)}")
     
