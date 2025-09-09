@@ -84,6 +84,10 @@
         @apply rtds-text-secondary-100;
     }
 
+    .rtds-content-category {
+        color: var(--color-content-category);
+    }
+
     /* BUTTON COLOR UTILITIES */
     .rtds-button-primary {
         @apply rtds-bg-primary-300 rtds-border-primary-300;

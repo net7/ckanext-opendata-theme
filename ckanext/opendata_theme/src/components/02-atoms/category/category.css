@@ -1,0 +1,29 @@
+/**
+ * CATEGORY
+ *
+*/
+@layer components {
+    .rtds-category {
+        @apply rtds-inline-flex rtds-items-center rtds-gap-2 rtds-pr-2 rtds-uppercase rtds-font-bold rtds-text-sm rtds-border-r rtds-border-solid rtds-border-gray-02 last-of-type:rtds-border-r-0 last-of-type:rtds-pr-0 rtds-content-category;
+    }
+
+    a:where(.rtds-category) {
+        @apply hover:rtds-underline hover:rtds-text-primary-800 focus:rtds-text-primary-800;
+    }
+
+    .rtds-category--sm {
+        @apply rtds-text-xs;
+    }
+
+    .rtds-category--lg {
+        @apply rtds-text-base;
+    }
+
+    .rtds-category--outline {
+        @apply rtds-px-2 rtds-py-1 rtds-rounded rtds-border last-of-type:rtds-border-r;
+    }
+
+    .rtds-category--overline {
+        @apply rtds-content-placeholder;
+    }
+}
