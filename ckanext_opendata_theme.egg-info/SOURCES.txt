@@ -17,6 +17,7 @@ ckanext/opendata_theme/utils.py
 ckanext/opendata_theme/views.py
 ckanext/opendata_theme/assets/webassets.yml
 ckanext/opendata_theme/assets/css/font.css
+ckanext/opendata_theme/assets/css/opendata_theme.css
 ckanext/opendata_theme/assets/js/opendata_theme.js
 ckanext/opendata_theme/assets/js/splide.min.js
 ckanext/opendata_theme/public/svg-index.html
@@ -90,6 +91,7 @@ ckanext/opendata_theme/src/components/04-organisms/top-bar/top-bar.css
 ckanext/opendata_theme/src/css/custom-base.css
 ckanext/opendata_theme/src/css/custom-properties.css
 ckanext/opendata_theme/src/css/main.css
+ckanext/opendata_theme/src/css/main.processed.css
 ckanext/opendata_theme/src/css/splide.min.css
 ckanext/opendata_theme/templates/base.html
 ckanext/opendata_theme/templates/credits.html
@@ -123,6 +125,7 @@ ckanext/opendata_theme/templates/home/snippets/featured_group.html
 ckanext/opendata_theme/templates/home/snippets/most_viewed_datasets.html
 ckanext/opendata_theme/templates/home/snippets/promoted.html
 ckanext/opendata_theme/templates/home/snippets/search.html
+ckanext/opendata_theme/templates/organization/about.html
 ckanext/opendata_theme/templates/organization/index.html
 ckanext/opendata_theme/templates/organization/read.html
 ckanext/opendata_theme/templates/organization/read_base.html

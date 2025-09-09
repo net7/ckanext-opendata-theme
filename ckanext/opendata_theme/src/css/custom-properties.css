@@ -1,4 +1,8 @@
 :root {
+  
+    --color-brand-00: #3A9FD5;
+    --color-brand-01: #2B2B2B;
+
     --color-primary-50: #CDEDFF;
     --color-primary-100: #ABE2FF;
     --color-primary-200: #81D3FF;
@@ -52,9 +56,6 @@
     --color-allerta-giallo: #FFFE54;
     --color-allerta-arancione: #F2A83B;
     --color-allerta-rosso: #EA3223;
-  
-    --color-brand-00: #3A9FD5;
-    --color-brand-01: #2B2B2B;
   
     --color-salvia: #4A7769;
     --color-bando-aperto: #A1CCB1;
@@ -169,6 +170,110 @@
     --custom-prose-invert-pre-bg: rgba(0, 0, 0, 0.5);
     --custom-prose-invert-th-borders: var(--color-neutral-600);
     --custom-prose-invert-td-borders: var(--color-neutral-700);
+
+    /* SEMANTIC COLOR UTILITIES - CONTENT TEXT */
+    --color-content-01: var(--color-neutral-900);        /* Testo principale */
+    --color-content-02: var(--color-primary-900);      /* Testo secondario */
+    --color-content-03: var(--color-neutral-800);        /* Testo terziario */
+    --color-content-04: var(--color-neutral-700);        /* Testo quaternario */
+    --color-content-05: var(--color-neutral-700);        /* Testo quintenario */
+    --color-content-inverse: var(--color-neutral-200);    /* Testo su sfondo scuro */
+    --color-content-disabled: var(--color-neutral-600);  /* Testo disabilitato */
+    --color-content-primary: var(--color-primary-800);   /* Testo primario */
+    --color-content-error: var(--color-error-dark);      /* Testo errore */
+    --color-content-warn: var(--color-warn-dark);        /* Testo warning */
+    --color-content-success: var(--color-success-dark);  /* Testo successo */
+    --color-content-info: var(--color-info-dark);        /* Testo info */
+
+    --color-content-placeholder: var(--color-secondary-500); /* Placeholder */
+    --color-input-placeholder: var(--color-secondary-500);   /* Placeholder input */
+    --color-content-primary-dark: var(--color-primary-900); /* Testo primario scuro */
+    --color-content-primary-light: var(--color-primary-100); /* Testo primario chiaro */
+    --color-content-secondary: var(--color-secondary-500); /* Testo secondario */
+    --color-content-secondary-dark: var(--color-secondary-900); /* Testo secondario scuro */
+    --color-content-secondary-light: var(--color-secondary-100); /* Testo secondario chiaro */
+    --color-content-category: var(--color-primary-600);  /* Testo categoria */
+
+    /* SEMANTIC COLOR UTILITIES - BUTTON */
+    --color-button-primary: var(--color-primary-300);           /* Pulsante primario */
+    --color-button-primary-hover: var(--color-primary-400);     /* Pulsante primario hover */
+    --color-button-primary-active: var(--color-primary-200);    /* Pulsante primario attivo */
+    --color-button-secondary: var(--color-secondary-500);       /* Pulsante secondario */
+    --color-button-secondary-hover: var(--color-secondary-600); /* Pulsante secondario hover */
+    --color-button-secondary-active: var(--color-secondary-700); /* Pulsante secondario attivo */
+    --color-button-disabled: var(--color-secondary-300);        /* Pulsante disabilitato */
+    --color-button-only-text: var(--color-primary-700);         /* Pulsante solo testo */
+    --color-button-only-text-hover: var(--color-primary-900);   /* Pulsante solo testo hover */
+    --color-button-only-text-active: var(--color-primary-700);  /* Pulsante solo testo attivo */
+
+    --color-button-outline: var(--color-primary-900);           /* Pulsante outline */
+    --color-button-outline-hover: var(--color-primary-900);     /* Pulsante outline hover */
+    --color-button-outline-active: var(--color-primary-900);    /* Pulsante outline attivo */
+    --color-button-inverted: var(--color-neutral-50);           /* Pulsante invertito */
+    --color-button-inverted-hover: var(--color-neutral-50);     /* Pulsante invertito hover */
+    --color-button-inverted-focus: var(--color-neutral-50);     /* Pulsante invertito focus */
+    --color-button-inverted-active: var(--color-neutral-100);   /* Pulsante invertito attivo */
+    --color-button-inverted-text: var(--color-content-02);      /* Testo pulsante invertito */
+    --color-button-inverted-text-hover: var(--color-content-01); /* Testo pulsante invertito hover */
+    --color-button-inverted-text-focus: var(--color-content-02); /* Testo pulsante invertito focus */
+    --color-button-inverted-text-active: var(--color-content-02); /* Testo pulsante invertito attivo */
+    --color-button-text-inverted: transparent;                  /* Pulsante testo invertito */
+    --color-button-text-inverted-hover: rgba(0, 0, 0, 0.5);    /* Pulsante testo invertito hover */
+    --color-button-text-inverted-focus: transparent;            /* Pulsante testo invertito focus */
+    --color-button-text-inverted-active: rgba(0, 0, 0, 0.2);   /* Pulsante testo invertito attivo */
+    --color-button-text-inverted-text: var(--color-content-inverse); /* Testo pulsante testo invertito */
+    --color-button-text-inverted-text-hover: var(--color-content-inverse); /* Testo pulsante testo invertito hover */
+    --color-button-text-inverted-text-focus: var(--color-content-inverse); /* Testo pulsante testo invertito focus */
+    --color-button-text-inverted-text-active: var(--color-content-inverse); /* Testo pulsante testo invertito attivo */
+
+    /* SEMANTIC COLOR UTILITIES - LINK */
+    --color-link-primary: var(--color-primary-700);           /* Link primario */
+    --color-link-visited: var(--color-primary-900);           /* Link visitato */
+    --color-link-inverse: var(--color-primary-300);           /* Link invertito */
+    --color-link-primary-hover: var(--color-primary-800);     /* Link primario hover */
+    --color-link-inverse-hover: var(--color-primary-200);     /* Link invertito hover */
+    --color-link-inverse-visited: var(--color-primary-50);   /* Link invertito visitato */
+
+    --color-link-secondary: var(--color-secondary-500);       /* Link secondario */
+    --color-link-secondary-hover: var(--color-secondary-500); /* Link secondario hover */
+    --color-link-secondary-focus: var(--color-secondary-500); /* Link secondario focus */
+    --color-link-secondary-active: var(--color-neutral-900);  /* Link secondario attivo */
+
+    /* SEMANTIC COLOR UTILITIES - BACKGROUND */
+    --color-background-01: var(--color-neutral-50);           /* Sfondo 01 */
+    --color-background-02: var(--color-neutral-100);          /* Sfondo 02 */
+    --color-background-03: var(--color-neutral-300);          /* Sfondo 03 */
+    --color-background-04: var(--color-neutral-400);          /* Sfondo 04 */
+    --color-background-05: var(--color-neutral-700);          /* Sfondo 05 */
+    --color-background-06: var(--color-neutral-800);          /* Sfondo 06 */
+    --color-background-07: var(--color-neutral-900);          /* Sfondo 07 */
+    --color-background-08: var(--color-secondary-600);        /* Sfondo 08 */
+    --color-background-09: var(--color-secondary-50);        /* Sfondo 09 */
+    --color-background-primary: var(--color-primary-500);     /* Sfondo primario */
+    --color-background-primary-light: var(--color-primary-50); /* Sfondo primario chiaro */
+
+    --color-background-inverse: var(--color-neutral-50);      /* Sfondo invertito */
+    --color-background-primary-dark: var(--color-primary-900); /* Sfondo primario scuro */
+    --color-background-secondary: var(--color-secondary-500); /* Sfondo secondario */
+    --color-background-secondary-light: var(--color-secondary-200); /* Sfondo secondario chiaro */
+    --color-background-secondary-dark: var(--color-secondary-900); /* Sfondo secondario scuro */
+
+    /* SEMANTIC COLOR UTILITIES - BORDER */
+    --color-border-gray-01: var(--color-neutral-300);         /* Bordo grigio 01 */
+    --color-divide-gray-01: var(--color-neutral-300);         /* Divisore grigio 01 */
+    --color-border-gray-02: var(--color-neutral-400);         /* Bordo grigio 02 */
+    --color-divide-gray-02: var(--color-neutral-400);         /* Divisore grigio 02 */
+    --color-border-gray-03: var(--color-neutral-600);         /* Bordo grigio 03 */
+    --color-divide-gray-03: var(--color-neutral-600);         /* Divisore grigio 03 */
+    --color-border-gray-04: var(--color-neutral-800);         /* Bordo grigio 04 */
+    --color-divide-gray-04: var(--color-neutral-800);         /* Divisore grigio 04 */
+    --color-border-input: var(--color-neutral-700);           /* Bordo input */
+    --color-border-primary: var(--color-primary-500);         /* Bordo primario */
+    --color-divide-primary: var(--color-primary-500);         /* Divisore primario */
+    --color-border-secondary: var(--color-secondary-500);     /* Bordo secondario */
+    --color-divide-secondary: var(--color-secondary-500);     /* Divisore secondario */
+    --color-border-inverse: var(--color-neutral-50);          /* Bordo invertito */
+    --color-divide-inverse: var(--color-neutral-50);          /* Divisore invertito */    
 }
 
 @layer base {

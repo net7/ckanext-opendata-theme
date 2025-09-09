@@ -20,7 +20,7 @@
   <section class="rtds-background-03 rtds-rounded-2xl rtds-p-4 rtds-w-fit rtds-pr-16">
     {# <a href="{{ url }}"> #}
       {# <img src="{{ organization.image_display_url or h.url_for_static('/base/images/placeholder-organization.png') }}" width="200" alt="{{ organization.name }}" /> #}
-      <img class="rtds-max-h-[100px]" src="{{ organization.image_display_url }}" width="" height="" alt="{{ organization.name }}" />
+      <img class="rtds-max-h-[100px] rtds-rounded-2xl" src="{{ organization.image_display_url }}" width="" height="" alt="{{ organization.name }}" />
       {# </a> #}
   </section>
   {% endblock %}
@@ -46,7 +46,7 @@
             {{ h.markdown_extract(organization.description, 180) }}
           </p>
           <p>
-            {% link_for _('read more'), named_route=organization.type ~ '.about', id=organization.name %}
+            {% link_for _('read more'), named_route=organization.type ~ '.about', id=organization.name, class_='rtds-action-link rtds-action-link--sm', icon='arrow-right' %}
           </p>
         {% else %}
           <p>{{ h.humanize_entity_type('organization', organization.type, 'no description') or _('There is no description for this organization') }}</p>
@@ -76,6 +76,6 @@
     {% endblock %}
     {# </section> #}
   </section>
-  {# {{ super() }}
-  {% block package_openness %}ertert{% endblock %} #}
+  {# {{ super() }} #}
+  {# {% block package_openness %}{% endblock %} #}
   {% endblock %}

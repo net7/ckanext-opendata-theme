@@ -1,0 +1,33 @@
+{# {% extends "organization/read_base.html" %} #}
+{% extends 'page-detail.html' %}
+
+{% block subtitle %}{{ _('About') }} {{ g.template_title_delimiter }} {{ super() }}{% endblock %}
+
+{% block pre_primary %}
+<div class="rtds-grid rtds-gap-4 rtds-mt-8 rtds-mb-12">
+  <div class="rtds-flex">
+    <a href="#" class="rtds-text-link rtds-content-03 rtds-text-link--s">
+      <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-flex-shrink-0 rtds-flex-grow-0" aria-hidden="true" focusable="false" role="img">
+        <use href="../../icons.svg#solid--arrow-left" />
+      </svg>
+      Torna indietro
+    </a>
+  </div>
+  <div>
+    <img class="rtds-max-h-[100px] rtds-rounded-2xl" src="https://dummyimage.com/100x100/000/fff" width="" height="" alt="" />
+  </div>
+  <h1 class="rtds-heading-1">nome organizzazione</h1>
+</div>
+{% endblock %}
+
+{% block primary_content_inner %}
+<h1>{% block page_heading %}{{ group_dict.display_name }}{% endblock %}</h1>
+{% block organization_description %}
+{% if group_dict.description %}
+{{ h.render_markdown(group_dict.description) }}
+{% endif %}
+{% endblock %}
+{% block organization_extras %}
+{% snippet 'snippets/additional_info.html', extras = h.sorted_extras(group_dict.extras) %}
+{% endblock %}
+{% endblock %}

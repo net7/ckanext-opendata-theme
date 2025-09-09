@@ -40,7 +40,7 @@ file.
           Torna indietro
         </a>
       </div>
-      <span class="rtds-category "><svg class="rtds-icon rtds-fill-current rtds-w-2 rtds-h-2" aria-hidden="true" focusable="false" role="img">
+      <span class="rtds-category rtds-content-inverse"><svg class="rtds-icon rtds-fill-current rtds-w-6 rtds-h-6" aria-hidden="true" focusable="false" role="img">
           <use href="/icons.svg#outline--sun" />
         </svg>
         <span>Category label</span>
@@ -168,9 +168,9 @@ file.
             {% snippet "snippets/license.html", pkg_dict=pkg %}
             {% endblock %}
 
-            {% if h.check_access('package_update', {'id': pkg.id}) %}
+            {# {% if h.check_access('package_update', {'id': pkg.id}) %}
             {% link_for _('Manage'), named_route=pkg.type+'.edit', id=pkg.name, class_='rtds-btn rtds-btn--primary rtds-w-fit', icon='wrench' %}
-            {% endif %}
+            {% endif %} #}
 
           </div>
           {% endblock %}

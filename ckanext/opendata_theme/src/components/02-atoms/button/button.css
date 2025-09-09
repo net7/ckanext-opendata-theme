@@ -21,7 +21,7 @@
     }
 
     .rtds-btn--outlined {
-        @apply rtds-bg-transparent rtds-button-outline rtds-border rtds-border-current hover:rtds-button-primary hover:rtds-text-white focus:rtds-button-outline-hover focus:rtds-background-01;
+        @apply rtds-bg-transparent rtds-button-outline rtds-border rtds-border-current hover:rtds-button-outline-hover focus:rtds-button-outline-hover focus:rtds-background-01;
     }
 
     .rtds-btn--inverted {
