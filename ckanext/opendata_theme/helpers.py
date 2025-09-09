@@ -5,6 +5,7 @@ from html.parser import HTMLParser
 import random
 from datetime import datetime
 
+
 def opendata_theme_hello():
     return "Hello, opendata_theme!"
 
@@ -22,6 +23,7 @@ def get_helpers():
         "get_dataset_downloads": get_dataset_downloads,
         "get_all_organizations": get_all_organizations,
         "get_all_organizations_random": get_all_organizations_random,
+        "get_home_organizations": get_home_organizations,
         "count_organizations": count_organizations,
         "get_recent_news": get_recent_news,
         "get_page_image": get_page_image,
@@ -283,6 +285,7 @@ def get_dataset_downloads(package_id):
     except Exception as e:
         return 0
 
+
 def get_all_organizations(limit=None):
     """
     Restituisce tutte le organizzazioni disponibili nel sistema
@@ -296,6 +299,7 @@ def get_all_organizations(limit=None):
         return organizations
     except Exception as e:
         raise ValueError(f"Errore nel recupero delle organizzazioni: {str(e)}")
+
 
 def get_all_organizations_random(limit=10):
     """
@@ -321,7 +325,66 @@ def get_all_organizations_random(limit=10):
         return random.sample(organizations, limit)
     except Exception as e:
         raise ValueError(f"Errore nel recupero delle organizzazioni: {str(e)}")
+
+
+def get_home_organizations():
+    """
+    Restituisce le organizzazioni per la homepage:
     
+     - Comune di Arezzo
+     - Comune di Cantagallo
+     - Comune di Livorno
+     - Città Metropolitana di Firenze
+     - Comune di Montemurlo
+     - Comune di Poggibonsi
+     - Comune di Vernio
+     - Comune di Vaiano
+     - Comune di Siena
+     - Comune di Firenze
+     - Consorzio LaMMA Toscana
+     - Comune di Piombino
+     - Comune di Montevarchi
+    """
+    try:
+        organizations_names = [
+            'comune-di-arezzo',
+            'comune-di-cantagallo',
+            'comune-livorno',
+            'citta-metropolitana-firenze',
+            'comune-di-montemurlo',
+            'comune-di-poggibonsi',
+            'comune-di-vernio',
+            'comune-di-vaiano',
+            'comune-di-siena',
+            'comune-di-firenze',
+            'lamma-toscana',
+            'comune-di-piombino',
+            'comune-di-montevarchi'
+        ]
+        organizations = []
+        context = {'ignore_auth': True}
+        
+        for org_name in organizations_names:
+            try:
+                org = toolkit.get_action('organization_show')(
+                    context, {'id': org_name, 'include_datasets': True})
+                organizations.append(org)
+            except toolkit.ObjectNotFound:
+                # Organizzazione non trovata, salta silenziosamente
+                continue
+            except toolkit.NotAuthorized:
+                # Utente non autorizzato, salta silenziosamente
+                continue
+        
+        return organizations
+    except Exception as e:
+        # Log dell'errore ma non interrompere il caricamento della pagina
+        import logging
+        log = logging.getLogger(__name__)
+        log.error(f"Errore nel recupero delle organizzazioni: {str(e)}")
+        return []
+
+
 def count_organizations():
     """
     Restituisce il numero di organizzazioni disponibili nel sistema
@@ -333,6 +396,7 @@ def count_organizations():
         return len(organizations)
     except Exception as e:
         raise ValueError(f"Errore nel recupero delle organizzazioni: {str(e)}")
+
 
 def get_recent_news(number=4):
     """
