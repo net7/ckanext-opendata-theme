@@ -1151,7 +1151,7 @@ address {
   /* Testo info */
   --color-content-placeholder: var(--color-secondary-500);
   /* Placeholder */
-  --color-input-placeholder: var(--color-secondary-500);
+  --color-input-placeholder: var(--color-neutral-800);
   /* Placeholder input */
   --color-content-primary-dark: var(--color-primary-900);
   /* Testo primario scuro */

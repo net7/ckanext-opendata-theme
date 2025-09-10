@@ -3,7 +3,7 @@
 @import "tailwindcss/base";
 /* CUSTOM BASE STYLES */
 @import "custom-properties.css";
-@import "custom-base.css";
+@import "base.css";
 
 @import "tailwindcss/components";
 /* CUSTOM COMPONENTS */

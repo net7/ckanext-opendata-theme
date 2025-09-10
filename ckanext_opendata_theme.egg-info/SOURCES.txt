@@ -88,7 +88,7 @@ ckanext/opendata_theme/src/components/04-organisms/side-navigation/side-navigati
 ckanext/opendata_theme/src/components/04-organisms/slider/slider.css
 ckanext/opendata_theme/src/components/04-organisms/tablist/tablist.js
 ckanext/opendata_theme/src/components/04-organisms/top-bar/top-bar.css
-ckanext/opendata_theme/src/css/custom-base.css
+ckanext/opendata_theme/src/css/base.css
 ckanext/opendata_theme/src/css/custom-properties.css
 ckanext/opendata_theme/src/css/main.css
 ckanext/opendata_theme/src/css/main.processed.css
@@ -104,6 +104,7 @@ ckanext/opendata_theme/templates/page-organization.html
 ckanext/opendata_theme/templates/page-read.html
 ckanext/opendata_theme/templates/page-resource.html
 ckanext/opendata_theme/templates/page-search.html
+ckanext/opendata_theme/templates/page-two-cols.html
 ckanext/opendata_theme/templates/page.html
 ckanext/opendata_theme/templates/report.html
 ckanext/opendata_theme/templates/ckanext_pages/base.html

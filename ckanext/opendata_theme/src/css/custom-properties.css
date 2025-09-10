@@ -186,7 +186,7 @@
     --color-content-info: var(--color-info-dark);        /* Testo info */
 
     --color-content-placeholder: var(--color-secondary-500); /* Placeholder */
-    --color-input-placeholder: var(--color-secondary-500);   /* Placeholder input */
+    --color-input-placeholder: var(--color-neutral-800);   /* Placeholder input */
     --color-content-primary-dark: var(--color-primary-900); /* Testo primario scuro */
     --color-content-primary-light: var(--color-primary-100); /* Testo primario chiaro */
     --color-content-secondary: var(--color-secondary-500); /* Testo secondario */
