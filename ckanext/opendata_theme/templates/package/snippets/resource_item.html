@@ -19,7 +19,7 @@ Example:
   {% block resource_item_title %}
   {# <a class="rtds-truncate sm:rtds-overflow-auto rtds-w-full sm:rtds-w-auto" href="{{ url }}" title="{{ res.name or res.description }}"> #}
   <span class="rtds-truncate sm:rtds-overflow-auto rtds-w-full sm:rtds-w-auto">
-    {{ h.resource_display_name(res) | truncate(80) }}
+    {{ h.resource_display_name(res) | truncate(60) }}
     {# {{ h.popular('views', res.tracking_summary.total, min=10) if res.tracking_summary }} #}
   </span>
   {# </a> #}
