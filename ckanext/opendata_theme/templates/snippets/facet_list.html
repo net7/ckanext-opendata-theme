@@ -60,7 +60,7 @@ Dictionary with search facets
         {% for item in items %}
         {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
         {% set label = label_function(item) if label_function else item.display_name %}
-        {% set label_truncated = label|truncate(22) if not label_function else label %}
+        {% set label_truncated = label|truncate(50) if not label_function else label %}
         {% set count = count_label(item['count']) if count_label else ('%d' % item['count']) %}
         <li class="rtds-facets__item">
           <div class="rtds-input rtds-input-field rtds-input-checkbox">
