@@ -23,6 +23,15 @@
         <use href="/icons.svg#mini--chevron-down" />
       </svg>
     </a>
+
+    {% if h.check_access('resource_update', {'id': res.id}) %}
+      <a class="rtds-btn rtds-btn--s rtds-btn--primary" href="{{ h.url_for('resource.edit', id=pkg.name, resource_id=res.id) }}">
+        {{ _('Manage') }}
+        <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 md:rtds-w-5 md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+          <use href="/icons.svg#mini--wrench" />
+        </svg>
+      </a>
+    {% endif %}
   </div>
 </div>
 {% endblock %}
