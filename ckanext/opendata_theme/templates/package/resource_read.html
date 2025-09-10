@@ -3,11 +3,11 @@
 {% block pre_primary %}
 <div class="rtds-grid rtds-gap-4 rtds-mt-8 rtds-mb-12">
   <div class="rtds-flex">
-    <a href="#" class="rtds-text-link rtds-content-03 rtds-text-link--s">
+    <a href="javascript:history.back()" class="rtds-text-link rtds-content-03 rtds-text-link--s">
       <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-flex-shrink-0 rtds-flex-grow-0" aria-hidden="true" focusable="false" role="img">
         <use href="/icons.svg#solid--arrow-left" />
       </svg>
-      Torna indietro
+      {{ _('Go back') }}
     </a>
   </div>
   <h1 class="rtds-heading-1">{{ h.resource_display_name(res) }}</h1>
@@ -23,6 +23,15 @@
         <use href="/icons.svg#mini--chevron-down" />
       </svg>
     </a>
+
+    {% if h.check_access('resource_update', {'id': res.id}) %}
+      <a class="rtds-btn rtds-btn--s rtds-btn--primary" href="{{ h.url_for('resource.edit', id=pkg.name, resource_id=res.id) }}">
+        {{ _('Edit') }}
+        <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 md:rtds-w-5 md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+          <use href="/icons.svg#mini--wrench" />
+        </svg>
+      </a>
+    {% endif %}
   </div>
 </div>
 {% endblock %}

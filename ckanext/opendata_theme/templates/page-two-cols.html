@@ -33,11 +33,11 @@ file.
     {% block pre_primary %}
     <div class="rtds-grid rtds-gap-4 rtds-mt-10 rtds-mb-10 xl:rtds-mb-32 rtds-py-6 rtds-px-10 rtds-bg-gradient-02 rtds-rounded-2xl rtds-content-inverse">
       <div class="rtds-flex">
-        <a href="#" class="rtds-text-link rtds-text-link--s rtds-text-link--inverse">
+        <a href="javascript:history.back()" class="rtds-text-link rtds-text-link--s rtds-text-link--inverse">
           <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-flex-shrink-0 rtds-flex-grow-0" aria-hidden="true" focusable="false" role="img">
             <use href="/icons.svg#solid--arrow-left" />
           </svg>
-          Torna indietro
+          {{ _('Go back') }}
         </a>
       </div>
       <span class="rtds-category rtds-content-inverse"><svg class="rtds-icon rtds-fill-current rtds-w-6 rtds-h-6" aria-hidden="true" focusable="false" role="img">
@@ -168,9 +168,14 @@ file.
                       {% snippet "snippets/license.html", pkg_dict=pkg %}
                       {% endblock %}
 
-                      {# {% if h.check_access('package_update', {'id': pkg.id}) %}
-                      {% link_for _('Manage'), named_route=pkg.type+'.edit', id=pkg.name, class_='rtds-btn rtds-btn--primary rtds-w-fit', icon='wrench' %}
-                      {% endif %} #}
+                      {% if h.check_access('package_update', {'id': pkg.id}) %}
+                        <a class="rtds-btn rtds-btn--s rtds-btn--primary rtds-w-fit" href="{{ h.url_for(pkg.type+'.edit', id=pkg.name) }}">
+                          {{ _('Manage') }}
+                          <svg class="rtds-icon rtds-fill-current rtds-w-2 rtds-h-2 md:rtds-w-4 md:rtds-h-4 lg:rtds-w-6 lg:rtds-h-6 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+                            <use href="/icons.svg#mini--wrench" />
+                          </svg>
+                        </a>
+                      {% endif %}
 
                     </div>
                     {% endblock %}
