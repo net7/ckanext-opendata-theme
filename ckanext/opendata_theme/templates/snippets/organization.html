@@ -87,36 +87,21 @@
 
 {% block package_openness %}
   {% if g.pkg_dict %}
-  <section class="rtds-py-4 rtds-grid rtds-gap-4 rtds-pr-16">
-    <h3 class="rtds-body-lg rtds-font-bold">{{ _('Openness') }}</h3>
-    <ul class="rtds-flex rtds-flex-wrap rtds-gap-2">
-      <li>
-        <svg class="rtds-icon rtds-fill-current rtds-w-6 rtds-h-6 rtds-flex-shrink-0 rtds-flex-grow-0" aria-hidden="true" focusable="false" role="img">
-          <use href="/icons.svg#mini--star" />
-        </svg>
-      </li>
-      <li>
-        <svg class="rtds-icon rtds-fill-current rtds-w-6 rtds-h-6 rtds-flex-shrink-0 rtds-flex-grow-0" aria-hidden="true" focusable="false" role="img">
-          <use href="/icons.svg#outline--star" />
-        </svg>
-      </li>
-      <li>
-        <svg class="rtds-icon rtds-fill-current rtds-w-6 rtds-h-6 rtds-flex-shrink-0 rtds-flex-grow-0" aria-hidden="true" focusable="false" role="img">
-          <use href="/icons.svg#outline--star" />
-        </svg>
-      </li>
-      <li>
-        <svg class="rtds-icon rtds-fill-current rtds-w-6 rtds-h-6 rtds-flex-shrink-0 rtds-flex-grow-0" aria-hidden="true" focusable="false" role="img">
-          <use href="/icons.svg#outline--star" />
-        </svg>
-      </li>
-      <li>
-        <svg class="rtds-icon rtds-fill-current rtds-w-6 rtds-h-6 rtds-flex-shrink-0 rtds-flex-grow-0" aria-hidden="true" focusable="false" role="img">
-          <use href="/icons.svg#outline--star" />
-        </svg>
-      </li>
-    </ul>
-    {# {{ h.qa_openness_stars_dataset_html(g.pkg_dict) }} #}
-  </section>
+    {% set qa = g.pkg_dict.get('qa') %}
+    {% if qa.openness_score > 0 %}
+      <section class="rtds-py-4 rtds-grid rtds-gap-4 rtds-pr-16">
+        <h3 class="rtds-body-lg rtds-font-bold">{{ _('Openness') }}</h3>
+        <ul class="rtds-flex rtds-flex-wrap rtds-gap-2">
+          {% for index in range(qa.openness_score) %}
+          <li>
+            <svg class="rtds-icon rtds-fill-current rtds-w-6 rtds-h-6 rtds-flex-shrink-0 rtds-flex-grow-0" aria-hidden="true" focusable="false" role="img">
+              <use href="/icons.svg#mini--star" />
+            </svg>
+          </li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
   {% endif %}
 {% endblock %}
+{# {{ h.qa_openness_stars_dataset_html(g.pkg_dict) }} #}
