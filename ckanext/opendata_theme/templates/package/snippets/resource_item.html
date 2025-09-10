@@ -17,53 +17,53 @@ Example:
 
 <li class="rtds-py-4 rtds-border-t rtds-border-gray-01 rtds-grid md:rtds-flex md:rtds-flex-wrap rtds-justify-items-start md:rtds-justify-between rtds-items-center rtds-gap-4" data-id="{{ res.id }}">
   {% block resource_item_title %}
-  {# <a class="rtds-truncate sm:rtds-overflow-auto rtds-w-full sm:rtds-w-auto" href="{{ url }}" title="{{ res.name or res.description }}"> #}
-  <span class="rtds-truncate sm:rtds-overflow-auto rtds-w-full sm:rtds-w-auto">
-    {{ h.resource_display_name(res) | truncate(60) }}
-    {# {{ h.popular('views', res.tracking_summary.total, min=10) if res.tracking_summary }} #}
-  </span>
-  {# </a> #}
-  <div class="md:rtds-grow md:rtds-flex md:rtds-justify-end">
-    <span class="rtds-chip rtds-chip--sm rtds-chip--tag" property="dc:format" data-format="{{ res.format.lower() or 'data' }}">{{ h.get_translated(res, 'format') }}</span>
-  </div>
-  <div class="rtds-flex rtds-flex-wrap rtds-gap-4 rtds-items-center">
-    {% block resource_item_explore %}
-      {% if not url_is_edit %}
-        <a class="rtds-btn rtds-btn--s rtds-btn--only-text" href="{{ url }}">
-          {% if res.has_views %}
-          {{ _('Preview') }}
-          {% else %}
-          {{ _('More information') }}
-          {% endif %}
-        </a>
-        {% if res.url and h.is_url(res.url) %}
-          {% if res.has_views or res.url_type == 'upload' %}
-            <a class="rtds-btn rtds-btn--s rtds-btn--only-text" href="{{ res.url }}" target="_blank" rel="noreferrer">
-              {{ _('Go to resource') }}
-              <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 md:rtds-w-5 md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
-                <use href="/icons.svg#mini--arrow-top-right-on-square" />
-              </svg>
-            </a>
-          {% else %}
-            <a class="rtds-btn rtds-btn--s rtds-btn--outlined" href="{{ res.url }}" target="_blank" rel="noreferrer">
-              {{ _('Download') }}
-              <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 md:rtds-w-5 md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
-                <use href="/icons.svg#mini--chevron-down" />
-              </svg>
-            </a>
-          {% endif %}
-        {% endif %}
-
-        {% if can_edit %}
-          <a class="rtds-btn rtds-btn--s rtds-btn--only-text" href="{{ h.url_for(pkg.type ~ '_resource.edit', id=pkg.name, resource_id=res.id) }}" target="_blank" rel="noreferrer">
-            {{ _('Edit') }}
-            <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 md:rtds-w-5 md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
-              <use href="/icons.svg#mini--wrench" />
-            </svg>
+    {# <a class="rtds-truncate sm:rtds-overflow-auto rtds-w-full sm:rtds-w-auto" href="{{ url }}" title="{{ res.name or res.description }}"> #}
+    <span class="rtds-truncate sm:rtds-overflow-auto rtds-w-full sm:rtds-w-auto">
+      {{ h.resource_display_name(res) | truncate(60) }}
+      {# {{ h.popular('views', res.tracking_summary.total, min=10) if res.tracking_summary }} #}
+    </span>
+    {# </a> #}
+    <div class="md:rtds-grow md:rtds-flex md:rtds-justify-end">
+      <span class="rtds-chip rtds-chip--sm rtds-chip--tag" property="dc:format" data-format="{{ res.format.lower() or 'data' }}">{{ h.get_translated(res, 'format') }}</span>
+    </div>
+    <div class="rtds-flex rtds-flex-wrap rtds-gap-4 rtds-items-center">
+      {% block resource_item_explore %}
+        {% if not url_is_edit %}
+          <a class="rtds-btn rtds-btn--s rtds-btn--only-text" href="{{ url }}">
+            {% if res.has_views %}
+            {{ _('Preview') }}
+            {% else %}
+            {{ _('More information') }}
+            {% endif %}
           </a>
+          {% if res.url and h.is_url(res.url) %}
+            {% if res.has_views or res.url_type == 'upload' %}
+              <a class="rtds-btn rtds-btn--s rtds-btn--only-text" href="{{ res.url }}" target="_blank" rel="noreferrer">
+                {{ _('Go to resource') }}
+                <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 md:rtds-w-5 md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+                  <use href="/icons.svg#mini--arrow-top-right-on-square" />
+                </svg>
+              </a>
+            {% else %}
+              <a class="rtds-btn rtds-btn--s rtds-btn--outlined" href="{{ res.url }}" target="_blank" rel="noreferrer">
+                {{ _('Download') }}
+                <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 md:rtds-w-5 md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+                  <use href="/icons.svg#mini--chevron-down" />
+                </svg>
+              </a>
+            {% endif %}
+          {% endif %}
+
+          {% if can_edit %}
+            <a class="rtds-btn rtds-btn--s rtds-btn--only-text" href="{{ h.url_for(pkg.type ~ '_resource.edit', id=pkg.name, resource_id=res.id) }}" target="_blank" rel="noreferrer">
+              {{ _('Edit') }}
+              <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 md:rtds-w-5 md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+                <use href="/icons.svg#mini--wrench" />
+              </svg>
+            </a>
+          {% endif %}
         {% endif %}
-      {% endif %}
-    {% endblock %}
-  </div>
+      {% endblock %}
+    </div>
   {% endblock %}
 </li>
