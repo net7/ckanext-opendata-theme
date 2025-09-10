@@ -1,5 +1,4 @@
-{# {% extends "page.html" %} #}
-{% extends "page-search.html" %}
+{% extends "package/base.html" %}
 {% set dataset_type = h.default_package_type() %}
 {% set organization = group_dict %}
 
@@ -13,7 +12,7 @@
 {% block page_header %}{% endblock %}
 
 {% block pre_primary %}
-<div class="rtds-grid rtds-gap-4 rtds-mt-8 rtds-mb-12">
+{# <div class="rtds-grid rtds-gap-4 rtds-mt-8 rtds-mb-12">
   <div class="rtds-flex">
     <a href="javascript:history.back()" class="rtds-text-link rtds-content-03 rtds-text-link--s">
       <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-flex-shrink-0 rtds-flex-grow-0" aria-hidden="true" focusable="false" role="img">
@@ -22,16 +21,31 @@
       {{ _('Go back') }}
     </a>
   </div>
+  <div>
+    <img class="rtds-max-h-[100px]" src="{{ organization.image_display_url }}" width="" height="" alt="{{ organization.name }}" />
+  </div>
   <h1 class="rtds-heading-1">{{ organization.title or organization.name }}</h1>
-</div>
+</div> #}
 {% endblock %}
 
 {% block primary_content %}
   {% block primary_content_inner %}
-  <section>
+  {# <section>
     <div class="rtds-grid">
     </div>
-  </section>
+  </section> #}
+    {% block description %}
+      {% if organization.description %}
+      <p>
+        {{ h.markdown_extract(organization.description, 180) }}
+      </p>
+      {# <p>
+        {% link_for _('read more'), named_route=organization.type ~ '.about', id=organization.name %}
+      </p> #}
+      {% else %}
+      <p>{{ h.humanize_entity_type('organization', organization.type, 'no description') or _('There is no description for this organization') }}</p>
+      {% endif %}
+    {% endblock %}
   {% endblock %}
 {% endblock %}
 
@@ -59,7 +73,7 @@
     <section class="rtds-background-03 rtds-rounded-2xl rtds-p-4 rtds-w-fit rtds-pr-16 rtds-mb-4">
       {# <a href="{{ url }}"> #}
         {# <img src="{{ organization.image_display_url or h.url_for_static('/base/images/placeholder-organization.png') }}" width="200" alt="{{ organization.name }}" /> #}
-        <img class="rtds-max-h-[100px]" src="{{ organization.image_display_url }}" width="" height="" alt="{{ organization.name }}" />
+        {# <img class="rtds-max-h-[100px]" src="{{ organization.image_display_url }}" width="" height="" alt="{{ organization.name }}" /> #}
         {# </a> #}
     </section>
     {% endblock %}
@@ -79,21 +93,21 @@
         </h3> #}
         {% endblock %}
     
-        {% block description %}
+        {# {% block description %}
         {% if organization.description %}
         <p>
           {{ h.markdown_extract(organization.description, 180) }}
         </p>
-        {# <p>
+        <p>
           {% link_for _('read more'), named_route=organization.type ~ '.about', id=organization.name %}
-        </p> #}
+        </p>
         {% else %}
         <p>{{ h.humanize_entity_type('organization', organization.type, 'no description') or _('There is no description for this organization') }}</p>
         {% endif %}
-        {% endblock %}
+        {% endblock %} #}
     
         {% if show_nums %}
-        {% block nums %}
+        {# {% block nums %}
         <div class="nums">
           <dl>
             <dt>{{ _('Followers') }}</dt>
@@ -104,19 +118,19 @@
             <dd>{{ h.SI_number_span(organization.package_count) }}</dd>
           </dl>
         </div>
-        {% endblock %}
+        {% endblock %} #}
     
-        {% block follow %}
+        {# {% block follow %}
         <div class="follow_button">
           {{ h.follow_button('group', organization.id) }}
         </div>
-        {% endblock %}
+        {% endblock %} #}
         {% endif %}
         {% endblock %}
 
-        {% if h.check_access('organization_update', {'id': group_dict.id}) %}
+        {# {% if h.check_access('organization_update', {'id': group_dict.id}) %}
           {% link_for _('Manage'), named_route=group_type+'.edit', id=group_dict.name, class_='rtds-btn rtds-btn--primary rtds-w-fit', icon='wrench' %}
-        {% endif %}
+        {% endif %} #}
         {#
       </section> #}
     </section>
