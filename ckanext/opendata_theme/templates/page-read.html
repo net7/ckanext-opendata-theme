@@ -33,11 +33,11 @@ file.
     {% block pre_primary %}
     <div class="rtds-grid rtds-gap-4 rtds-mt-10 rtds-mb-10 xl:rtds-mb-32 rtds-py-6 rtds-px-10 rtds-bg-gradient-02 rtds-rounded-2xl rtds-content-inverse">
       <div class="rtds-flex">
-        <a href="#" class="rtds-text-link rtds-text-link--s rtds-text-link--inverse">
+        <a href="{{ h.url_for(pkg.type ~ '.read', id=pkg.name) }}" class="rtds-text-link rtds-text-link--s rtds-text-link--inverse">
           <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-flex-shrink-0 rtds-flex-grow-0" aria-hidden="true" focusable="false" role="img">
             <use href="/icons.svg#solid--arrow-left" />
           </svg>
-          Torna indietro
+          {{ _('Go back') }}
         </a>
       </div>
       <span class="rtds-category rtds-content-inverse"><svg class="rtds-icon rtds-fill-current rtds-w-6 rtds-h-6" aria-hidden="true" focusable="false" role="img">
