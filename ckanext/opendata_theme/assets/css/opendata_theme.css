@@ -3730,6 +3730,10 @@ legend.rtds-facets__legend {
   margin-bottom: var(--spacing-4);
 }
 
+.rtds-mb-6 {
+  margin-bottom: var(--spacing-6);
+}
+
 .rtds-mb-8 {
   margin-bottom: var(--spacing-8);
 }
@@ -4034,10 +4038,6 @@ legend.rtds-facets__legend {
   align-self: flex-end;
 }
 
-.rtds-justify-self-start {
-  justify-self: start;
-}
-
 .rtds-overflow-y-auto {
   overflow-y: auto;
 }
@@ -4050,10 +4050,6 @@ legend.rtds-facets__legend {
 
 .rtds-whitespace-nowrap {
   white-space: nowrap;
-}
-
-.rtds-break-all {
-  word-break: break-all;
 }
 
 .rtds-rounded-2xl {
