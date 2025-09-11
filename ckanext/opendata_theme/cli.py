@@ -718,5 +718,227 @@ def force_clean_org(organization_id, yes):
         click.echo(f"Errore: {str(e)}", err=True)
 
 
+@opendata.command()
+@click.option('--from', 'from_count', type=int, help='Numero minimo di dataset (>=)')
+@click.option('--to', 'to_count', type=int, help='Numero massimo di dataset (<=)')
+@click.option('--org', 'organization_id', help='Filtra per una specifica organizzazione (ID o nome)')
+@click.option('--deactivate', 'do_delete', is_flag=True, help='Elimina (soft delete) le organizzazioni filtrate')
+@click.option('--activate', 'do_activate', is_flag=True, help='Riattiva le organizzazioni filtrate')
+@click.option('-y', '--yes', is_flag=True, help='Conferma automaticamente l\'operazione senza chiedere')
+def list_organizations(from_count, to_count, organization_id, do_delete, do_activate, yes):
+    """Lista e gestisce organizzazioni in base al numero di dataset.
+    
+    Esempi:
+    - Mostra tutte: list-organizations
+    - Con meno di 3 dataset: list-organizations --to 2
+    - Con 5+ dataset: list-organizations --from 5
+    - Tra 1 e 10 dataset: list-organizations --from 1 --to 10
+    - Una specifica organizzazione: list-organizations --org my-org
+    - Elimina quelle con <3 dataset: list-organizations --to 2 --deactivate -y
+    """
+    try:
+        context = {'ignore_auth': True}
+        
+        # Validazione opzioni
+        if do_delete and do_activate:
+            click.echo("Errore: Non puoi usare --deactivate e --activate insieme", err=True)
+            return
+        
+        # Ottieni organizzazioni
+        if organization_id:
+            # Filtra per organizzazione specifica
+            try:
+                org = toolkit.get_action('organization_show')(
+                    context, {'id': organization_id})
+                orgs = [org]
+            except toolkit.ObjectNotFound:
+                click.echo(f"Errore: Organizzazione {organization_id} non trovata", err=True)
+                return
+        else:
+            # Ottieni tutte le organizzazioni
+            orgs = toolkit.get_action('organization_list')(
+                context, {'all_fields': True, 'include_extras': True})
+        
+        # Query SQL diretta per contare i dataset per organizzazione
+        try:
+            import ckan.model as model
+            
+            # Costruisci la query con filtri WHERE e HAVING
+            where_conditions = ["g.type = 'organization'"]
+            having_conditions = []
+            
+            if organization_id:
+                # Se è specificata un'organizzazione, filtra per ID o nome
+                where_conditions.append(f"(g.id = '{organization_id}' OR g.name = '{organization_id}')")
+            
+            if from_count is not None:
+                having_conditions.append(f"COUNT(p.id) >= {from_count}")
+            
+            if to_count is not None:
+                having_conditions.append(f"COUNT(p.id) <= {to_count}")
+            
+            if do_delete:
+                where_conditions.append("g.state != 'deleted'")
+            elif do_activate:
+                where_conditions.append("g.state = 'deleted'")
+            
+            where_clause = " AND ".join(where_conditions)
+            having_clause = " AND ".join(having_conditions) if having_conditions else ""
+            
+            # Query SQL su singola riga come richiesto
+            if having_clause:
+                sql_query = f"SELECT g.id, g.name, g.title, g.state, COALESCE(COUNT(p.id), 0) as dataset_count FROM \"group\" g LEFT JOIN package p ON p.owner_org = g.id AND p.state = 'active' WHERE {where_clause} GROUP BY g.id, g.name, g.title, g.state HAVING {having_clause} ORDER BY dataset_count"
+            else:
+                sql_query = f"SELECT g.id, g.name, g.title, g.state, COALESCE(COUNT(p.id), 0) as dataset_count FROM \"group\" g LEFT JOIN package p ON p.owner_org = g.id AND p.state = 'active' WHERE {where_clause} GROUP BY g.id, g.name, g.title, g.state ORDER BY dataset_count"
+            
+            result = model.Session.execute(sql_query)
+            
+            filtered_orgs = []
+            for row in result:
+                org_info = {
+                    'id': row.id,
+                    'name': row.name,
+                    'title': row.title or row.name,
+                    'state': row.state or 'active',
+                    'dataset_count': int(row.dataset_count)
+                }
+                filtered_orgs.append(org_info)
+                
+        except Exception as e:
+            click.echo(f"Errore nella query SQL, uso metodo lento: {str(e)}")
+            
+            # Fallback al metodo lento originale
+            filtered_orgs = []
+            
+            for org in orgs:
+                # Conta i dataset dell'organizzazione
+                try:
+                    packages = toolkit.get_action('package_search')(
+                        context, {
+                            'fq': f'owner_org:{org["id"]}',
+                            'rows': 1000
+                        })
+                    dataset_count = packages['count']
+                except Exception:
+                    dataset_count = 0
+                
+                org_info = {
+                    'id': org['id'],
+                    'name': org['name'],
+                    'title': org.get('display_name', org.get('title', org['name'])),
+                    'state': org.get('state', 'active'),
+                    'dataset_count': dataset_count
+                }
+                
+                # Applica filtri per count
+                if from_count is not None and dataset_count < from_count:
+                    continue
+                if to_count is not None and dataset_count > to_count:
+                    continue
+                
+                # Applica filtri per azioni
+                if do_delete and org.get('state', 'active') == 'deleted':
+                    continue  # Skip già eliminate
+                if do_activate and org.get('state', 'active') != 'deleted':
+                    continue  # Skip già attive
+                
+                filtered_orgs.append(org_info)
+        
+        # Mostra risultati
+        if not filtered_orgs:
+            click.echo("\nNessuna organizzazione trovata con i filtri specificati")
+            return
+        
+        # Header con informazioni sui filtri
+        filter_info = []
+        if from_count is not None:
+            filter_info.append(f"dataset >= {from_count}")
+        if to_count is not None:
+            filter_info.append(f"dataset <= {to_count}")
+        if organization_id:
+            filter_info.append(f"org = {organization_id}")
+        
+        filter_str = " AND ".join(filter_info) if filter_info else "nessun filtro"
+        
+        if do_delete or do_activate:
+            action_str = "da eliminare" if do_delete else "da riattivare"
+            click.echo(f"\nOrganizzazioni {action_str} ({filter_str}):")
+        else:
+            click.echo(f"\nOrganizzazioni trovate ({filter_str}):")
+        
+        click.echo("=" * 60)
+        
+        # Lista organizzazioni
+        for org in sorted(filtered_orgs, key=lambda x: x['dataset_count']):
+            if org['state'] == 'deleted':
+                state_icon = "❌"
+            elif org['dataset_count'] == 0:
+                state_icon = "⚪"
+            elif org['dataset_count'] < 3:
+                state_icon = "⚠️"
+            else:
+                state_icon = "✅"
+            
+            click.echo(f"{state_icon} {org['name']} - {org['title']}")
+            click.echo(f"   Dataset: {org['dataset_count']}, Stato: {org['state']}, ID: {org['id']}")
+        
+        # Riepilogo
+        click.echo(f"\n📊 Trovate {len(filtered_orgs)} organizzazioni")
+        
+        # Esegui azioni se richieste
+        if do_delete or do_activate:
+            if not filtered_orgs:
+                return
+            
+            action_verb = "eliminare (soft delete)" if do_delete else "riattivare"
+            
+            # Chiedi conferma
+            if not yes and not click.confirm(f'\nVuoi {action_verb} {len(filtered_orgs)} organizzazioni?'):
+                click.echo('Operazione annullata')
+                return
+            
+            # Esegui operazione
+            success_count = 0
+            new_state = 'deleted' if do_delete else 'active'
+            
+            try:
+                import ckan.model as model
+                
+                org_ids = [org['id'] for org in filtered_orgs]
+                org_ids_str = "', '".join(org_ids)
+                
+                # Query SQL su singola riga come richiesto
+                if do_delete:
+                    sql_query = f"UPDATE \"group\" SET state = 'deleted' WHERE type = 'organization' AND state != 'deleted' AND id IN ('{org_ids_str}')"
+                else:
+                    sql_query = f"UPDATE \"group\" SET state = 'active' WHERE type = 'organization' AND state = 'deleted' AND id IN ('{org_ids_str}')"
+                
+                result = model.Session.execute(sql_query)
+                model.Session.commit()
+                
+                success_count = result.rowcount
+                action_past = "eliminate" if do_delete else "riattivate"
+                click.echo(f"\n✅ {action_past.capitalize()} {success_count} organizzazioni tramite query SQL")
+                
+            except Exception as e:
+                click.echo(f"Errore nella query SQL, provo con API: {str(e)}")
+                
+                # Fallback con API
+                for org in filtered_orgs:
+                    try:
+                        toolkit.get_action('organization_patch')(
+                            context, {'id': org['id'], 'state': new_state})
+                        success_count += 1
+                        action_past = "eliminata" if do_delete else "riattivata"
+                        click.echo(f"{action_past.capitalize()}: {org['name']}")
+                    except Exception as api_e:
+                        click.echo(f"Errore nell'operazione su {org['name']}: {str(api_e)}", err=True)
+            
+            click.echo(f"\n📊 Operazione completata: {success_count}/{len(filtered_orgs)} organizzazioni modificate")
+        
+    except Exception as e:
+        click.echo(f"Errore: {str(e)}", err=True)
+
+
 def get_commands():
     return [opendata]
