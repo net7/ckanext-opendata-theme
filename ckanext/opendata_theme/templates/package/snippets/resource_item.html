@@ -23,8 +23,11 @@ Example:
       {# {{ h.popular('views', res.tracking_summary.total, min=10) if res.tracking_summary }} #}
     </span>
     {# </a> #}
+    
     <div class="md:rtds-grow md:rtds-flex md:rtds-justify-end">
-      <span class="rtds-chip rtds-chip--sm rtds-chip--tag" property="dc:format" data-format="{{ res.format.lower() or 'data' }}">{{ h.get_translated(res, 'format') }}</span>
+      {% if res.format %}
+        <span class="rtds-chip rtds-chip--sm rtds-chip--tag" property="dc:format" data-format="{{ res.format.lower() or 'data' }}">{{ h.get_translated(res, 'format') }}</span>
+      {% endif %}
     </div>
     <div class="rtds-flex rtds-flex-wrap rtds-gap-4 rtds-items-center">
       {% block resource_item_explore %}
