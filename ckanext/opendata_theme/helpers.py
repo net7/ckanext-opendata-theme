@@ -17,10 +17,8 @@ def get_helpers():
         "is_current": is_current,
         "get_formatted_dataset_count": get_formatted_dataset_count,
         "get_formatted_view_count": get_formatted_view_count,
-        "get_formatted_download_count": get_formatted_download_count,
         "get_most_viewed_datasets": get_most_viewed_datasets,
         "get_dataset_views": get_dataset_views,
-        "get_dataset_downloads": get_dataset_downloads,
         "get_all_organizations": get_all_organizations,
         "get_all_organizations_random": get_all_organizations_random,
         "get_home_organizations": get_home_organizations,
@@ -130,45 +128,6 @@ def get_formatted_view_count():
         return f"+0"
 
 
-def get_formatted_download_count():
-    """
-    Restituisce il numero di download dell'anno precedente formattato in stile italiano.
-    """
-    try:
-        # Accesso diretto al database usando SQLAlchemy
-        from sqlalchemy import text
-        from ckan.model import Session
-        
-        # Usa sempre l'anno precedente a quello corrente
-        year_condition = "EXTRACT(YEAR FROM tracking_date) = EXTRACT(YEAR FROM CURRENT_DATE) - 1"
-            
-        sql = f'''
-            SELECT SUM(count) as total_count
-            FROM tracking_summary
-            WHERE tracking_type = 'resource' 
-            AND {year_condition}
-        '''
-        
-        # Esegui la query direttamente
-        result = Session.execute(text(sql))
-        row = result.fetchone()
-        
-        if row and row.total_count:
-            download_count = row.total_count
-        else:
-            download_count = 0
-        
-        # Formattazione per numeri in migliaia
-        if download_count >= 1000:
-            thousands = round(download_count / 1000)
-            return f"+{thousands} mila"
-        else:
-            return f"{download_count:,}".replace(',', '.')
-    except Exception as e:
-        # In caso di errore, ritorna il valore statico originale
-        return f"+0"
-
-
 def get_most_viewed_datasets(limit=4):
     """
     Recupera i dataset più consultati in base alle statistiche di visualizzazione.
@@ -248,41 +207,6 @@ def get_dataset_views(package_id):
         return 0
     except Exception as e:
         # In caso di errore, ritorna 0
-        return 0
-
-
-def get_dataset_downloads(package_id):
-    """
-    Calcola il numero totale di download per tutte le risorse di un dataset.
-    
-    Args:
-        package_id (str): L'ID del dataset di cui calcolare i download
-        
-    Returns:
-        int: Numero totale di download di tutte le risorse
-    """
-    try:
-        from sqlalchemy import text
-        from ckan.model import Session
-        
-        if not package_id:
-            return 0
-            
-        sql = '''
-            SELECT SUM(ts.count) as total_downloads
-            FROM tracking_summary ts
-            JOIN resource r ON ts.object_id = r.id
-            WHERE r.package_id = :package_id
-            AND ts.tracking_type = 'resource'
-        '''
-        
-        result = Session.execute(text(sql), {'package_id': package_id})
-        row = result.fetchone()
-        
-        if row and row.total_downloads:
-            return row.total_downloads
-        return 0
-    except Exception as e:
         return 0
 
 

@@ -34,12 +34,6 @@
           {{ h.get_formatted_view_count() }}
         </div>
       </div>
-      <div class="rtds-grid rtds-gap-3">
-        <h3 class="rtds-body-lg">{{ _('Annual downloads') }}</h3>
-        <div class="rtds-display-heading-4 rtds-font-bold" style="text-shadow: 0px 0px 10px rgba(2, 252, 206, 0.80);">
-          {{ h.get_formatted_download_count() }}
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -253,25 +247,6 @@
             </div>
             <div class="rtds-card__description ">
               <p>I dati sulla popolazione e le dinamiche sociali.</p>
-            </div>
-          </div>
-        </article>
-      </li>
-      <li class="rtds-col">
-        <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
-          <div class="rtds-card__icon">
-            <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
-              <use href="/icons.svg#outline--server" />
-            </svg>
-          </div>
-          <div class="rtds-card__content">
-            <div class="rtds-card__heading">
-              <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for dataset_type ~ '.search' %}?_dcat_theme_limit=0&dcat_theme=OP_DATPRO">{{ _('Dati provvisori') }}</a>
-              </h3>
-            </div>
-            <div class="rtds-card__description ">
-              <p>Dati in fase di elaborazione e verifica. </p>
             </div>
           </div>
         </article>

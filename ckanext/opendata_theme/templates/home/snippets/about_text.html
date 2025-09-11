@@ -156,8 +156,10 @@
     </a>
   </div>
 </section>
-{% endtrans %} {% if g.tracking_enabled %}
-<p>CKAN's page-view tracking feature is enabled.</p>
+{% endtrans %}
+
+{% if g.tracking_enabled %}
+  <p>CKAN's page-view tracking feature is enabled.</p>
 {% else %}
-<p>CKAN's page-view tracking feature is <i>not</i> enabled.</p>
+  <p>CKAN's page-view tracking feature is <i>not</i> enabled.</p>
 {% endif %}
