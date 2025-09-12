@@ -28,6 +28,8 @@ def get_helpers():
         "get_page_image": get_page_image,
         "format_date": format_date,
         "get_first_theme": get_first_theme,
+        "get_theme_icon": get_theme_icon,
+        "extract_theme_from_extras": extract_theme_from_extras,
     }
 
 
@@ -508,8 +510,7 @@ def get_first_theme(dataset_extras):
         if not dataset_extras:
             return None
             
-        # Trova il campo 'theme' negli extras
-        theme_extra = next((extra for extra in dataset_extras if extra.get('key') == 'theme'), None)
+        theme_extra = next((extra for extra in dataset_extras if extra.get('key', '').lower() == 'theme'), None)
         
         if not theme_extra or not theme_extra.get('value'):
             return None
@@ -539,3 +540,61 @@ def get_first_theme(dataset_extras):
     except Exception as e:
         # In caso di errore, ritorna None
         return None
+
+
+def extract_theme_from_extras(pkg_extras):
+    """
+    Estrae il valore del tema da pkg.extras
+    
+    Args:
+        pkg_extras: Lista degli extras del package, formato [{'key': 'Theme', 'value': '["TRAN"]'}]
+        
+    Returns:
+        str: Codice del tema (es. "TRAN") o None se non trovato
+    """
+    if not pkg_extras:
+        return None
+        
+    try:
+        for extra in pkg_extras:
+            if extra.get('key') == 'Theme':
+                theme_value = extra.get('value', '')
+                if theme_value:
+                    # Rimuove le parentesi quadre e le virgolette
+                    clean_value = theme_value.strip('[]"\'')
+                    # Se ci sono più temi separati da virgola, prende il primo
+                    if ',' in clean_value:
+                        clean_value = clean_value.split(',')[0].strip().strip('"\'')
+                    return clean_value
+        return None
+    except Exception as e:
+        return None
+
+
+def get_theme_icon(theme_code):
+    """
+    Restituisce l'icona SVG corretta per il codice tema specificato
+    
+    Args:
+        theme_code (str): Codice del tema (es. "TRAN", "ENVI", ecc.)
+        
+    Returns:
+        str: Nome dell'icona SVG (es. "outline--map")
+    """
+    theme_icons = {
+        'ENVI': 'outline--sun',                    # Ambiente
+        'REGI': 'outline--building-office',       # Regioni e città
+        'GOVE': 'outline--building-library',      # Governo e settore pubblico
+        'TECH': 'outline--beaker',                # Scienza e tecnologia
+        'TRAN': 'outline--map',                   # Trasporti
+        'ECON': 'outline--presentation-chart-bar', # Economia e finanza
+        'ENER': 'outline--bolt',                  # Energia
+        'EDUC': 'outline--book-open',             # Educazione, cultura e sport
+        'SOCI': 'outline--user-group',            # Popolazione e società
+        'HEAL': 'heart-rate-pulse-graph',         # Salute
+        'AGRI': 'leaf--nature-environment-leaf-ecology-plant-plants-eco', # Agricoltura
+        'JUST': 'outline--scale',                 # Giustizia e sicurezza pubblica
+    }
+    
+    # Restituisce l'icona corrispondente o un'icona di default
+    return theme_icons.get(theme_code, 'outline--sun')

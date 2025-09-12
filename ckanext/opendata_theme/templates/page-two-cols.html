@@ -40,13 +40,19 @@ file.
           {{ _('Go back') }}
         </a>
       </div>
-      <span class="rtds-category rtds-content-inverse"><svg class="rtds-icon rtds-fill-current rtds-w-6 rtds-h-6" aria-hidden="true" focusable="false" role="img">
-          <use href="/icons.svg#outline--sun" />
-        </svg>
-        <span>Category label</span>
-      </span>
+
+      {% if pkg.groups and pkg.groups|length > 0 and pkg.groups[0].name %}
+        {% set group = pkg.groups[0] %}
+        {% set theme_code = h.extract_theme_from_extras(pkg.extras) %}
+        {% set icon_name = h.get_theme_icon(theme_code) %}
+        <span class="rtds-category rtds-content-inverse"><svg class="rtds-icon rtds-fill-current rtds-w-6 rtds-h-6" aria-hidden="true" focusable="false" role="img">
+            <use href="/icons.svg#{{ icon_name }}" />
+          </svg>
+          <span>{{ group.display_name }}</span>
+        </span>
+      {% endif %}
       <h1 class="rtds-heading-1 rtds-max-w-5xl">{{ h.dataset_display_name(pkg) }}</h1>
-      <div class="rtds-body-lg rtds-max-w-5xl">{{ h.render_markdown(h.get_translated(pkg, 'notes')) }}</div>
+      <div class="rtds-body-lg rtds-max-w-5xl">{{ h.render_markdown(h.get_translated(pkg, 'notes')|truncate(500)) }}</div>
     </div>
     {% endblock %}
 
