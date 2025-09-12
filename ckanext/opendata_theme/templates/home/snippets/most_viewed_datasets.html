@@ -28,7 +28,7 @@
             <div class="rtds-card__content">
                 <div class="rtds-card__heading">
                 <h3 class="rtds-card__title">
-                    <a href="{% url_for dataset_type ~ '.read', id=dataset.name %}">{{ dataset.title }}</a>
+                    <a href="{% url_for 'dataset.read', id=dataset.name %}">{{ dataset.title }}</a>
                 </h3>
                 </div>
             </div>
@@ -36,19 +36,20 @@
                 <div class="rtds-card__footer-inner">
                 <div class="rtds-card__metadata">
                     {% if dataset.groups and dataset.groups|length > 0 and dataset.groups[0].name %}
-                    {% set group = dataset.groups[0] %}
-                    {% set theme = dataset.extras|selectattr('key', 'equalto', 'dcat_theme')|map(attribute='value')|first|default('GOVE') %}
-                    <a class="rtds-btn rtds-btn--s rtds-btn--only-text rtds-btn--icon-left" href="{% url_for dataset_type ~ '.search' %}?_groups_limit=0&dcat_theme={{ theme }}">
-                    <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
-                        <use href="/icons.svg#outline--building-office-2" />
-                    </svg>
-                    {{ group.display_name }}
-                    </a>
-                    <span class="rtds-border-r rtds-border-gray-04 rtds-h-4 rtds-my-3 rtds-mr-2 -rtds-ml-2"></span>
+                        {% set group = dataset.groups[0] %}
+
+                        {% set first_theme = h.get_first_theme(dataset.extras) %}
+                        {% if first_theme %}
+                            <a class="rtds-btn rtds-btn--s rtds-btn--only-text rtds-btn--icon-left" href="{% url_for 'dataset.search', dcat_theme=first_theme %}">
+                            <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+                                <use href="/icons.svg#outline--building-office-2" />
+                            </svg>
+                            {{ group.display_name }}
+                            </a>
+                            <span class="rtds-border-r rtds-border-gray-04 rtds-h-4 rtds-my-3 rtds-mr-2 -rtds-ml-2"></span>
+                        {% endif %}
                     {% endif %}
                     <span class="rtds-whitespace-nowrap">{{ _('Visualizations') }}: {{ dataset.view_count }}</span>
-                    <span class="rtds-border-r rtds-border-gray-04 rtds-h-4 rtds-my-3 rtds-mx-2"></span>
-                    <span class="rtds-whitespace-nowrap">{{ _('Downloads') }}: {{ dataset.download_count }}</span>
                 </div>
                 </div>
             </div>

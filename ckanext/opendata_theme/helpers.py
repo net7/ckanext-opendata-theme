@@ -4,6 +4,7 @@ import ckan.plugins.toolkit as toolkit
 from html.parser import HTMLParser
 import random
 from datetime import datetime
+import json
 
 
 def opendata_theme_hello():
@@ -26,6 +27,7 @@ def get_helpers():
         "get_recent_news": get_recent_news,
         "get_page_image": get_page_image,
         "format_date": format_date,
+        "get_first_theme": get_first_theme,
     }
 
 
@@ -84,21 +86,31 @@ def get_formatted_dataset_count():
 
 def get_formatted_view_count():
     """
-    Restituisce il numero di visualizzazioni dell'anno precedente formattato in stile italiano.
+    Restituisce il numero di visualizzazioni delle risorse nell'ultimo anno formattato in stile italiano.
+    Utilizza cache Redis per migliorare le performance.
+    
+    Vanno prima puliti i dati
+    
+    DELETE FROM tracking_summary WHERE tracking_type NOT IN ('page', 'resource');
     """
     try:
-        # Accesso diretto al database usando SQLAlchemy
+        # Prova a utilizzare la cache Redis
+        cache_key = "opendata_theme:resource_views_last_year"
+        cached_result = _get_from_redis_cache(cache_key)
+        
+        if cached_result:
+            return cached_result
+        
+        # Cache miss o non disponibile, calcola il valore
         from sqlalchemy import text
         from ckan.model import Session
         
-        # Usa sempre l'anno precedente a quello corrente
-        year_condition = "EXTRACT(YEAR FROM tracking_date) = EXTRACT(YEAR FROM CURRENT_DATE) - 1"
-            
-        sql = f'''
+        # Conta le visualizzazioni delle risorse nell'ultimo anno (365 giorni)
+        sql = '''
             SELECT SUM(count) as total_count
             FROM tracking_summary
-            WHERE tracking_type = 'page' 
-            AND {year_condition}
+            WHERE tracking_type = 'resource'
+            AND tracking_date >= CURRENT_DATE - INTERVAL '1 year'
         '''
         
         # Esegui la query direttamente
@@ -114,15 +126,21 @@ def get_formatted_view_count():
         if view_count >= 1000000:
             millions = round(view_count / 1000000)
             if millions == 1:
-                return f"+{millions} milione"
+                formatted_result = f"+{millions} milione"
             else:
-                return f"+{millions} milioni"
+                formatted_result = f"+{millions} milioni"
         # Formattazione per numeri in migliaia
         elif view_count >= 1000:
             thousands = round(view_count / 1000)
-            return f"+{thousands} mila"
+            formatted_result = f"+{thousands} mila"
         else:
-            return f"{view_count:,}".replace(',', '.')
+            formatted_result = f"{view_count:,}".replace(',', '.')
+        
+        # Salva il risultato in cache per 1 ora (3600 secondi)
+        _set_redis_cache(cache_key, formatted_result, 3600)
+        
+        return formatted_result
+        
     except Exception as e:
         # In caso di errore, ritorna il valore statico originale
         return f"+0"
@@ -421,3 +439,102 @@ def format_date(date_input, format='dmy'):
         return f"{year}-{month}-{day}"
     
     return None
+
+
+def _get_redis_connection():
+    """
+    Ottiene la connessione Redis utilizzando la configurazione CKAN.
+    """
+    try:
+        import redis
+        from ckan.common import config
+        
+        redis_url = config.get('ckan.redis.url')
+        if redis_url:
+            return redis.from_url(redis_url)
+        else:
+            # Fallback ai parametri separati se l'URL non è configurato
+            redis_host = config.get('ckan.redis.host', 'localhost')
+            redis_port = int(config.get('ckan.redis.port', 6379))
+            redis_db = int(config.get('ckan.redis.db', 0))
+            return redis.Redis(host=redis_host, port=redis_port, db=redis_db)
+    except Exception:
+        return None
+
+
+def _get_from_redis_cache(key):
+    """
+    Recupera un valore dalla cache Redis.
+    """
+    try:
+        redis_conn = _get_redis_connection()
+        if redis_conn:
+            cached_value = redis_conn.get(key)
+            if cached_value:
+                return cached_value.decode('utf-8')
+    except Exception:
+        pass
+    return None
+
+
+def _set_redis_cache(key, value, ttl=3600):
+    """
+    Salva un valore nella cache Redis con TTL specificato.
+    """
+    try:
+        redis_conn = _get_redis_connection()
+        if redis_conn:
+            redis_conn.setex(key, ttl, value)
+    except Exception:
+        pass
+
+
+def get_first_theme(dataset_extras):
+    """
+    Estrae il primo valore del campo 'theme' da dataset.extras.
+    
+    Args:
+        dataset_extras (list): Lista di dizionari con chiavi 'key' e 'value' dal campo extras del dataset
+        
+    Returns:
+        str: Il primo tema estratto dal campo theme, o None se non trovato
+        
+    Example:
+        Input: [{'key': 'theme', 'value': '["GOVE", "TECH"]'}, ...]
+        Output: "GOVE"
+    """
+    try:
+        if not dataset_extras:
+            return None
+            
+        # Trova il campo 'theme' negli extras
+        theme_extra = next((extra for extra in dataset_extras if extra.get('key') == 'theme'), None)
+        
+        if not theme_extra or not theme_extra.get('value'):
+            return None
+            
+        theme_value = theme_extra['value']
+        
+        # Se il valore è già una stringa semplice (non JSON), restituiscila
+        if not theme_value.startswith('['):
+            return theme_value.strip('"\'')
+            
+        # Prova a parsare come JSON
+        try:
+            theme_list = json.loads(theme_value)
+            if isinstance(theme_list, list) and len(theme_list) > 0:
+                return theme_list[0]
+        except (json.JSONDecodeError, TypeError):
+            # Se il parsing JSON fallisce, prova a estrarre manualmente
+            # Rimuove [ ] e prende il primo elemento
+            clean_value = theme_value.strip('[]')
+            if clean_value:
+                # Divide per virgola e prende il primo elemento
+                first_theme = clean_value.split(',')[0].strip().strip('"\'')
+                return first_theme
+                
+        return None
+        
+    except Exception as e:
+        # In caso di errore, ritorna None
+        return None

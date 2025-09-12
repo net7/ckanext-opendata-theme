@@ -75,6 +75,7 @@ class OpendataThemePlugin(plugins.SingletonPlugin):
             'get_recent_news': helpers.get_recent_news,
             'get_page_image': helpers.get_page_image,
             'format_date': helpers.format_date,
+            'get_first_theme': helpers.get_first_theme,
         }
 
     # IValidators
