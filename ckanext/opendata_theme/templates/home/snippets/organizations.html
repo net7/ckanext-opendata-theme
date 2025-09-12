@@ -1,0 +1,56 @@
+
+{% set organizations = h.get_home_organizations() %}
+{% set count_organizations = h.count_organizations() %}
+{# Enti carousel BEGIN #}
+<section class="rtds-pt-14 rtds-pb-28">
+  <div class="rtds-container-sm">
+
+    <div class="rtds-wrapper-title rtds-text-center rtds-mb-8">
+      <h2 class="rtds-heading-2">Dati acquisiti da {{ count_organizations }} Enti toscani. Eccone alcuni:</h2>
+    </div>
+
+    <div class="rtds-carousel splide" aria-label="Titolo sezione">
+      <div class="rtds-carousel__arrows splide__arrows">
+        <button class="rtds-carousel__arrow rtds-carousel__arrow--prev splide__arrow splide__arrow--prev">
+          <svg class="rtds-icon rtds-fill-current rtds-carousel__arrow-svg" aria-hidden="true" focusable="false" role="img">
+            <use href="/icons.svg#mini--chevron-right" />
+          </svg>
+          <span class="rtds-sr-only">Precedente</span>
+        </button>
+        <button class="rtds-carousel__arrow rtds-carousel__arrow--next splide__arrow splide__arrow--next">
+          <svg class="rtds-icon rtds-fill-current rtds-carousel__arrow-svg" aria-hidden="true" focusable="false" role="img">
+            <use href="/icons.svg#mini--chevron-right" />
+          </svg>
+          <span class="rtds-sr-only">Successiva</span>
+        </button>
+      </div>
+
+      <div class="rtds-carousel-wrapper splide__track">
+        <ul class="rtds-carousel__list splide__list rtds-space-y-6 md:rtds-space-y-0">
+
+          {% for org in organizations %}
+          {% set org_url = h.url_for('organization.read', id=org.name) %}
+
+          <li class="rtds-carousel-col splide__slide">
+            <article class="rtds-card rtds-shadow-none">
+              <a class="group-hover/card:rtds-underline" href="{{ org_url }}">
+              <picture class="rtds-card__image-wrapper">
+                <img class="rtds-card__image rtds-object-contain" alt="{{ org.name }}" src="{{ org.image_display_url }}" />
+              </picture>
+
+              <div class="rtds-card__content">
+                <div class="rtds-card__heading">
+                  <h3 class="rtds-card__title lg:rtds-body-sm rtds-font-bold rtds-text-center">
+                    {{ org.title }}
+                  </h3>
+                </div>
+              </div>
+              </a>
+            </article>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

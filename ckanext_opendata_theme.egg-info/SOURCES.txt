@@ -122,9 +122,13 @@ ckanext/opendata_theme/templates/home/index.html
 ckanext/opendata_theme/templates/home/layout3.html
 ckanext/opendata_theme/templates/home/snippets/about_text.html
 ckanext/opendata_theme/templates/home/snippets/featured_group.html
+ckanext/opendata_theme/templates/home/snippets/info.html
 ckanext/opendata_theme/templates/home/snippets/most_viewed_datasets.html
+ckanext/opendata_theme/templates/home/snippets/news.html
+ckanext/opendata_theme/templates/home/snippets/organizations.html
 ckanext/opendata_theme/templates/home/snippets/promoted.html
 ckanext/opendata_theme/templates/home/snippets/search.html
+ckanext/opendata_theme/templates/home/snippets/themes.html
 ckanext/opendata_theme/templates/organization/about.html
 ckanext/opendata_theme/templates/organization/index.html
 ckanext/opendata_theme/templates/organization/read.html

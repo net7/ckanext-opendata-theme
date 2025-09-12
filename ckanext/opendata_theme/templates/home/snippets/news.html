@@ -1,0 +1,47 @@
+
+<section class="rtds-dati rtds-py-8 lg:rtds-py-16 rtds-background-01">
+  <div class="rtds-container-xs rtds-grid rtds-gap-6 lg:rtds-gap-10">
+    <div class="rtds-grid rtds-gap-6 lg:rtds-gap-10">
+      <div class="rtds-flex rtds-items-center rtds-gap-2">
+        <h2 class="rtds-heading-2">Notizie</h2>
+        <div class="rtds-w-4 rtds-h-16 rtds-ml-4" style="transform: rotate(20.661deg);background: radial-gradient(49.74% 49.74% at 0.95% 51.26%, rgba(171, 171, 171, 0.64) 0%, #C0C0C0 0.01%, rgba(233, 233, 233, 0.00) 100%);"></div>
+        <div class="rtds-flex rtds-items-center">
+          <a href="{{ h.url_for('pages.pages_index') }}" class="rtds-btn rtds-btn--only-text rtds-btn--icon-right rtds-group/button">
+            leggi le notizie
+            <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+              <use href="/icons.svg#mini--arrow-right" />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <p>Rimani aggiornato sulle ultime novità in materia di Open Data</p>
+    </div>
+    <ul role="list" class="rtds-grid rtds-gap-8 md:rtds-grid-cols-2 lg:rtds-grid-cols-4">
+
+      {% set page_list = h.get_recent_news() %}
+
+      {% for page in page_list %}
+        {% set url = h.url_for('pages.show', page=page.name) %}
+        <li class="rtds-col">
+          <article class="rtds-card rtds-card--news rtds-card--news-small rtds-card--news-image-fullwidth rtds-bg-white is-card-fullclickable rtds-group/card">
+            <picture class="rtds-card__image-wrapper">
+              <img class="rtds-card__image rtds-h-full" alt="" src="{{ page.image }}" />
+            </picture>
+            <div class="rtds-card__content">
+              <div class="rtds-card__heading">
+                <h3 class="rtds-card__title">
+                  <a class="group-hover/card:rtds-underline" href="{{ url }}">{{ page.title }}</a>
+                </h3>
+                <div class="rtds-card__metadata">
+                  <div class="rtds-card__date rtds-font-normal">
+                    <time datetime="{{ h.render_datetime(page.publish_date) }}">{{ h.render_datetime(page.publish_date) }}</time>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
