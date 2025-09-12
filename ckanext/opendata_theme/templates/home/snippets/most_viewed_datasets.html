@@ -7,20 +7,19 @@
 <section class="rtds-dati rtds-py-4 lg:rtds-py-8 rtds-background-01">
 <div class="rtds-container-xs rtds-grid rtds-gap-6 lg:rtds-gap-10">
     <div class="rtds-grid rtds-gap-6 lg:rtds-gap-10">
-    <div class="rtds-flex rtds-items-center rtds-gap-2">
-        <h2 class="rtds-heading-2">{{ _('Most consulted datasets') }}</h2>
-        <div class="rtds-w-4 rtds-h-16 rtds-ml-4" style="transform: rotate(20.661deg);background: radial-gradient(49.74% 49.74% at 0.95% 51.26%, rgba(171, 171, 171, 0.64) 0%, #C0C0C0 0.01%, rgba(233, 233, 233, 0.00) 100%);"></div>
-        <div class="rtds-flex rtds-items-center">
-        <span class="rtds-body-base">{{ _('search') }}</span>
-        <a href="{% url_for dataset_type ~ '.search' %}" class="rtds-btn rtds-btn--only-text rtds-btn--icon-right rtds-group/button">
-            {{ _('datasets') }}
-            <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
-            <use href="/icons.svg#mini--arrow-right" />
-            </svg>
-        </a>
+        <div class="rtds-flex rtds-items-center rtds-gap-2">
+            <h2 class="rtds-heading-2">{{ _('Most consulted datasets') }}</h2>
+            <div class="rtds-w-4 rtds-h-16 rtds-ml-4" style="transform: rotate(20.661deg);background: radial-gradient(49.74% 49.74% at 0.95% 51.26%, rgba(171, 171, 171, 0.64) 0%, #C0C0C0 0.01%, rgba(233, 233, 233, 0.00) 100%);"></div>
+                <div class="rtds-flex rtds-items-center">
+                <span class="rtds-body-base">{{ _('search') }}</span>
+                <a href="{% url_for dataset_type ~ '.search' %}" class="rtds-btn rtds-btn--only-text rtds-btn--icon-right rtds-group/button">
+                    {{ _('datasets') }}
+                    <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+                        <use href="/icons.svg#mini--arrow-right" />
+                    </svg>
+                </a>
+            </div>
         </div>
-    </div>
-    <p>{{ _('Consult the most relevant data for your sector') }}</p>
     </div>
     <ul role="list" class="rtds-grid rtds-gap-8 md:rtds-grid-cols-2">
     {% if most_viewed %}
