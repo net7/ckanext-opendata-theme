@@ -1,6 +1,8 @@
 {% set dataset_type = h.default_package_type() %}
 {% set most_viewed = h.get_most_viewed_datasets(4) %}
 
+{{ most_viewed|length }}
+
 {# Dati BEGIN #}
 <section class="rtds-dati rtds-py-4 lg:rtds-py-8 rtds-background-01">
 <div class="rtds-container-xs rtds-grid rtds-gap-6 lg:rtds-gap-10">

@@ -109,7 +109,7 @@ def get_formatted_view_count():
         sql = '''
             SELECT SUM(count) as total_count
             FROM tracking_summary
-            WHERE tracking_type = 'resource'
+            WHERE package_id IS NOT NULL AND package_id != '~~not~found~~'
             AND tracking_date >= CURRENT_DATE - INTERVAL '1 year'
         '''
         
@@ -165,6 +165,7 @@ def get_most_viewed_datasets(limit=4):
             SELECT package_id, SUM(count) as total_views
             FROM tracking_summary
             WHERE package_id IS NOT NULL
+            AND package_id != '~~not~found~~'
             GROUP BY package_id
             ORDER BY total_views DESC
             LIMIT :limit
