@@ -19,7 +19,6 @@ def get_helpers():
         "get_formatted_dataset_count": get_formatted_dataset_count,
         "get_formatted_view_count": get_formatted_view_count,
         "get_most_viewed_datasets": get_most_viewed_datasets,
-        "get_dataset_views": get_dataset_views,
         "get_all_organizations": get_all_organizations,
         "get_all_organizations_random": get_all_organizations_random,
         "get_home_organizations": get_home_organizations,
@@ -183,9 +182,7 @@ def get_most_viewed_datasets(limit=4):
         for package_id in package_ids:
             
             try:
-                dataset = toolkit.get_action('package_show')({}, {'id': package_id})
-                dataset['view_count'] = get_dataset_views(package_id)
-                dataset['download_count'] = 0
+                dataset = toolkit.get_action('package_show')({}, {'id': package_id, 'include_tracking': True})
                 datasets.append(dataset)
             except toolkit.ObjectNotFound:
                 # Ignora i dataset che non esistono più
@@ -195,42 +192,6 @@ def get_most_viewed_datasets(limit=4):
     except Exception as e:
         # In caso di errore, ritorna una lista vuota
         return []
-
-
-def get_dataset_views(package_id):
-    """
-    Restituisce il numero di visualizzazioni per un dataset.
-    
-    Args:
-        package_id (str): L'ID del dataset di cui calcolare i download
-        
-    Returns:
-        int: Numero totale di visualizzazioni
-    """
-    try:
-        # Accesso diretto al database usando SQLAlchemy
-        from sqlalchemy import text
-        from ckan.model import Session
-        
-        if not package_id:
-            return 0
-            
-        sql = '''
-            SELECT SUM(count) as total_views
-            FROM tracking_summary
-            WHERE package_id = :package_id
-            AND tracking_type = 'page'
-        '''
-        
-        result = Session.execute(text(sql), {'package_id': package_id})
-        row = result.fetchone()
-        
-        if row and row.total_views:
-            return row.total_views
-        return 0
-    except Exception as e:
-        # In caso di errore, ritorna 0
-        return 0
 
 
 def get_all_organizations(limit=None):

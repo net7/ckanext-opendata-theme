@@ -22,6 +22,7 @@
     <ul role="list" class="rtds-grid rtds-gap-8 md:rtds-grid-cols-2">
     {% if most_viewed %}
         {% for dataset in most_viewed %}
+        {{ dataset }}
         <li class="rtds-col">
             <article class="rtds-card rtds-card--dati rtds-bg-transparent">
             <div class="rtds-card__content">
@@ -46,7 +47,7 @@
                         </a>
                         <span class="rtds-border-r rtds-border-gray-04 rtds-h-4 rtds-my-3 rtds-mr-2 -rtds-ml-2"></span>
                     {% endif %}
-                    <span class="rtds-whitespace-nowrap">{{ _('Visualizations') }}: {{ dataset.view_count }}</span>
+                    <span class="rtds-whitespace-nowrap">{{ _('Visualizations') }}: {{ dataset.tracking_summary.total }}</span>
                 </div>
                 </div>
             </div>
