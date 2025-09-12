@@ -76,8 +76,9 @@ class OpendataThemePlugin(plugins.SingletonPlugin):
             'get_page_image': helpers.get_page_image,
             'format_date': helpers.format_date,
             'get_first_theme': helpers.get_first_theme,
-            'extract_theme_from_extras': helpers.extract_theme_from_extras,
+            'extract_themes': helpers.extract_themes,
             'get_theme_icon': helpers.get_theme_icon,
+            'get_theme_name': helpers.get_theme_name,
         }
 
     # IValidators

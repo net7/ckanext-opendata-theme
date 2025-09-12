@@ -28,7 +28,7 @@
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='ENVI' %}">{{ _('Environment') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='ENVI' %}">{{ h.get_theme_name('ENVI') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
@@ -47,7 +47,7 @@
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='REGI' %}">{{ _('Regions and cities') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='REGI' %}">{{ h.get_theme_name('REGI') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
@@ -66,7 +66,7 @@
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='GOVE' %}">{{ _('Government and public sector') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='GOVE' %}">{{ h.get_theme_name('GOVE') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
@@ -85,7 +85,7 @@
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='TECH' %}">{{ _('Science and technology') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='TECH' %}">{{ h.get_theme_name('TECH') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
@@ -104,7 +104,7 @@
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='TRAN' %}">{{ _('Transport') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='TRAN' %}">{{ h.get_theme_name('TRAN') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
@@ -123,7 +123,7 @@
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='ECON' %}">{{ _('Economy and finance') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='ECON' %}">{{ h.get_theme_name('ECON') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
@@ -142,7 +142,7 @@
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='ENER' %}">{{ _('Energy') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='ENER' %}">{{ h.get_theme_name('ENER') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
@@ -161,7 +161,7 @@
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='EDUC' %}">{{ _('Education, culture and sport') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='EDUC' %}">{{ h.get_theme_name('EDUC') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
@@ -180,7 +180,7 @@
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='SOCI' %}">{{ _('Popolazione e società') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='SOCI' %}">{{ h.get_theme_name('SOCI') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
@@ -199,7 +199,7 @@
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='HEAL' %}">{{ _('Salute') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='HEAL' %}">{{ h.get_theme_name('HEAL') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
@@ -218,7 +218,7 @@
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='AGRI' %}">{{ _('Agricoltura') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='AGRI' %}">{{ h.get_theme_name('AGRI') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
@@ -237,7 +237,7 @@
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='JUST' %}">{{ _('Giustizia e sicurezza pubblica') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='JUST' %}">{{ h.get_theme_name('JUST') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">

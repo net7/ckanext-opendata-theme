@@ -29,7 +29,8 @@ def get_helpers():
         "format_date": format_date,
         "get_first_theme": get_first_theme,
         "get_theme_icon": get_theme_icon,
-        "extract_theme_from_extras": extract_theme_from_extras,
+        "extract_themes": extract_themes,
+        "get_theme_name": get_theme_name,
     }
 
 
@@ -542,33 +543,46 @@ def get_first_theme(dataset_extras):
         return None
 
 
-def extract_theme_from_extras(pkg_extras):
+def extract_themes(pkg_extras, first_only=True):
     """
-    Estrae il valore del tema da pkg.extras
+    Estrae i valori dei temi da pkg.extras
     
     Args:
-        pkg_extras: Lista degli extras del package, formato [{'key': 'Theme', 'value': '["TRAN"]'}]
+        pkg_extras: Lista degli extras del package, formato [{'key': 'theme', 'value': '["TRAN"]'}]
+        first_only (bool): Se True estrae solo il primo tema, se False estrae tutti i temi
         
     Returns:
-        str: Codice del tema (es. "TRAN") o None se non trovato
+        str o list: Se first_only=True restituisce il codice del primo tema (es. "TRAN") o None se non trovato.
+                   Se first_only=False restituisce una lista di codici temi (es. ["TRAN", "ECON"]) o lista vuota se non trovati.
     """
     if not pkg_extras:
-        return None
+        return None if first_only else []
         
     try:
         for extra in pkg_extras:
-            if extra.get('key') == 'Theme':
+            if extra.get('key').lower() == 'theme':
                 theme_value = extra.get('value', '')
                 if theme_value:
-                    # Rimuove le parentesi quadre e le virgolette
+                    # Rimuove le parentesi quadre esterne
                     clean_value = theme_value.strip('[]"\'')
-                    # Se ci sono più temi separati da virgola, prende il primo
-                    if ',' in clean_value:
-                        clean_value = clean_value.split(',')[0].strip().strip('"\'')
-                    return clean_value
-        return None
+                    if clean_value:
+                        # Divide per virgola e pulisce ogni elemento
+                        themes = [theme.strip().strip('"\'') for theme in clean_value.split(',')]
+                        # Filtra elementi vuoti
+                        themes = [theme for theme in themes if theme]
+                        
+                        if first_only:
+                            # Restituisce solo il primo tema
+                            return themes[0] if themes else None
+                        else:
+                            # Restituisce tutti i temi
+                            return themes
+        
+        return None if first_only else []
     except Exception as e:
-        return None
+        return None if first_only else []
+
+
 
 
 def get_theme_icon(theme_code):
@@ -598,3 +612,50 @@ def get_theme_icon(theme_code):
     
     # Restituisce l'icona corrispondente o un'icona di default
     return theme_icons.get(theme_code, 'outline--sun')
+
+
+def get_theme_name(theme_code):
+    """
+    Restituisce il nome leggibile del tema a partire dal codice, utilizzando le traduzioni
+    
+    Args:
+        theme_code (str): Codice del tema (es. "ECON", "TRAN", ecc.)
+        
+    Returns:
+        str: Nome leggibile del tema tradotto (es. "Economy and finance" in inglese, "Economia e finanza" in italiano)
+    """
+    # Importa toolkit per accedere alle traduzioni
+    import ckan.plugins.toolkit as toolkit
+    
+    # 'ENVI': 'Ambiente',
+    # 'REGI': 'Regioni e città', 
+    # 'GOVE': 'Governo e settore pubblico',
+    # 'TECH': 'Scienza e tecnologia',
+    # 'TRAN': 'Trasporti',
+    # 'ECON': 'Economia e finanza',
+    # 'ENER': 'Energia',
+    # 'EDUC': 'Educazione, cultura e sport',
+    # 'SOCI': 'Popolazione e società',
+    # 'HEAL': 'Salute',
+    # 'AGRI': 'Agricoltura',
+    # 'JUST': 'Giustizia e sicurezza pubblica',
+    
+    # Mappa dei codici tema alle stringhe inglesi (che verranno tradotte)
+    theme_names = {
+        'ENVI': 'Environment',
+        'REGI': 'Regions and cities', 
+        'GOVE': 'Government and public sector',
+        'TECH': 'Science and technology',
+        'TRAN': 'Transport',
+        'ECON': 'Economy and finance',
+        'ENER': 'Energy',
+        'EDUC': 'Education, culture and sport',
+        'SOCI': 'Population and society',
+        'HEAL': 'Health',
+        'AGRI': 'Agriculture',
+        'JUST': 'Justice and public safety',
+    }
+    
+    # Ottiene la stringa inglese e la traduce
+    english_name = theme_names.get(theme_code, theme_code)
+    return toolkit._(english_name)
