@@ -112,7 +112,8 @@ def get_formatted_view_count():
         sql = '''
             SELECT SUM(count) as total_count
             FROM tracking_summary
-            WHERE package_id IS NOT NULL AND package_id != '~~not~found~~'
+            WHERE package_id IS NOT NULL
+            AND package_id != '~~not~found~~'
             AND tracking_date >= CURRENT_DATE - INTERVAL '1 year'
         '''
         
