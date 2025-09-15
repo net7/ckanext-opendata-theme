@@ -126,17 +126,17 @@
           <nav class="rtds-primary-navigation lg:rtds-justify-end" aria-label="Principale" id="siteNavWrapper">
             <button type="button" class="rtds-btn rtds-btn--only-text rtds-rounded-0 lg:rtds-hidden rtds-ml-auto rtds-btn--icon rtds-group" aria-expanded="false" aria-controls="mainNavPanel" id="mobileNavToggle">
               <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 md:rtds-w-5
-      md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 rtds-m-0 rtds-p-0
-      rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform
-      group-hover:rtds-translate-none is-show-menu
-      group-aria-expanded:rtds-hidden" aria-hidden="true" focusable="false" role="img">
+                md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 rtds-m-0 rtds-p-0
+                rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform
+                group-hover:rtds-translate-none is-show-menu
+                group-aria-expanded:rtds-hidden" aria-hidden="true" focusable="false" role="img">
                 <use href="/icons.svg#mini--bars-3" />
               </svg>
               <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 md:rtds-w-5
-      md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 rtds-m-0 rtds-p-0 rtds-transition-all
-      rtds-duration-200 rtds-ease-out rtds-transform
-      group-hover:rtds-translate-none is-close-menu rtds-hidden
-      group-aria-expanded:rtds-inline-block" aria-hidden="true" focusable="false" role="img">
+                md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 rtds-m-0 rtds-p-0 rtds-transition-all
+                rtds-duration-200 rtds-ease-out rtds-transform
+                group-hover:rtds-translate-none is-close-menu rtds-hidden
+                group-aria-expanded:rtds-inline-block" aria-hidden="true" focusable="false" role="img">
                 <use href="/icons.svg#mini--x-mark" />
               </svg>
 
@@ -230,14 +230,13 @@
             </button>
           {% endif %}
 
-          {#
-          <button type="button" class="rtds-btn rtds-btn--icon-right rtds-group/button rtds-btn--primary rtds-btn--s">
+          <button type="button" class="rtds-btn rtds-btn--icon-right rtds-group/button rtds-btn--primary rtds-btn--s" data-module="opendata_theme_click" data-module-url="{{ h.url_for('contact.form') }}" title="{{ _('Send data') }}">
             {{ _('Send data') }}
             <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
               <use href="/icons.svg#mini--chevron-right" />
             </svg>
           </button>
-          #}
+
         </div>
       </div>
     </div>
