@@ -22,13 +22,13 @@
         <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
           <div class="rtds-card__icon">
             <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
-              <use href="/icons.svg#outline--sun" />
+              <use href="/icons.svg#{{ h.get_theme_icon('ENVI') }}" />
             </svg>
           </div>
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='ENVI' %}">{{ _('Environment') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='ENVI' %}">{{ h.get_theme_name('ENVI') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
@@ -41,13 +41,13 @@
         <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
           <div class="rtds-card__icon">
             <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
-              <use href="/icons.svg#outline--building-office" />
+              <use href="/icons.svg#{{ h.get_theme_icon('REGI') }}" />
             </svg>
           </div>
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='REGI' %}">{{ _('Regions and cities') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='REGI' %}">{{ h.get_theme_name('REGI') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
@@ -60,13 +60,13 @@
         <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
           <div class="rtds-card__icon">
             <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
-              <use href="/icons.svg#outline--building-library" />
+              <use href="/icons.svg#{{ h.get_theme_icon('GOVE') }}" />
             </svg>
           </div>
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='GOVE' %}">{{ _('Government and public sector') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='GOVE' %}">{{ h.get_theme_name('GOVE') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
@@ -79,13 +79,13 @@
         <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
           <div class="rtds-card__icon">
             <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
-              <use href="/icons.svg#outline--beaker" />
+              <use href="/icons.svg#{{ h.get_theme_icon('TECH') }}" />
             </svg>
           </div>
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='TECH' %}">{{ _('Science and technology') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='TECH' %}">{{ h.get_theme_name('TECH') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
@@ -98,13 +98,13 @@
         <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
           <div class="rtds-card__icon">
             <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
-              <use href="/icons.svg#outline--map" />
+              <use href="/icons.svg#{{ h.get_theme_icon('TRAN') }}" />
             </svg>
           </div>
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='TRAN' %}">{{ _('Transport') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='TRAN' %}">{{ h.get_theme_name('TRAN') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
@@ -117,13 +117,13 @@
         <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
           <div class="rtds-card__icon">
             <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
-              <use href="/icons.svg#outline--presentation-chart-bar" />
+              <use href="/icons.svg#{{ h.get_theme_icon('ECON') }}" />
             </svg>
           </div>
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='ECON' %}">{{ _('Economy and finance') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='ECON' %}">{{ h.get_theme_name('ECON') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
@@ -136,13 +136,13 @@
         <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
           <div class="rtds-card__icon">
             <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
-              <use href="/icons.svg#outline--bolt" />
+              <use href="/icons.svg#{{ h.get_theme_icon('ENER') }}" />
             </svg>
           </div>
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='ENER' %}">{{ _('Energy') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='ENER' %}">{{ h.get_theme_name('ENER') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
@@ -155,13 +155,13 @@
         <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
           <div class="rtds-card__icon">
             <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
-              <use href="/icons.svg#outline--book-open" />
+              <use href="/icons.svg#{{ h.get_theme_icon('EDUC') }}" />
             </svg>
           </div>
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='EDUC' %}">{{ _('Education, culture and sport') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='EDUC' %}">{{ h.get_theme_name('EDUC') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
@@ -174,13 +174,13 @@
         <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
           <div class="rtds-card__icon">
             <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
-              <use href="/icons.svg#outline--user-group" />
+              <use href="/icons.svg#{{ h.get_theme_icon('SOCI') }}" />
             </svg>
           </div>
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='SOCI' %}">{{ _('Popolazione e società') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='SOCI' %}">{{ h.get_theme_name('SOCI') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
@@ -193,13 +193,13 @@
         <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
           <div class="rtds-card__icon">
             <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
-              <use href="/icons.svg#heart-rate-pulse-graph" />
+              <use href="/icons.svg#{{ h.get_theme_icon('HEAL') }}" />
             </svg>
           </div>
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='HEAL' %}">{{ _('Salute') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='HEAL' %}">{{ h.get_theme_name('HEAL') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
@@ -212,13 +212,13 @@
         <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
           <div class="rtds-card__icon">
             <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
-              <use href="/icons.svg#leaf--nature-environment-leaf-ecology-plant-plants-eco" />
+              <use href="/icons.svg#{{ h.get_theme_icon('AGRI') }}" />
             </svg>
           </div>
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='AGRI' %}">{{ _('Agricoltura') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='AGRI' %}">{{ h.get_theme_name('AGRI') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
@@ -231,13 +231,13 @@
         <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
           <div class="rtds-card__icon">
             <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
-              <use href="/icons.svg#outline--scale" />
+              <use href="/icons.svg#{{ h.get_theme_icon('JUST') }}" />
             </svg>
           </div>
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='JUST' %}">{{ _('Giustizia e sicurezza pubblica') }}</a>
+                <a class="group-hover/card:rtds-underline" href="{% url_for 'dataset.search', dcat_theme='JUST' %}">{{ h.get_theme_name('JUST') }}</a>
               </h3>
             </div>
             <div class="rtds-card__description ">
