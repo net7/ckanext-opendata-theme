@@ -18,10 +18,7 @@ ckanext/opendata_theme/views.py
 ckanext/opendata_theme/assets/webassets.yml
 ckanext/opendata_theme/assets/css/font.css
 ckanext/opendata_theme/assets/css/opendata_theme.css
-ckanext/opendata_theme/assets/js/form-contact.js
-ckanext/opendata_theme/assets/js/modal-contact.js
 ckanext/opendata_theme/assets/js/opendata_theme.js
-ckanext/opendata_theme/assets/js/recaptcha_helpers.js
 ckanext/opendata_theme/assets/js/splide.min.js
 ckanext/opendata_theme/public/svg-index.html
 ckanext/opendata_theme/public/infog/credits2.html
