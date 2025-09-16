@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{%- block page -%}
+
+{% block skip %}
+<div class="visually-hidden-focusable"><a href="#content">{{ _('Skip to main content') }}</a></div>
+{% endblock %}
+
+{#
+Override the header on a page by page basis by extending this block. If
+making sitewide header changes it is preferable to override the header.html
+file.
+#}
+{%- block header %}
+{% include "header.html" %}
+{% endblock -%}
+
+{# The content block allows you to replace the content of the page if needed #}
+{%- block content %}
+{% block maintag %}<main class="rtds-background-02 rtds-pb-16">{% endblock %}
+  {% block main_content %}
+  {# {% block flash %}
+  <div class="flash-messages">
+    {% block flash_inner %}
+    {% for category, message in h.get_flashed_messages(with_categories=true) %}
+    <div class="alert alert-dismissible fade show {{ category }}">
+      {{ h.literal(message) }}
+    </div>
+    {% endfor %}
+    {% endblock %}
+  </div>
+  {% endblock %} #}
+
+  {# {% block toolbar %}
+  <div class="toolbar" role="navigation" aria-label="{{ _('Breadcrumb') }}">
+    {% block breadcrumb %}
+    {% if self.breadcrumb_content() | trim %}
+    <ol class="breadcrumb">
+      {% snippet 'snippets/home_breadcrumb_item.html' %}
+      {% block breadcrumb_content %}{% endblock %}
+    </ol>
+    {% endif %}
+    {% endblock %}
+  </div>
+  {% endblock %} #}
+
+  {#
+  The pre_primary block can be used to add content to before the
+  rendering of the main content columns of the page.
+  #}
+  {% block pre_primary %}
+  <div class="rtds-container">
+    <div class="rtds-py-6 rtds-px-10 rtds-mt-10 rtds-mb-10 xl:rtds-mb-14 rtds-rounded-2xl rtds-content-inverse rtds-bg-gradient-02">
+      <div class="rtds-grid rtds-gap-4 xl:rtds-bg-contain xl:rtds-bg-right xl:rtds-bg-no-repeat" style="background-image: url('/images/bkg-send-heading.png');">
+        <div class="rtds-bg-gradient-02 xl:rtds-bg-none">
+          <div class="rtds-flex">
+            <a href="javascript:history.back()" class="rtds-text-link rtds-text-link--s rtds-text-link--inverse">
+              <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-flex-shrink-0 rtds-flex-grow-0" aria-hidden="true" focusable="false" role="img">
+                <use href="/icons.svg#solid--arrow-left" />
+              </svg>
+              {{ _('Go back') }}
+            </a>
+          </div>
+          <h1 class="rtds-heading-1 rtds-max-w-5xl">Invia dati e accedi</h1>
+          <div class="rtds-body-lg rtds-max-w-5xl">Condividi i tuoi dati e fai crescere l’ecosistema digitale toscano</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rtds-grid xl:rtds-flex rtds-gap-12 rtds-mb-12">
+      <div class="rtds-grid rtds-gap-4">
+        <div class="rtds-font-bold">Open Data per il Bene Comune</div>
+        <p>Gli open data possono essere utilizzati per ottenere vantaggi economici, sociali e ambientali, migliorando la qualità della vita e favorendo lo sviluppo sostenibile.</p>
+      </div>
+      <div class="rtds-grid rtds-gap-4">
+        <div class="rtds-font-bold">Open Data per il Bene Comune</div>
+        <p>Gli open data possono essere utilizzati per ottenere vantaggi economici, sociali e ambientali, migliorando la qualità della vita e favorendo lo sviluppo sostenibile.</p>
+      </div>
+      <div class="rtds-grid rtds-gap-4">
+        <div class="rtds-font-bold">Open Data per il Bene Comune</div>
+        <p>Gli open data possono essere utilizzati per ottenere vantaggi economici, sociali e ambientali, migliorando la qualità della vita e favorendo lo sviluppo sostenibile.</p>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+
+  {% block secondary %}
+  {% endblock %}
+
+  {% block primary %}
+  {#
+  The primary_content block can be used to add content to the page.
+  This is the main block that is likely to be used within a template.
+
+  Example:
+
+  {% block primary_content %}
+  <h1>My page content</h1>
+  <p>Some content for the page</p>
+  {% endblock %}
+  #}
+  {# {% block primary_content %}
+  {% block page_header %}
+  <header class="module-content page-header">
+    {% if self.content_action() | trim %}
+    <div class="content_action">
+      {% block content_action %}{% endblock %}
+    </div>
+    {% endif %}
+    <ul class="nav nav-tabs">
+      {% block content_primary_nav %}{% endblock %}
+    </ul>
+  </header>
+  {% endblock %}
+  <div class="module-content">
+    {% if self.page_primary_action() | trim %}
+    <div class="page_primary_action">
+      {% block page_primary_action %}{% endblock %}
+    </div>
+    {% endif %}
+    {% block primary_content_inner %}
+    {% endblock %}
+  </div>
+  {% endblock %} #}
+  {% endblock %}
+  {% endblock %}
+  </div>
+</main>
+{% endblock -%}
+
+{#
+Override the footer on a page by page basis by extending this block. If
+making sitewide header changes it is preferable to override the footer.html-u
+file.
+#}
+{%- block footer %}
+{% include "footer.html" %}
+{% endblock -%}
+{%- endblock -%}
+
+{%- block scripts %}
+{% asset 'base/main' %}
+{% asset 'base/ckan' %}
+{% if g.tracking_enabled %}
+{% asset 'base/tracking' %}
+{% endif %}
+{{ super() }}
+{% endblock -%}

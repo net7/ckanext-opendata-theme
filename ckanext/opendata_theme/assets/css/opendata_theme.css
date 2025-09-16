@@ -3979,6 +3979,10 @@ legend.rtds-facets__legend {
   gap: var(--spacing-10);
 }
 
+.rtds-gap-12 {
+  gap: var(--spacing-12);
+}
+
 .rtds-gap-14 {
   gap: var(--spacing-14);
 }
@@ -4033,6 +4037,12 @@ legend.rtds-facets__legend {
   --tw-space-y-reverse: 0;
   margin-top: calc(var(--spacing-2) * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(var(--spacing-2) * var(--tw-space-y-reverse));
+}
+
+.rtds-space-y-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(var(--spacing-4) * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(var(--spacing-4) * var(--tw-space-y-reverse));
 }
 
 .rtds-space-y-6 > :not([hidden]) ~ :not([hidden]) {
@@ -4226,6 +4236,11 @@ legend.rtds-facets__legend {
 .rtds-py-10 {
   padding-top: var(--spacing-10);
   padding-bottom: var(--spacing-10);
+}
+
+.rtds-py-16 {
+  padding-top: var(--spacing-16);
+  padding-bottom: var(--spacing-16);
 }
 
 .rtds-py-2 {
@@ -4464,6 +4479,10 @@ legend.rtds-facets__legend {
 
 .rtds-background-04 {
   background-color: var(--color-background-04);
+}
+
+.rtds-background-primary-light {
+  background-color: var(--color-background-primary-light);
 }
 
 /* BORDER CUSTOM */
@@ -5300,6 +5319,14 @@ legend.rtds-facets__legend {
 }
 
 @media (min-width: 1024px) {
+  .lg\:rtds-col-span-8 {
+    grid-column: span 8 / span 8;
+  }
+
+  .lg\:rtds-col-start-3 {
+    grid-column-start: 3;
+  }
+
   .lg\:rtds-mx-6 {
     margin-left: var(--spacing-6);
     margin-right: var(--spacing-6);
@@ -5335,6 +5362,10 @@ legend.rtds-facets__legend {
 
   .lg\:rtds-h-full {
     height: 100%;
+  }
+
+  .lg\:rtds-w-1\/2 {
+    width: 50%;
   }
 
   .lg\:rtds-w-5 {
@@ -5413,6 +5444,11 @@ legend.rtds-facets__legend {
     padding: var(--spacing-4);
   }
 
+  .lg\:rtds-px-16 {
+    padding-left: var(--spacing-16);
+    padding-right: var(--spacing-16);
+  }
+
   .lg\:rtds-py-16 {
     padding-top: var(--spacing-16);
     padding-bottom: var(--spacing-16);
@@ -5456,6 +5492,10 @@ legend.rtds-facets__legend {
 
   .xl\:rtds-col-span-8 {
     grid-column: span 8 / span 8;
+  }
+
+  .xl\:rtds-mb-14 {
+    margin-bottom: var(--spacing-14);
   }
 
   .xl\:rtds-mb-32 {
@@ -5508,6 +5548,30 @@ legend.rtds-facets__legend {
 
   .xl\:rtds-gap-8 {
     gap: var(--spacing-8);
+  }
+
+  .xl\:rtds-bg-transparent {
+    background-color: transparent;
+  }
+
+  .xl\:rtds-bg-none {
+    background-image: none;
+  }
+
+  .xl\:rtds-bg-auto {
+    background-size: auto;
+  }
+
+  .xl\:rtds-bg-contain {
+    background-size: contain;
+  }
+
+  .xl\:rtds-bg-right {
+    background-position: right;
+  }
+
+  .xl\:rtds-bg-no-repeat {
+    background-repeat: no-repeat;
   }
 
   .xl\:rtds-p-1 {
