@@ -114,6 +114,7 @@ ckanext/opendata_theme/templates/ckanext_pages/pages_list.html
 ckanext/opendata_theme/templates/ckanext_pages/snippets/page_item.html
 ckanext/opendata_theme/templates/ckanext_pages/snippets/pages_list.html
 ckanext/opendata_theme/templates/contact/form.html
+ckanext/opendata_theme/templates/contact/success.html
 ckanext/opendata_theme/templates/contact/snippets/form.html
 ckanext/opendata_theme/templates/group/index.html
 ckanext/opendata_theme/templates/group/read.html
