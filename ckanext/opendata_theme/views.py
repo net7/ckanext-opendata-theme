@@ -1,5 +1,6 @@
 from flask import Blueprint
 from ckanext.opendata_theme import utils
+from ckanext.opendata_theme.routes import contact
 
 def get_blueprints():
     """
@@ -48,5 +49,9 @@ def get_blueprints():
         methods=['GET']
     )
     blueprints.append(report_blueprint)
+    
+    # Blueprint personalizzato per contact (sovrascrive quello di ckanext-contact)
+    # Lo registriamo per ultimo per assicurarci che abbia priorità
+    blueprints.append(contact.blueprint)
     
     return blueprints

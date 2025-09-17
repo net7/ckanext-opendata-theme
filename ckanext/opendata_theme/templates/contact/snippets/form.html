@@ -5,7 +5,7 @@
 {% set recaptcha_v3_action = h.get_recaptcha_v3_action() %}
 
 {% block contact_form %}
-<form class="rtds-grid rtds-gap-8" method="post" data-module="form-contact" data-module-action="{{ recaptcha_v3_action }}" data-module-key="{{ recaptcha_v3_key }}">
+<form class="rtds-grid rtds-gap-8" method="post" enctype="multipart/form-data" data-module="form-contact" data-module-action="{{ recaptcha_v3_action }}" data-module-key="{{ recaptcha_v3_key }}">
     <h3 class="rtds-body-lg rtds-font-bold rtds-text-center">Compila i campi sottostanti</h3>
 
     {{ form.errors(error_summary) }}
@@ -14,34 +14,32 @@
     <div class="rtds-space-y-4">
         <div class="rtds-grid lg:rtds-flex rtds-gap-4">
             <div class="lg:rtds-w-1/2">
-                {{ form.input('name', label=_('Contact Name'), id='field-name', value=data.name,
-                error=errors.name, is_required=true) }}
+                {{ form.input('organization_name', label=_('Nome organizzazione'), id='field-organization-name', type='text',
+                value=data.organization_name, error=errors.organization_name, is_required=true) }}
             </div>
             <div class="lg:rtds-w-1/2">
-                {{ form.input('email', label=_('Email'), id='field-email', type='email',
-                value=data.email, error=errors.email,
-                is_required=true) }}
-            </div>
-        </div>
-        <div class="rtds-grid lg:rtds-flex rtds-gap-4">
-            <div class="lg:rtds-w-1/2">
-                {{ form.input('name', label=_('Contact Name'), id='field-name', value=data.name,
-                error=errors.name, is_required=true) }}
-            </div>
-            <div class="lg:rtds-w-1/2">
-                {{ form.input('email', label=_('Email'), id='field-email', type='email',
-                value=data.email, error=errors.email,
-                is_required=true) }}
+                {{ form.input('organization_email', label=_('Email organizzazione'), id='field-organization-email', type='email',
+                value=data.organization_email, error=errors.organization_email, is_required=true) }}
             </div>
         </div>
         <div class="rtds-grid lg:rtds-flex rtds-gap-4">
             <div class="lg:rtds-w-1/2">
-                {{ form.input('subject', label=_('Subject'), id='field-subject',
-                value=data.subject, error=errors.subject,
-                is_required=false, placeholder=_('Optional subject')) }}
+                {{ form.input('user_name', label=_('Nome utente'), id='field-user-name', type='text',
+                value=data.user_name, error=errors.user_name, is_required=true) }}
             </div>
             <div class="lg:rtds-w-1/2">
-                upload
+                {{ form.input('user_email', label=_('E-mail istituzionale utente'), id='field-user-email', type='email',
+                value=data.user_email, error=errors.user_email, is_required=true) }}
+            </div>
+        </div>
+        <div class="rtds-grid lg:rtds-flex rtds-gap-4">
+            <div class="lg:rtds-w-1/2">
+            {{ form.input('codice_ipa', label=_('Codice IPA'), id='field-ipa', type='text',
+            value=data.ipa, error=errors.codice_ipa, is_required=false) }}
+            </div>
+            <div class="lg:rtds-w-1/2">
+                {{ form.input('organization_logo', label='Carica il logo della tua organizzazione'|safe, id='field-organization-logo', type='file',
+                value='', error=errors.organization_logo, is_required=false, attrs={'accept': '.jpeg,.jpg,.png', 'data-max-size': '1048576'}) }}
             </div>
         </div>
     </div>
@@ -55,8 +53,11 @@
     {# endif #}
     {% block contact_form_actions %}
     <div class="rtds-form-actions rtds-grid rtds-justify-center">
-        <button class="rtds-btn rtds-btn--primary rtds-form-submit" type="submit" name="save">
-            {{ _('Submit') }}
+        <button class="rtds-btn rtds-btn--primary rtds-form-submit rtds-btn--icon-right rtds-group/button" type="submit" name="save">
+            {{ _('Invia dati') }}
+            <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 md:rtds-w-5 md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+                <use href="/icons.svg#mini--chevron-right" />
+            </svg>
         </button>
     </div>
     {% endblock %}

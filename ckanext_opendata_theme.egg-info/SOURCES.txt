@@ -134,7 +134,7 @@ ckanext/opendata_theme/templates/home/snippets/promoted.html
 ckanext/opendata_theme/templates/home/snippets/search.html
 ckanext/opendata_theme/templates/home/snippets/themes.html
 ckanext/opendata_theme/templates/macros/form/input.html
-ckanext/opendata_theme/templates/macros/form/textarea.html
+ckanext/opendata_theme/templates/macros/form/input_block.html
 ckanext/opendata_theme/templates/organization/about.html
 ckanext/opendata_theme/templates/organization/index.html
 ckanext/opendata_theme/templates/organization/read.html
