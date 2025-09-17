@@ -38,7 +38,7 @@
             value=data.ipa, error=errors.codice_ipa, is_required=false) }}
             </div>
             <div class="lg:rtds-w-1/2">
-                {{ form.input('organization_logo', label='Carica il logo della tua organizzazione <span class="rtds-font-normal">(Solo file .jpeg o .png fino a 1mb)</span>'|safe, id='field-organization-logo', type='file',
+                {{ form.input('organization_logo', label='Carica il logo dell\'organizzazione <span class="rtds-font-normal">(Solo file .jpeg o .png fino a 1mb)</span>'|safe, id='field-organization-logo', type='file',
                 value='', error=errors.organization_logo, is_required=false, attrs={'accept': '.jpeg,.jpg,.png', 'data-max-size': '1048576'}) }}
             </div>
         </div>
