@@ -1211,6 +1211,213 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 /** Sidebar collapse/expand END **/
 
+/** Form with validation BEGIN **/
+document.addEventListener("DOMContentLoaded", function () {
+    ///* Regex per verifica email */
+    const emailRegex = /\S+@\S+\.\S+/; // has @ and .
+
+    ///* Form */
+    const elForm = document.getElementById("hasValidationForm");
+
+    if (elForm) {
+        ///* Campi form */
+        const elRequiredName = document.getElementsByClassName("is-name")[0];
+        const elRequiredFamilyname =
+            document.getElementsByClassName("is-familyname")[0];
+        const elPrivacy = document.getElementsByClassName("is-privacy")[0];
+        const elEmail = document.getElementsByClassName("is-email")[0];
+
+        ///* Errori form da verificare */
+        const formErrors = {
+            name: false,
+            familyname: false,
+            email: false,
+            privacy: false,
+        };
+
+        let hasSubmitted = false;
+
+        validateField({
+            elField: elEmail,
+            validateFn: validateFieldEmail,
+        });
+
+        validateField({
+            elField: elRequiredName,
+            validateFn: validateFieldRequired,
+            errorKey: "name",
+        });
+
+        validateField({
+            elField: elRequiredFamilyname,
+            validateFn: validateFieldRequired,
+            errorKey: "familyname",
+        });
+
+        validateField({
+            elField: elPrivacy,
+            validateFn: validateFieldPrivacy,
+        });
+
+        // Gestione validazione su 3 eventi: change, blur, keyup
+        function validateField({ elField, validateFn, errorKey }) {
+            let touched = false;
+
+            elField.addEventListener("change", (e) => {
+                touched = true; // mark it as touched so that on blur it shows the error.
+                validateFn(e.target, { live: true, errorKey });
+                if (hasSubmitted) {
+                    updateSubmitSummary();
+                }
+            });
+
+            elField.addEventListener("keyup", (e) => {
+                // remove any error on keyup if existent
+                validateFn(e.target, { removeOnly: true, errorKey });
+
+                if (hasSubmitted) {
+                    updateSubmitSummary();
+                }
+            });
+
+            elField.addEventListener("blur", (e) => {
+                if (!touched) return;
+                // show error if touched
+                validateFn(e.target, { live: true, errorKey });
+            });
+        }
+
+        // Controllo email
+        function validateFieldEmail(el, opts) {
+            const isEmpty = el.value === "";
+            updateFieldDOM(el, !isEmpty, "Email obbligatoria.", opts);
+
+            if (isEmpty) {
+                formErrors.email = true;
+            } else {
+                const isEmailValid = el.value.match(emailRegex);
+                updateFieldDOM(el, isEmailValid, "Email non valida.", opts);
+                formErrors.email = !isEmailValid;
+            }
+        }
+
+        // Validazione campi obbligatori
+        function validateFieldRequired(el, opts) {
+            const isEmpty = el.value === "";
+            const errorKey = opts?.errorKey;
+            const elField = el.closest(".rtds-input-field");
+            const elLabel = elField.querySelector(
+                ".rtds-input-field__label-text"
+            );
+            const fieldLabel = elLabel ? elLabel.innerText : "Field";
+
+            updateFieldDOM(el, !isEmpty, `${fieldLabel} obbligatorio.`, opts);
+
+            if (errorKey) {
+                formErrors[errorKey] = isEmpty;
+            }
+        }
+
+        // Validazione campo privacy (checkbox)
+        function validateFieldPrivacy(el, opts) {
+            const isNotChecked = el.checked === false;
+            updateFieldDOM(
+                el,
+                !isNotChecked,
+                "Devi dichiarare di aver letto la Privacy Policy.",
+                opts
+            );
+
+            formErrors.privacy = isNotChecked;
+        }
+
+        // Aggiornamento errore nel campo e gestione attributi accessibilità
+        function updateFieldDOM(el, isValid, errorMessage, opts) {
+            const removeOnly = opts?.removeOnly;
+            const isLive = opts?.live;
+            const elField = el.closest(".rtds-input-field");
+            const elError = elField.querySelector(".rtds-input-field__error");
+
+            if (isValid) {
+                elField.classList.remove("is-invalid");
+                elError.innerText = ""; // It's valid
+                el.removeAttribute("aria-invalid");
+            } else if (!removeOnly) {
+                elField.classList.add("is-invalid");
+                el.setAttribute("aria-invalid", "true");
+                elError.setAttribute("aria-live", isLive ? "assertive" : "off");
+                elError.innerText = errorMessage;
+            }
+        }
+
+        // Aggiornamento feedback form a invio
+        function updateSubmitSummary({ isSubmit } = {}) {
+            const elSummary = elForm.querySelector(".rtds-form-feedback");
+            const elSummaryMsg = elSummary.querySelector(
+                ".rtds-form-feedback-msg"
+            );
+
+            // Clear form feedback
+            elSummaryMsg.classList.remove("is-invalid");
+            elSummaryMsg.classList.remove("is-success");
+            elSummaryMsg.innerText = "";
+            const errorsState = Object.entries(formErrors);
+
+            const invalidFields = errorsState
+                .filter(([key, value]) => value === true)
+                .map(([key]) => {
+                    const elField = elForm.querySelector(`.is-${key}`);
+                    return elField ? elField.getAttribute("data-label") : key;
+                });
+
+            if (invalidFields.length > 0) {
+                // Show error msg
+                const errorCount = invalidFields.length;
+                const errorMsg =
+                    errorCount === 1
+                        ? `È presente ${errorCount} campo non valido: ${invalidFields.join(
+                              ", "
+                          )}.`
+                        : `Sono presenti ${errorCount} campi non validi: ${invalidFields.join(
+                              ", "
+                          )}.`;
+
+                elSummaryMsg.classList.add("is-invalid");
+                elSummaryMsg.innerText = errorMsg;
+
+                elSummary.querySelector(".rtds-form-feedback-sr").innerText =
+                    isSubmit
+                        ? // Set SR error message only on submit to avoid being re-announced
+                          // every time the error summary visually changes.
+                          errorMsg
+                        : "";
+            } else if (isSubmit) {
+                const successMsg = "Form inviata con successo.";
+                elSummary.querySelector(".rtds-form-feedback-sr").innerText =
+                    successMsg;
+                elSummaryMsg.innerText = successMsg;
+                elSummaryMsg.classList.add("is-success");
+            }
+        }
+
+        elForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            hasSubmitted = true;
+
+            // Validate again
+            validateFieldEmail(elEmail);
+            validateFieldRequired(elRequiredName, { errorKey: "name" });
+            validateFieldRequired(elRequiredFamilyname, {
+                errorKey: "familyname",
+            });
+            validateFieldPrivacy(elPrivacy);
+
+            updateSubmitSummary({ isSubmit: true });
+        });
+    }
+});
+/** Form with validation END **/
+
 // CKAN Facets
 ("use strict");
 
