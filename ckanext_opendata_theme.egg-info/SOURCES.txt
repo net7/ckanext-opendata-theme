@@ -71,6 +71,7 @@ ckanext/opendata_theme/src/components/03-molecules/card/card.css
 ckanext/opendata_theme/src/components/03-molecules/card/card.js
 ckanext/opendata_theme/src/components/03-molecules/forms/input-checkbox/input-checkbox.css
 ckanext/opendata_theme/src/components/03-molecules/forms/input-field/input-field.css
+ckanext/opendata_theme/src/components/03-molecules/forms/input-file/input-file.css
 ckanext/opendata_theme/src/components/03-molecules/pagination/pagination.css
 ckanext/opendata_theme/src/components/03-molecules/primary-navigation/primary-navigation.css
 ckanext/opendata_theme/src/components/03-molecules/secondary-navigation/secondary-navigation.css
@@ -80,6 +81,7 @@ ckanext/opendata_theme/src/components/04-organisms/carousel/carousel.css
 ckanext/opendata_theme/src/components/04-organisms/carousel/carousel.js
 ckanext/opendata_theme/src/components/04-organisms/facets/facets.css
 ckanext/opendata_theme/src/components/04-organisms/facets/facets.js
+ckanext/opendata_theme/src/components/04-organisms/form-with-validation/form-with-validation.css
 ckanext/opendata_theme/src/components/04-organisms/header/header.css
 ckanext/opendata_theme/src/components/04-organisms/header/header.js
 ckanext/opendata_theme/src/components/04-organisms/hero/hero.css
@@ -91,6 +93,7 @@ ckanext/opendata_theme/src/components/04-organisms/top-bar/top-bar.css
 ckanext/opendata_theme/src/css/base.css
 ckanext/opendata_theme/src/css/custom-properties.css
 ckanext/opendata_theme/src/css/main.css
+ckanext/opendata_theme/src/css/main.processed.css
 ckanext/opendata_theme/src/css/splide.min.css
 ckanext/opendata_theme/templates/base.html
 ckanext/opendata_theme/templates/credits.html
@@ -150,6 +153,7 @@ ckanext/opendata_theme/templates/package/search.html
 ckanext/opendata_theme/templates/package/snippets/additional_info.html
 ckanext/opendata_theme/templates/package/snippets/info.html
 ckanext/opendata_theme/templates/package/snippets/resource_item.html
+ckanext/opendata_theme/templates/package/snippets/resource_upload_field.html
 ckanext/opendata_theme/templates/package/snippets/resource_view.html
 ckanext/opendata_theme/templates/package/snippets/resources_list.html
 ckanext/opendata_theme/templates/package/snippets/tags.html

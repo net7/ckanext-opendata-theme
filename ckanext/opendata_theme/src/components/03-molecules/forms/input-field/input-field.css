@@ -8,7 +8,7 @@
     }
 
     .rtds-input-field__label {
-        @apply rtds-block rtds-text-sm rtds-font-bold rtds-content-03;
+        @apply rtds-block rtds-text-sm rtds-font-bold rtds-content-01;
     }
     label.rtds-input-field__label:after {
     display: none;

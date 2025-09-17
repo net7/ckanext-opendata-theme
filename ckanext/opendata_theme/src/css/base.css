@@ -33,3 +33,14 @@
         }
     }
 }
+
+/* Bootstrap overwriting */
+label {
+    cursor: auto;
+}
+abbr[title], abbr[data-bs-original-title] {
+    text-decoration: none;
+    cursor: auto;
+    text-decoration-skip-ink: none;
+}
+/*  */
