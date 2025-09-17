@@ -1,5 +1,11 @@
 import click
+import smtplib
+import socket
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from datetime import datetime
 from ckan.plugins import toolkit
+from ckan.common import config
 
 
 @click.group(short_help='OpenData Theme useful actions')
@@ -938,6 +944,343 @@ def list_organizations(from_count, to_count, organization_id, do_delete, do_acti
         
     except Exception as e:
         click.echo(f"Errore: {str(e)}", err=True)
+
+
+@opendata.command()
+@click.option('--to', 'recipient_email', required=True, help='Indirizzo email del destinatario')
+@click.option('--subject', default='Test email da CKAN', help='Oggetto dell\'email di test')
+@click.option('--smtp-server', help='Server SMTP (se non specificato usa la config CKAN)')
+@click.option('--smtp-port', type=int, help='Porta SMTP (se non specificata usa la config CKAN)')
+@click.option('--smtp-user', help='Username SMTP (se non specificato usa la config CKAN)')
+@click.option('--smtp-password', help='Password SMTP (se non specificata usa la config CKAN)')
+@click.option('--use-tls/--no-tls', default=None, help='Usa TLS (se non specificato usa la config CKAN)')
+@click.option('--use-ssl/--no-ssl', default=None, help='Usa SSL (se non specificato usa la config CKAN)')
+@click.option('--timeout', type=int, default=30, help='Timeout connessione in secondi (default: 30)')
+@click.option('--verbose', '-v', is_flag=True, help='Mostra dettagli di debug')
+def test_smtp(recipient_email, subject, smtp_server, smtp_port, smtp_user, smtp_password, 
+              use_tls, use_ssl, timeout, verbose):
+    """Testa l'invio di email tramite SMTP usando la configurazione CKAN o parametri custom.
+    
+    Esempi:
+    - Test con config CKAN: test-smtp --to test@example.com
+    - Test con parametri custom: test-smtp --to test@example.com --smtp-server smtp.gmail.com --smtp-port 587 --smtp-user myuser --smtp-password mypass --use-tls
+    """
+    try:
+        # Ottieni configurazioni SMTP da CKAN se non specificate
+        smtp_server = smtp_server or config.get('smtp.server')
+        smtp_port = smtp_port or int(config.get('smtp.port', 25))
+        smtp_user = smtp_user or config.get('smtp.user')
+        smtp_password = smtp_password or config.get('smtp.password')
+        smtp_from = config.get('smtp.mail_from') or config.get('ckan.site_id', 'ckan') + '@localhost'
+        
+        # Determina TLS/SSL dalla configurazione se non specificato
+        if use_tls is None:
+            starttls_config = config.get('smtp.starttls', '')
+            if isinstance(starttls_config, bool):
+                use_tls = starttls_config
+            else:
+                use_tls = str(starttls_config).lower() in ('true', '1', 'yes')
+        
+        if use_ssl is None:
+            ssl_config = config.get('smtp.use_ssl', '')
+            if isinstance(ssl_config, bool):
+                use_ssl = ssl_config
+            else:
+                use_ssl = str(ssl_config).lower() in ('true', '1', 'yes')
+        
+        # Validazione parametri
+        if not smtp_server:
+            click.echo("❌ Errore: Server SMTP non configurato. Usa --smtp-server o configura smtp.server in CKAN", err=True)
+            return
+        
+        click.echo(f"🔧 Configurazione SMTP:")
+        click.echo(f"   Server: {smtp_server}")
+        click.echo(f"   Porta: {smtp_port}")
+        click.echo(f"   Utente: {smtp_user or 'Non configurato'}")
+        click.echo(f"   Password: {smtp_password or 'Non configurata'}")
+        click.echo(f"   TLS: {'Sì' if use_tls else 'No'}")
+        click.echo(f"   SSL: {'Sì' if use_ssl else 'No'}")
+        click.echo(f"   From: {smtp_from}")
+        click.echo(f"   To: {recipient_email}")
+        click.echo(f"   Timeout: {timeout}s")
+        click.echo("")
+        
+        # Test connessione al server SMTP
+        click.echo("🔍 Test 1: Risoluzione DNS e connettività...")
+        try:
+            # Risolvi il nome del server
+            server_ip = socket.gethostbyname(smtp_server)
+            click.echo(f"✅ DNS risolto: {smtp_server} -> {server_ip}")
+            
+            # Test connessione TCP
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.settimeout(timeout)
+            result = sock.connect_ex((smtp_server, smtp_port))
+            sock.close()
+            
+            if result == 0:
+                click.echo(f"✅ Connessione TCP riuscita su {smtp_server}:{smtp_port}")
+            else:
+                click.echo(f"❌ Connessione TCP fallita su {smtp_server}:{smtp_port}")
+                return
+                
+        except socket.gaierror as e:
+            click.echo(f"❌ Errore risoluzione DNS: {str(e)}")
+            return
+        except Exception as e:
+            click.echo(f"❌ Errore connessione: {str(e)}")
+            return
+        
+        # Test connessione SMTP
+        click.echo("\n📧 Test 2: Connessione SMTP...")
+        server = None
+        try:
+            # Crea connessione SMTP
+            if use_ssl:
+                server = smtplib.SMTP_SSL(smtp_server, smtp_port, timeout=timeout)
+                click.echo("✅ Connessione SMTP_SSL stabilita")
+            else:
+                server = smtplib.SMTP(smtp_server, smtp_port, timeout=timeout)
+                click.echo("✅ Connessione SMTP stabilita")
+            
+            if verbose:
+                server.set_debuglevel(1)
+            
+            # EHLO
+            server.ehlo()
+            click.echo("✅ Comando EHLO riuscito")
+            
+            # STARTTLS se richiesto e non già in SSL
+            if use_tls and not use_ssl:
+                server.starttls()
+                server.ehlo()  # Ri-EHLO dopo STARTTLS
+                click.echo("✅ STARTTLS attivato")
+            
+            # Autenticazione se configurata
+            if smtp_user and smtp_password:
+                server.login(smtp_user, smtp_password)
+                click.echo("✅ Autenticazione riuscita")
+            elif smtp_user or smtp_password:
+                click.echo("⚠️ Autenticazione parziale (manca user o password)")
+            else:
+                click.echo("ℹ️ Nessuna autenticazione configurata")
+            
+        except smtplib.SMTPAuthenticationError as e:
+            click.echo(f"❌ Errore autenticazione SMTP: {str(e)}")
+            return
+        except smtplib.SMTPConnectError as e:
+            click.echo(f"❌ Errore connessione SMTP: {str(e)}")
+            return
+        except smtplib.SMTPException as e:
+            click.echo(f"❌ Errore SMTP generico: {str(e)}")
+            return
+        except Exception as e:
+            click.echo(f"❌ Errore imprevisto: {str(e)}")
+            return
+        
+        # Test invio email
+        click.echo("\n📨 Test 3: Invio email di test...")
+        try:
+            # Crea messaggio
+            msg = MIMEMultipart()
+            msg['From'] = smtp_from
+            msg['To'] = recipient_email
+            msg['Subject'] = subject
+            
+            # Corpo del messaggio
+            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            body = f"""
+Questa è un'email di test inviata da CKAN.
+
+Dettagli del test:
+- Data/Ora: {timestamp}
+- Server SMTP: {smtp_server}:{smtp_port}
+- TLS: {'Abilitato' if use_tls else 'Disabilitato'}
+- SSL: {'Abilitato' if use_ssl else 'Disabilitato'}
+- Autenticazione: {'Configurata' if smtp_user else 'Non configurata'}
+
+Se ricevi questa email, la configurazione SMTP è corretta!
+
+--
+Inviato dal sistema CKAN OpenData
+"""
+            
+            msg.attach(MIMEText(body, 'plain', 'utf-8'))
+            
+            # Invia email
+            text = msg.as_string()
+            server.sendmail(smtp_from, recipient_email, text)
+            
+            click.echo(f"✅ Email inviata con successo a {recipient_email}")
+            click.echo(f"   Oggetto: {subject}")
+            click.echo(f"   Mittente: {smtp_from}")
+            
+        except smtplib.SMTPRecipientsRefused as e:
+            click.echo(f"❌ Destinatario rifiutato: {str(e)}")
+        except smtplib.SMTPSenderRefused as e:
+            click.echo(f"❌ Mittente rifiutato: {str(e)}")
+        except smtplib.SMTPDataError as e:
+            click.echo(f"❌ Errore dati SMTP: {str(e)}")
+        except Exception as e:
+            click.echo(f"❌ Errore invio email: {str(e)}")
+        
+        finally:
+            # Chiudi connessione
+            if server:
+                try:
+                    server.quit()
+                    click.echo("\n🔌 Connessione SMTP chiusa")
+                except:
+                    pass
+        
+        click.echo("\n📋 Riepilogo test SMTP completato!")
+        click.echo("Se tutti i test sono passati, la configurazione SMTP è corretta.")
+        
+    except Exception as e:
+        click.echo(f"❌ Errore generale: {str(e)}", err=True)
+
+
+@opendata.command()
+def show_smtp_config():
+    """Mostra la configurazione SMTP attuale di CKAN."""
+    try:
+        click.echo("📧 Configurazione SMTP attuale:")
+        click.echo("=" * 50)
+        
+        # Leggi configurazioni SMTP
+        smtp_server = config.get('smtp.server', 'Non configurato')
+        smtp_port = config.get('smtp.port', 'Non configurato')
+        smtp_user = config.get('smtp.user', 'Non configurato')
+        smtp_password = config.get('smtp.password')
+        smtp_from = config.get('smtp.mail_from', 'Non configurato')
+        smtp_reply_to = config.get('smtp.reply_to', 'Non configurato')
+        
+        # Configurazioni TLS/SSL
+        starttls_config = config.get('smtp.starttls', '')
+        if isinstance(starttls_config, bool):
+            use_tls = starttls_config
+        else:
+            use_tls = str(starttls_config).lower() in ('true', '1', 'yes')
+        
+        ssl_config = config.get('smtp.use_ssl', '')
+        if isinstance(ssl_config, bool):
+            use_ssl = ssl_config
+        else:
+            use_ssl = str(ssl_config).lower() in ('true', '1', 'yes')
+        
+        # Configurazioni contact plugin
+        contact_mail_to = config.get('ckanext.contact.mail_to', 'Non configurato')
+        contact_recipient_name = config.get('ckanext.contact.recipient_name', 'Non configurato')
+        
+        click.echo(f"Server SMTP: {smtp_server}")
+        click.echo(f"Porta: {smtp_port}")
+        click.echo(f"Utente: {smtp_user}")
+        click.echo(f"Password: {'*' * len(smtp_password) if smtp_password else 'Non configurata'}")
+        click.echo(f"Mail From: {smtp_from}")
+        click.echo(f"Reply To: {smtp_reply_to}")
+        click.echo(f"STARTTLS: {'Sì' if use_tls else 'No'}")
+        click.echo(f"SSL: {'Sì' if use_ssl else 'No'}")
+        click.echo("")
+        click.echo("📋 Configurazione Contact Plugin:")
+        click.echo(f"Destinatario: {contact_mail_to}")
+        click.echo(f"Nome destinatario: {contact_recipient_name}")
+        
+        # Consigli
+        click.echo("")
+        click.echo("💡 Consigli:")
+        if use_ssl and smtp_port != '465':
+            click.echo("⚠️ Stai usando SSL ma non la porta 465. Considera di usare la porta 465.")
+        elif use_tls and smtp_port != '587':
+            click.echo("⚠️ Stai usando STARTTLS ma non la porta 587. Considera di usare la porta 587.")
+        
+        if use_ssl and use_tls:
+            click.echo("⚠️ Hai sia SSL che STARTTLS attivi. Usa solo uno dei due.")
+        
+        if smtp_server == 'smtp.googlemail.com':
+            if use_ssl:
+                click.echo("ℹ️ Per Gmail con SSL, usa la porta 465")
+            elif use_tls:
+                click.echo("✅ Gmail con STARTTLS (porta 587) è la configurazione raccomandata per CKAN")
+            else:
+                click.echo("⚠️ Gmail richiede SSL o STARTTLS per funzionare")
+        
+    except Exception as e:
+        click.echo(f"❌ Errore nel leggere la configurazione: {str(e)}", err=True)
+
+
+@opendata.command()
+@click.option('--dev', is_flag=True, help='Usa il Dockerfile.dev invece di quello di produzione')
+@click.option('-y', '--yes', is_flag=True, help='Conferma automaticamente la ricostruzione')
+def rebuild_docker():
+    """Ricostruisce l'immagine Docker CKAN con i patch applicati."""
+    try:
+        import subprocess
+        import os
+        
+        # Cambia nella directory del progetto
+        project_root = '/home/dessi/Documenti/net7/ckan-docker-config'
+        
+        if not os.path.exists(project_root):
+            click.echo(f"❌ Directory del progetto non trovata: {project_root}", err=True)
+            return
+        
+        dockerfile = 'Dockerfile.dev' if dev else 'Dockerfile'
+        container_name = 'ckan-dev' if dev else 'ckan'
+        
+        click.echo(f"🔧 Ricostruzione immagine Docker CKAN...")
+        click.echo(f"   Dockerfile: {dockerfile}")
+        click.echo(f"   Container: {container_name}")
+        click.echo("")
+        
+        if not yes and not click.confirm('Vuoi procedere con la ricostruzione? Questo potrebbe richiedere diversi minuti.'):
+            click.echo('Operazione annullata')
+            return
+        
+        click.echo("🛑 Fermata dei container...")
+        
+        # Ferma i container
+        try:
+            subprocess.run(['docker-compose', 'down'], 
+                         cwd=project_root, check=True, capture_output=True)
+            click.echo("✅ Container fermati")
+        except subprocess.CalledProcessError as e:
+            click.echo(f"⚠️ Errore fermata container: {e}")
+        
+        click.echo("🔨 Ricostruzione immagine in corso...")
+        
+        # Ricostruisci l'immagine CKAN
+        try:
+            result = subprocess.run([
+                'docker-compose', 'build', '--no-cache', 'ckan'
+            ], cwd=project_root, check=True, capture_output=True, text=True)
+            
+            click.echo("✅ Immagine ricostruita con successo")
+            
+        except subprocess.CalledProcessError as e:
+            click.echo(f"❌ Errore nella ricostruzione: {e}")
+            click.echo(f"Output: {e.stdout}")
+            click.echo(f"Errori: {e.stderr}")
+            return
+        
+        click.echo("🚀 Avvio dei container...")
+        
+        # Riavvia i container
+        try:
+            subprocess.run(['docker-compose', 'up', '-d'], 
+                         cwd=project_root, check=True, capture_output=True)
+            click.echo("✅ Container riavviati")
+        except subprocess.CalledProcessError as e:
+            click.echo(f"❌ Errore riavvio container: {e}")
+            return
+        
+        click.echo("")
+        click.echo("🎉 Ricostruzione completata!")
+        click.echo("Il patch del mailer SSL è ora attivo.")
+        click.echo("Puoi testare l'invio email con:")
+        click.echo("  ckan opendata test-smtp --to tua-email@example.com")
+        
+    except Exception as e:
+        click.echo(f"❌ Errore generale: {str(e)}", err=True)
 
 
 def get_commands():
