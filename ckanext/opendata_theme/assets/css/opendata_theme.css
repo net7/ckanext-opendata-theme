@@ -1295,7 +1295,7 @@ address {
   /* Bordo grigio 04 */
   --color-divide-gray-04: var(--color-neutral-800);
   /* Divisore grigio 04 */
-  --color-border-input: var(--color-neutral-700);
+  --color-border-input: var(--color-border-gray-04);
   /* Bordo input */
   --color-border-primary: var(--color-primary-500);
   /* Bordo primario */

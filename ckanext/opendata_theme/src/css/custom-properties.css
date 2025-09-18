@@ -267,7 +267,7 @@
     --color-divide-gray-03: var(--color-neutral-600);         /* Divisore grigio 03 */
     --color-border-gray-04: var(--color-neutral-800);         /* Bordo grigio 04 */
     --color-divide-gray-04: var(--color-neutral-800);         /* Divisore grigio 04 */
-    --color-border-input: var(--color-neutral-700);           /* Bordo input */
+    --color-border-input: var(--color-border-gray-04);           /* Bordo input */
     --color-border-primary: var(--color-primary-500);         /* Bordo primario */
     --color-divide-primary: var(--color-primary-500);         /* Divisore primario */
     --color-border-secondary: var(--color-secondary-500);     /* Bordo secondario */
