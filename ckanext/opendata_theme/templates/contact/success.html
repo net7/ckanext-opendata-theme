@@ -2,16 +2,28 @@
 
 
 {% block primary_content %}
-  <article class="module">
-    <div class="module-content">
-      <h1 class="page-heading">Thank you!</h1>
-      <p>Your comment has been sent and we will answer you as soon as possible.</p>
-
+<div class="rtds-grid rtds-grid-cols-12">
+  <div class="rtds-col-span-12 lg:rtds-col-span-8 lg:rtds-col-start-3 rtds-py-16 rtds-grid rtds-gap-6 rtds-place-content-center rtds-text-center">
+    <div class="rtds-color-brand-00">
+      <svg class="rtds-icon rtds-fill-current rtds-w-16 rtds-h-16 group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+        <use href="/icons.svg#outline--check-circle" />
+      </svg>
     </div>
-  </article>
+    <h1 class="rtds-heading-2">Dati inviati con successo</h1>
+    <p class="rtds-body-lg">Le informazioni sono state ricevute. Riceverà presto una conferma.</p>
+    <div class="rtds-form-actions rtds-grid rtds-justify-center">
+      <button type="button" class="rtds-btn rtds-btn--outline rtds-btn--s rtds-btn--icon-right rtds-group/button">
+        {{ _('Torna alla home') }}
+        <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 md:rtds-w-5 md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+          <use href="/icons.svg#mini--chevron-right" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
 {% endblock %}
 
-{% block secondary_content %}
+{# {% block secondary_content %}
 <div class="module module-narrow module-shallow">
   <h2 class="module-heading">
     <i class="fas fa-info-circle inline-icon-left"></i>
@@ -23,4 +35,4 @@
     </p>
   </div>
 </div>
-{% endblock %}
+{% endblock %} #}

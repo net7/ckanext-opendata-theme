@@ -3994,6 +3994,10 @@ legend.rtds-facets__legend {
   width: var(--spacing-12);
 }
 
+.rtds-w-16 {
+  width: var(--spacing-16);
+}
+
 .rtds-w-2 {
   width: var(--spacing-2);
 }
@@ -4090,6 +4094,10 @@ legend.rtds-facets__legend {
 
 .rtds-flex-wrap {
   flex-wrap: wrap;
+}
+
+.rtds-place-content-center {
+  place-content: center;
 }
 
 .rtds-content-center {
@@ -4793,6 +4801,10 @@ legend.rtds-facets__legend {
 
 .rtds-article-body code {
   white-space: normal;
+}
+
+.rtds-color-brand-00 {
+  color: var(--color-brand-00);
 }
 
 .splide__container{
