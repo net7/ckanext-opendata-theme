@@ -7,7 +7,7 @@
 import logging
 
 from ckan.plugins import toolkit
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, redirect, url_for
 
 from . import _helpers
 
@@ -55,7 +55,7 @@ def form():
     if toolkit.request.method == 'POST':
         result = _helpers.submit()
         if result.get('success', False):
-            return toolkit.render('contact/success.html')
+            return redirect(url_for('opendata_theme_contact.success'))
         else:
             # the form page isn't setup to handle this error so we need to flash it here for it
             if result['recaptcha_error'] is not None:
@@ -74,6 +74,16 @@ def form():
             extra_vars['data']['user_name'] = extra_vars['data']['user_email'] = None
 
     return toolkit.render('contact/form.html', extra_vars=extra_vars)
+
+
+@blueprint.route('/success', methods=['GET'])
+def success():
+    """
+    Mostra la pagina di successo dopo l'invio del form di contatto.
+    
+    :returns: la pagina di successo
+    """
+    return toolkit.render('contact/success.html')
 
 
 @blueprint.route('/ajax', methods=['POST'])
