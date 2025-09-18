@@ -1,2 +1,4 @@
 node_modules
 src/css/main.processed.css
+
+ckanext/opendata_theme/routes/__pycache__
