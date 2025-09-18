@@ -261,7 +261,7 @@ def get_home_organizations():
             'comune-di-siena',
             'citta-metropolitana-firenze',
             'comune-livorno',
-            'comune-di-montevarchi'
+            'comune-di-montevarchi',
             'comune-di-poggibonsi',
             'comune-di-piombino',
             'comune-di-vernio',
