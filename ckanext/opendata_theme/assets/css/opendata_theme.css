@@ -3169,7 +3169,7 @@ legend.rtds-facets__legend {
   padding-right: var(--spacing-2);
   font-size: var(--fontsize-text-sm);
   font-weight: 700;
-  color: var(--color-content-04);
+  color: var(--color-content-03);
 }
 
 .rtds-form-feedback-msg.is-invalid {
@@ -4600,10 +4600,6 @@ legend.rtds-facets__legend {
 
 .rtds-content-03 {
   color: var(--color-content-03);
-}
-
-.rtds-content-04 {
-  color: var(--color-content-04);
 }
 
 .rtds-input-placeholder {

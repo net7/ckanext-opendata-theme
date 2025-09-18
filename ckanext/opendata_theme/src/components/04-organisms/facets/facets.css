@@ -20,7 +20,7 @@
     }
 
     .rtds-facets__item-count {
-        @apply rtds-content-04 rtds-ml-auto rtds-self-start rtds-inline-flex rtds-px-2 rtds-items-center rtds-justify-center rtds-font-bold rtds-text-sm;
+        @apply rtds-content-03 rtds-ml-auto rtds-self-start rtds-inline-flex rtds-px-2 rtds-items-center rtds-justify-center rtds-font-bold rtds-text-sm;
     }
 
     
