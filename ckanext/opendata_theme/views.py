@@ -8,20 +8,6 @@ def get_blueprints():
     """
     blueprints = []
     
-    # Blueprint per la pagina credits
-    credits_blueprint = Blueprint(
-        'opendata_theme_credits',
-        __name__,
-        url_prefix='/credits'
-    )
-    credits_blueprint.add_url_rule(
-        '/',
-        'index',
-        utils.credits_index,
-        methods=['GET']
-    )
-    blueprints.append(credits_blueprint)
-    
     # Blueprint per la pagina infografica
     infog_blueprint = Blueprint(
         'opendata_theme_infog',

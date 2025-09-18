@@ -4,8 +4,11 @@
 # This file is part of ckanext-contact
 # Created by the Natural History Museum in London, UK
 import logging
+import os
 import socket
+import uuid
 from datetime import datetime, timezone
+from werkzeug.utils import secure_filename
 
 from ckan import logic
 from ckan.common import asbool
@@ -18,6 +21,74 @@ from ckanext.contact import recaptcha
 from ckanext.contact.interfaces import IContact
 
 log = logging.getLogger(__name__)
+
+
+def get_storage_path():
+    """
+    Determina il percorso di storage di CKAN utilizzando le configurazioni disponibili.
+    
+    :returns: percorso della directory di storage
+    """
+    # Prima controlla la variabile d'ambiente CKAN_STORAGE_PATH
+    storage_path = os.getenv('CKAN_STORAGE_PATH')
+    if storage_path:
+        return storage_path
+
+    # Se non è impostata, controlla la configurazione di CKAN
+    storage_path = toolkit.config.get('ckan.storage_path')
+    if storage_path:
+        return storage_path
+
+    # Se nessuna delle due è impostata, utilizza il valore predefinito
+    return '/var/lib/ckan'
+
+
+def save_uploaded_file(file_obj, organization_name=None):
+    """
+    Salva il file caricato nella directory contact_uploads.
+    
+    :param file_obj: oggetto file da salvare
+    :param organization_name: nome dell'organizzazione per creare sottocartella
+    :returns: percorso relativo del file salvato o None se errore
+    """
+    if not file_obj or not hasattr(file_obj, 'filename') or not file_obj.filename:
+        return None
+    
+    try:
+        # Ottiene la directory di storage di CKAN
+        storage_path = get_storage_path()
+        
+        # Directory base per i file di contatto
+        base_dir = os.path.join(storage_path, 'contact_uploads')
+        
+        # Crea sottocartella per organizzazione se specificata
+        if organization_name:
+            # Sanitizza il nome organizzazione per usarlo come nome cartella
+            org_folder = secure_filename(organization_name.replace(' ', '_').lower())
+            upload_dir = os.path.join(base_dir, org_folder)
+        else:
+            upload_dir = base_dir
+            
+        # Crea la directory se non esiste
+        os.makedirs(upload_dir, exist_ok=True)
+        
+        # Genera nome file unico
+        file_extension = os.path.splitext(secure_filename(file_obj.filename))[1]
+        unique_filename = f"{uuid.uuid4().hex}{file_extension}"
+        file_path = os.path.join(upload_dir, unique_filename)
+        
+        # Salva il file
+        file_obj.save(file_path)
+        
+        # Restituisce il percorso relativo per logging/database
+        relative_path = os.path.relpath(file_path, storage_path)
+        log.info(f'File salvato: {relative_path} (storage_path: {storage_path})')
+        
+        return relative_path
+        
+    except Exception as e:
+        log.error(f'Errore nel salvare il file: {str(e)}')
+        return None
 
 
 def validate(data_dict):
@@ -153,6 +224,14 @@ def submit():
 
     # if there are not errors and no recaptcha error, attempt to send the email
     if len(errors) == 0 and recaptcha_error is None:
+        # Salva il file del logo se presente
+        saved_logo_path = None
+        if data_dict.get('organization_logo') and hasattr(data_dict['organization_logo'], 'filename'):
+            saved_logo_path = save_uploaded_file(
+                data_dict['organization_logo'], 
+                data_dict.get('organization_name')
+            )
+        
         body_parts = [
             'Richiesta di registrazione inviata da:',
             f'  Nome organizzazione: {data_dict["organization_name"]}',
@@ -168,9 +247,9 @@ def submit():
             body_parts.append('  Codice IPA: Non specificato')
             
         # Add logo information if present
-        if data_dict.get('organization_logo') and hasattr(data_dict['organization_logo'], 'filename'):
-            logo_file = data_dict['organization_logo']
-            body_parts.append(f'  Logo organizzazione: {logo_file.filename} (caricato)')
+        if saved_logo_path:
+            original_filename = data_dict['organization_logo'].filename
+            body_parts.append(f'  Logo organizzazione: {original_filename} (salvato in: {saved_logo_path})')
         else:
             body_parts.append('  Logo organizzazione: Non fornito')
             
