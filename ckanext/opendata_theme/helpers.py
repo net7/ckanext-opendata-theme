@@ -239,35 +239,35 @@ def get_home_organizations():
     """
     Restituisce le organizzazioni per la homepage:
     
+     - Consorzio LaMMA Toscana
+     - Comune di Firenze
      - Comune di Arezzo
-     - Comune di Cantagallo
-     - Comune di Livorno
+     - Comune di Siena
      - Città Metropolitana di Firenze
-     - Comune di Montemurlo
+     - Comune di Livorno
+     - Comune di Montevarchi
      - Comune di Poggibonsi
+     - Comune di Piombino
      - Comune di Vernio
      - Comune di Vaiano
-     - Comune di Siena
-     - Comune di Firenze
-     - Consorzio LaMMA Toscana
-     - Comune di Piombino
-     - Comune di Montevarchi
+     - Comune di Cantagallo
+     - Comune di Montemurlo
     """
     try:
         organizations_names = [
+            'lamma-toscana',
+            'comune-di-firenze',
             'comune-di-arezzo',
-            'comune-di-cantagallo',
-            'comune-livorno',
+            'comune-di-siena',
             'citta-metropolitana-firenze',
-            'comune-di-montemurlo',
+            'comune-livorno',
+            'comune-di-montevarchi'
             'comune-di-poggibonsi',
+            'comune-di-piombino',
             'comune-di-vernio',
             'comune-di-vaiano',
-            'comune-di-siena',
-            'comune-di-firenze',
-            'lamma-toscana',
-            'comune-di-piombino',
-            'comune-di-montevarchi'
+            'comune-di-cantagallo',
+            'comune-di-montemurlo',
         ]
         organizations = []
         context = {'ignore_auth': True}
