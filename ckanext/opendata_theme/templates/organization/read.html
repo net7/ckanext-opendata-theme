@@ -11,6 +11,16 @@
       {{ _('Go back') }}
     </a>
   </div>
+
+  {% if h.check_access('organization_update', {'id': group_dict.id}) %}
+    <a class="rtds-btn rtds-btn--s rtds-btn--primary rtds-w-fit" href="{{ h.url_for(group_type ~ '.edit', id=group_dict.name) }}">
+      {{ _('Manage') }}
+      <svg class="rtds-icon rtds-fill-current rtds-w-2 rtds-h-2 md:rtds-w-4 md:rtds-h-4 lg:rtds-w-6 lg:rtds-h-6 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+        <use href="/icons.svg#mini--wrench" />
+      </svg>
+    </a>
+  {% endif %}
+
   <div class="rtds-mb-2">
     <img class="rtds-max-h-[100px]" src="{{ organization.image_display_url }}" width="" height="" alt="{{ organization.name }}" />
   </div>
