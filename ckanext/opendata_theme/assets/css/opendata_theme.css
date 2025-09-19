@@ -1268,10 +1268,12 @@ address {
   /* Sfondo primario */
   --color-background-primary-light: var(--color-primary-50);
   /* Sfondo primario chiaro */
-  --color-background-inverse: var(--color-neutral-50);
-  /* Sfondo invertito */
+  --color-background-primary-medium: var(--color-primary-700);
+  /* Sfondo primario scuro */
   --color-background-primary-dark: var(--color-primary-900);
   /* Sfondo primario scuro */
+  --color-background-inverse: var(--color-neutral-50);
+  /* Sfondo invertito */
   --color-background-secondary: var(--color-secondary-500);
   /* Sfondo secondario */
   --color-background-secondary-light: var(--color-secondary-200);
@@ -4646,6 +4648,10 @@ legend.rtds-facets__legend {
   background-color: var(--color-background-primary-light);
 }
 
+.rtds-background-primary-medium {
+  background-color: var(--color-background-primary-medium);
+}
+
 /* BORDER CUSTOM */
 
 .rtds-border-gray-01 {
@@ -5190,12 +5196,6 @@ legend.rtds-facets__legend {
     font-family: var(--fontfamily-body), sans-serif;
     font-size: var(--fontsize-text-sm);
     line-height: 1.5;
-  }
-
-  .lg\:rtds-body-2xl {
-    font-family: var(--fontfamily-body), sans-serif;
-    font-size: var(--fontsize-text-2xl);
-    line-height: 1.625;
   }
 }
 
