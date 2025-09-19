@@ -100,7 +100,6 @@ ckanext/opendata_theme/templates/header.html
 ckanext/opendata_theme/templates/infografica.html
 ckanext/opendata_theme/templates/page-contact.html
 ckanext/opendata_theme/templates/page-detail.html
-ckanext/opendata_theme/templates/page-edit-organization.html
 ckanext/opendata_theme/templates/page-list.html
 ckanext/opendata_theme/templates/page-organization.html
 ckanext/opendata_theme/templates/page-read.html
@@ -116,6 +115,7 @@ ckanext/opendata_theme/templates/ckanext_pages/pages_list.html
 ckanext/opendata_theme/templates/ckanext_pages/snippets/page_item.html
 ckanext/opendata_theme/templates/ckanext_pages/snippets/pages_list.html
 ckanext/opendata_theme/templates/contact/form.html
+ckanext/opendata_theme/templates/contact/page.html
 ckanext/opendata_theme/templates/contact/success.html
 ckanext/opendata_theme/templates/contact/snippets/form.html
 ckanext/opendata_theme/templates/group/index.html
@@ -138,7 +138,6 @@ ckanext/opendata_theme/templates/home/snippets/themes.html
 ckanext/opendata_theme/templates/macros/form/input.html
 ckanext/opendata_theme/templates/macros/form/input_block.html
 ckanext/opendata_theme/templates/organization/about.html
-ckanext/opendata_theme/templates/organization/edit_base.html
 ckanext/opendata_theme/templates/organization/index.html
 ckanext/opendata_theme/templates/organization/read.html
 ckanext/opendata_theme/templates/organization/read_base.html
