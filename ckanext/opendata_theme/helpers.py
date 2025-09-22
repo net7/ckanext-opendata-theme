@@ -559,17 +559,17 @@ def get_theme_icon(theme_code):
     """
     theme_icons = {
         'ENVI': 'outline--sun',                    # Ambiente
-        'REGI': 'outline--building-office',       # Regioni e città
-        'GOVE': 'outline--building-library',      # Governo e settore pubblico
-        'TECH': 'outline--beaker',                # Scienza e tecnologia
-        'TRAN': 'outline--map',                   # Trasporti
+        'REGI': 'outline--building-office',        # Regioni e città
+        'GOVE': 'outline--building-library',       # Governo e settore pubblico
+        'TECH': 'outline--beaker',                 # Scienza e tecnologia
+        'TRAN': 'outline--map',                    # Trasporti
         'ECON': 'outline--presentation-chart-bar', # Economia e finanza
-        'ENER': 'outline--bolt',                  # Energia
-        'EDUC': 'outline--book-open',             # Educazione, cultura e sport
-        'SOCI': 'outline--user-group',            # Popolazione e società
-        'HEAL': 'heart-rate-pulse-graph',         # Salute
+        'ENER': 'outline--bolt',                   # Energia
+        'EDUC': 'outline--book-open',              # Educazione, cultura e sport
+        'SOCI': 'outline--user-group',             # Popolazione e società
+        'HEAL': 'heart-rate-pulse-graph',          # Salute
         'AGRI': 'leaf--nature-environment-leaf-ecology-plant-plants-eco', # Agricoltura
-        'JUST': 'outline--scale',                 # Giustizia e sicurezza pubblica
+        'JUST': 'outline--scale',                  # Giustizia e sicurezza pubblica
         'OP_DATPRO': 'outline--calendar-check',    # Dati provvisori
     }
     
