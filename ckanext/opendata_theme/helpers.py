@@ -570,6 +570,7 @@ def get_theme_icon(theme_code):
         'HEAL': 'heart-rate-pulse-graph',         # Salute
         'AGRI': 'leaf--nature-environment-leaf-ecology-plant-plants-eco', # Agricoltura
         'JUST': 'outline--scale',                 # Giustizia e sicurezza pubblica
+        'OP_DATPRO': 'outline--calendar-check',    # Dati provvisori
     }
     
     # Restituisce l'icona corrispondente o un'icona di default
@@ -601,6 +602,7 @@ def get_theme_name(theme_code):
     # 'HEAL': 'Salute',
     # 'AGRI': 'Agricoltura',
     # 'JUST': 'Giustizia e sicurezza pubblica',
+    # 'OP_DATPRO': 'Dati provvisori'
     
     # Mappa dei codici tema alle stringhe inglesi (che verranno tradotte)
     theme_names = {
@@ -616,6 +618,7 @@ def get_theme_name(theme_code):
         'HEAL': 'Health',
         'AGRI': 'Agriculture',
         'JUST': 'Justice and public safety',
+        'OP_DATPRO': 'Provisional data'
     }
     
     # Ottiene la stringa inglese e la traduce
