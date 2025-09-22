@@ -152,7 +152,6 @@ ckanext/opendata_theme/templates/package/search.html
 ckanext/opendata_theme/templates/package/snippets/additional_info.html
 ckanext/opendata_theme/templates/package/snippets/info.html
 ckanext/opendata_theme/templates/package/snippets/resource_item.html
-ckanext/opendata_theme/templates/package/snippets/resource_upload_field.html
 ckanext/opendata_theme/templates/package/snippets/resource_view.html
 ckanext/opendata_theme/templates/package/snippets/resources_list.html
 ckanext/opendata_theme/templates/package/snippets/tags.html
