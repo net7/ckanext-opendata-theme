@@ -77,8 +77,17 @@
             Affina i risultati selezionando i filtri pertinenti.
             I risultati si aggiornano automaticamente quando modifichi i filtri
           </p>
+          {% set facets = {
+          'fields': fields_grouped,
+          'search': search_facets,
+          'titles': facet_titles,
+          'translated_fields': translated_fields,
+          'remove_field': remove_field }
+          %}
+          {% set facet_titles = ['aaa', 'bbb']
+          %}
           {% for facet in facet_titles %}
-          {{ h.snippet('snippets/facet_list.html', title=facet_titles[facet], name=facet, search_facets=search_facets, facet_titles_loop=loop) }}
+          {# {{ h.snippet('facet_list.html', title=facet_titles[facet], name=facet, search_facets=search_facets, facet_titles_loop=loop) }} #}
           {% endfor %}
         </div>
       </div>
