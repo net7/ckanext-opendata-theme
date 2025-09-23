@@ -42,6 +42,7 @@ Dictionary with search facets
 {% if items or not hide_empty %}
 {% block facet_list_item %}
 <div class="rtds-grid rtds-py-6 rtds-gap-4 md:rtds-gap-6">
+  <fieldset class="rtds-facets">
   {% block facet_list_heading %}
     <legend class="rtds-facets__legend">
       <button type="button" class="rtds-facets__toggle rtds-group/facet" aria-expanded="true" aria-controls="facet-section-{{ facet_titles_loop.index0 if facet_titles_loop else 0 }}" id="facet-id-{{ facet_titles_loop.index0 if facet_titles_loop else 0 }}">
@@ -99,6 +100,7 @@ Dictionary with search facets
   {% endif %}
   {% endwith %}
   {% endblock %}
+  </fieldset>
 </div>
 {% endblock %}
 {% endif %}

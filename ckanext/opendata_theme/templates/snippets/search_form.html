@@ -22,35 +22,68 @@
     </div>
 
     {% if facets %}
-      {% for field in facets.fields %}
-      <ul class="rtds-flex rtds-gap-1 rtds-flex-wrap">
-        <li>
-          <span>{{ facets.titles.get(field) }}: </span>
-          {% for value in facets.fields[field] %}
-          <span class="rtds-chip has-button-close rtds-chip--filter">
-            {{ value }}
-            <button data-module="opendata_theme_click" data-module-url="{{ facets.remove_field(field, value) }}"
-              class="rtds-chip__close rtds-w-5 rtds-h-5" aria-label="{{ _('Remove') }}">
-              <svg class="rtds-icon rtds-fill-current rtds-w-5 rtds-h-5" aria-hidden="true" focusable="false" role="img">
-                <use href="/icons.svg#mini--x-mark"></use>
-              </svg>
+    {% for field in facets.fields %}
+    <ul class="rtds-flex rtds-gap-1 rtds-flex-wrap">
+      <li>
+        <span>{{ facets.titles.get(field) }}: </span>
+        {% for value in facets.fields[field] %}
+        <span class="rtds-chip has-button-close rtds-chip--filter">
+          {{ value }}
+          <button data-module="opendata_theme_click" data-module-url="{{ facets.remove_field(field, value) }}" class="rtds-chip__close rtds-w-5 rtds-h-5" aria-label="{{ _('Remove') }}">
+            <svg class="rtds-icon rtds-fill-current rtds-w-5 rtds-h-5" aria-hidden="true" focusable="false" role="img">
+              <use href="/icons.svg#mini--x-mark"></use>
+            </svg>
 
-              {%- if facets.translated_fields and (field,value) in facets.translated_fields -%}
-                <span class="rtds-sr-only">{{ _('Remove') }} {{ facets.translated_fields[(field,value)] }}</span>
-              {%- else -%}
-                <span class="rtds-sr-only">{{ _('Remove') }} {{ h.list_dict_filter(search_facets_items, 'name', 'display_name', value) }}</span>
-              {%- endif %}
-            </button>
-          </span>
-        </li>
-        {% endfor %}
-      </ul>
+            {%- if facets.translated_fields and (field,value) in facets.translated_fields -%}
+            <span class="rtds-sr-only">{{ _('Remove') }} {{ facets.translated_fields[(field,value)] }}</span>
+            {%- else -%}
+            <span class="rtds-sr-only">{{ _('Remove') }} {{ h.list_dict_filter(search_facets_items, 'name', 'display_name', value) }}</span>
+            {%- endif %}
+          </button>
+        </span>
+      </li>
       {% endfor %}
+    </ul>
+    {% endfor %}
     {% endif %}
 
     {% endblock %}
   </div>
 
+  <div class="">
+    <button type="button" class="rtds-btn rtds-btn--outline rtds-btn--icon-left rtds-group/button" onclick="openDialog('facetsDialog', this)">
+      <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 md:rtds-w-5 md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 group-hover/button:-rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+        <use href="/icons.svg#mini--funnel" />
+      </svg>
+      Filtri
+    </button>
+    <div class="rtds-dialog">
+      <div role="dialog" id="facetsDialog" aria-labelledby="facetsDialogLabel" aria-modal="true" class="rtds-hidden">
+        <div class="rtds-dialog__header">
+          <h2 id="facetsDialogLabel" class="rtds-dialog__title rtds-heading-3">
+            Filtri
+          </h2>
+          <button type="button" class="rtds-btn rtds-btn--icon rtds-btn--l rtds-dialog__close-button" id="close-dialog-button" onclick="closeDialog(this)">
+            <svg class="rtds-icon rtds-fill-current rtds-w-6 rtds-h-6 md:rtds-w-8 md:rtds-h-8" aria-hidden="true" focusable="false" role="img">
+              <use href="/icons.svg#mini--x-mark" />
+            </svg>
+            <span class="rtds-sr-only">
+              Chiudi la modale corrente
+            </span>
+          </button>
+        </div>
+        <div class="rtds-dialog__content" tabindex="0">
+          <p class="rtds-text-sm md:rtds-text-base">
+            Affina i risultati selezionando i filtri pertinenti.
+            I risultati si aggiornano automaticamente quando modifichi i filtri
+          </p>
+          {% for facet in facet_titles %}
+          {{ h.snippet('snippets/facet_list.html', title=facet_titles[facet], name=facet, search_facets=search_facets, facet_titles_loop=loop) }}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
 
   {% block search_search_fields %}
   {% if fields -%}
@@ -124,8 +157,7 @@
       {%- else -%}
       {{ h.list_dict_filter(search_facets_items, 'name', 'display_name', value) }}
       {%- endif %}
-      <a href="{{ facets.remove_field(field, value) }}" class="remove" title="{{ _('Remove') }}"><i
-          class="fa fa-times"></i></a>
+      <a href="{{ facets.remove_field(field, value) }}" class="remove" title="{{ _('Remove') }}"><i class="fa fa-times"></i></a>
     </span>
     {% endfor %}
     {% endfor %}
