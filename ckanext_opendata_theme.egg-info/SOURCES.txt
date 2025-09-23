@@ -86,6 +86,7 @@ ckanext/opendata_theme/src/components/04-organisms/header/header.css
 ckanext/opendata_theme/src/components/04-organisms/header/header.js
 ckanext/opendata_theme/src/components/04-organisms/hero/hero.css
 ckanext/opendata_theme/src/components/04-organisms/main-heading/main-heading.css
+ckanext/opendata_theme/src/components/04-organisms/modal-dialog/modal-dialog.css
 ckanext/opendata_theme/src/components/04-organisms/side-navigation/side-navigation.css
 ckanext/opendata_theme/src/components/04-organisms/slider/slider.css
 ckanext/opendata_theme/src/components/04-organisms/tablist/tablist.js

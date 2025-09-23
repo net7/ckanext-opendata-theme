@@ -624,3 +624,4 @@ def get_theme_name(theme_code):
     # Ottiene la stringa inglese e la traduce
     english_name = theme_names.get(theme_code, theme_code)
     return toolkit._(english_name)
+
