@@ -810,6 +810,10 @@ address {
   }
 }
 
+[placeholder] {
+  text-overflow: ellipsis;
+}
+
 .rtds-heading-1 {
   font-family: var(--fontfamily-heading), sans-serif;
   font-size: var(--fontsize-text-2xl);
