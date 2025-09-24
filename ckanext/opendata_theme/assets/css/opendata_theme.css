@@ -5532,6 +5532,10 @@ legend.rtds-facets__legend {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .sm\:rtds-flex-wrap {
+    flex-wrap: wrap;
+  }
+
   .sm\:rtds-flex-nowrap {
     flex-wrap: nowrap;
   }
