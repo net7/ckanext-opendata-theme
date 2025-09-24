@@ -1661,28 +1661,6 @@ abbr[data-bs-original-title] {
   border-color: var(--color-button-primary-active);
 }
 
-.rtds-btn--secondary {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
-  background-color: var(--color-button-secondary);
-  border-color: var(--color-button-secondary);
-}
-
-.rtds-btn--secondary:hover {
-  background-color: var(--color-button-secondary-hover);
-  border-color: var(--color-button-secondary-hover);
-}
-
-.rtds-btn--secondary:focus {
-  background-color: var(--color-button-secondary-hover);
-  border-color: var(--color-button-secondary-hover);
-}
-
-.rtds-btn--secondary:active {
-  background-color: var(--color-button-secondary-active);
-  border-color: var(--color-button-secondary-active);
-}
-
 .rtds-btn--only-text {
   background-color: transparent;
   color: var(--color-button-only-text);
