@@ -9,7 +9,7 @@
           <span class="rtds-body-base">{{ _('see all') }}</span>
           <a href="{% url_for 'dataset.search' %}" class="rtds-btn rtds-btn--only-text rtds-btn--icon-right rtds-group/button">
             {{ _('the themes') }}
-            <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+            <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12 rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
               <use href="/icons.svg#mini--arrow-right" />
             </svg>
           </a>
@@ -19,7 +19,7 @@
     </div>
     <ul role="list" class="rtds-grid rtds-gap-6 md:rtds-grid-cols-2 lg:rtds-grid-cols-4">
       <li class="rtds-col">
-        <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
+        <article class="rtds-card rtds-card--information rtds-card--information-icon rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
           <div class="rtds-card__icon">
             <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
               <use href="/icons.svg#{{ h.get_theme_icon('ENVI') }}" />
@@ -38,7 +38,7 @@
         </article>
       </li>
       <li class="rtds-col">
-        <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
+        <article class="rtds-card rtds-card--information rtds-card--information-icon rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
           <div class="rtds-card__icon">
             <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
               <use href="/icons.svg#{{ h.get_theme_icon('REGI') }}" />
@@ -57,7 +57,7 @@
         </article>
       </li>
       <li class="rtds-col">
-        <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
+        <article class="rtds-card rtds-card--information rtds-card--information-icon rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
           <div class="rtds-card__icon">
             <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
               <use href="/icons.svg#{{ h.get_theme_icon('GOVE') }}" />
@@ -76,7 +76,7 @@
         </article>
       </li>
       <li class="rtds-col">
-        <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
+        <article class="rtds-card rtds-card--information rtds-card--information-icon rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
           <div class="rtds-card__icon">
             <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
               <use href="/icons.svg#{{ h.get_theme_icon('TECH') }}" />
@@ -95,7 +95,7 @@
         </article>
       </li>
       <li class="rtds-col">
-        <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
+        <article class="rtds-card rtds-card--information rtds-card--information-icon rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
           <div class="rtds-card__icon">
             <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
               <use href="/icons.svg#{{ h.get_theme_icon('TRAN') }}" />
@@ -114,7 +114,7 @@
         </article>
       </li>
       <li class="rtds-col">
-        <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
+        <article class="rtds-card rtds-card--information rtds-card--information-icon rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
           <div class="rtds-card__icon">
             <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
               <use href="/icons.svg#{{ h.get_theme_icon('ECON') }}" />
@@ -133,7 +133,7 @@
         </article>
       </li>
       <li class="rtds-col">
-        <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
+        <article class="rtds-card rtds-card--information rtds-card--information-icon rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
           <div class="rtds-card__icon">
             <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
               <use href="/icons.svg#{{ h.get_theme_icon('ENER') }}" />
@@ -152,7 +152,7 @@
         </article>
       </li>
       <li class="rtds-col">
-        <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
+        <article class="rtds-card rtds-card--information rtds-card--information-icon rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
           <div class="rtds-card__icon">
             <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
               <use href="/icons.svg#{{ h.get_theme_icon('EDUC') }}" />
@@ -171,7 +171,7 @@
         </article>
       </li>
       <li class="rtds-col">
-        <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
+        <article class="rtds-card rtds-card--information rtds-card--information-icon rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
           <div class="rtds-card__icon">
             <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
               <use href="/icons.svg#{{ h.get_theme_icon('SOCI') }}" />
@@ -190,7 +190,7 @@
         </article>
       </li>
       <li class="rtds-col">
-        <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
+        <article class="rtds-card rtds-card--information rtds-card--information-icon rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
           <div class="rtds-card__icon">
             <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
               <use href="/icons.svg#{{ h.get_theme_icon('HEAL') }}" />
@@ -209,7 +209,7 @@
         </article>
       </li>
       <li class="rtds-col">
-        <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
+        <article class="rtds-card rtds-card--information rtds-card--information-icon rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
           <div class="rtds-card__icon">
             <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
               <use href="/icons.svg#{{ h.get_theme_icon('AGRI') }}" />
@@ -228,7 +228,7 @@
         </article>
       </li>
       <li class="rtds-col">
-        <article class="rtds-card rtds-card--information rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
+        <article class="rtds-card rtds-card--information rtds-card--information-icon rtds-bg-gradient-04 is-card-fullclickable rtds-group/card">
           <div class="rtds-card__icon">
             <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12" aria-hidden="true" focusable="false" role="img">
               <use href="/icons.svg#{{ h.get_theme_icon('JUST') }}" />
