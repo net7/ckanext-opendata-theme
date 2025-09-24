@@ -814,13 +814,13 @@ address {
   font-family: var(--fontfamily-heading), sans-serif;
   font-size: var(--fontsize-text-2xl);
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.5;
 }
 
 @media (min-width: 1024px) {
   .rtds-heading-1 {
     font-size: 2rem;
-    line-height: 1.2;
+    line-height: 1;
   }
 }
 
@@ -1312,6 +1312,8 @@ address {
   --color-divide-inverse: var(--color-neutral-50);
   /* Divisore invertito */
 }
+
+/* Run time applied classes with Js, not compiled by Tailwind */
 
 .rtds-dialog-backdrop {
   background-color: rgba(0, 0, 0, 0.25);
@@ -3538,26 +3540,22 @@ legend.rtds-facets__legend {
 
 /* dialog::backdrop */
 
-/* .rtds-dialog-backdrop {
-        @apply rtds-hidden rtds-fixed rtds-overflow-y-auto rtds-w-full rtds-h-full rtds-top-0 rtds-right-0 rtds-bottom-0 rtds-left-0 rtds-z-40 rtds-bg-black/25;
-    } */
+.rtds-dialog-backdrop {
+  position: fixed;
+  top: var(--spacing-0);
+  right: var(--spacing-0);
+  bottom: var(--spacing-0);
+  left: var(--spacing-0);
+  z-index: 40;
+  display: none;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  background-color: rgb(0 0 0 / 0.25);
+}
 
 .rtds-dialog-backdrop.is-active {
   display: block;
-}
-
-.rtds-dialog-backdrop {
-  background-color: rgba(0, 0, 0, 0.25);
-  bottom: var(--spacing-0);
-  display: none;
-  height: 100%;
-  left: var(--spacing-0);
-  overflow-y: auto;
-  position: fixed;
-  right: var(--spacing-0);
-  top: var(--spacing-0);
-  width: 100%;
-  z-index: 40;
 }
 
 /* this is added to the body when a dialog is open */
