@@ -4582,6 +4582,11 @@ legend.rtds-facets__legend {
   padding: var(--spacing-6);
 }
 
+.rtds-px-0 {
+  padding-left: var(--spacing-0);
+  padding-right: var(--spacing-0);
+}
+
 .rtds-px-10 {
   padding-left: var(--spacing-10);
   padding-right: var(--spacing-10);
@@ -5847,6 +5852,11 @@ legend.rtds-facets__legend {
     padding-right: var(--spacing-16);
   }
 
+  .lg\:rtds-px-3 {
+    padding-left: var(--spacing-3);
+    padding-right: var(--spacing-3);
+  }
+
   .lg\:rtds-py-16 {
     padding-top: var(--spacing-16);
     padding-bottom: var(--spacing-16);
@@ -5872,6 +5882,10 @@ legend.rtds-facets__legend {
 
   .lg\:rtds-pt-0 {
     padding-top: var(--spacing-0);
+  }
+
+  .lg\:rtds-text-center {
+    text-align: center;
   }
 
   .lg\:rtds-text-6xl {

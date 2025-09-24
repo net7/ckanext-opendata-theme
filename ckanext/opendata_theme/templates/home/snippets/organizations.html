@@ -1,11 +1,10 @@
-
 {% set organizations = h.get_home_organizations() %}
 {% set count_organizations = h.count_organizations() %}
 {# Enti carousel BEGIN #}
 <section class="rtds-pt-14 rtds-pb-28">
   <div class="rtds-container-sm">
 
-    <div class="rtds-wrapper-title rtds-text-center rtds-mb-8">
+    <div class="rtds-wrapper-title lg:rtds-text-center rtds-mb-8">
       <h2 class="rtds-heading-2">Dati acquisiti da {{ count_organizations }} Enti toscani. Eccone alcuni:</h2>
     </div>
 
@@ -34,19 +33,25 @@
           <li class="rtds-carousel-col splide__slide">
             <article class="rtds-card rtds-shadow-none">
               <a class="group-hover/card:rtds-underline" href="{{ org_url }}">
-              <picture class="rtds-card__image-wrapper">
-                <img class="rtds-card__image rtds-object-contain" alt="{{ org.name }}" src="{{ org.image_display_url }}" />
-              </picture>
-
-              <div class="rtds-card__content">
-                <div class="rtds-card__heading">
-                  <h3 class="rtds-card__title lg:rtds-body-sm rtds-font-bold rtds-text-center">
-                    {{ org.title }}
-                  </h3>
+                <picture class="rtds-card__image-wrapper">
+                  <img class="rtds-card__image rtds-object-contain" alt="{{ org.name }}" src="{{ org.image_display_url }}" />
+                </picture>
+                <div class="rtds-card__content rtds-px-0 lg:rtds-px-3">
+                  <div class="rtds-card__heading">
+                    <h3 class="rtds-card__title lg:rtds-body-sm rtds-font-bold rtds-text-center">
+                      {{ org.title }}
+                    </h3>
+                  </div>
                 </div>
-              </div>
               </a>
             </article>
+            {# <div class="rtds-grid rtds-gap-2">
+              <a class="group-hover/card:rtds-underline" href="{{ org_url }}">
+                <picture class="">
+                  <img class="" alt="{{ org.name }}" src="{{ org.image_display_url }}" />
+                </picture>
+              </a>
+            </div> #}
           </li>
           {% endfor %}
         </ul>
