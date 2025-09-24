@@ -340,6 +340,6 @@
     }
 
     :where(.rtds-card--dati) .rtds-card__metadata {
-        @apply lg:rtds-flex-nowrap rtds-justify-center lg:rtds-justify-start rtds-items-center rtds-text-sm -rtds-ml-3;
+        @apply rtds-flex-nowrap rtds-justify-start rtds-items-center rtds-text-sm -rtds-ml-3;
     }
 }

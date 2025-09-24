@@ -2600,16 +2600,10 @@ body:where(.rtds-card--news) .rtds-card__image-wrapper .rtds-primary-navigation_
 
 :where(.rtds-card--dati) .rtds-card__metadata {
   margin-left: calc(var(--spacing-3) * -1);
+  flex-wrap: nowrap;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   font-size: var(--fontsize-text-sm);
-}
-
-@media (min-width: 1024px) {
-  :where(.rtds-card--dati) .rtds-card__metadata {
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-  }
 }
 
 .rtds-input-checkbox input[type="checkbox"] {
@@ -4285,6 +4279,10 @@ legend.rtds-facets__legend {
 }
 
 .rtds-flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+.rtds-shrink-0 {
   flex-shrink: 0;
 }
 

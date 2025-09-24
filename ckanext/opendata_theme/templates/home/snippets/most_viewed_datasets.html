@@ -39,7 +39,7 @@
                         {% set theme_icon = h.get_theme_icon(first_theme) %}
                         {% set theme_name = h.get_theme_name(first_theme) %}
                         <a class="rtds-btn rtds-btn--s rtds-btn--only-text rtds-btn--icon-left" href="{% url_for 'dataset.search', dcat_theme=first_theme %}">
-                        <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+                        <svg class="rtds-icon rtds-fill-current rtds-shrink-0 rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
                             <use href="/icons.svg#{{ theme_icon }}" />
                         </svg>
                         {{ theme_name }}
@@ -68,7 +68,7 @@
                 <div class="rtds-card__footer-inner">
                 <div class="rtds-card__metadata">
                     <a class="rtds-btn rtds-btn--s rtds-btn--only-text rtds-btn--icon-left" href="{% url_for dataset_type ~ '.search' %}">
-                    <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+                    <svg class="rtds-icon rtds-fill-current rtds-shrink-0 rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
                         <use href="/icons.svg#outline--building-office-2" />
                     </svg>
                     {{ _('Explore datasets') }}
