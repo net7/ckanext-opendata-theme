@@ -2505,6 +2505,7 @@ body:where(.rtds-card--news) .rtds-card__image-wrapper .rtds-primary-navigation_
 }
 
 :where(.rtds-card--information)  .rtds-card__title {
+  font-family: var(--fontfamily-heading), sans-serif;
   font-size: var(--fontsize-text-xl);
   color: var(--color-content-02);
 }

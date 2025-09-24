@@ -263,7 +263,7 @@
     }
 
     :where(.rtds-card--information)  .rtds-card__title {
-        @apply rtds-content-02 rtds-text-xl;
+        @apply rtds-font-heading rtds-content-02 rtds-text-xl;
     }
 
     :where(.rtds-card--information-02) .rtds-card__title {
