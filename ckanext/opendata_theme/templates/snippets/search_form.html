@@ -95,7 +95,7 @@
   <div class="rtds-grid lg:rtds-flex rtds-justify-between rtds-items-center rtds-mt-4 rtds-mb-2">
     {% block search_title %}
     {% if not error %}
-    <div class="rtds-flex rtds-gap-2">
+    <div class="rtds-flex rtds-gap-2 rtds-mb-2 lg:rtds-mb-0">
       <span class="rtds-heading-3">{{ count }}</span>
       <span class="rtds-content-03">{% snippet 'snippets/search_result_text.html', query=query, count=count, type=type %}</span>
     </div>

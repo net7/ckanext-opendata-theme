@@ -5735,6 +5735,10 @@ legend.rtds-facets__legend {
     margin-right: var(--spacing-6);
   }
 
+  .lg\:rtds-mb-0 {
+    margin-bottom: var(--spacing-0);
+  }
+
   .lg\:rtds-ml-2 {
     margin-left: var(--spacing-2);
   }
