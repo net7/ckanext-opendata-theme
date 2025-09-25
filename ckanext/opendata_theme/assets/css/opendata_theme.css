@@ -4142,6 +4142,10 @@ legend.rtds-facets__legend {
   height: var(--spacing-2);
 }
 
+.rtds-h-20 {
+  height: var(--spacing-20);
+}
+
 .rtds-h-4 {
   height: var(--spacing-4);
 }
@@ -4192,6 +4196,10 @@ legend.rtds-facets__legend {
 
 .rtds-w-2 {
   width: var(--spacing-2);
+}
+
+.rtds-w-20 {
+  width: var(--spacing-20);
 }
 
 .rtds-w-4 {
@@ -5741,6 +5749,10 @@ legend.rtds-facets__legend {
     display: none;
   }
 
+  .lg\:rtds-h-28 {
+    height: var(--spacing-28);
+  }
+
   .lg\:rtds-h-5 {
     height: var(--spacing-5);
   }
@@ -5755,6 +5767,10 @@ legend.rtds-facets__legend {
 
   .lg\:rtds-w-1\/2 {
     width: 50%;
+  }
+
+  .lg\:rtds-w-28 {
+    width: var(--spacing-28);
   }
 
   .lg\:rtds-w-5 {
@@ -5843,9 +5859,9 @@ legend.rtds-facets__legend {
     padding-right: var(--spacing-16);
   }
 
-  .lg\:rtds-px-3 {
-    padding-left: var(--spacing-3);
-    padding-right: var(--spacing-3);
+  .lg\:rtds-py-0 {
+    padding-top: var(--spacing-0);
+    padding-bottom: var(--spacing-0);
   }
 
   .lg\:rtds-py-16 {

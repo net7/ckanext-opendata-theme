@@ -31,27 +31,20 @@
           {% set org_url = h.url_for('organization.read', id=org.name) %}
 
           <li class="rtds-carousel-col splide__slide">
-            <article class="rtds-card rtds-shadow-none">
-              <a class="group-hover/card:rtds-underline" href="{{ org_url }}">
-                <picture class="rtds-card__image-wrapper">
+            <article class="rtds-card rtds-place-content-center rtds-shadow-none">
+              <a class="group-hover/card:rtds-underline rtds-text-center" href="{{ org_url }}">
+                <picture class="rtds-card__image-wrapper rtds-inline-block rtds-w-20 rtds-h-20 lg:rtds-w-28 lg:rtds-h-28">
                   <img class="rtds-card__image rtds-object-contain" alt="{{ org.name }}" src="{{ org.image_display_url }}" />
                 </picture>
-                <div class="rtds-card__content rtds-px-0 lg:rtds-px-3">
+                <div class="rtds-card__content rtds-px-0 lg:rtds-py-0">
                   <div class="rtds-card__heading">
-                    <h3 class="rtds-card__title lg:rtds-body-sm rtds-font-bold rtds-text-center">
+                    <h3 class="rtds-card__title lg:rtds-body-sm rtds-font-bold">
                       {{ org.title }}
                     </h3>
                   </div>
                 </div>
               </a>
             </article>
-            {# <div class="rtds-grid rtds-gap-2">
-              <a class="group-hover/card:rtds-underline" href="{{ org_url }}">
-                <picture class="">
-                  <img class="" alt="{{ org.name }}" src="{{ org.image_display_url }}" />
-                </picture>
-              </a>
-            </div> #}
           </li>
           {% endfor %}
         </ul>
