@@ -22,13 +22,19 @@
     </div>
 
     {% if facets %}
-    {% for field in facets.fields %}
     <ul class="rtds-flex rtds-gap-1 rtds-flex-wrap">
+    {% for field in facets.fields %}
       <li>
-        <span>{{ facets.titles.get(field) }}: </span>
+        {% if loop.first %}
+          <span>Filtri: </span>
+        {% endif %}
         {% for value in facets.fields[field] %}
         <span class="rtds-chip has-button-close rtds-chip--filter">
-          {{ value }}
+          {% if field == 'dcat_theme' %}
+            {{ h.get_theme_name(value) }}
+          {% else %}
+            {{ value }}
+          {% endif %}
           <button data-module="opendata_theme_click" data-module-url="{{ facets.remove_field(field, value) }}" class="rtds-chip__close rtds-w-5 rtds-h-5" aria-label="{{ _('Remove') }}">
             <svg class="rtds-icon rtds-fill-current rtds-w-5 rtds-h-5" aria-hidden="true" focusable="false" role="img">
               <use href="/icons.svg#mini--x-mark"></use>
@@ -43,8 +49,8 @@
         </span>
       </li>
       {% endfor %}
+      {% endfor %}
     </ul>
-    {% endfor %}
     {% endif %}
 
     {% endblock %}
