@@ -816,19 +816,18 @@ address {
 
 .rtds-heading-1 {
   font-family: var(--fontfamily-heading), sans-serif;
-  font-size: var(--fontsize-text-2xl);
+  font-size: 2rem;
   font-weight: 700;
   line-height: 1.5;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .rtds-heading-1 {
-    font-size: 2rem;
     line-height: 1;
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1024px) {
   .rtds-heading-1 {
     font-size: var(--fontsize-text-4xl);
   }
@@ -842,21 +841,15 @@ address {
 
 .rtds-heading-2 {
   font-family: var(--fontfamily-heading), sans-serif;
-  font-size: var(--fontsize-text-xl);
+  font-size: var(--fontsize-text-2xl);
   font-weight: 700;
-  line-height: 1;
-}
-
-@media (min-width: 1024px) {
-  .rtds-heading-2 {
-    font-size: var(--fontsize-text-2xl);
-  }
+  line-height: 1.5;
 }
 
 @media (min-width: 1536px) {
   .rtds-heading-2 {
     font-size: 2rem;
-    line-height: 1.2;
+    line-height: 1;
   }
 }
 
@@ -2015,6 +2008,12 @@ a:where(.rtds-category):focus {
 
 .rtds-text-link--inverse:focus {
   color: var(--color-content-inverse);
+}
+
+.rtds-vertical-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* BASE */
@@ -3236,7 +3235,7 @@ legend.rtds-facets__legend {
   /* --lg-height: 42.68vw; */
   --lg-height: 45vw;
   --lg-max-height: 45rem;
-  height: var(--height);
+  height: auto;
   max-height: var(--max-height);
   min-height: var(--min-height);
 }
@@ -4007,6 +4006,10 @@ legend.rtds-facets__legend {
   top: var(--header-height);
 }
 
+.rtds-order-first {
+  order: -9999;
+}
+
 .rtds-col-span-12 {
   grid-column: span 12 / span 12;
 }
@@ -4076,10 +4079,6 @@ legend.rtds-facets__legend {
 
 .rtds-mb-8 {
   margin-bottom: var(--spacing-8);
-}
-
-.rtds-ml-4 {
-  margin-left: var(--spacing-4);
 }
 
 .rtds-ml-auto {
@@ -4260,6 +4259,10 @@ legend.rtds-facets__legend {
   max-width: 720px;
 }
 
+.rtds-max-w-\[962px\] {
+  max-width: 962px;
+}
+
 .rtds-flex-1 {
   flex: 1 1 0%;
 }
@@ -4282,6 +4285,10 @@ legend.rtds-facets__legend {
 
 .rtds-grow {
   flex-grow: 1;
+}
+
+.rtds-basis-full {
+  flex-basis: 100%;
 }
 
 .rtds-transform {
@@ -4370,10 +4377,6 @@ legend.rtds-facets__legend {
 
 .rtds-gap-4 {
   gap: var(--spacing-4);
-}
-
-.rtds-gap-5 {
-  gap: var(--spacing-5);
 }
 
 .rtds-gap-6 {
@@ -4597,6 +4600,11 @@ legend.rtds-facets__legend {
   padding-right: var(--spacing-4);
 }
 
+.rtds-px-5 {
+  padding-left: var(--spacing-5);
+  padding-right: var(--spacing-5);
+}
+
 .rtds-px-6 {
   padding-left: var(--spacing-6);
   padding-right: var(--spacing-6);
@@ -4676,10 +4684,6 @@ legend.rtds-facets__legend {
 
 .rtds-pt-4 {
   padding-top: var(--spacing-4);
-}
-
-.rtds-pt-6 {
-  padding-top: var(--spacing-6);
 }
 
 .rtds-text-left {
@@ -4885,21 +4889,15 @@ legend.rtds-facets__legend {
 
 .rtds-article-body h2 {
   font-family: var(--fontfamily-heading), sans-serif;
-  font-size: var(--fontsize-text-xl);
+  font-size: var(--fontsize-text-2xl);
   font-weight: 700;
-  line-height: 1;
-}
-
-@media (min-width: 1024px) {
-  .rtds-article-body h2 {
-    font-size: var(--fontsize-text-2xl);
-  }
+  line-height: 1.5;
 }
 
 @media (min-width: 1536px) {
   .rtds-article-body h2 {
     font-size: 2rem;
-    line-height: 1.2;
+    line-height: 1;
   }
 }
 
@@ -5383,21 +5381,15 @@ legend.rtds-facets__legend {
 @media (min-width: 768px) {
   .md\:rtds-heading-2 {
     font-family: var(--fontfamily-heading), sans-serif;
-    font-size: var(--fontsize-text-xl);
+    font-size: var(--fontsize-text-2xl);
     font-weight: 700;
-    line-height: 1;
-  }
-
-  @media (min-width: 1024px) {
-    .md\:rtds-heading-2 {
-      font-size: var(--fontsize-text-2xl);
-    }
+    line-height: 1.5;
   }
 
   @media (min-width: 1536px) {
     .md\:rtds-heading-2 {
       font-size: 2rem;
-      line-height: 1.2;
+      line-height: 1;
     }
   }
 }
@@ -5407,6 +5399,32 @@ legend.rtds-facets__legend {
     font-family: var(--fontfamily-body), sans-serif;
     font-size: var(--fontsize-text-sm);
     line-height: 1.5;
+  }
+
+  .lg\:rtds-body-lg {
+    font-family: var(--fontfamily-body), sans-serif;
+    font-size: var(--fontsize-text-lg);
+    line-height: 1.5;
+  }
+}
+
+@media (min-width: 1536px) {
+  .\32xl\:rtds-body-2xl {
+    font-family: var(--fontfamily-body), sans-serif;
+    font-size: var(--fontsize-text-2xl);
+    line-height: 1.625;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:rtds-action-link--lg {
+    gap: var(--spacing-2-5);
+    font-size: var(--fontsize-text-lg);
+  }
+
+  :where(.lg\:rtds-action-link--lg) .rtds-icon {
+    height: var(--spacing-6);
+    width: var(--spacing-6);
   }
 }
 
@@ -5514,6 +5532,10 @@ legend.rtds-facets__legend {
 }
 
 @media (min-width: 640px) {
+  .sm\:rtds-ms-2 {
+    margin-inline-start: var(--spacing-2);
+  }
+
   .sm\:rtds-flex {
     display: flex;
   }
@@ -5524,6 +5546,10 @@ legend.rtds-facets__legend {
 
   .sm\:rtds-grow {
     flex-grow: 1;
+  }
+
+  .sm\:rtds-basis-auto {
+    flex-basis: auto;
   }
 
   .sm\:rtds-grid-cols-2 {
@@ -5549,9 +5575,18 @@ legend.rtds-facets__legend {
   .sm\:rtds-overflow-auto {
     overflow: auto;
   }
+
+  .sm\:rtds-px-0 {
+    padding-left: var(--spacing-0);
+    padding-right: var(--spacing-0);
+  }
 }
 
 @media (min-width: 768px) {
+  .md\:rtds-order-last {
+    order: 9999;
+  }
+
   .md\:rtds-col-span-4 {
     grid-column: span 4 / span 4;
   }
@@ -5632,6 +5667,10 @@ legend.rtds-facets__legend {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .md\:rtds-flex-wrap {
+    flex-wrap: wrap;
+  }
+
   .md\:rtds-items-center {
     align-items: center;
   }
@@ -5672,11 +5711,6 @@ legend.rtds-facets__legend {
 
   .md\:rtds-border-r {
     border-right-width: 1px;
-  }
-
-  .md\:rtds-px-0 {
-    padding-left: var(--spacing-0);
-    padding-right: var(--spacing-0);
   }
 
   .md\:rtds-px-6 {
@@ -5769,6 +5803,10 @@ legend.rtds-facets__legend {
     width: 50%;
   }
 
+  .lg\:rtds-w-12 {
+    width: var(--spacing-12);
+  }
+
   .lg\:rtds-w-28 {
     width: var(--spacing-28);
   }
@@ -5813,6 +5851,10 @@ legend.rtds-facets__legend {
     gap: var(--spacing-10);
   }
 
+  .lg\:rtds-gap-12 {
+    gap: var(--spacing-12);
+  }
+
   .lg\:rtds-gap-14 {
     gap: var(--spacing-14);
   }
@@ -5847,6 +5889,11 @@ legend.rtds-facets__legend {
 
   .lg\:rtds-p-4 {
     padding: var(--spacing-4);
+  }
+
+  .lg\:rtds-px-0 {
+    padding-left: var(--spacing-0);
+    padding-right: var(--spacing-0);
   }
 
   .lg\:rtds-px-10 {

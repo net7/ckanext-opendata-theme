@@ -1,12 +1,13 @@
 {% set dataset_type = h.default_package_type() %}
 {# Hero BEGIN #}
-<section class="rtds-hero rtds-grid rtds-bg-primary-700 rtds-pt-6">
+<section class="rtds-hero rtds-grid rtds-bg-primary-700 rtds-py-6">
   {# <div class="overlay bg-black/10 row-span-full col-span-full"></div> #}
   <div class="rtds-container-xs rtds-hero--fullimg rtds-grid rtds-gap-6 lg:rtds-gap-16 xl:rtds-gap-32 rtds-justify-center rtds-content-center rtds-text-center rtds-content-inverse rtds-col-span-full rtds-bg-cover rtds-bg-center" style="background-image: url('/images/hero-background.png');">
-    <div class="rtds-hero__content rtds-grid rtds-gap-8">
+    <div class="rtds-hero__content rtds-grid rtds-gap-8 rtds-max-w-[962px]">
       <h1 class="rtds-heading-1">
         {{ _('Open Data, the open access to public data in Tuscany') }}
       </h1>
+      <p class="rtds-body-base lg:rtds-body-lg 2xl:rtds-body-2xl">Scopri come i dati aperti possono promuovere la trasparenza, migliorare i servizi pubblici e favorire lo sviluppo economico e sociale.</p>
       <form role="search" class="rtds-flex rtds-gap-2 rtds-justify-center" method="get" action="{% url_for dataset_type ~ '.search' %}">
         <div class="rtds-input-field rtds-gap-1 rtds-flex-1 rtds-max-w-[720px]">
           <div class="rtds-input has-icon">
@@ -44,7 +45,7 @@
 
 {# Piattaforme BEGIN #}
 <section class="rtds-platforms rtds-py-10 rtds-border-b rtds-border-primary-700">
-  <div class="rtds-container-xs rtds-grid rtds-gap-8 lg:rtds-flex lg:rtds-gap-14 rtds-body-sm rtds-font-bold rtds-text-center">
+  <div class="rtds-container-xs rtds-px-5 lg:rtds-px-0 rtds-grid rtds-gap-8 lg:rtds-flex lg:rtds-gap-14 rtds-body-sm rtds-font-bold rtds-text-center">
     <div class="rtds-grid rtds-justify-items-center">
       <img class="" src="/images/logo-dati-gov.svg" alt="Logo dati.gov.it" width="240" height="40" />
       <p>Da anni ai primi posti in Italia per n. di dati pubblicati</p>

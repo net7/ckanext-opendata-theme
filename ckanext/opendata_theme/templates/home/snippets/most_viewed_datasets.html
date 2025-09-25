@@ -3,83 +3,86 @@
 
 {# Dati BEGIN #}
 <section class="rtds-dati rtds-py-4 lg:rtds-py-8 rtds-background-01">
-<div class="rtds-container-xs rtds-grid rtds-gap-6 lg:rtds-gap-10">
-    <div class="rtds-grid rtds-gap-6 lg:rtds-gap-10">
-        <div class="rtds-flex rtds-items-center rtds-gap-2">
-            <h2 class="rtds-heading-2">{{ _('Most consulted datasets') }}</h2>
-            <div class="rtds-w-4 rtds-h-16 rtds-ml-4" style="transform: rotate(20.661deg);background: radial-gradient(49.74% 49.74% at 0.95% 51.26%, rgba(171, 171, 171, 0.64) 0%, #C0C0C0 0.01%, rgba(233, 233, 233, 0.00) 100%);"></div>
-                <div class="rtds-flex rtds-items-center">
-                <span class="rtds-body-base">{{ _('search') }}</span>
-                <a href="{% url_for dataset_type ~ '.search' %}" class="rtds-btn rtds-btn--only-text rtds-btn--icon-right rtds-group/button">
-                    {{ _('datasets') }}
-                    <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
-                        <use href="/icons.svg#mini--arrow-right" />
-                    </svg>
-                </a>
-            </div>
-        </div>
-    </div>
-    <ul role="list" class="rtds-grid rtds-gap-8 md:rtds-grid-cols-2">
-    {% if most_viewed %}
-        {% for dataset in most_viewed %}
-        <li class="rtds-col">
-            <article class="rtds-card rtds-card--dati rtds-bg-transparent">
-            <div class="rtds-card__content">
-                <div class="rtds-card__heading">
-                <h3 class="rtds-card__title">
-                    <a href="{% url_for 'dataset.read', id=dataset.name %}">{{ dataset.title }}</a>
-                </h3>
+    <div class="rtds-container-xs rtds-grid rtds-gap-6 lg:rtds-gap-10">
+        <div class="rtds-grid rtds-gap-6 lg:rtds-gap-10">
+            <div class="rtds-flex rtds-flex-wrap rtds-items-center rtds-gap-2">
+                <h2 class="rtds-heading-2">{{ _('Most consulted datasets') }}</h2>
+                <div class="rtds-vertical-divider rtds-w-4 md:rtds-w-8 lg:rtds-w-12 sm:rtds-ms-2">
+                    <img class="rtds-w-full rtds-h-auto" src="/images/vertical-divider.svg" alt="">
                 </div>
-            </div>
-            <div class="rtds-card__footer">
-                <div class="rtds-card__footer-inner">
-                <div class="rtds-card__metadata">
-                    {% set first_theme = h.extract_themes(dataset.extras) %}
-                    {% if first_theme %}
-                        {% set theme_icon = h.get_theme_icon(first_theme) %}
-                        {% set theme_name = h.get_theme_name(first_theme) %}
-                        <a class="rtds-btn rtds-btn--s rtds-btn--only-text rtds-btn--icon-left" href="{% url_for 'dataset.search', dcat_theme=first_theme %}">
-                        <svg class="rtds-icon rtds-fill-current rtds-shrink-0 rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
-                            <use href="/icons.svg#{{ theme_icon }}" />
+                <div class="rtds-flex rtds-items-center rtds-gap-2 rtds-basis-full sm:rtds-basis-auto rtds-body-base lg:rtds-body-lg">
+                    <span>{{ _('search') }}</span>
+                    <a href="{% url_for dataset_type ~ '.search' %}" class="rtds-action-link lg:rtds-action-link--lg rtds-action-link--has-icon rtds-group/button">
+                        {{ _('datasets') }}
+                        <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+                            <use href="/icons.svg#mini--arrow-right" />
                         </svg>
-                        {{ theme_name }}
-                        </a>
-                        <span class="rtds-border-r rtds-border-gray-04 rtds-h-4 rtds-my-3 rtds-mr-2 -rtds-ml-2"></span>
-                    {% endif %}
-                    <span class="rtds-whitespace-nowrap">{{ _('Visualizations') }}: {{ dataset.tracking_summary.total }}</span>
-                </div>
-                </div>
-            </div>
-            </article>
-        </li>
-        {% endfor %}
-    {% else %}
-        {# Fallback se non ci sono dataset visualizzati #}
-        <li class="rtds-col">
-            <article class="rtds-card rtds-card--dati">
-            <div class="rtds-card__content">
-                <div class="rtds-card__heading">
-                <h3 class="rtds-card__title">
-                    <a href="">{{ _('No datasets viewed recently') }}</a>
-                </h3>
-                </div>
-            </div>
-            <div class="rtds-card__footer">
-                <div class="rtds-card__footer-inner">
-                <div class="rtds-card__metadata">
-                    <a class="rtds-btn rtds-btn--s rtds-btn--only-text rtds-btn--icon-left" href="{% url_for dataset_type ~ '.search' %}">
-                    <svg class="rtds-icon rtds-fill-current rtds-shrink-0 rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
-                        <use href="/icons.svg#outline--building-office-2" />
-                    </svg>
-                    {{ _('Explore datasets') }}
                     </a>
                 </div>
-                </div>
             </div>
-            </article>
-        </li>
-    {% endif %}
-    </ul>
-</div>
+            <p class="rtds-body-base lg:rtds-body-lg">Consulta subito i dati più rilevanti per il tuo settore</p>
+        </div>
+        <ul role="list" class="rtds-grid rtds-gap-8 md:rtds-grid-cols-2">
+            {% if most_viewed %}
+            {% for dataset in most_viewed %}
+            <li class="rtds-col">
+                <article class="rtds-card rtds-card--dati rtds-bg-transparent">
+                    <div class="rtds-card__content">
+                        <div class="rtds-card__heading">
+                            <h3 class="rtds-card__title">
+                                <a href="{% url_for 'dataset.read', id=dataset.name %}">{{ dataset.title }}</a>
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="rtds-card__footer">
+                        <div class="rtds-card__footer-inner">
+                            <div class="rtds-card__metadata">
+                                {% set first_theme = h.extract_themes(dataset.extras) %}
+                                {% if first_theme %}
+                                {% set theme_icon = h.get_theme_icon(first_theme) %}
+                                {% set theme_name = h.get_theme_name(first_theme) %}
+                                <a class="rtds-btn rtds-btn--s rtds-btn--only-text rtds-btn--icon-left" href="{% url_for 'dataset.search', dcat_theme=first_theme %}">
+                                    <svg class="rtds-icon rtds-fill-current rtds-shrink-0 rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+                                        <use href="/icons.svg#{{ theme_icon }}" />
+                                    </svg>
+                                    {{ theme_name }}
+                                </a>
+                                <span class="rtds-border-r rtds-border-gray-04 rtds-h-4 rtds-my-3 rtds-mr-2 -rtds-ml-2"></span>
+                                {% endif %}
+                                <span class="rtds-whitespace-nowrap">{{ _('Visualizations') }}: {{ dataset.tracking_summary.total }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </li>
+            {% endfor %}
+            {% else %}
+            {# Fallback se non ci sono dataset visualizzati #}
+            <li class="rtds-col">
+                <article class="rtds-card rtds-card--dati">
+                    <div class="rtds-card__content">
+                        <div class="rtds-card__heading">
+                            <h3 class="rtds-card__title">
+                                <a href="">{{ _('No datasets viewed recently') }}</a>
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="rtds-card__footer">
+                        <div class="rtds-card__footer-inner">
+                            <div class="rtds-card__metadata">
+                                <a class="rtds-btn rtds-btn--s rtds-btn--only-text rtds-btn--icon-left" href="{% url_for dataset_type ~ '.search' %}">
+                                    <svg class="rtds-icon rtds-fill-current rtds-shrink-0 rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+                                        <use href="/icons.svg#outline--building-office-2" />
+                                    </svg>
+                                    {{ _('Explore datasets') }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
 </section>
 {# Dati END #}

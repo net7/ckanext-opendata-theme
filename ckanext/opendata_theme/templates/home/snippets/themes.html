@@ -1,13 +1,14 @@
-
 <section class="rtds-temi rtds-py-10 lg:rtds-py-20">
   <div class="rtds-container-xs rtds-grid rtds-gap-6 lg:rtds-gap-10">
     <div class="rtds-grid rtds-gap-6 lg:rtds-gap-10">
-      <div class="rtds-flex rtds-items-center rtds-gap-2">
+      <div class="rtds-flex rtds-flex-wrap rtds-items-center rtds-gap-2">
         <h2 class="rtds-heading-2">{{ _('Themes') }}</h2>
-        <div class="rtds-w-4 rtds-h-16 rtds-ml-4" style="transform: rotate(20.661deg);background: radial-gradient(49.74% 49.74% at 0.95% 51.26%, rgba(171, 171, 171, 0.64) 0%, #C0C0C0 0.01%, rgba(233, 233, 233, 0.00) 100%);"></div>
-        <div class="rtds-flex rtds-items-center">
-          <span class="rtds-body-base">{{ _('see all') }}</span>
-          <a href="{% url_for 'dataset.search' %}" class="rtds-btn rtds-btn--only-text rtds-btn--icon-right rtds-group/button">
+        <div class="rtds-vertical-divider rtds-w-4 md:rtds-w-8 lg:rtds-w-12 sm:rtds-ms-2">
+          <img class="rtds-w-full rtds-h-auto" src="/images/vertical-divider.svg" alt="">
+        </div>
+        <div class="rtds-flex rtds-items-center rtds-gap-2 rtds-basis-full sm:rtds-basis-auto rtds-body-base lg:rtds-body-lg">
+          <span>{{ _('see all') }}</span>
+          <a href="{% url_for 'dataset.search' %}" class="rtds-action-link lg:rtds-action-link--lg rtds-action-link--has-icon rtds-group/button">
             {{ _('the themes') }}
             <svg class="rtds-icon rtds-fill-current rtds-w-12 rtds-h-12 rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
               <use href="/icons.svg#mini--arrow-right" />
@@ -15,7 +16,7 @@
           </a>
         </div>
       </div>
-      <p>{{ _('Explore data by theme. From transport to health, from education to the environment, find easily the datasets you are looking for') }}</p>
+      <p class="rtds-body-base lg:rtds-body-lg">{{ _('Explore data by theme. From transport to health, from education to the environment, find easily the datasets you are looking for') }}</p>
     </div>
     <ul role="list" class="rtds-grid rtds-gap-6 md:rtds-grid-cols-2 lg:rtds-grid-cols-4">
       <li class="rtds-col">

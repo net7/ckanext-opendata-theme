@@ -75,7 +75,7 @@ module.exports = {
             xl: 'var(--fontsize-text-xl)',        // 1.25rem - 20px
             '2xl': 'var(--fontsize-text-2xl)',    // 1.5rem - 24px
             '3xl': 'var(--fontsize-text-3xl)',    // 2rem - 32px (1.875rem - 30px body?)
-            '4xl': 'var(--fontsize-text-4xl)',    // 2.25rem - 40px (36px heading?)
+            '4xl': 'var(--fontsize-text-4xl)',    // 2.25rem - 36px
             '5xl': 'var(--fontsize-text-5xl)',    // 3rem - 48px
             '6xl': 'var(--fontsize-text-6xl)',    // 3.75rem - 60px
             '7xl': 'var(--fontsize-text-7xl)',    // 4.5rem - 72px
