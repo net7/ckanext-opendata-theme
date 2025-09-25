@@ -1,470 +1,470 @@
 /** Header.js BEGIN **/
 /* HEADER SCRIPT - mobile management */
 document.addEventListener("DOMContentLoaded", function () {
-    "use strict";
-    if (document.querySelector(".rtds-header")) {
-        /* GLOBAL VARIABLES */
-        var rootElement = document.documentElement;
-        var siteHeader = document.querySelector(".rtds-header");
-        var mainHeading = document.querySelector(".rtds-main-heading");
-        // var breadcrumb = document.querySelector('.rtds-breadcrumb');
-        var headerHeight;
-        // var breadcrumbHeight;
+  "use strict";
+  if (document.querySelector(".rtds-header")) {
+    /* GLOBAL VARIABLES */
+    var rootElement = document.documentElement;
+    var siteHeader = document.querySelector(".rtds-header");
+    var mainHeading = document.querySelector(".rtds-main-heading");
+    // var breadcrumb = document.querySelector('.rtds-breadcrumb');
+    var headerHeight;
+    // var breadcrumbHeight;
 
-        var mainMenuWrapper = document.getElementById("mainNavPanel");
-        var headerLinkRight = document.querySelector(".rtds-header-link-right");
-        var headerSocialLinks = document.querySelector(".rtds-social-links");
-        var headerSecondaryNav = document.querySelector(
-            ".rtds-top-bar__navigation"
-        );
-        var mobilePanelLastEl = document.querySelector(".is-last-element");
-        var headerMainActions = document.querySelector(
-            ".rtds-main-heading__actions"
-        );
+    var mainMenuWrapper = document.getElementById("mainNavPanel");
+    var headerLinkRight = document.querySelector(".rtds-header-link-right");
+    var headerSocialLinks = document.querySelector(".rtds-social-links");
+    var headerSecondaryNav = document.querySelector(
+      ".rtds-top-bar__navigation"
+    );
+    var mobilePanelLastEl = document.querySelector(".is-last-element");
+    var headerMainActions = document.querySelector(
+      ".rtds-main-heading__actions"
+    );
 
-        var SiteMenuWrapper = document.getElementById("siteNavWrapper");
+    var SiteMenuWrapper = document.getElementById("siteNavWrapper");
 
-        var mobilePanelSecondLastEl = document.querySelector(".is-second-last");
+    var mobilePanelSecondLastEl = document.querySelector(".is-second-last");
 
-        /* FUNCTIONS */
+    /* FUNCTIONS */
 
-        function toggleIcon(icon) {
-            if (icon.classList.contains("is-hidden")) {
-                icon.classList.remove("is-hidden");
-                icon.classList.add("is-visible");
-            } else if (icon.classList.contains("is-visible")) {
-                icon.classList.remove("is-visible");
-                icon.classList.add("is-hidden");
-            }
-        }
-
-        function calculateSiteHeader(header) {
-            headerHeight = header.offsetHeight;
-            rootElement.style.setProperty(
-                "--header-offset",
-                headerHeight + "px"
-            );
-        }
-
-        // function calculateBreadcrumbHeader(breadcrumb) {
-        //     breadcrumbHeight = breadcrumb.offsetHeight;
-        //     rootElement.style.setProperty('--breadcrumb-height', breadcrumbHeight + 'px');
-        // }
-
-        function ariaExpandedToggle(target) {
-            if (target.getAttribute("aria-expanded") === "false") {
-                target.setAttribute("aria-expanded", "true");
-            } else {
-                target.setAttribute("aria-expanded", "false");
-            }
-        }
-
-        function openOffCanvasMenu(button, targetMenu) {
-            button.classList.toggle("is-selected");
-            ariaExpandedToggle(button);
-            targetMenu.classList.toggle("is-open");
-            document.body.classList.toggle("rtds-overflow-hidden");
-        }
-
-        function closeMobileMenu() {
-            if (document.body.classList.contains("rtds-overflow-hidden")) {
-                document.body.classList.remove("rtds-overflow-hidden");
-            }
-
-            mainMenuWrapper.classList.remove("is-open");
-            document
-                .getElementById("mobileNavToggle")
-                .setAttribute("aria-expanded", "false");
-            document
-                .getElementById("mobileNavToggle")
-                .classList.remove("is-selected");
-        }
-
-        function wrapAndAppend(wrapperClass, elementToWrap, parentElement) {
-            // Controlla se l'elemento da avvolgere è già contenuto in un wrapperDiv con la stessa classe
-            var existingWrapper = elementToWrap.closest("." + wrapperClass);
-
-            // Se l'elemento è già avvolto, utilizza il wrapper esistente anziché crearne uno nuovo
-            if (existingWrapper) {
-                existingWrapper.appendChild(elementToWrap);
-            } else {
-                // Altrimenti, crea un nuovo wrapperDiv
-                var wrapperDiv = document.createElement("div");
-                wrapperDiv.classList.add(wrapperClass);
-                wrapperDiv.appendChild(elementToWrap);
-
-                // Prependi il wrapperDiv al parentElement
-                parentElement.appendChild(wrapperDiv);
-                if (mobilePanelLastEl) {
-                    parentElement.insertBefore(wrapperDiv, mobilePanelLastEl);
-                } else {
-                    parentElement.appendChild(wrapperDiv);
-                }
-            }
-        }
-
-        function unwrapAndRemove(wrapperDiv, elementToUnwrap, parentElement) {
-            if (
-                elementToUnwrap &&
-                elementToUnwrap.parentNode === parentElement
-            ) {
-                parentElement.removeChild(elementToUnwrap);
-            }
-
-            if (wrapperDiv && wrapperDiv.parentNode === parentElement) {
-                parentElement.removeChild(wrapperDiv);
-            }
-        }
-        function handleResize() {
-            if (window.matchMedia("screen and (max-width: 1023px)").matches) {
-                var topBar = document.querySelector(".rtds-top-bar");
-                var bottomBar = document.querySelector(".rtds-bottom-bar");
-
-                /* FOR HEADER WITH NAVIGATION IN TOP BAR */
-                if (topBar && topBar.contains(SiteMenuWrapper)) {
-                    document
-                        .querySelector(".rtds-main-heading__container")
-                        .append(SiteMenuWrapper);
-                }
-
-                /* FOR HEADER WITH NAVIGATION IN BOTTOM BAR */
-                if (bottomBar && bottomBar.contains(SiteMenuWrapper)) {
-                    document
-                        .querySelector(".rtds-main-heading__container")
-                        .append(SiteMenuWrapper);
-                }
-
-                // Verifica altri elementi e le azioni che devono essere fatte su di essi
-                if (headerLinkRight) {
-                    wrapAndAppend(
-                        "rtds-primary-navigation__module",
-                        headerLinkRight,
-                        mainMenuWrapper
-                    );
-                }
-
-                if (headerSecondaryNav) {
-                    wrapAndAppend(
-                        "rtds-primary-navigation__module",
-                        headerSecondaryNav,
-                        mainMenuWrapper
-                    );
-                }
-
-                if (headerMainActions) {
-                    wrapAndAppend(
-                        "rtds-primary-navigation__module",
-                        headerMainActions,
-                        mainMenuWrapper
-                    );
-                }
-
-                if (mobilePanelSecondLastEl) {
-                    wrapAndAppend(
-                        "rtds-primary-navigation__module",
-                        mobilePanelSecondLastEl,
-                        mainMenuWrapper
-                    );
-                }
-
-                if (headerSocialLinks) {
-                    wrapAndAppend(
-                        "rtds-primary-navigation__module",
-                        headerSocialLinks,
-                        mainMenuWrapper
-                    );
-                }
-
-                calculateSiteHeader(mainHeading);
-            } else if (
-                window.matchMedia("screen and (min-width: 1024px)").matches
-            ) {
-                // Se la viewport è maggiore o uguale a 1024px
-                var emptyNavModules = document.querySelectorAll(
-                    ".rtds-primary-navigation__module:not(.is-main):empty"
-                );
-
-                emptyNavModules.forEach(function (emptyNavModule) {
-                    if (
-                        SiteMenuWrapper.classList.contains(
-                            "is-top-nav-positioned"
-                        )
-                    ) {
-                        var topBarContainer = document.querySelector(
-                            ".rtds-top-bar__container"
-                        );
-                        if (topBarContainer) {
-                            topBarContainer.prepend(SiteMenuWrapper);
-                        }
-                    }
-
-                    if (
-                        SiteMenuWrapper.classList.contains(
-                            "is-bottom-nav-positioned"
-                        )
-                    ) {
-                        var bottomBarContainer = document.querySelector(
-                            ".rtds-bottom-bar__container"
-                        );
-                        if (bottomBarContainer) {
-                            bottomBarContainer.prepend(SiteMenuWrapper);
-                        }
-                    }
-
-                    if (headerSecondaryNav) {
-                        unwrapAndRemove(
-                            emptyNavModule,
-                            headerSecondaryNav,
-                            mainMenuWrapper
-                        );
-                    }
-
-                    if (headerMainActions) {
-                        unwrapAndRemove(
-                            emptyNavModule,
-                            headerMainActions,
-                            mainMenuWrapper
-                        );
-                    }
-
-                    if (mobilePanelSecondLastEl) {
-                        unwrapAndRemove(
-                            emptyNavModule,
-                            mobilePanelSecondLastEl,
-                            mainMenuWrapper
-                        );
-                    }
-
-                    if (headerSocialLinks) {
-                        unwrapAndRemove(
-                            emptyNavModule,
-                            headerSocialLinks,
-                            mainMenuWrapper
-                        );
-                    }
-
-                    if (headerLinkRight) {
-                        unwrapAndRemove(
-                            emptyNavModule,
-                            headerLinkRight,
-                            mainMenuWrapper
-                        );
-                    }
-                });
-
-                // Riporto headerSocialLinks nel suo posto originale
-                if (headerSecondaryNav) {
-                    var topBarContainer = document.querySelector(
-                        ".rtds-top-bar__container"
-                    );
-                    if (topBarContainer) {
-                        topBarContainer.prepend(headerSecondaryNav);
-                    }
-                }
-
-                if (headerSocialLinks) {
-                    var utilitiesArea = document.querySelector(
-                        ".rtds-top-bar__utilities-area"
-                    );
-                    if (utilitiesArea) {
-                        utilitiesArea.prepend(headerSocialLinks);
-                    }
-                }
-
-                if (headerLinkRight) {
-                    var utilitiesArea = document.querySelector(
-                        ".rtds-top-bar__utilities-area"
-                    );
-                    if (utilitiesArea) {
-                        utilitiesArea.prepend(headerLinkRight);
-                    }
-                }
-
-                if (headerMainActions) {
-                    document
-                        .querySelector(".rtds-main-heading__container")
-                        .append(headerMainActions);
-                }
-
-                if (mobilePanelSecondLastEl) {
-                    document
-                        .querySelector("#siteHeader")
-                        .append(mobilePanelSecondLastEl);
-                }
-
-                calculateSiteHeader(siteHeader);
-            }
-        }
-
-        window.addEventListener("resize", handleResize);
-        handleResize(); // Initialize on page load
-
-        document
-            .getElementById("mobileNavToggle")
-            .addEventListener("click", function (e) {
-                e.preventDefault();
-                openOffCanvasMenu(this, mainMenuWrapper);
-                // console.log('clicked');
-            });
-
-        document.addEventListener("keyup", function (e) {
-            // if (e.key === "Escape") {
-            //     if (mainMenuWrapper.classList.contains('is-open')) {
-            //         closeMobileMenu();
-            //         if (window.getComputedStyle(document.getElementById('mobileNavToggle')).display !== 'none') {
-            //             document.getElementById('mobileNavToggle').focus();
-            //         }
-
-            //         if (document.getElementById('mainMenuToggle')) {
-            //             document.getElementById('mainMenuToggle').focus();
-            //         }
-            //     }
-            // }
-
-            if (e.key === "Escape") {
-                if (mainMenuWrapper.classList.contains("is-open")) {
-                    // Verifica se il focus è all'interno del menu principale
-                    const isFocusInsideMainMenu =
-                        SiteMenuWrapper.contains(document.activeElement) &&
-                        !document.activeElement.closest(
-                            ".rtds-dropdown-menu__item"
-                        );
-
-                    if (isFocusInsideMainMenu) {
-                        closeMobileMenu();
-
-                        // Se disponibile, ripristina il focus sull'elemento principale di apertura menu
-                        if (document.getElementById("mobileNavToggle")) {
-                            document.getElementById("mobileNavToggle").focus();
-                        }
-                    }
-                }
-            }
-
-            // if ((e.key === 'Tab' || e.keyCode === 9) && !mainMenuWrapper.contains(e.target)) {
-            //     closeMobileMenu();
-            // }
-        });
-
-        document.body.addEventListener("click", function (e) {
-            if (
-                (!SiteMenuWrapper.contains(e.target) ||
-                    document
-                        .querySelector(".rtds-primary-navigation__backdrop")
-                        .contains(e.target)) &&
-                mainMenuWrapper.classList.contains("is-open")
-            ) {
-                closeMobileMenu();
-            }
-        });
+    function toggleIcon(icon) {
+      if (icon.classList.contains("is-hidden")) {
+        icon.classList.remove("is-hidden");
+        icon.classList.add("is-visible");
+      } else if (icon.classList.contains("is-visible")) {
+        icon.classList.remove("is-visible");
+        icon.classList.add("is-hidden");
+      }
     }
+
+    function calculateSiteHeader(header) {
+      headerHeight = header.offsetHeight;
+      rootElement.style.setProperty(
+        "--header-offset",
+        headerHeight + "px"
+      );
+    }
+
+    // function calculateBreadcrumbHeader(breadcrumb) {
+    //     breadcrumbHeight = breadcrumb.offsetHeight;
+    //     rootElement.style.setProperty('--breadcrumb-height', breadcrumbHeight + 'px');
+    // }
+
+    function ariaExpandedToggle(target) {
+      if (target.getAttribute("aria-expanded") === "false") {
+        target.setAttribute("aria-expanded", "true");
+      } else {
+        target.setAttribute("aria-expanded", "false");
+      }
+    }
+
+    function openOffCanvasMenu(button, targetMenu) {
+      button.classList.toggle("is-selected");
+      ariaExpandedToggle(button);
+      targetMenu.classList.toggle("is-open");
+      document.body.classList.toggle("rtds-overflow-hidden");
+    }
+
+    function closeMobileMenu() {
+      if (document.body.classList.contains("rtds-overflow-hidden")) {
+        document.body.classList.remove("rtds-overflow-hidden");
+      }
+
+      mainMenuWrapper.classList.remove("is-open");
+      document
+        .getElementById("mobileNavToggle")
+        .setAttribute("aria-expanded", "false");
+      document
+        .getElementById("mobileNavToggle")
+        .classList.remove("is-selected");
+    }
+
+    function wrapAndAppend(wrapperClass, elementToWrap, parentElement) {
+      // Controlla se l'elemento da avvolgere è già contenuto in un wrapperDiv con la stessa classe
+      var existingWrapper = elementToWrap.closest("." + wrapperClass);
+
+      // Se l'elemento è già avvolto, utilizza il wrapper esistente anziché crearne uno nuovo
+      if (existingWrapper) {
+        existingWrapper.appendChild(elementToWrap);
+      } else {
+        // Altrimenti, crea un nuovo wrapperDiv
+        var wrapperDiv = document.createElement("div");
+        wrapperDiv.classList.add(wrapperClass);
+        wrapperDiv.appendChild(elementToWrap);
+
+        // Prependi il wrapperDiv al parentElement
+        parentElement.appendChild(wrapperDiv);
+        if (mobilePanelLastEl) {
+          parentElement.insertBefore(wrapperDiv, mobilePanelLastEl);
+        } else {
+          parentElement.appendChild(wrapperDiv);
+        }
+      }
+    }
+
+    function unwrapAndRemove(wrapperDiv, elementToUnwrap, parentElement) {
+      if (
+        elementToUnwrap &&
+        elementToUnwrap.parentNode === parentElement
+      ) {
+        parentElement.removeChild(elementToUnwrap);
+      }
+
+      if (wrapperDiv && wrapperDiv.parentNode === parentElement) {
+        parentElement.removeChild(wrapperDiv);
+      }
+    }
+    function handleResize() {
+      if (window.matchMedia("screen and (max-width: 1023px)").matches) {
+        var topBar = document.querySelector(".rtds-top-bar");
+        var bottomBar = document.querySelector(".rtds-bottom-bar");
+
+        /* FOR HEADER WITH NAVIGATION IN TOP BAR */
+        if (topBar && topBar.contains(SiteMenuWrapper)) {
+          document
+            .querySelector(".rtds-main-heading__container")
+            .append(SiteMenuWrapper);
+        }
+
+        /* FOR HEADER WITH NAVIGATION IN BOTTOM BAR */
+        if (bottomBar && bottomBar.contains(SiteMenuWrapper)) {
+          document
+            .querySelector(".rtds-main-heading__container")
+            .append(SiteMenuWrapper);
+        }
+
+        // Verifica altri elementi e le azioni che devono essere fatte su di essi
+        if (headerLinkRight) {
+          wrapAndAppend(
+            "rtds-primary-navigation__module",
+            headerLinkRight,
+            mainMenuWrapper
+          );
+        }
+
+        if (headerSecondaryNav) {
+          wrapAndAppend(
+            "rtds-primary-navigation__module",
+            headerSecondaryNav,
+            mainMenuWrapper
+          );
+        }
+
+        if (headerMainActions) {
+          wrapAndAppend(
+            "rtds-primary-navigation__module",
+            headerMainActions,
+            mainMenuWrapper
+          );
+        }
+
+        if (mobilePanelSecondLastEl) {
+          wrapAndAppend(
+            "rtds-primary-navigation__module",
+            mobilePanelSecondLastEl,
+            mainMenuWrapper
+          );
+        }
+
+        if (headerSocialLinks) {
+          wrapAndAppend(
+            "rtds-primary-navigation__module",
+            headerSocialLinks,
+            mainMenuWrapper
+          );
+        }
+
+        calculateSiteHeader(mainHeading);
+      } else if (
+        window.matchMedia("screen and (min-width: 1024px)").matches
+      ) {
+        // Se la viewport è maggiore o uguale a 1024px
+        var emptyNavModules = document.querySelectorAll(
+          ".rtds-primary-navigation__module:not(.is-main):empty"
+        );
+
+        emptyNavModules.forEach(function (emptyNavModule) {
+          if (
+            SiteMenuWrapper.classList.contains(
+              "is-top-nav-positioned"
+            )
+          ) {
+            var topBarContainer = document.querySelector(
+              ".rtds-top-bar__container"
+            );
+            if (topBarContainer) {
+              topBarContainer.prepend(SiteMenuWrapper);
+            }
+          }
+
+          if (
+            SiteMenuWrapper.classList.contains(
+              "is-bottom-nav-positioned"
+            )
+          ) {
+            var bottomBarContainer = document.querySelector(
+              ".rtds-bottom-bar__container"
+            );
+            if (bottomBarContainer) {
+              bottomBarContainer.prepend(SiteMenuWrapper);
+            }
+          }
+
+          if (headerSecondaryNav) {
+            unwrapAndRemove(
+              emptyNavModule,
+              headerSecondaryNav,
+              mainMenuWrapper
+            );
+          }
+
+          if (headerMainActions) {
+            unwrapAndRemove(
+              emptyNavModule,
+              headerMainActions,
+              mainMenuWrapper
+            );
+          }
+
+          if (mobilePanelSecondLastEl) {
+            unwrapAndRemove(
+              emptyNavModule,
+              mobilePanelSecondLastEl,
+              mainMenuWrapper
+            );
+          }
+
+          if (headerSocialLinks) {
+            unwrapAndRemove(
+              emptyNavModule,
+              headerSocialLinks,
+              mainMenuWrapper
+            );
+          }
+
+          if (headerLinkRight) {
+            unwrapAndRemove(
+              emptyNavModule,
+              headerLinkRight,
+              mainMenuWrapper
+            );
+          }
+        });
+
+        // Riporto headerSocialLinks nel suo posto originale
+        if (headerSecondaryNav) {
+          var topBarContainer = document.querySelector(
+            ".rtds-top-bar__container"
+          );
+          if (topBarContainer) {
+            topBarContainer.prepend(headerSecondaryNav);
+          }
+        }
+
+        if (headerSocialLinks) {
+          var utilitiesArea = document.querySelector(
+            ".rtds-top-bar__utilities-area"
+          );
+          if (utilitiesArea) {
+            utilitiesArea.prepend(headerSocialLinks);
+          }
+        }
+
+        if (headerLinkRight) {
+          var utilitiesArea = document.querySelector(
+            ".rtds-top-bar__utilities-area"
+          );
+          if (utilitiesArea) {
+            utilitiesArea.prepend(headerLinkRight);
+          }
+        }
+
+        if (headerMainActions) {
+          document
+            .querySelector(".rtds-main-heading__container")
+            .append(headerMainActions);
+        }
+
+        if (mobilePanelSecondLastEl) {
+          document
+            .querySelector("#siteHeader")
+            .append(mobilePanelSecondLastEl);
+        }
+
+        calculateSiteHeader(siteHeader);
+      }
+    }
+
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Initialize on page load
+
+    document
+      .getElementById("mobileNavToggle")
+      .addEventListener("click", function (e) {
+        e.preventDefault();
+        openOffCanvasMenu(this, mainMenuWrapper);
+        // console.log('clicked');
+      });
+
+    document.addEventListener("keyup", function (e) {
+      // if (e.key === "Escape") {
+      //     if (mainMenuWrapper.classList.contains('is-open')) {
+      //         closeMobileMenu();
+      //         if (window.getComputedStyle(document.getElementById('mobileNavToggle')).display !== 'none') {
+      //             document.getElementById('mobileNavToggle').focus();
+      //         }
+
+      //         if (document.getElementById('mainMenuToggle')) {
+      //             document.getElementById('mainMenuToggle').focus();
+      //         }
+      //     }
+      // }
+
+      if (e.key === "Escape") {
+        if (mainMenuWrapper.classList.contains("is-open")) {
+          // Verifica se il focus è all'interno del menu principale
+          const isFocusInsideMainMenu =
+            SiteMenuWrapper.contains(document.activeElement) &&
+            !document.activeElement.closest(
+              ".rtds-dropdown-menu__item"
+            );
+
+          if (isFocusInsideMainMenu) {
+            closeMobileMenu();
+
+            // Se disponibile, ripristina il focus sull'elemento principale di apertura menu
+            if (document.getElementById("mobileNavToggle")) {
+              document.getElementById("mobileNavToggle").focus();
+            }
+          }
+        }
+      }
+
+      // if ((e.key === 'Tab' || e.keyCode === 9) && !mainMenuWrapper.contains(e.target)) {
+      //     closeMobileMenu();
+      // }
+    });
+
+    document.body.addEventListener("click", function (e) {
+      if (
+        (!SiteMenuWrapper.contains(e.target) ||
+          document
+            .querySelector(".rtds-primary-navigation__backdrop")
+            .contains(e.target)) &&
+        mainMenuWrapper.classList.contains("is-open")
+      ) {
+        closeMobileMenu();
+      }
+    });
+  }
 });
 
 /* SEARCH DIALOG */
 const openModal = () => {
-    const modal = document.getElementById("searchModal");
-    const modalContent = modal.querySelector(".rtds-modal-content");
-    const header = document.querySelector(".rtds-header");
+  const modal = document.getElementById("searchModal");
+  const modalContent = modal.querySelector(".rtds-modal-content");
+  const header = document.querySelector(".rtds-header");
 
-    modal.style.display = "flex";
-    // modal.classList.add("rtds-z-20");
-    modal.style.zIndex = "20";
-    modal.setAttribute("aria-hidden", "false");
-    header.classList.add("has-search-modal-open");
+  modal.style.display = "flex";
+  // modal.classList.add("rtds-z-20");
+  modal.style.zIndex = "20";
+  modal.setAttribute("aria-hidden", "false");
+  header.classList.add("has-search-modal-open");
 
-    // Get all the focusable elements inside the modal content
-    const focusableElements =
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
-    const firstFocusable = modalContent.querySelectorAll(focusableElements)[0];
-    const fallbackFocusable = modalContent.querySelector(
-        ".is-focusable-element"
-    ); // Adjust the selector if necessary
+  // Get all the focusable elements inside the modal content
+  const focusableElements =
+    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+  const firstFocusable = modalContent.querySelectorAll(focusableElements)[0];
+  const fallbackFocusable = modalContent.querySelector(
+    ".is-focusable-element"
+  ); // Adjust the selector if necessary
 
-    // If there's a focusable element, focus on it; otherwise, focus on the fallback element
-    if (firstFocusable) {
-        firstFocusable.focus();
-    } else if (fallbackFocusable) {
-        fallbackFocusable.setAttribute("tabindex", "-1");
-        fallbackFocusable.focus();
-    }
+  // If there's a focusable element, focus on it; otherwise, focus on the fallback element
+  if (firstFocusable) {
+    firstFocusable.focus();
+  } else if (fallbackFocusable) {
+    fallbackFocusable.setAttribute("tabindex", "-1");
+    fallbackFocusable.focus();
+  }
 
-    if (!document.body.classList.contains("rtds-overflow-hidden")) {
-        document.body.classList.add("rtds-overflow-hidden");
-    }
+  if (!document.body.classList.contains("rtds-overflow-hidden")) {
+    document.body.classList.add("rtds-overflow-hidden");
+  }
 };
 
 const closeModal = () => {
-    const modal = document.getElementById("searchModal");
-    const modalContent = modal.querySelector(".rtds-modal-content");
-    const previouslyFocusedElement =
-        document.getElementById("searchModalTrigger");
-    const header = document.querySelector(".rtds-header");
+  const modal = document.getElementById("searchModal");
+  const modalContent = modal.querySelector(".rtds-modal-content");
+  const previouslyFocusedElement =
+    document.getElementById("searchModalTrigger");
+  const header = document.querySelector(".rtds-header");
 
-    // Remove tabindex from the fallback focusable element
-    const fallbackFocusable = modalContent.querySelector(
-        ".is-focusable-element"
-    );
-    if (fallbackFocusable) {
-        fallbackFocusable.removeAttribute("tabindex");
-    }
+  // Remove tabindex from the fallback focusable element
+  const fallbackFocusable = modalContent.querySelector(
+    ".is-focusable-element"
+  );
+  if (fallbackFocusable) {
+    fallbackFocusable.removeAttribute("tabindex");
+  }
 
-    if (document.body.classList.contains("rtds-overflow-hidden")) {
-        document.body.classList.remove("rtds-overflow-hidden");
-    }
+  if (document.body.classList.contains("rtds-overflow-hidden")) {
+    document.body.classList.remove("rtds-overflow-hidden");
+  }
 
-    modal.style.display = "none";
-    modal.setAttribute("aria-hidden", "true");
-    // modal.classList.remove("rtds-z-10");
-    modal.style.zIndex = "auto";
-    header.classList.remove("has-search-modal-open");
-    previouslyFocusedElement.focus();
+  modal.style.display = "none";
+  modal.setAttribute("aria-hidden", "true");
+  // modal.classList.remove("rtds-z-10");
+  modal.style.zIndex = "auto";
+  header.classList.remove("has-search-modal-open");
+  previouslyFocusedElement.focus();
 };
 
 if (document.getElementById("searchModal")) {
-    document
-        .getElementById("searchModalTrigger")
-        .addEventListener("click", openModal);
+  document
+    .getElementById("searchModalTrigger")
+    .addEventListener("click", openModal);
 
-    document.getElementById("closeModal").addEventListener("click", closeModal);
+  document.getElementById("closeModal").addEventListener("click", closeModal);
 
-    document
-        .getElementById("searchModal")
-        .addEventListener("keydown", function (event) {
-            const modalContent = document.querySelector(".rtds-modal-content");
-            const focusableElements = modalContent.querySelectorAll(
-                'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-            );
-            const firstFocusableElement = focusableElements[0];
-            const lastFocusableElement =
-                focusableElements[focusableElements.length - 1];
+  document
+    .getElementById("searchModal")
+    .addEventListener("keydown", function (event) {
+      const modalContent = document.querySelector(".rtds-modal-content");
+      const focusableElements = modalContent.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      const firstFocusableElement = focusableElements[0];
+      const lastFocusableElement =
+        focusableElements[focusableElements.length - 1];
 
-            if (event.key === "Tab") {
-                if (
-                    event.shiftKey &&
-                    document.activeElement === firstFocusableElement
-                ) {
-                    lastFocusableElement.focus();
-                    event.preventDefault();
-                } else if (
-                    !event.shiftKey &&
-                    document.activeElement === lastFocusableElement
-                ) {
-                    firstFocusableElement.focus();
-                    event.preventDefault();
-                }
-            }
+      if (event.key === "Tab") {
+        if (
+          event.shiftKey &&
+          document.activeElement === firstFocusableElement
+        ) {
+          lastFocusableElement.focus();
+          event.preventDefault();
+        } else if (
+          !event.shiftKey &&
+          document.activeElement === lastFocusableElement
+        ) {
+          firstFocusableElement.focus();
+          event.preventDefault();
+        }
+      }
 
-            if (event.key === "Escape") {
-                closeModal();
-            }
-        });
+      if (event.key === "Escape") {
+        closeModal();
+      }
+    });
 
-    // window.addEventListener('click', function (event) {
-    //     const modal = document.getElementById('searchModal');
-    //     if (event.target === modal) {
-    //         closeModal();
-    //     }
-    // });
+  // window.addEventListener('click', function (event) {
+  //     const modal = document.getElementById('searchModal');
+  //     if (event.target === modal) {
+  //         closeModal();
+  //     }
+  // });
 }
 /** Header.js END **/
 
@@ -482,25 +482,25 @@ if (document.getElementById("searchModal")) {
 
 const cards = document.querySelectorAll(".rtds-card.is-card-fullclickable");
 Array.prototype.forEach.call(cards, (card) => {
-    let down,
-        up,
-        link = card.querySelector(".rtds-card__title a");
-    card.style.cursor = "pointer";
-    card.onmousedown = (e) => {
-        // Verifica se è il tasto sinistro (0)
-        if (e.button === 0) {
-            down = +new Date();
-        }
-    };
-    card.onmouseup = (e) => {
-        // Procedi solo se è il tasto sinistro (0)
-        if (e.button === 0) {
-            up = +new Date();
-            if (up - down < 200) {
-                link.click();
-            }
-        }
-    };
+  let down,
+    up,
+    link = card.querySelector(".rtds-card__title a");
+  card.style.cursor = "pointer";
+  card.onmousedown = (e) => {
+    // Verifica se è il tasto sinistro (0)
+    if (e.button === 0) {
+      down = +new Date();
+    }
+  };
+  card.onmouseup = (e) => {
+    // Procedi solo se è il tasto sinistro (0)
+    if (e.button === 0) {
+      up = +new Date();
+      if (up - down < 200) {
+        link.click();
+      }
+    }
+  };
 });
 /** Card.js END **/
 
@@ -515,152 +515,152 @@ Array.prototype.forEach.call(cards, (card) => {
 ("use strict");
 
 class FacetToggle {
-    constructor(domNode) {
-        this.rootEl = domNode;
-        this.buttonEl = this.rootEl;
+  constructor(domNode) {
+    this.rootEl = domNode;
+    this.buttonEl = this.rootEl;
 
-        const controlsId = this.buttonEl.getAttribute("aria-controls");
-        this.contentEl = document.getElementById(controlsId);
+    const controlsId = this.buttonEl.getAttribute("aria-controls");
+    this.contentEl = document.getElementById(controlsId);
 
-        this.open = this.buttonEl.getAttribute("aria-expanded") === "true";
+    this.open = this.buttonEl.getAttribute("aria-expanded") === "true";
 
-        // add event listeners
-        this.buttonEl.addEventListener("click", this.onButtonClick.bind(this));
+    // add event listeners
+    this.buttonEl.addEventListener("click", this.onButtonClick.bind(this));
+  }
+
+  onButtonClick() {
+    this.toggle(!this.open);
+  }
+
+  toggle(open) {
+    // don't do anything if the open state doesn't change
+    if (open === this.open) {
+      return;
     }
 
-    onButtonClick() {
-        this.toggle(!this.open);
+    // update the internal state
+    this.open = open;
+
+    // handle DOM updates
+    this.buttonEl.setAttribute("aria-expanded", `${open}`);
+    if (open) {
+      this.contentEl.removeAttribute("hidden");
+    } else {
+      this.contentEl.setAttribute("hidden", "");
     }
+  }
 
-    toggle(open) {
-        // don't do anything if the open state doesn't change
-        if (open === this.open) {
-            return;
-        }
+  // Add public open and close methods for convenience
+  open() {
+    this.toggle(true);
+  }
 
-        // update the internal state
-        this.open = open;
-
-        // handle DOM updates
-        this.buttonEl.setAttribute("aria-expanded", `${open}`);
-        if (open) {
-            this.contentEl.removeAttribute("hidden");
-        } else {
-            this.contentEl.setAttribute("hidden", "");
-        }
-    }
-
-    // Add public open and close methods for convenience
-    open() {
-        this.toggle(true);
-    }
-
-    close() {
-        this.toggle(false);
-    }
+  close() {
+    this.toggle(false);
+  }
 }
 
 // init facet toggles
 const facetToggles = document.querySelectorAll("button.rtds-facets__toggle");
 
 if (facetToggles && facetToggles.length > 0) {
-    facetToggles.forEach((facetToggleEl) => {
-        if (facetToggleEl) {
-            new FacetToggle(facetToggleEl);
-        }
-    });
+  facetToggles.forEach((facetToggleEl) => {
+    if (facetToggleEl) {
+      new FacetToggle(facetToggleEl);
+    }
+  });
 }
 
 /* SHOW MORE BTN */
 
 document.querySelectorAll(".article__show-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-        if (btn.getAttribute("data-shown") === "false") {
-            btn.closest(".article").setAttribute("data-expanded", "true");
-            btn.setAttribute("data-shown", "true");
-            btn.textContent = "Show less";
-            btn.closest(".article").querySelector(".article__content").focus();
-        } else {
-            btn.closest(".article").setAttribute("data-expanded", "false");
-            btn.setAttribute("data-shown", "false");
-            btn.textContent = "Show more";
-        }
-    });
+  btn.addEventListener("click", () => {
+    if (btn.getAttribute("data-shown") === "false") {
+      btn.closest(".article").setAttribute("data-expanded", "true");
+      btn.setAttribute("data-shown", "true");
+      btn.textContent = "Show less";
+      btn.closest(".article").querySelector(".article__content").focus();
+    } else {
+      btn.closest(".article").setAttribute("data-expanded", "false");
+      btn.setAttribute("data-shown", "false");
+      btn.textContent = "Show more";
+    }
+  });
 });
 
 /* SHOW MORE FACETS */
 document.addEventListener("DOMContentLoaded", function () {
-    // Seleziona tutti i contenitori che hanno il pulsante "mostra altri"
-    const facetsContainers = document.querySelectorAll(".has-show-more");
+  // Seleziona tutti i contenitori che hanno il pulsante "mostra altri"
+  const facetsContainers = document.querySelectorAll(".has-show-more");
 
-    // Verifica che esistano contenitori con la classe has-show-more
-    if (!facetsContainers || facetsContainers.length === 0) {
-        return; // Esci dalla funzione se non ci sono contenitori
+  // Verifica che esistano contenitori con la classe has-show-more
+  if (!facetsContainers || facetsContainers.length === 0) {
+    return; // Esci dalla funzione se non ci sono contenitori
+  }
+
+  facetsContainers.forEach((container) => {
+    const showMoreBtn = container.querySelector(".rtds-btn--show-more");
+
+    // Verifica che esista il pulsante show more
+    if (!showMoreBtn) {
+      return; // Salta questo container se non ha il pulsante
     }
 
-    facetsContainers.forEach((container) => {
-        const showMoreBtn = container.querySelector(".rtds-btn--show-more");
+    const labelShow = showMoreBtn.querySelector(".rtds-btn__label-show");
+    const labelHide = showMoreBtn.querySelector(".rtds-btn__label-hide");
+    const hiddenItems = container.querySelectorAll(
+      ".rtds-facets__item.is-hideable.rtds-hidden"
+    );
 
-        // Verifica che esista il pulsante show more
-        if (!showMoreBtn) {
-            return; // Salta questo container se non ha il pulsante
-        }
+    // Verifica che esistano le etichette
+    if (!labelShow || !labelHide) {
+      return; // Salta questo container se mancano le etichette
+    }
 
-        const labelShow = showMoreBtn.querySelector(".rtds-btn__label-show");
-        const labelHide = showMoreBtn.querySelector(".rtds-btn__label-hide");
-        const hiddenItems = container.querySelectorAll(
-            ".rtds-facets__item.is-hideable.rtds-hidden"
-        );
+    // Inizializza aria-expanded a false
+    showMoreBtn.setAttribute("aria-expanded", "false");
 
-        // Verifica che esistano le etichette
-        if (!labelShow || !labelHide) {
-            return; // Salta questo container se mancano le etichette
-        }
+    showMoreBtn.addEventListener("click", () => {
+      const isExpanded =
+        showMoreBtn.getAttribute("data-expanded") === "true";
 
-        // Inizializza aria-expanded a false
-        showMoreBtn.setAttribute("aria-expanded", "false");
-
-        showMoreBtn.addEventListener("click", () => {
-            const isExpanded =
-                showMoreBtn.getAttribute("data-expanded") === "true";
-
-            if (!isExpanded) {
-                // Espandi
-                hiddenItems.forEach((item) => {
-                    item.classList.remove("rtds-hidden");
-                });
-
-                // Cambia le etichette
-                labelShow.classList.add("rtds-hidden");
-                labelHide.classList.remove("rtds-hidden");
-
-                // Manda il focus al primo elemento
-                if (hiddenItems.length > 0) {
-                    const firstInput = hiddenItems[0].querySelector(
-                        'input[type="checkbox"]'
-                    );
-                    if (firstInput) {
-                        firstInput.focus();
-                    }
-                }
-
-                showMoreBtn.setAttribute("data-expanded", "true");
-                showMoreBtn.setAttribute("aria-expanded", "true");
-            } else {
-                // Collassa
-                hiddenItems.forEach((item) => {
-                    item.classList.add("rtds-hidden");
-                });
-
-                // Ripristina le etichette
-                labelShow.classList.remove("rtds-hidden");
-                labelHide.classList.add("rtds-hidden");
-
-                showMoreBtn.setAttribute("data-expanded", "false");
-                showMoreBtn.setAttribute("aria-expanded", "false");
-            }
+      if (!isExpanded) {
+        // Espandi
+        hiddenItems.forEach((item) => {
+          item.classList.remove("rtds-hidden");
         });
+
+        // Cambia le etichette
+        labelShow.classList.add("rtds-hidden");
+        labelHide.classList.remove("rtds-hidden");
+
+        // Manda il focus al primo elemento
+        if (hiddenItems.length > 0) {
+          const firstInput = hiddenItems[0].querySelector(
+            'input[type="checkbox"]'
+          );
+          if (firstInput) {
+            firstInput.focus();
+          }
+        }
+
+        showMoreBtn.setAttribute("data-expanded", "true");
+        showMoreBtn.setAttribute("aria-expanded", "true");
+      } else {
+        // Collassa
+        hiddenItems.forEach((item) => {
+          item.classList.add("rtds-hidden");
+        });
+
+        // Ripristina le etichette
+        labelShow.classList.remove("rtds-hidden");
+        labelHide.classList.add("rtds-hidden");
+
+        showMoreBtn.setAttribute("data-expanded", "false");
+        showMoreBtn.setAttribute("aria-expanded", "false");
+      }
     });
+  });
 });
 /** Facets.js END **/
 
@@ -669,37 +669,37 @@ document.addEventListener("DOMContentLoaded", function () {
  * SPLIDE INITIALIZATION
  */
 if (document.querySelector(".rtds-carousel")) {
-    var splide = new Splide(".rtds-carousel", {
-        perPage: 5,
-        focus: 0,
-        type: "loop",
-        omitEnd: true,
-        perMove: 1,
-        gap: "1.5rem",
-        breakpoints: {
-            1280: {
-                perPage: 4,
-            },
-            1024: {
-                perPage: 2,
-            },
-            768: {
-                destroy: true,
-                perPage: 2,
-                arrows: false,
-            },
-            640: {
-                destroy: true,
-                arrows: false,
-            },
-            480: {
-                perPage: 1,
-                arrows: false,
-            },
-        },
-    });
+  var splide = new Splide(".rtds-carousel", {
+    perPage: 5,
+    focus: 0,
+    type: "loop",
+    omitEnd: true,
+    perMove: 1,
+    gap: "1.5rem",
+    breakpoints: {
+      1280: {
+        perPage: 4,
+      },
+      1024: {
+        perPage: 2,
+      },
+      768: {
+        destroy: true,
+        perPage: 2,
+        arrows: false,
+      },
+      640: {
+        destroy: true,
+        arrows: false,
+      },
+      480: {
+        perPage: 1,
+        arrows: false,
+      },
+    },
+  });
 
-    splide.mount();
+  splide.mount();
 }
 /** Carousel.js END **/
 
@@ -717,144 +717,144 @@ if (document.querySelector(".rtds-carousel")) {
 ("use strict");
 
 class TabsManualHorizontal {
-    constructor(groupNode) {
-        this.tablistNode = groupNode;
+  constructor(groupNode) {
+    this.tablistNode = groupNode;
 
-        this.tabs = [];
+    this.tabs = [];
 
-        this.firstTab = null;
-        this.lastTab = null;
+    this.firstTab = null;
+    this.lastTab = null;
 
-        this.tabs = Array.from(
-            this.tablistNode.querySelectorAll("[role=tab].is-tab")
-        );
-        this.tabpanels = [];
+    this.tabs = Array.from(
+      this.tablistNode.querySelectorAll("[role=tab].is-tab")
+    );
+    this.tabpanels = [];
 
-        for (var i = 0; i < this.tabs.length; i += 1) {
-            var tab = this.tabs[i];
-            var tabpanel = document.getElementById(
-                tab.getAttribute("aria-controls")
-            );
+    for (var i = 0; i < this.tabs.length; i += 1) {
+      var tab = this.tabs[i];
+      var tabpanel = document.getElementById(
+        tab.getAttribute("aria-controls")
+      );
 
-            tab.tabIndex = -1;
-            tab.setAttribute("aria-selected", "false");
-            this.tabpanels.push(tabpanel);
+      tab.tabIndex = -1;
+      tab.setAttribute("aria-selected", "false");
+      this.tabpanels.push(tabpanel);
 
-            tab.addEventListener("keydown", this.onKeydown.bind(this));
-            tab.addEventListener("click", this.onClick.bind(this));
+      tab.addEventListener("keydown", this.onKeydown.bind(this));
+      tab.addEventListener("click", this.onClick.bind(this));
 
-            if (!this.firstTab) {
-                this.firstTab = tab;
-            }
-            this.lastTab = tab;
-        }
-
-        this.setSelectedTab(this.firstTab);
+      if (!this.firstTab) {
+        this.firstTab = tab;
+      }
+      this.lastTab = tab;
     }
 
-    setSelectedTab(currentTab) {
-        for (var i = 0; i < this.tabs.length; i += 1) {
-            var tab = this.tabs[i];
-            if (currentTab === tab) {
-                tab.setAttribute("aria-selected", "true");
-                tab.removeAttribute("tabindex");
-                this.tabpanels[i].classList.remove("rtds-hidden");
-            } else {
-                tab.setAttribute("aria-selected", "false");
-                tab.tabIndex = -1;
-                this.tabpanels[i].classList.add("rtds-hidden");
-            }
-        }
+    this.setSelectedTab(this.firstTab);
+  }
+
+  setSelectedTab(currentTab) {
+    for (var i = 0; i < this.tabs.length; i += 1) {
+      var tab = this.tabs[i];
+      if (currentTab === tab) {
+        tab.setAttribute("aria-selected", "true");
+        tab.removeAttribute("tabindex");
+        this.tabpanels[i].classList.remove("rtds-hidden");
+      } else {
+        tab.setAttribute("aria-selected", "false");
+        tab.tabIndex = -1;
+        this.tabpanels[i].classList.add("rtds-hidden");
+      }
+    }
+  }
+
+  moveFocusToTab(currentTab) {
+    currentTab.focus();
+  }
+
+  moveFocusToPreviousTab(currentTab) {
+    var index;
+
+    if (currentTab === this.firstTab) {
+      this.moveFocusToTab(this.lastTab);
+    } else {
+      index = this.tabs.indexOf(currentTab);
+      this.moveFocusToTab(this.tabs[index - 1]);
+    }
+  }
+
+  moveFocusToNextTab(currentTab) {
+    var index;
+
+    if (currentTab === this.lastTab) {
+      this.moveFocusToTab(this.firstTab);
+    } else {
+      index = this.tabs.indexOf(currentTab);
+      this.moveFocusToTab(this.tabs[index + 1]);
+    }
+  }
+
+  /* EVENT HANDLERS */
+
+  onKeydown(event) {
+    var tgt = event.currentTarget,
+      flag = false;
+
+    switch (event.key) {
+      case "ArrowLeft":
+        this.moveFocusToPreviousTab(tgt);
+        flag = true;
+        break;
+
+      case "ArrowUp":
+        this.moveFocusToPreviousTab(tgt);
+        flag = true;
+        break;
+
+      case "ArrowRight":
+        this.moveFocusToNextTab(tgt);
+        flag = true;
+        break;
+
+      case "ArrowDown":
+        this.moveFocusToNextTab(tgt);
+        flag = true;
+        break;
+
+      case "Home":
+        this.moveFocusToTab(this.firstTab);
+        flag = true;
+        break;
+
+      case "End":
+        this.moveFocusToTab(this.lastTab);
+        flag = true;
+        break;
+
+      default:
+        break;
     }
 
-    moveFocusToTab(currentTab) {
-        currentTab.focus();
+    if (flag) {
+      event.stopPropagation();
+      event.preventDefault();
     }
+  }
 
-    moveFocusToPreviousTab(currentTab) {
-        var index;
-
-        if (currentTab === this.firstTab) {
-            this.moveFocusToTab(this.lastTab);
-        } else {
-            index = this.tabs.indexOf(currentTab);
-            this.moveFocusToTab(this.tabs[index - 1]);
-        }
-    }
-
-    moveFocusToNextTab(currentTab) {
-        var index;
-
-        if (currentTab === this.lastTab) {
-            this.moveFocusToTab(this.firstTab);
-        } else {
-            index = this.tabs.indexOf(currentTab);
-            this.moveFocusToTab(this.tabs[index + 1]);
-        }
-    }
-
-    /* EVENT HANDLERS */
-
-    onKeydown(event) {
-        var tgt = event.currentTarget,
-            flag = false;
-
-        switch (event.key) {
-            case "ArrowLeft":
-                this.moveFocusToPreviousTab(tgt);
-                flag = true;
-                break;
-
-            case "ArrowUp":
-                this.moveFocusToPreviousTab(tgt);
-                flag = true;
-                break;
-
-            case "ArrowRight":
-                this.moveFocusToNextTab(tgt);
-                flag = true;
-                break;
-
-            case "ArrowDown":
-                this.moveFocusToNextTab(tgt);
-                flag = true;
-                break;
-
-            case "Home":
-                this.moveFocusToTab(this.firstTab);
-                flag = true;
-                break;
-
-            case "End":
-                this.moveFocusToTab(this.lastTab);
-                flag = true;
-                break;
-
-            default:
-                break;
-        }
-
-        if (flag) {
-            event.stopPropagation();
-            event.preventDefault();
-        }
-    }
-
-    // Since this example uses buttons for the tabs, the click onr also is activated
-    // with the space and enter keys
-    onClick(event) {
-        this.setSelectedTab(event.currentTarget);
-    }
+  // Since this example uses buttons for the tabs, the click onr also is activated
+  // with the space and enter keys
+  onClick(event) {
+    this.setSelectedTab(event.currentTarget);
+  }
 }
 
 // Initialize tablist
 window.addEventListener("load", function () {
-    var tablistsHorizontal = document.querySelectorAll(
-        "[role=tablist].is-manual"
-    );
-    for (var i = 0; i < tablistsHorizontal.length; i++) {
-        new TabsManualHorizontal(tablistsHorizontal[i]);
-    }
+  var tablistsHorizontal = document.querySelectorAll(
+    "[role=tablist].is-manual"
+  );
+  for (var i = 0; i < tablistsHorizontal.length; i++) {
+    new TabsManualHorizontal(tablistsHorizontal[i]);
+  }
 });
 /** Tablist.js END **/
 
@@ -956,15 +956,15 @@ class submenuDisclosure {
   // Nuovo metodo per gestire i toggle dei sub-submenu
   onSubSubmenuToggleClick(event) {
     event.stopPropagation(); // Impedisce la propagazione dell'evento ai livelli superiori
-    
+
     const button = event.currentTarget;
     const isExpanded = button.getAttribute('aria-expanded') === 'true';
     const controlledMenuId = button.getAttribute('aria-controls');
     const controlledMenu = document.getElementById(controlledMenuId);
-    
+
     // Toggle aria-expanded
     button.setAttribute('aria-expanded', (!isExpanded).toString());
-    
+
     // Toggle visualizzazione menu
     if (controlledMenu) {
       controlledMenu.style.display = isExpanded ? 'none' : 'block';
@@ -1017,7 +1017,7 @@ class submenuDisclosure {
 
   onButtonClick(event) {
     var target = event.target;
-    
+
     // Controlla se questo è un bottone di sub-submenu
     if (target.closest('.rtds-side-navigation__second-level-label')) {
       // Lascia che l'evento venga gestito da onSubSubmenuToggleClick
@@ -1133,14 +1133,14 @@ window.addEventListener(
       ////};
 
       // Gestione del click
-      navListToggle.addEventListener('click', function() {
+      navListToggle.addEventListener('click', function () {
         const currentState = this.getAttribute('aria-expanded') === 'true';
         this.setAttribute('aria-expanded', (!currentState).toString());
       });
 
       // Gestione dello scroll
       let lastScrollTop = 0;
-      window.addEventListener('scroll', function() {
+      window.addEventListener('scroll', function () {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         // Se stiamo scrollando verso l'alto e il menu è aperto
         if (scrollTop < lastScrollTop && navListToggle.getAttribute('aria-expanded') === 'true') {
@@ -1177,252 +1177,252 @@ window.addEventListener(
 
 /** Sidebar collapse/expand BEGIN **/
 document.addEventListener("DOMContentLoaded", function () {
-    "use strict";
-    var sideBar = document.querySelector(".rtds-sidebar");
-    var sideBarBtn = document.querySelector(".rtds-sidebar-btn");
-    var sideBarBtnIcon = document.querySelector(".rtds-sidebar-btn > svg");
-    var sidebarContent = document.querySelector(".rtds-sidebar-content");
-    var sidebarContentWidth;
-    
-    if (sideBar && sidebarContent) {
-        sidebarContentWidth = sidebarContent.offsetWidth;
-        sidebarContent.style.width = sidebarContentWidth + "px";
-    }
+  "use strict";
+  var sideBar = document.querySelector(".rtds-sidebar");
+  var sideBarBtn = document.querySelector(".rtds-sidebar-btn");
+  var sideBarBtnIcon = document.querySelector(".rtds-sidebar-btn > svg");
+  var sidebarContent = document.querySelector(".rtds-sidebar-content");
+  var sidebarContentWidth;
 
-    function collapseExpandSidebar() {
-        if (!sideBar || !sidebarContent) return;
-        
-        if (sideBar.getAttribute("aria-expanded") === "true") {
-            sidebarContent.style.width = "0px";
-            sidebarContent.style.transform = "scaleX(0)";
-            sidebarContent.style.opacity = "0";
-            if (sideBarBtnIcon) {
-                sideBarBtnIcon.style.transform = "rotate(180deg)";
-            }
-            sideBar.setAttribute("aria-expanded", "false");
-        } else {
-            sidebarContent.style.width = sidebarContentWidth + "px";
-            sidebarContent.style.transform = "scaleX(1)";
-            sidebarContent.style.opacity = "1";
-            if (sideBarBtnIcon) {
-                sideBarBtnIcon.style.transform = "rotate(0deg)";
-            }
-            sideBar.setAttribute("aria-expanded", "true");
-        }
-    }
+  if (sideBar && sidebarContent) {
+    sidebarContentWidth = sidebarContent.offsetWidth;
+    sidebarContent.style.width = sidebarContentWidth + "px";
+  }
 
-    if (sideBarBtn) {
-        sideBarBtn.addEventListener("click", function (e) {
-            collapseExpandSidebar();
-        });
+  function collapseExpandSidebar() {
+    if (!sideBar || !sidebarContent) return;
+
+    if (sideBar.getAttribute("aria-expanded") === "true") {
+      sidebarContent.style.width = "0px";
+      sidebarContent.style.transform = "scaleX(0)";
+      sidebarContent.style.opacity = "0";
+      if (sideBarBtnIcon) {
+        sideBarBtnIcon.style.transform = "rotate(180deg)";
+      }
+      sideBar.setAttribute("aria-expanded", "false");
+    } else {
+      sidebarContent.style.width = sidebarContentWidth + "px";
+      sidebarContent.style.transform = "scaleX(1)";
+      sidebarContent.style.opacity = "1";
+      if (sideBarBtnIcon) {
+        sideBarBtnIcon.style.transform = "rotate(0deg)";
+      }
+      sideBar.setAttribute("aria-expanded", "true");
     }
+  }
+
+  if (sideBarBtn) {
+    sideBarBtn.addEventListener("click", function (e) {
+      collapseExpandSidebar();
+    });
+  }
 });
 /** Sidebar collapse/expand END **/
 
 /** Form with validation BEGIN **/
 document.addEventListener("DOMContentLoaded", function () {
-    ///* Regex per verifica email */
-    const emailRegex = /\S+@\S+\.\S+/; // has @ and .
+  ///* Regex per verifica email */
+  const emailRegex = /\S+@\S+\.\S+/; // has @ and .
 
-    ///* Form */
-    const elForm = document.getElementById("hasValidationForm");
+  ///* Form */
+  const elForm = document.getElementById("hasValidationForm");
 
-    if (elForm) {
-        ///* Campi form */
-        const elRequiredName = document.getElementsByClassName("is-name")[0];
-        const elRequiredFamilyname =
-            document.getElementsByClassName("is-familyname")[0];
-        const elPrivacy = document.getElementsByClassName("is-privacy")[0];
-        const elEmail = document.getElementsByClassName("is-email")[0];
+  if (elForm) {
+    ///* Campi form */
+    const elRequiredName = document.getElementsByClassName("is-name")[0];
+    const elRequiredFamilyname =
+      document.getElementsByClassName("is-familyname")[0];
+    const elPrivacy = document.getElementsByClassName("is-privacy")[0];
+    const elEmail = document.getElementsByClassName("is-email")[0];
 
-        ///* Errori form da verificare */
-        const formErrors = {
-            name: false,
-            familyname: false,
-            email: false,
-            privacy: false,
-        };
+    ///* Errori form da verificare */
+    const formErrors = {
+      name: false,
+      familyname: false,
+      email: false,
+      privacy: false,
+    };
 
-        let hasSubmitted = false;
+    let hasSubmitted = false;
 
-        validateField({
-            elField: elEmail,
-            validateFn: validateFieldEmail,
-        });
+    validateField({
+      elField: elEmail,
+      validateFn: validateFieldEmail,
+    });
 
-        validateField({
-            elField: elRequiredName,
-            validateFn: validateFieldRequired,
-            errorKey: "name",
-        });
+    validateField({
+      elField: elRequiredName,
+      validateFn: validateFieldRequired,
+      errorKey: "name",
+    });
 
-        validateField({
-            elField: elRequiredFamilyname,
-            validateFn: validateFieldRequired,
-            errorKey: "familyname",
-        });
+    validateField({
+      elField: elRequiredFamilyname,
+      validateFn: validateFieldRequired,
+      errorKey: "familyname",
+    });
 
-        validateField({
-            elField: elPrivacy,
-            validateFn: validateFieldPrivacy,
-        });
+    validateField({
+      elField: elPrivacy,
+      validateFn: validateFieldPrivacy,
+    });
 
-        // Gestione validazione su 3 eventi: change, blur, keyup
-        function validateField({ elField, validateFn, errorKey }) {
-            let touched = false;
+    // Gestione validazione su 3 eventi: change, blur, keyup
+    function validateField({ elField, validateFn, errorKey }) {
+      let touched = false;
 
-            elField.addEventListener("change", (e) => {
-                touched = true; // mark it as touched so that on blur it shows the error.
-                validateFn(e.target, { live: true, errorKey });
-                if (hasSubmitted) {
-                    updateSubmitSummary();
-                }
-            });
-
-            elField.addEventListener("keyup", (e) => {
-                // remove any error on keyup if existent
-                validateFn(e.target, { removeOnly: true, errorKey });
-
-                if (hasSubmitted) {
-                    updateSubmitSummary();
-                }
-            });
-
-            elField.addEventListener("blur", (e) => {
-                if (!touched) return;
-                // show error if touched
-                validateFn(e.target, { live: true, errorKey });
-            });
+      elField.addEventListener("change", (e) => {
+        touched = true; // mark it as touched so that on blur it shows the error.
+        validateFn(e.target, { live: true, errorKey });
+        if (hasSubmitted) {
+          updateSubmitSummary();
         }
+      });
 
-        // Controllo email
-        function validateFieldEmail(el, opts) {
-            const isEmpty = el.value === "";
-            updateFieldDOM(el, !isEmpty, "Email obbligatoria.", opts);
+      elField.addEventListener("keyup", (e) => {
+        // remove any error on keyup if existent
+        validateFn(e.target, { removeOnly: true, errorKey });
 
-            if (isEmpty) {
-                formErrors.email = true;
-            } else {
-                const isEmailValid = el.value.match(emailRegex);
-                updateFieldDOM(el, isEmailValid, "Email non valida.", opts);
-                formErrors.email = !isEmailValid;
-            }
+        if (hasSubmitted) {
+          updateSubmitSummary();
         }
+      });
 
-        // Validazione campi obbligatori
-        function validateFieldRequired(el, opts) {
-            const isEmpty = el.value === "";
-            const errorKey = opts?.errorKey;
-            const elField = el.closest(".rtds-input-field");
-            const elLabel = elField.querySelector(
-                ".rtds-input-field__label-text"
-            );
-            const fieldLabel = elLabel ? elLabel.innerText : "Field";
-
-            updateFieldDOM(el, !isEmpty, `${fieldLabel} obbligatorio.`, opts);
-
-            if (errorKey) {
-                formErrors[errorKey] = isEmpty;
-            }
-        }
-
-        // Validazione campo privacy (checkbox)
-        function validateFieldPrivacy(el, opts) {
-            const isNotChecked = el.checked === false;
-            updateFieldDOM(
-                el,
-                !isNotChecked,
-                "Devi dichiarare di aver letto la Privacy Policy.",
-                opts
-            );
-
-            formErrors.privacy = isNotChecked;
-        }
-
-        // Aggiornamento errore nel campo e gestione attributi accessibilità
-        function updateFieldDOM(el, isValid, errorMessage, opts) {
-            const removeOnly = opts?.removeOnly;
-            const isLive = opts?.live;
-            const elField = el.closest(".rtds-input-field");
-            const elError = elField.querySelector(".rtds-input-field__error");
-
-            if (isValid) {
-                elField.classList.remove("is-invalid");
-                elError.innerText = ""; // It's valid
-                el.removeAttribute("aria-invalid");
-            } else if (!removeOnly) {
-                elField.classList.add("is-invalid");
-                el.setAttribute("aria-invalid", "true");
-                elError.setAttribute("aria-live", isLive ? "assertive" : "off");
-                elError.innerText = errorMessage;
-            }
-        }
-
-        // Aggiornamento feedback form a invio
-        function updateSubmitSummary({ isSubmit } = {}) {
-            const elSummary = elForm.querySelector(".rtds-form-feedback");
-            const elSummaryMsg = elSummary.querySelector(
-                ".rtds-form-feedback-msg"
-            );
-
-            // Clear form feedback
-            elSummaryMsg.classList.remove("is-invalid");
-            elSummaryMsg.classList.remove("is-success");
-            elSummaryMsg.innerText = "";
-            const errorsState = Object.entries(formErrors);
-
-            const invalidFields = errorsState
-                .filter(([key, value]) => value === true)
-                .map(([key]) => {
-                    const elField = elForm.querySelector(`.is-${key}`);
-                    return elField ? elField.getAttribute("data-label") : key;
-                });
-
-            if (invalidFields.length > 0) {
-                // Show error msg
-                const errorCount = invalidFields.length;
-                const errorMsg =
-                    errorCount === 1
-                        ? `È presente ${errorCount} campo non valido: ${invalidFields.join(
-                              ", "
-                          )}.`
-                        : `Sono presenti ${errorCount} campi non validi: ${invalidFields.join(
-                              ", "
-                          )}.`;
-
-                elSummaryMsg.classList.add("is-invalid");
-                elSummaryMsg.innerText = errorMsg;
-
-                elSummary.querySelector(".rtds-form-feedback-sr").innerText =
-                    isSubmit
-                        ? // Set SR error message only on submit to avoid being re-announced
-                          // every time the error summary visually changes.
-                          errorMsg
-                        : "";
-            } else if (isSubmit) {
-                const successMsg = "Form inviata con successo.";
-                elSummary.querySelector(".rtds-form-feedback-sr").innerText =
-                    successMsg;
-                elSummaryMsg.innerText = successMsg;
-                elSummaryMsg.classList.add("is-success");
-            }
-        }
-
-        elForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-            hasSubmitted = true;
-
-            // Validate again
-            validateFieldEmail(elEmail);
-            validateFieldRequired(elRequiredName, { errorKey: "name" });
-            validateFieldRequired(elRequiredFamilyname, {
-                errorKey: "familyname",
-            });
-            validateFieldPrivacy(elPrivacy);
-
-            updateSubmitSummary({ isSubmit: true });
-        });
+      elField.addEventListener("blur", (e) => {
+        if (!touched) return;
+        // show error if touched
+        validateFn(e.target, { live: true, errorKey });
+      });
     }
+
+    // Controllo email
+    function validateFieldEmail(el, opts) {
+      const isEmpty = el.value === "";
+      updateFieldDOM(el, !isEmpty, "Email obbligatoria.", opts);
+
+      if (isEmpty) {
+        formErrors.email = true;
+      } else {
+        const isEmailValid = el.value.match(emailRegex);
+        updateFieldDOM(el, isEmailValid, "Email non valida.", opts);
+        formErrors.email = !isEmailValid;
+      }
+    }
+
+    // Validazione campi obbligatori
+    function validateFieldRequired(el, opts) {
+      const isEmpty = el.value === "";
+      const errorKey = opts?.errorKey;
+      const elField = el.closest(".rtds-input-field");
+      const elLabel = elField.querySelector(
+        ".rtds-input-field__label-text"
+      );
+      const fieldLabel = elLabel ? elLabel.innerText : "Field";
+
+      updateFieldDOM(el, !isEmpty, `${fieldLabel} obbligatorio.`, opts);
+
+      if (errorKey) {
+        formErrors[errorKey] = isEmpty;
+      }
+    }
+
+    // Validazione campo privacy (checkbox)
+    function validateFieldPrivacy(el, opts) {
+      const isNotChecked = el.checked === false;
+      updateFieldDOM(
+        el,
+        !isNotChecked,
+        "Devi dichiarare di aver letto la Privacy Policy.",
+        opts
+      );
+
+      formErrors.privacy = isNotChecked;
+    }
+
+    // Aggiornamento errore nel campo e gestione attributi accessibilità
+    function updateFieldDOM(el, isValid, errorMessage, opts) {
+      const removeOnly = opts?.removeOnly;
+      const isLive = opts?.live;
+      const elField = el.closest(".rtds-input-field");
+      const elError = elField.querySelector(".rtds-input-field__error");
+
+      if (isValid) {
+        elField.classList.remove("is-invalid");
+        elError.innerText = ""; // It's valid
+        el.removeAttribute("aria-invalid");
+      } else if (!removeOnly) {
+        elField.classList.add("is-invalid");
+        el.setAttribute("aria-invalid", "true");
+        elError.setAttribute("aria-live", isLive ? "assertive" : "off");
+        elError.innerText = errorMessage;
+      }
+    }
+
+    // Aggiornamento feedback form a invio
+    function updateSubmitSummary({ isSubmit } = {}) {
+      const elSummary = elForm.querySelector(".rtds-form-feedback");
+      const elSummaryMsg = elSummary.querySelector(
+        ".rtds-form-feedback-msg"
+      );
+
+      // Clear form feedback
+      elSummaryMsg.classList.remove("is-invalid");
+      elSummaryMsg.classList.remove("is-success");
+      elSummaryMsg.innerText = "";
+      const errorsState = Object.entries(formErrors);
+
+      const invalidFields = errorsState
+        .filter(([key, value]) => value === true)
+        .map(([key]) => {
+          const elField = elForm.querySelector(`.is-${key}`);
+          return elField ? elField.getAttribute("data-label") : key;
+        });
+
+      if (invalidFields.length > 0) {
+        // Show error msg
+        const errorCount = invalidFields.length;
+        const errorMsg =
+          errorCount === 1
+            ? `È presente ${errorCount} campo non valido: ${invalidFields.join(
+              ", "
+            )}.`
+            : `Sono presenti ${errorCount} campi non validi: ${invalidFields.join(
+              ", "
+            )}.`;
+
+        elSummaryMsg.classList.add("is-invalid");
+        elSummaryMsg.innerText = errorMsg;
+
+        elSummary.querySelector(".rtds-form-feedback-sr").innerText =
+          isSubmit
+            ? // Set SR error message only on submit to avoid being re-announced
+            // every time the error summary visually changes.
+            errorMsg
+            : "";
+      } else if (isSubmit) {
+        const successMsg = "Form inviata con successo.";
+        elSummary.querySelector(".rtds-form-feedback-sr").innerText =
+          successMsg;
+        elSummaryMsg.innerText = successMsg;
+        elSummaryMsg.classList.add("is-success");
+      }
+    }
+
+    elForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      hasSubmitted = true;
+
+      // Validate again
+      validateFieldEmail(elEmail);
+      validateFieldRequired(elRequiredName, { errorKey: "name" });
+      validateFieldRequired(elRequiredFamilyname, {
+        errorKey: "familyname",
+      });
+      validateFieldPrivacy(elPrivacy);
+
+      updateSubmitSummary({ isSubmit: true });
+    });
+  }
 });
 /** Form with validation END **/
 
@@ -1551,7 +1551,7 @@ aria.Utils = aria.Utils || {};
           }
         }
       }
-      
+
       // Gestione normale della chiusura della modale
       if (aria.closeCurrentDialog()) {
         event.stopPropagation();
@@ -1672,12 +1672,12 @@ aria.Utils = aria.Utils || {};
   }; // end Dialog constructor
 
   //aria.Dialog.prototype.clearDialog = function () {
-    // Array.prototype.map.call(
-    //   this.dialogNode.querySelectorAll('input'),
-    //   function (input) {
-    //     input.value = '';
-    //   }
-    // );
+  // Array.prototype.map.call(
+  //   this.dialogNode.querySelectorAll('input'),
+  //   function (input) {
+  //     input.value = '';
+  //   }
+  // );
   //};
 
   /**
@@ -1807,9 +1807,9 @@ aria.Utils = aria.Utils || {};
   }; // end replaceDialog
 
   // Gestione automatica dei modali con classe rtds-dialog--visible
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     var visibleDialogs = document.querySelectorAll('.rtds-dialog--visible');
-    visibleDialogs.forEach(function(dialog) {
+    visibleDialogs.forEach(function (dialog) {
       var dialogElement = dialog.querySelector('[role="dialog"]');
       if (dialogElement) {
         openDialog(dialogElement.id, document.body);
@@ -1819,41 +1819,82 @@ aria.Utils = aria.Utils || {};
 
   // Inizializza velocemente solo i toggle nella modale
   window.originalOpenDialog = window.openDialog;
-  window.openDialog = function(dialogId, focusAfterClosed, focusFirst) {
+  window.openDialog = function (dialogId, focusAfterClosed, focusFirst) {
     // Chiama la funzione originale
     originalOpenDialog(dialogId, focusAfterClosed, focusFirst);
-    
+
     // Inizializza solo i toggle nella modale
     var dialog = document.getElementById(dialogId);
     if (dialog) {
+      // Nascondi tutti i div facet-section con indice >= 2
+      var facetSections = dialog.querySelectorAll('[id^="facet-section-"]');
+      var facetToggles = dialog.querySelectorAll('[id^="facet-id-"]');
+      facetSections.forEach(function (section) {
+        var match = section.id.match(/facet-section-(\d+)/);
+        if (match && parseInt(match[1]) >= 2) {
+          section.setAttribute('hidden', '');
+        }
+      });
+      facetToggles.forEach(function (toggle) {
+        var match = toggle.id.match(/facet-id-(\d+)/);
+        if (match && parseInt(match[1]) >= 2) {
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Aggiungi event listener per il toggle
+      facetToggles.forEach(function (toggle) {
+        toggle.addEventListener('click', function (event) {
+          event.preventDefault();
+          toggle.setAttribute('aria-expanded', 'true');
+          // Recupera il numero dall'id del toggle (es. facet-id-2 -> 2)
+          var match = toggle.id.match(/facet-id-(\d+)/);
+          if (match) {
+            var sectionId = 'facet-section-' + match[1];
+            var section = dialog.querySelector('#' + sectionId);
+            if (section) {
+              // Mostra o nasconde la sezione associata
+              var isHidden = section.hasAttribute('hidden');
+              if (isHidden) {
+                section.removeAttribute('hidden');
+                toggle.setAttribute('aria-expanded', 'true');
+              } else {
+                section.setAttribute('hidden', '');
+                toggle.setAttribute('aria-expanded', 'false');
+              }
+            }
+          }
+        });
+      });
+
       var toggleButtons = dialog.querySelectorAll('[data-module="opendata_theme_toggle"]');
-      toggleButtons.forEach(function(button) {
+      toggleButtons.forEach(function (button) {
         if (!button._toggleInitialized) {
           // Inizializza lo stato corretto del pulsante nella modale
           button.setAttribute('aria-expanded', 'false');
-          
+
           // Nascondi inizialmente gli elementi dopo il 10°
           var targetSelector = button.getAttribute('data-module-target');
           var container = targetSelector ? $(targetSelector) : $(button).closest('.rtds-facets__content');
           if (container.length) {
             var allItems = container.find('ul li');
-            allItems.each(function(index) {
+            allItems.each(function (index) {
               if (index >= 10) {
                 this.style.display = 'none';
                 $(this).addClass('rtds-hidden');
               }
             });
           }
-          $(button).on('click', function(event) {
+          $(button).on('click', function (event) {
             event.preventDefault();
-            
+
             var targetSelector = button.getAttribute('data-module-target');
             var container = $(targetSelector);
             var allItems = container.find('.rtds-facets__item');
-            
+
             // SOLO LOGICA MODALE - usa il comando jQuery che funziona
             $(targetSelector + " .rtds-facets__item.rtds-hidden").toggle();
-            
+
             // Toggle etichette
             $(button).find('.rtds-btn__label-show, .rtds-btn__label-hide').toggleClass('rtds-hidden');
           });
@@ -2001,45 +2042,45 @@ aria.Utils.bindMethods = function (object /* , ...methodNames */) {
 ("use strict");
 
 ckan.module("opendata_theme_click", function ($) {
-    return {
-        initialize: function () {
-            this.el.on("click", this._onClick.bind(this));
-        },
+  return {
+    initialize: function () {
+      this.el.on("click", this._onClick.bind(this));
+    },
 
-        _onClick: function (event) {
-            event.preventDefault();
-            window.location.href = this.options.url;
-        },
-    };
+    _onClick: function (event) {
+      event.preventDefault();
+      window.location.href = this.options.url;
+    },
+  };
 });
 
 ckan.module("opendata_theme_toggle", function ($) {
   return {
-      initialize: function () {
-          this.el.on("click", this._onClick.bind(this));
-      },
+    initialize: function () {
+      this.el.on("click", this._onClick.bind(this));
+    },
 
-      _onClick: function (event) {
-          event.preventDefault();
-          
-          var container = this.options.target ? $(this.options.target) : this.el.closest('.rtds-facets__content');
-          if (!container.length) return;
-          
-          var hiddenItems = container.find('.rtds-facets__item.rtds-hidden');
-          var isExpanding = hiddenItems.length > 0;
-          
-          if (isExpanding) {
-              // Mostra tutti gli elementi
-              hiddenItems.removeClass('rtds-hidden');
-              this.el.attr('aria-expanded', 'true');
-          } else {
-              // Nascondi elementi dopo il 10°
-              container.find('.rtds-facets__item').slice(10).addClass('rtds-hidden');
-              this.el.attr('aria-expanded', 'false');
-          }
-          
-          // Toggle etichette
-          this.el.find('.rtds-btn__label-show, .rtds-btn__label-hide').toggleClass('rtds-hidden');
-      },
+    _onClick: function (event) {
+      event.preventDefault();
+
+      var container = this.options.target ? $(this.options.target) : this.el.closest('.rtds-facets__content');
+      if (!container.length) return;
+
+      var hiddenItems = container.find('.rtds-facets__item.rtds-hidden');
+      var isExpanding = hiddenItems.length > 0;
+
+      if (isExpanding) {
+        // Mostra tutti gli elementi
+        hiddenItems.removeClass('rtds-hidden');
+        this.el.attr('aria-expanded', 'true');
+      } else {
+        // Nascondi elementi dopo il 10°
+        container.find('.rtds-facets__item').slice(10).addClass('rtds-hidden');
+        this.el.attr('aria-expanded', 'false');
+      }
+
+      // Toggle etichette
+      this.el.find('.rtds-btn__label-show, .rtds-btn__label-hide').toggleClass('rtds-hidden');
+    },
   };
 });
