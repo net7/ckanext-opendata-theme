@@ -263,7 +263,7 @@
     }
 
     :where(.rtds-card--information)  .rtds-card__title {
-        @apply rtds-content-02 rtds-text-xl;
+        @apply rtds-font-heading rtds-content-02 rtds-text-xl;
     }
 
     :where(.rtds-card--information-02) .rtds-card__title {
@@ -340,6 +340,6 @@
     }
 
     :where(.rtds-card--dati) .rtds-card__metadata {
-        @apply lg:rtds-flex-nowrap rtds-justify-center lg:rtds-justify-start rtds-items-center rtds-text-sm -rtds-ml-3;
+        @apply rtds-flex-nowrap rtds-justify-start rtds-items-center rtds-text-sm -rtds-ml-3;
     }
 }

@@ -5,7 +5,7 @@
 /* Heading typography */
 @layer base {
     .rtds-heading-1 {
-        @apply rtds-font-heading rtds-font-bold rtds-text-2xl lg:rtds-text-3xl xl:rtds-text-4xl 2xl:rtds-text-5xl rtds-leading-none;
+        @apply rtds-font-heading rtds-font-bold rtds-text-2xl lg:rtds-text-3xl xl:rtds-text-4xl 2xl:rtds-text-5xl rtds-leading-normal lg:rtds-leading-none;
     }
 
     .rtds-heading-2 {

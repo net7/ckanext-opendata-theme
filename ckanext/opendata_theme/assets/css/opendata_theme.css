@@ -810,17 +810,21 @@ address {
   }
 }
 
+[placeholder] {
+  text-overflow: ellipsis;
+}
+
 .rtds-heading-1 {
   font-family: var(--fontfamily-heading), sans-serif;
   font-size: var(--fontsize-text-2xl);
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.5;
 }
 
 @media (min-width: 1024px) {
   .rtds-heading-1 {
     font-size: 2rem;
-    line-height: 1.2;
+    line-height: 1;
   }
 }
 
@@ -1313,6 +1317,8 @@ address {
   /* Divisore invertito */
 }
 
+/* Run time applied classes with Js, not compiled by Tailwind */
+
 .rtds-dialog-backdrop {
   background-color: rgba(0, 0, 0, 0.25);
   bottom: var(--spacing-0);
@@ -1653,28 +1659,6 @@ abbr[data-bs-original-title] {
 .rtds-btn--primary:active {
   background-color: var(--color-button-primary-active);
   border-color: var(--color-button-primary-active);
-}
-
-.rtds-btn--secondary {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
-  background-color: var(--color-button-secondary);
-  border-color: var(--color-button-secondary);
-}
-
-.rtds-btn--secondary:hover {
-  background-color: var(--color-button-secondary-hover);
-  border-color: var(--color-button-secondary-hover);
-}
-
-.rtds-btn--secondary:focus {
-  background-color: var(--color-button-secondary-hover);
-  border-color: var(--color-button-secondary-hover);
-}
-
-.rtds-btn--secondary:active {
-  background-color: var(--color-button-secondary-active);
-  border-color: var(--color-button-secondary-active);
 }
 
 .rtds-btn--only-text {
@@ -2499,6 +2483,7 @@ body:where(.rtds-card--news) .rtds-card__image-wrapper .rtds-primary-navigation_
 }
 
 :where(.rtds-card--information)  .rtds-card__title {
+  font-family: var(--fontfamily-heading), sans-serif;
   font-size: var(--fontsize-text-xl);
   color: var(--color-content-02);
 }
@@ -2593,16 +2578,10 @@ body:where(.rtds-card--news) .rtds-card__image-wrapper .rtds-primary-navigation_
 
 :where(.rtds-card--dati) .rtds-card__metadata {
   margin-left: calc(var(--spacing-3) * -1);
+  flex-wrap: nowrap;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   font-size: var(--fontsize-text-sm);
-}
-
-@media (min-width: 1024px) {
-  :where(.rtds-card--dati) .rtds-card__metadata {
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-  }
 }
 
 .rtds-input-checkbox input[type="checkbox"] {
@@ -3538,26 +3517,22 @@ legend.rtds-facets__legend {
 
 /* dialog::backdrop */
 
-/* .rtds-dialog-backdrop {
-        @apply rtds-hidden rtds-fixed rtds-overflow-y-auto rtds-w-full rtds-h-full rtds-top-0 rtds-right-0 rtds-bottom-0 rtds-left-0 rtds-z-40 rtds-bg-black/25;
-    } */
+.rtds-dialog-backdrop {
+  position: fixed;
+  top: var(--spacing-0);
+  right: var(--spacing-0);
+  bottom: var(--spacing-0);
+  left: var(--spacing-0);
+  z-index: 40;
+  display: none;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  background-color: rgb(0 0 0 / 0.25);
+}
 
 .rtds-dialog-backdrop.is-active {
   display: block;
-}
-
-.rtds-dialog-backdrop {
-  background-color: rgba(0, 0, 0, 0.25);
-  bottom: var(--spacing-0);
-  display: none;
-  height: 100%;
-  left: var(--spacing-0);
-  overflow-y: auto;
-  position: fixed;
-  right: var(--spacing-0);
-  top: var(--spacing-0);
-  width: 100%;
-  z-index: 40;
 }
 
 /* this is added to the body when a dialog is open */
@@ -4167,6 +4142,10 @@ legend.rtds-facets__legend {
   height: var(--spacing-2);
 }
 
+.rtds-h-20 {
+  height: var(--spacing-20);
+}
+
 .rtds-h-4 {
   height: var(--spacing-4);
 }
@@ -4219,6 +4198,10 @@ legend.rtds-facets__legend {
   width: var(--spacing-2);
 }
 
+.rtds-w-20 {
+  width: var(--spacing-20);
+}
+
 .rtds-w-4 {
   width: var(--spacing-4);
 }
@@ -4237,6 +4220,10 @@ legend.rtds-facets__legend {
 
 .rtds-w-8 {
   width: var(--spacing-8);
+}
+
+.rtds-w-\[90\%\] {
+  width: 90%;
 }
 
 .rtds-w-auto {
@@ -4282,6 +4269,10 @@ legend.rtds-facets__legend {
 }
 
 .rtds-flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+.rtds-shrink-0 {
   flex-shrink: 0;
 }
 
@@ -4579,6 +4570,11 @@ legend.rtds-facets__legend {
 
 .rtds-p-6 {
   padding: var(--spacing-6);
+}
+
+.rtds-px-0 {
+  padding-left: var(--spacing-0);
+  padding-right: var(--spacing-0);
 }
 
 .rtds-px-10 {
@@ -5526,12 +5522,28 @@ legend.rtds-facets__legend {
     width: auto;
   }
 
+  .sm\:rtds-grow {
+    flex-grow: 1;
+  }
+
   .sm\:rtds-grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .sm\:rtds-flex-wrap {
+    flex-wrap: wrap;
+  }
+
   .sm\:rtds-flex-nowrap {
     flex-wrap: nowrap;
+  }
+
+  .sm\:rtds-justify-end {
+    justify-content: flex-end;
+  }
+
+  .sm\:rtds-justify-between {
+    justify-content: space-between;
   }
 
   .sm\:rtds-overflow-auto {
@@ -5608,10 +5620,6 @@ legend.rtds-facets__legend {
     flex: none;
   }
 
-  .md\:rtds-grow {
-    flex-grow: 1;
-  }
-
   .md\:rtds-scroll-m-0 {
     scroll-margin: var(--spacing-0);
   }
@@ -5624,16 +5632,8 @@ legend.rtds-facets__legend {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .md\:rtds-flex-wrap {
-    flex-wrap: wrap;
-  }
-
   .md\:rtds-items-center {
     align-items: center;
-  }
-
-  .md\:rtds-justify-end {
-    justify-content: flex-end;
   }
 
   .md\:rtds-justify-between {
@@ -5725,6 +5725,10 @@ legend.rtds-facets__legend {
     margin-right: var(--spacing-6);
   }
 
+  .lg\:rtds-mb-0 {
+    margin-bottom: var(--spacing-0);
+  }
+
   .lg\:rtds-ml-2 {
     margin-left: var(--spacing-2);
   }
@@ -5745,6 +5749,10 @@ legend.rtds-facets__legend {
     display: none;
   }
 
+  .lg\:rtds-h-28 {
+    height: var(--spacing-28);
+  }
+
   .lg\:rtds-h-5 {
     height: var(--spacing-5);
   }
@@ -5759,6 +5767,10 @@ legend.rtds-facets__legend {
 
   .lg\:rtds-w-1\/2 {
     width: 50%;
+  }
+
+  .lg\:rtds-w-28 {
+    width: var(--spacing-28);
   }
 
   .lg\:rtds-w-5 {
@@ -5837,9 +5849,19 @@ legend.rtds-facets__legend {
     padding: var(--spacing-4);
   }
 
+  .lg\:rtds-px-10 {
+    padding-left: var(--spacing-10);
+    padding-right: var(--spacing-10);
+  }
+
   .lg\:rtds-px-16 {
     padding-left: var(--spacing-16);
     padding-right: var(--spacing-16);
+  }
+
+  .lg\:rtds-py-0 {
+    padding-top: var(--spacing-0);
+    padding-bottom: var(--spacing-0);
   }
 
   .lg\:rtds-py-16 {
@@ -5867,6 +5889,10 @@ legend.rtds-facets__legend {
 
   .lg\:rtds-pt-0 {
     padding-top: var(--spacing-0);
+  }
+
+  .lg\:rtds-text-center {
+    text-align: center;
   }
 
   .lg\:rtds-text-6xl {

@@ -31,6 +31,10 @@
             scroll-behavior: auto !important;
         }
     }
+
+    [placeholder] {
+        text-overflow: ellipsis;
+    }
 }
 
 /* Run time applied classes with Js, not compiled by Tailwind */
