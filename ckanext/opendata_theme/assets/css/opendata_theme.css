@@ -4214,6 +4214,10 @@ legend.rtds-facets__legend {
   width: var(--spacing-8);
 }
 
+.rtds-w-\[90\%\] {
+  width: 90%;
+}
+
 .rtds-w-auto {
   width: auto;
 }
@@ -5827,6 +5831,11 @@ legend.rtds-facets__legend {
 
   .lg\:rtds-p-4 {
     padding: var(--spacing-4);
+  }
+
+  .lg\:rtds-px-10 {
+    padding-left: var(--spacing-10);
+    padding-right: var(--spacing-10);
   }
 
   .lg\:rtds-px-16 {

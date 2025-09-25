@@ -31,33 +31,35 @@ file.
     rendering of the main content columns of the page.
     #}
     {% block pre_primary %}
-    <div class="rtds-grid rtds-gap-4 rtds-mt-10 rtds-mb-10 xl:rtds-mb-32 rtds-py-6 rtds-px-10 rtds-bg-gradient-02 rtds-rounded-2xl rtds-content-inverse">
-      <div class="rtds-flex">
-        <a href="javascript:history.back()" class="rtds-text-link rtds-text-link--s rtds-text-link--inverse">
-          <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-flex-shrink-0 rtds-flex-grow-0" aria-hidden="true" focusable="false" role="img">
-            <use href="/icons.svg#solid--arrow-left" />
-          </svg>
-          {{ _('Go back') }}
-        </a>
-      </div>
-
-      {% set all_themes = h.extract_themes(pkg.extras, False) %}
-      {% if all_themes %}
+    <div class="rtds-mt-10 rtds-mb-10 xl:rtds-mb-32 rtds-py-6 lg:rtds-px-10 rtds-bg-gradient-02 rtds-rounded-2xl rtds-content-inverse">
+      <div class="rtds-grid rtds-gap-4 rtds-w-[90%] lg:rtds-w-full rtds-mx-auto">
+        <div class="rtds-flex">
+          <a href="javascript:history.back()" class="rtds-text-link rtds-text-link--s rtds-text-link--inverse">
+            <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-flex-shrink-0 rtds-flex-grow-0" aria-hidden="true" focusable="false" role="img">
+              <use href="/icons.svg#solid--arrow-left" />
+            </svg>
+            {{ _('Go back') }}
+          </a>
+        </div>
+      
+        {% set all_themes = h.extract_themes(pkg.extras, False) %}
+        {% if all_themes %}
         <div class="rtds-flex rtds-flex-wrap rtds-gap-2">
           {% for theme_code in all_themes %}
-            {% set icon_name = h.get_theme_icon(theme_code) %}
-            {% set theme_name = h.get_theme_name(theme_code) %}
-            <span class="rtds-category rtds-content-inverse">
-              <svg class="rtds-icon rtds-fill-current rtds-w-6 rtds-h-6" aria-hidden="true" focusable="false" role="img">
-                <use href="/icons.svg#{{ icon_name }}" />
-              </svg>
-              <span>{{ theme_name }}</span>
-            </span>
+          {% set icon_name = h.get_theme_icon(theme_code) %}
+          {% set theme_name = h.get_theme_name(theme_code) %}
+          <span class="rtds-category rtds-content-inverse">
+            <svg class="rtds-icon rtds-fill-current rtds-w-6 rtds-h-6" aria-hidden="true" focusable="false" role="img">
+              <use href="/icons.svg#{{ icon_name }}" />
+            </svg>
+            <span>{{ theme_name }}</span>
+          </span>
           {% endfor %}
         </div>
-      {% endif %}
-      <h1 class="rtds-heading-1 rtds-max-w-5xl">{{ h.dataset_display_name(pkg) }}</h1>
-      <div class="rtds-body-lg rtds-max-w-5xl">{{ h.render_markdown(h.get_translated(pkg, 'notes')|truncate(500)) }}</div>
+        {% endif %}
+        <h1 class="rtds-heading-1 rtds-max-w-5xl">{{ h.dataset_display_name(pkg) }}</h1>
+        <div class="rtds-body-lg rtds-max-w-5xl">{{ h.render_markdown(h.get_translated(pkg, 'notes')|truncate(500)) }}</div>
+      </div>
     </div>
     {% endblock %}
 
