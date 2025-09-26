@@ -213,10 +213,10 @@
     --color-button-inverted-hover: var(--color-neutral-50);     /* Pulsante invertito hover */
     --color-button-inverted-focus: var(--color-neutral-50);     /* Pulsante invertito focus */
     --color-button-inverted-active: var(--color-neutral-100);   /* Pulsante invertito attivo */
-    --color-button-inverted-text: var(--color-content-02);      /* Testo pulsante invertito */
+    --color-button-inverted-text: var(--color-primary-700);      /* Testo pulsante invertito */
     --color-button-inverted-text-hover: var(--color-content-01); /* Testo pulsante invertito hover */
     --color-button-inverted-text-focus: var(--color-content-02); /* Testo pulsante invertito focus */
-    --color-button-inverted-text-active: var(--color-content-02); /* Testo pulsante invertito attivo */
+    --color-button-inverted-text-active: var(--color-content-01); /* Testo pulsante invertito attivo */
     --color-button-text-inverted: transparent;                  /* Pulsante testo invertito */
     --color-button-text-inverted-hover: rgba(0, 0, 0, 0.5);    /* Pulsante testo invertito hover */
     --color-button-text-inverted-focus: transparent;            /* Pulsante testo invertito focus */

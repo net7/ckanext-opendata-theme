@@ -48,10 +48,10 @@ Example:
                 </svg>
               </a>
             {% else %}
-              <a class="rtds-btn rtds-btn--s rtds-btn--outlined" href="{{ res.url }}" target="_blank" rel="noreferrer">
+              <a class="rtds-btn rtds-btn--s rtds-btn--outlined rtds-btn--icon-right rtds-group/button" href="{{ res.url }}" target="_blank" rel="noreferrer">
                 {{ _('Download') }}
-                <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 md:rtds-w-5 md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
-                  <use href="/icons.svg#mini--chevron-down" />
+                <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+                  <use href="/icons.svg#mini--arrow-down-tray" />
                 </svg>
               </a>
             {% endif %}
