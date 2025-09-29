@@ -2496,6 +2496,10 @@ body:where(.rtds-card--news) .rtds-card__image-wrapper .rtds-primary-navigation_
   color: var(--color-content-02);
 }
 
+:where(.rtds-card--news)  .rtds-card__title {
+  font-family: var(--fontfamily-heading), sans-serif;
+}
+
 :where(.rtds-card--information-02) .rtds-card__title {
   font-size: var(--fontsize-text-xl);
   color: var(--color-content-01);
