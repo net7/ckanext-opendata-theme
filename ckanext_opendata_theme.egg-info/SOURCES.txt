@@ -67,6 +67,7 @@ ckanext/opendata_theme/src/components/02-atoms/chip/chip.css
 ckanext/opendata_theme/src/components/02-atoms/icon/icon.css
 ckanext/opendata_theme/src/components/02-atoms/link/link.css
 ckanext/opendata_theme/src/components/02-atoms/text-link/text-link.css
+ckanext/opendata_theme/src/components/02-atoms/vertical-divider/vertical-divider.css
 ckanext/opendata_theme/src/components/03-molecules/card/card.css
 ckanext/opendata_theme/src/components/03-molecules/card/card.js
 ckanext/opendata_theme/src/components/03-molecules/forms/input-checkbox/input-checkbox.css
