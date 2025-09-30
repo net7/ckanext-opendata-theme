@@ -176,7 +176,7 @@
                   {% endif %}
 
                   <li class="rtds-primary-navigation__item">
-                    <a href="{{ h.url_for('home.about') }}" class="rtds-primary-navigation__first-level rtds-primary-navigation__link rtds-group rtds-text-base {{ h.is_current('projects', 'is-current') }}" {{ h.is_current('projects', 'aria-current="page"') }}>
+                    <a href="{{ h.url_for('home.about') }}" class="rtds-primary-navigation__first-level rtds-primary-navigation__link rtds-group rtds-text-base {{ h.is_current('projects', 'is-current') }}" {{ h.is_current('projects', 'aria-current=page') }}>
                       {{ _('Project') }}
                     </a>
                   </li>
@@ -188,7 +188,7 @@
                   </li>
                   #}
                   <li class="rtds-primary-navigation__item">
-                    <a href="{{ h.url_for('dataset.search') }}" class="rtds-primary-navigation__first-level rtds-primary-navigation__link rtds-group rtds-text-base {{ h.is_current('dataset', 'is-current') }}" {{ h.is_current('dataset', 'aria-current="page"') }}>
+                    <a href="{{ h.url_for('dataset.search') }}" class="rtds-primary-navigation__first-level rtds-primary-navigation__link rtds-group rtds-text-base {{ h.is_current('dataset', 'is-current') }}" {{ h.is_current('dataset', 'aria-current=page') }}>
                       {{ _('Data') }}
                     </a>
                   </li>
