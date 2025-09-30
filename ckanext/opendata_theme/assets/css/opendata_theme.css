@@ -4260,11 +4260,6 @@ legend.rtds-facets__legend {
   width: max-content;
 }
 
-.rtds-w-min {
-  width: -moz-min-content;
-  width: min-content;
-}
-
 .rtds-max-w-20 {
   max-width: var(--spacing-20);
 }
