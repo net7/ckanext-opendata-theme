@@ -137,7 +137,7 @@ file.
 
               {% block secondary %}
               {# <div class="xl:rtds-col-span-4"> #}
-                <div class="rtds-sidebar" aria-expanded="true">
+                <div id="sideBar" class="rtds-sidebar">
                   <aside class="rtds-bg-white rtds-h-full rtds-border-l rtds-border-gray-02 rtds-rounded-2xl rtds-py-6 rtds-flex rtds-gap-6">
                     {#
                     The secondary_content block can be used to add content to the
@@ -152,7 +152,7 @@ file.
                     {% endblock %}
                     #}
                     <div class="rtds-hidden xl:rtds-block rtds-pl-2">
-                      <button type="button" class="rtds-sidebar-btn rtds-btn rtds-btn--icon rtds-btn--inverted" aria-label="{{ _('open or close sidebar') }}">
+                      <button type="button" class="rtds-sidebar-btn rtds-btn rtds-btn--icon rtds-btn--inverted" aria-label="{{ _('open or close sidebar') }}" aria-expanded="true" aria-controls="sideBar">
                         <svg class="rtds-inline-block rtds-align-middle rtds-fill-current rtds-w-8 rtds-h-8 rtds-transition-all rtds-duration-300" aria-hidden="true" focusable="false" role="img">
                           <use href="/icons.svg#mini--chevron-double-right" />
                         </svg>

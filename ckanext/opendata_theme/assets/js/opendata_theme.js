@@ -1192,14 +1192,14 @@ document.addEventListener("DOMContentLoaded", function () {
   function collapseExpandSidebar() {
     if (!sideBar || !sidebarContent) return;
 
-    if (sideBar.getAttribute("aria-expanded") === "true") {
+    if (sideBarBtn.getAttribute("aria-expanded") === "true") {
       sidebarContent.style.width = "0px";
       sidebarContent.style.transform = "scaleX(0)";
       sidebarContent.style.opacity = "0";
       if (sideBarBtnIcon) {
         sideBarBtnIcon.style.transform = "rotate(180deg)";
       }
-      sideBar.setAttribute("aria-expanded", "false");
+      sideBarBtn.setAttribute("aria-expanded", "false");
     } else {
       sidebarContent.style.width = sidebarContentWidth + "px";
       sidebarContent.style.transform = "scaleX(1)";
@@ -1207,7 +1207,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (sideBarBtnIcon) {
         sideBarBtnIcon.style.transform = "rotate(0deg)";
       }
-      sideBar.setAttribute("aria-expanded", "true");
+      sideBarBtn.setAttribute("aria-expanded", "true");
     }
   }
 
