@@ -9,7 +9,7 @@
     }
 
     .rtds-btn--primary {
-        @apply rtds-button-primary rtds-content-02 hover:rtds-button-primary-hover focus:rtds-button-primary-hover active:rtds-button-primary-active;
+        @apply rtds-button-primary rtds-content-02 hover:rtds-content-02 hover:rtds-button-primary-hover hover:rtds-no-underline focus:rtds-button-primary-hover active:rtds-button-primary-active;
     }
 
     .rtds-btn--secondary {

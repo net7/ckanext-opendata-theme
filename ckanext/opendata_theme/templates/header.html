@@ -222,21 +222,20 @@
 
         <div class="rtds-main-heading__actions rtds-grid lg:rtds-flex rtds-gap-3 lg:rtds-ml-2 rtds-px-2 rtds-py-4 lg:rtds-p-4 lg:rtds-pr-0">
           {% if c.userobj %}
-            <button type="button" class="rtds-btn rtds-btn--icon-right rtds-group/button rtds-btn--primary rtds-btn--s" data-module="opendata_theme_click" data-module-url="{{ h.url_for('user.read', id=c.userobj.name) }}">
+            <a href="{{ h.url_for('user.read', id=c.userobj.name) }}" class="rtds-btn rtds-btn--icon-right rtds-btn--primary rtds-btn--s rtds-group/button">
               {{ c.userobj.name }}
               <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
                 <use href="/icons.svg#mini--user" />
               </svg>
-            </button>
+            </a>
           {% endif %}
 
-          <button type="button" class="rtds-btn rtds-btn--icon-right rtds-group/button rtds-btn--primary rtds-btn--s" data-module="opendata_theme_click" data-module-url="{{ h.url_for('contact.form') }}" title="{{ _('Send data') }}">
+          <a href="{{ h.url_for('contact.form') }}" class="rtds-btn rtds-btn--icon-right rtds-btn--primary rtds-btn--s rtds-group/button" title="{{ _('Send data') }}">
             {{ _('Send data') }}
             <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
               <use href="/icons.svg#mini--chevron-right" />
             </svg>
-          </button>
-
+          </a>
         </div>
       </div>
     </div>

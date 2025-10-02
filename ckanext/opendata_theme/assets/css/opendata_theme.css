@@ -2001,9 +2001,11 @@ abbr[data-bs-original-title] {
   border-color: var(--color-button-primary);
 }
 
-.rtds-btn--primary:hover {
+.rtds-btn--primary:hover{
+  text-decoration-line:none;
+  color: var(--color-content-02);
   background-color: var(--color-button-primary-hover);
-  border-color: var(--color-button-primary-hover);
+  border-color: var(--color-button-primary-hover)
 }
 
 .rtds-btn--primary:focus {
