@@ -1,14 +1,18 @@
 /* stylelint-disable scss/at-rule-no-unknown */
 
+/* TAILWIND BASE STYLES */
 @import "tailwindcss/base";
 /* CUSTOM BASE STYLES */
 @import "custom-properties.css";
 @import "base.css";
 
+/* SPLIDE STYLES */
+@import "splide.min.css";
+
+/* TAILWIND UTILITIES */
+@import "tailwindcss/utilities";
+
+/* TAILWIND COMPONENTS */
 @import "tailwindcss/components";
 /* CUSTOM COMPONENTS */
 @import-glob "../components/01-design-system/**/*.css","../components/02-atoms/**/*.css","../components/03-molecules/**/*.css","../components/04-organisms/**/*.css","../components/06-widgets/**/*.css";
-
-@import "tailwindcss/utilities";
-
-@import "splide.min.css";
