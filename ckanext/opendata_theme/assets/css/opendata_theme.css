@@ -4268,6 +4268,10 @@ legend.rtds-facets__legend {
   max-width: 64rem;
 }
 
+.rtds-max-w-\[100px\] {
+  max-width: 100px;
+}
+
 .rtds-max-w-\[200px\] {
   max-width: 200px;
 }

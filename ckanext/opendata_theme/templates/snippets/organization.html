@@ -21,7 +21,7 @@
   <section class="rtds-background-03 rtds-rounded-2xl rtds-p-4 rtds-w-fit">
     {# <a href="{{ url }}"> #}
       {# <img src="{{ organization.image_display_url or h.url_for_static('/base/images/placeholder-organization.png') }}" width="200" alt="{{ organization.name }}" /> #}
-      <img class="rtds-max-h-[100px] rtds-rounded-2xl" src="{{ organization.image_display_url }}" width="" height="" alt="{{ organization.name }}" />
+      <img class="rtds-max-h-[100px] rtds-max-w-[100px] rtds-rounded-2xl" src="{{ organization.image_display_url }}" width="" height="" alt="{{ organization.name }}" />
       {# </a> #}
   </section>
   {% endblock %}
@@ -92,6 +92,7 @@
     {% if qa and qa.openness_score > 0 %}
       <section class="rtds-py-4 rtds-grid rtds-gap-4 rtds-pr-16">
         <h3 class="rtds-body-lg rtds-font-bold">{{ _('Openness') }}</h3>
+        <span class="rtds-sr-only">{{ _('rating') }}: {{ qa.openness_score }} {{ _('out of') }} 5</span>
         <ul class="rtds-flex rtds-flex-wrap rtds-gap-2">
           {% for index in range(qa.openness_score) %}
           <li>
