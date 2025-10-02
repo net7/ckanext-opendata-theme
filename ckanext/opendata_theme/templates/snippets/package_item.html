@@ -42,10 +42,13 @@ Example:
       <div class="rtds-space-y-2 md:rtds-space-y-0 md:rtds-flex md:rtds-items-center md:rtds-justify-between md:rtds-gap-2">
         <ul class="rtds-card__tags rtds-mt-0" aria-label="Categorie">
           {% for resource in h.dict_list_reduce(package.resources, 'format') %}
+          {% set active = resource in g.fields_grouped.get('res_format', []) %}
+          {% set href = h.remove_url_param('res_format', resource) if active else h.add_url_param(new_params={'res_format': resource}) %}
+          {% set title = _('Remove {resource}').format(resource=resource) if active else _('Add {resource}').format(resource=resource) %}
           <li>
             <span class="rtds-chip rtds-chip--sm rtds-chip--tag">
               <span class="rtds-sr-only">{{ _('Category:') }} </span>
-              <a href="{{ h.url_for(package.type ~ '.read', id=package.name) }}" data-format="{{ resource.lower() }}">{{ resource }}</a>
+              <a href="{{ href }}" data-format="{{ resource.lower() }}" aria-label="{{ title }}">{{ resource }}<span class="rtds-sr-only">{{ title }}</span></a>
             </span>
           </li>
           {% endfor %}
