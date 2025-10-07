@@ -34,22 +34,22 @@ Example:
         {% if not url_is_edit %}
           <a class="rtds-action-link rtds-action-link--sm" href="{{ url }}">
             {% if res.has_views %}
-            {{ _('Preview') }}
+            {{ _('Preview') }} <span class="rtds-sr-only">{{ h.resource_display_name(res) | truncate(50) }}</span>
             {% else %}
-            {{ _('More information') }}
+            {{ _('More information') }} <span class="rtds-sr-only">{{ _('regarding') }} {{ h.resource_display_name(res) | truncate(50) }}</span>
             {% endif %}
           </a>
           {% if res.url and h.is_url(res.url) %}
             {% if res.has_views or res.url_type == 'upload' %}
               <a class="rtds-action-link rtds-action-link--sm" href="{{ res.url }}" target="_blank" rel="noreferrer">
-                {{ _('Go to resource') }}
+                {{ _('Go to resource') }} <span class="rtds-sr-only"> {{ h.resource_display_name(res) | truncate(50) }}</span>
                 <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 md:rtds-w-5 md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
                   <use href="/icons.svg#mini--arrow-top-right-on-square" />
                 </svg>
               </a>
             {% else %}
               <a class="rtds-btn rtds-btn--s rtds-btn--outlined rtds-btn--icon-right rtds-group/button" href="{{ res.url }}" target="_blank" rel="noreferrer">
-                {{ _('Download') }}
+                {{ _('Download') }} <span class="rtds-sr-only"> {{ h.resource_display_name(res) | truncate(50) }}</span>
                 <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
                   <use href="/icons.svg#mini--arrow-down-tray" />
                 </svg>
@@ -59,7 +59,7 @@ Example:
 
           {% if can_edit %}
             <a class="rtds-btn rtds-btn--s rtds-btn--only-text" href="{{ h.url_for(pkg.type ~ '_resource.edit', id=pkg.name, resource_id=res.id) }}">
-              {{ _('Edit') }}
+              {{ _('Edit') }} <span class="rtds-sr-only"> {{ h.resource_display_name(res) | truncate(50) }}</span>
               <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 md:rtds-w-5 md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
                 <use href="/icons.svg#mini--wrench" />
               </svg>
