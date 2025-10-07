@@ -48,7 +48,7 @@
           </p>
           <p>
             {% set organization_url = h.url_for(organization.type + '.about', id=organization.name) %}
-            <a href="{{ organization_url }}" class="rtds-action-link rtds-action-link--sm rtds-action-link--has-icon">
+            <a href="{{ url }}" class="rtds-action-link rtds-action-link--sm rtds-action-link--has-icon">
               {{ _('read more') }}
               <svg class="rtds-icon rtds-fill-current" aria-hidden="true" focusable="false" role="img">
                   <use href="/icons.svg#mini--arrow-small-right" />
