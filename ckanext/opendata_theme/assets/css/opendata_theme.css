@@ -2335,7 +2335,6 @@ a:where(.rtds-category):focus{
   display:inline-flex;
   align-items:center;
   gap:var(--spacing-2);
-  padding:var(--spacing-2);
   font-size:var(--fontsize-text-sm);
   color: var(--color-content-02)
 }
@@ -5229,6 +5228,10 @@ legend.rtds-facets__legend{
 /* BUTTON COLOR UTILITIES */
 
 /* LINK TEXT COLOR UTILITIES */
+
+.rtds-link-primary {
+  color: var(--color-link-primary);
+}
 
 /* Link secondary */
 
