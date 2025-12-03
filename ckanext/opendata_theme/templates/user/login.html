@@ -1,4 +1,4 @@
-{% extends "page.html" %}
+{% extends "page-access.html" %}
 
 {% block subtitle %}{{ _('Login') }}{% endblock %}
 
@@ -7,20 +7,19 @@
 {% endblock %} #}
 
 {% block primary_content %}
-<section class="module">
-  <div class="module-content">
-    <h1 class="page-heading">{% block page_heading %}{{ _('Login') }}{% endblock %}</h1>
-    {% block form %}
-    {% snippet "user/snippets/login_form.html", error_summary=error_summary %}
-    {% endblock %}
+  <div class="rtds-col-span-2 sm:rtds-col-span-6 lg:rtds-col-span-4 lg:rtds-col-start-5">
+    <div class="rtds-grid rtds-gap-8 rtds-bg-white rtds-rounded-2xl rtds-p-10 rtds-border rtds-border-gray-02 rtds-shadow-lg">
+      <h1 class="rtds-heading-2 rtds-text-center">{% block page_heading %}{{ _('Login') }}{% endblock %}</h1>
+      {% block form %}
+      {% snippet "user/snippets/login_form.html", error_summary=error_summary %}
+      {% endblock %}
+    </div>
   </div>
-</section>
 {% endblock %}
 
 {% block secondary_content %}
   {% if h.check_access('user_create') %}
   {% block help_register %}
-  <section class="module module-narrow module-shallow">
     {% block help_register_inner %}
     <h2 class="module-heading">{{ _('Need an Account?') }}</h2>
     <div class="module-content">
@@ -32,12 +31,10 @@
       </p>
     </div>
     {% endblock %}
-  </section>
   {% endblock %}
   {% endif %}
 
   {% block help_forgotten %}
-  <section class="module module-narrow module-shallow">
     {% block help_forgotten_inner %}
     <h2 class="module-heading">{{ _('Forgotten your password?') }}</h2>
     <div class="module-content">
@@ -49,6 +46,5 @@
       </p>
     </div>
     {% endblock %}
-  </section>
   {% endblock %}
 {% endblock %}

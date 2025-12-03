@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{%- block page -%}
+
+{% block skip %}
+<div class="visually-hidden-focusable"><a href="#mainContent">{{ _('Skip to main content') }}</a></div>
+{% endblock %}
+
+{#
+Override the header on a page by page basis by extending this block. If
+making sitewide header changes it is preferable to override the header.html
+file.
+#}
+{%- block header %}
+{% include "header.html" %}
+{% endblock -%}
+
+{# The content block allows you to replace the content of the page if needed #}
+{%- block content %}
+  {% block maintag %}<main id="mainContent" class="rtds-background-02 rtds-pb-16">{% endblock %}
+  {% block main_content %}
+  <div class="rtds-container rtds-py-16">
+    <div class="rtds-grid rtds-grid-cols-12 rtds-gap-4 sm:rtds-gap-6">
+
+    {#
+    The pre_primary block can be used to add content to before the
+    rendering of the main content columns of the page.
+    #}
+    {% block pre_primary %}
+    {% endblock %}
+
+    {% block secondary %}
+    {% endblock %}
+
+    {% block primary %}
+      {#
+      The primary_content block can be used to add content to the page.
+      This is the main block that is likely to be used within a template.
+
+      Example:
+
+      {% block primary_content %}
+      <h1>My page content</h1>
+      <p>Some content for the page</p>
+      {% endblock %}
+      #}
+      {% block primary_content %}
+      {% endblock %}
+    {% endblock %}
+    </div>
+  </div>
+  {% endblock %}
+</main>
+{% endblock -%}
+
+{#
+Override the footer on a page by page basis by extending this block. If
+making sitewide header changes it is preferable to override the footer.html-u
+file.
+#}
+{%- block footer %}
+{% include "footer.html" %}
+{% endblock -%}
+{%- endblock -%}
+
+{%- block scripts %}
+{% asset 'base/main' %}
+{% asset 'base/ckan' %}
+{% if g.tracking_enabled %}
+{% asset 'base/tracking' %}
+{% endif %}
+{{ super() }}
+{% endblock -%}

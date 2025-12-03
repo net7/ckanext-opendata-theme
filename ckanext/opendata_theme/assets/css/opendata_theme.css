@@ -4423,6 +4423,10 @@ legend.rtds-facets__legend{
   grid-column:span 12 / span 12
 }
 
+.rtds-col-span-2{
+  grid-column:span 2 / span 2
+}
+
 .rtds-col-span-3{
   grid-column:span 3 / span 3
 }
@@ -4872,6 +4876,10 @@ legend.rtds-facets__legend{
   border-bottom-right-radius:0px
 }
 
+.rtds-border{
+  border-width:1px
+}
+
 .rtds-border-0{
   border-width:0px
 }
@@ -4971,6 +4979,10 @@ legend.rtds-facets__legend{
 
 .rtds-p-0{
   padding:var(--spacing-0)
+}
+
+.rtds-p-10{
+  padding:var(--spacing-10)
 }
 
 .rtds-p-2{
@@ -5596,6 +5608,10 @@ legend.rtds-facets__legend{
 }
 
 @media (min-width: 640px){
+  .sm\:rtds-col-span-6{
+    grid-column:span 6 / span 6
+  }
+
   .sm\:rtds-ms-2{
     margin-inline-start:var(--spacing-2)
   }
@@ -5634,6 +5650,10 @@ legend.rtds-facets__legend{
 
   .sm\:rtds-justify-between{
     justify-content:space-between
+  }
+
+  .sm\:rtds-gap-6{
+    gap:var(--spacing-6)
   }
 
   .sm\:rtds-overflow-auto{
@@ -5810,12 +5830,20 @@ legend.rtds-facets__legend{
 }
 
 @media (min-width: 1024px){
+  .lg\:rtds-col-span-4{
+    grid-column:span 4 / span 4
+  }
+
   .lg\:rtds-col-span-8{
     grid-column:span 8 / span 8
   }
 
   .lg\:rtds-col-start-3{
     grid-column-start:3
+  }
+
+  .lg\:rtds-col-start-5{
+    grid-column-start:5
   }
 
   .lg\:rtds-mx-6{
