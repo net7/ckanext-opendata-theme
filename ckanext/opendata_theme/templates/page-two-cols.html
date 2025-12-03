@@ -63,13 +63,15 @@ file.
           <div class="rtds-body-lg rtds-max-w-5xl" id="description-container">
             <div id="description-short">
               {{ description|truncate(500, True, '...') }}
-              <button type="button" id="read-more-btn" class="rtds-text-link rtds-text-link--s rtds-ml-2">
+              <br />
+              <button type="button" id="read-more-btn" class="rtds-btn rtds-btn--inverted rtds-mt-4">
                 {{ _('Read more') }}
               </button>
             </div>
             <div id="description-full" class="rtds-hidden">
               {{ description }}
-              <button type="button" id="read-less-btn" class="rtds-text-link rtds-text-link--s rtds-ml-2">
+              <br />
+              <button type="button" id="read-less-btn" class="rtds-btn rtds-btn--inverted rtds-mt-4">
                 {{ _('Read less') }}
               </button>
             </div>
