@@ -5883,6 +5883,10 @@ legend.rtds-facets__legend{
     width:var(--spacing-6)
   }
 
+  .lg\:rtds-w-\[500px\]{
+    width:500px
+  }
+
   .lg\:rtds-w-auto{
     width:auto
   }
@@ -6054,6 +6058,10 @@ legend.rtds-facets__legend{
 
   .xl\:rtds-w-6{
     width:var(--spacing-6)
+  }
+
+  .xl\:rtds-w-\[673px\]{
+    width:673px
   }
 
   .xl\:rtds-shrink-0{
