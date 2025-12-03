@@ -1567,7 +1567,7 @@ address{
   /* Testo pulsante invertito attivo */
   --color-button-text-inverted: transparent;
   /* Pulsante testo invertito */
-  --color-button-text-inverted-hover: rgba(0, 0, 0, 0.5);
+  --color-button-text-inverted-hover: rgba(0, 0, 0, 0.25);
   /* Pulsante testo invertito hover */
   --color-button-text-inverted-focus: transparent;
   /* Pulsante testo invertito focus */
@@ -2081,6 +2081,29 @@ abbr[data-bs-original-title] {
   background-color: var(--color-button-inverted-active);
   border-color: var(--color-button-inverted-active);
   color: var(--color-button-inverted-text-active);
+}
+
+.rtds-btn--text-inverted {
+  background-color: var(--color-button-text-inverted);
+  border-color: var(--color-button-text-inverted);
+  color: var(--color-button-text-inverted-text);
+}
+
+.rtds-btn--text-inverted:hover {
+  background-color: var(--color-button-text-inverted-hover);
+  border-color: var(--color-button-text-inverted-hover);
+}
+
+.rtds-btn--text-inverted:focus {
+  background-color: var(--color-button-text-inverted-focus);
+  border-color: var(--color-button-text-inverted-focus);
+  color: var(--color-button-text-inverted-text-focus);
+}
+
+.rtds-btn--text-inverted:active {
+  background-color: var(--color-button-text-inverted-active);
+  border-color: var(--color-button-text-inverted-active);
+  color: var(--color-button-text-inverted-text-active);
 }
 
 /* UTILITY VARIANTS FOR SIZE MANAGING AND ICON MANAGING */
@@ -4637,10 +4660,6 @@ legend.rtds-facets__legend{
   max-width:64rem
 }
 
-.rtds-max-w-\[100px\]{
-  max-width:100px
-}
-
 .rtds-max-w-\[200px\]{
   max-width:200px
 }
@@ -4938,6 +4957,11 @@ legend.rtds-facets__legend{
 .rtds-object-contain{
   -o-object-fit:contain;
   object-fit:contain
+}
+
+.rtds-object-cover{
+  -o-object-fit:cover;
+  object-fit:cover
 }
 
 .rtds-object-left-top{
