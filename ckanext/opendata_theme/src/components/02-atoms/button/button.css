@@ -29,7 +29,7 @@
     }
 
     .rtds-btn--text-inverted {
-        @apply rtds-button-text-inverted rtds-button-text-inverted-text hover:rtds-button-text-inverted-hover hover:rtds-button-text-inverted-text-hover focus:rtds-button-text-inverted-focus focus:rtds-button-text-inverted-text-focus active:rtds-button-text-inverted-active active:rtds-button-text-inverted-text-active;
+        @apply rtds-button-text-inverted rtds-button-text-inverted-text hover:rtds-button-text-inverted-hover focus:rtds-button-text-inverted-focus focus:rtds-button-text-inverted-text-focus active:rtds-button-text-inverted-active active:rtds-button-text-inverted-text-active;
     }
 
     /* UTILITY VARIANTS FOR SIZE MANAGING AND ICON MANAGING */
