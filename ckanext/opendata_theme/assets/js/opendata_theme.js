@@ -2084,3 +2084,24 @@ ckan.module("opendata_theme_toggle", function ($) {
     },
   };
 });
+
+/** Description Read More/Less functionality BEGIN **/
+document.addEventListener('DOMContentLoaded', function() {
+    const readMoreBtn = document.getElementById('read-more-btn');
+    const readLessBtn = document.getElementById('read-less-btn');
+    const descriptionShort = document.getElementById('description-short');
+    const descriptionFull = document.getElementById('description-full');
+    
+    if (readMoreBtn && readLessBtn && descriptionShort && descriptionFull) {
+        readMoreBtn.addEventListener('click', function() {
+            descriptionShort.classList.add('rtds-hidden');
+            descriptionFull.classList.remove('rtds-hidden');
+        });
+        
+        readLessBtn.addEventListener('click', function() {
+            descriptionFull.classList.add('rtds-hidden');
+            descriptionShort.classList.remove('rtds-hidden');
+        });
+    }
+});
+/** Description Read More/Less functionality END **/

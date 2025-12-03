@@ -58,7 +58,25 @@ file.
         </div>
         {% endif %}
         <h1 class="rtds-heading-1 rtds-max-w-5xl">{{ h.dataset_display_name(pkg) }}</h1>
-        <div class="rtds-body-lg rtds-max-w-5xl">{{ h.render_markdown(h.get_translated(pkg, 'notes')|truncate(500)) }}</div>
+        {% set description = h.get_translated(pkg, 'notes') %}
+        {% if description|length > 500 %}
+          <div class="rtds-body-lg rtds-max-w-5xl" id="description-container">
+            <div id="description-short">
+              {{ description|truncate(500, True, '...') }}
+              <button type="button" id="read-more-btn" class="rtds-text-link rtds-text-link--s rtds-ml-2">
+                {{ _('Read more') }}
+              </button>
+            </div>
+            <div id="description-full" class="rtds-hidden">
+              {{ description }}
+              <button type="button" id="read-less-btn" class="rtds-text-link rtds-text-link--s rtds-ml-2">
+                {{ _('Read less') }}
+              </button>
+            </div>
+          </div>
+        {% else %}
+          <div class="rtds-body-lg rtds-max-w-5xl">{{ description }}</div>
+        {% endif %}
       </div>
     </div>
     {% endblock %}
