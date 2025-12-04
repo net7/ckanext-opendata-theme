@@ -18,14 +18,11 @@
 {% block info %}
   <h3 class="rtds-heading-3">Ente</h3>
   {% block image %}
-  <section class="rtds-background-03 rtds-rounded-2xl rtds-p-4 rtds-w-fit">
-    <div class="rtds-bg-white rtds-rounded-2xl rtds-p-2">
-      {# <a href="{{ url }}"> #}
-        {# <img src="{{ organization.image_display_url or h.url_for_static('/base/images/placeholder-organization.png') }}" width="200" alt="{{ organization.name }}" /> #}
-        <img class="rtds-w-full rtds-object-cover" src="{{ organization.image_display_url }}" width="" height="" alt="{{ organization.name }}" />
-      {# </a> #}
-    </div>
-  </section>
+  {# <section class="rtds-background-03 rtds-rounded-2xl rtds-p-4 rtds-w-fit">
+    <div class="rtds-bg-white rtds-rounded-2xl rtds-p-2"> #}
+        <img class="rtds-max-h-[90px]" src="{{ organization.image_display_url }}" width="" height="" alt="{{ organization.name }}" />
+    {# </div>
+  </section> #}
   {% endblock %}
 
   <section class="rtds-grid rtds-gap-4 rtds-pr-16">

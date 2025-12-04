@@ -4590,6 +4590,10 @@ legend.rtds-facets__legend{
   max-height:100px
 }
 
+.rtds-max-h-\[90px\]{
+  max-height:90px
+}
+
 .rtds-min-h-screen{
   min-height:100vh
 }
@@ -4965,11 +4969,6 @@ legend.rtds-facets__legend{
 .rtds-object-contain{
   -o-object-fit:contain;
   object-fit:contain
-}
-
-.rtds-object-cover{
-  -o-object-fit:cover;
-  object-fit:cover
 }
 
 .rtds-object-left-top{
