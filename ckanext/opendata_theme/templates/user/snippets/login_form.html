@@ -14,19 +14,16 @@ Example:
 {% set username_error = true if error_summary %}
 {% set password_error = true if error_summary %}
 
-<form action="{{ action }}" method="post" class="rtds-grid rtds-gap-4">
-  {{ h.csrf_input() }}
-  {{ form.errors(errors=error_summary) }}
+{{ h.csrf_input() }}
 
-  {{ form.input('login', label=_("Username or Email"), id='field-login', value="", error=username_error, classes=["control-medium"]) }}
+{{ form.errors(errors=error_summary) }}
 
-  {{ form.input('password', label=_("Password"), id='field-password', type="password", value="", error=password_error, classes=["control-medium"]) }}
+{{ form.input('login', label=_("Username or Email"), id='field-login', value="", error=username_error, classes=["control-medium"]) }}
+{{ form.input('password', label=_("Password"), id='field-password', type="password", value="", error=password_error, classes=["control-medium"]) }}
+{{ form.checkbox('remember', label=_("Remember me"), id='field-remember', checked=true, value="63072000") }}
 
-  {{ form.checkbox('remember', label=_("Remember me"), id='field-remember', checked=true, value="63072000") }}
-
-  <div class="rtds-grid">
-    {% block login_button %}
-    <button class="rtds-btn rtds-btn--primary" type="submit">{{ _('Login') }}</button>
-    {% endblock %}
-  </div>
-</form>
+<div class="rtds-grid">
+  {% block login_button %}
+  <button class="rtds-btn rtds-btn--primary" type="submit">{{ _('Login') }}</button>
+  {% endblock %}
+</div>

@@ -10,9 +10,11 @@
   <div class="rtds-col-span-2 sm:rtds-col-span-6 lg:rtds-col-span-4 lg:rtds-col-start-5">
     <div class="rtds-grid rtds-gap-8 rtds-bg-white rtds-rounded-2xl rtds-p-10 rtds-border rtds-border-gray-02 rtds-shadow-lg">
       <h1 class="rtds-heading-2 rtds-text-center">{% block page_heading %}{{ _('Login') }}{% endblock %}</h1>
-      {% block form %}
-      {% snippet "user/snippets/login_form.html", error_summary=error_summary %}
-      {% endblock %}
+      <form action="{{ action }}" method="post" class="rtds-grid rtds-gap-4">
+        {% block form %}
+        {% snippet "user/snippets/login_form.html", error_summary=error_summary %}
+        {% endblock %}
+      </form>
     </div>
   </div>
 {% endblock %}

@@ -20,15 +20,15 @@ Example:
 #}
 {% macro checkbox(name, id='', label='', value='', checked=false, placeholder='', error="", classes=[], attrs={}, is_required=false) %}
 {%- set extra_html = caller() if caller -%}
-<div class="form-group{{ " " ~ classes | join(" ") }}{% if error %} error{% endif %}">
-<div class="controls">
-    <label class="checkbox" for="{{ id or name }}">
-    <input id="{{ id or name }}" type="checkbox" name="{{ name }}" value="{{ value | empty_and_escape }}" {{ "checked " if checked }} {{ attributes(attrs) }} />
-    {{ label or name }}
-    {% if is_required %}<span title="{{ _("This field is required") }}" class="control-required">*</span> {% endif %}
-    {% if error and error is iterable %}<strong class="error-inline">{{ error|join(', ') }}</strong>{% endif %}
-    </label>
-    {{ extra_html }}
-</div>
+<div class="rtds-input rtds-input-field rtds-input-checkbox{{ " " ~ classes | join(" ") }}{% if error %} error{% endif %}">
+    <div class="rtds-flex rtds-gap-2 rtds-items-center">
+        <input id="{{ id or name }}" type="checkbox" name="{{ name }}" value="{{ value | empty_and_escape }}" {{ "checked " if checked }} {{ attributes(attrs) }} />
+        <label class="rtds-input-checkbox__label" for="{{ id or name }}">
+        {{ label or name }}
+        {% if is_required %}<span title="{{ _("This field is required") }}" class="control-required">*</span> {% endif %}
+        {% if error and error is iterable %}<strong class="error-inline">{{ error|join(', ') }}</strong>{% endif %}
+        </label>
+        {{ extra_html }}
+    </div>
 </div>
 {% endmacro %}
