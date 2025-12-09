@@ -62,14 +62,14 @@ file.
         {% if description|length > 500 %}
           <div class="rtds-description rtds-body-lg rtds-max-w-5xl" id="description-container">
             <div id="description-short">
-              {{ description|truncate(500, True, '...')|safe }}
+              {{ h.render_markdown(description|truncate(500, True, '...'))|safe }}
               <br />
               <button type="button" id="read-more-btn" class="rtds-btn rtds-btn--text-inverted rtds-mt-4">
                 {{ _('Read more') }}
               </button>
             </div>
             <div id="description-full" class="rtds-hidden">
-              {{ description|safe }}
+              {{ h.render_markdown(description)|safe }}
               <br />
               <button type="button" id="read-less-btn" class="rtds-btn rtds-btn--text-inverted rtds-mt-4">
                 {{ _('Read less') }}
@@ -77,7 +77,7 @@ file.
             </div>
           </div>
         {% else %}
-          <div class="rtds-body-lg rtds-max-w-5xl">{{ description|safe }}</div>
+          <div class="rtds-body-lg rtds-max-w-5xl">{{ h.render_markdown(description)|safe }}</div>
         {% endif %}
       </div>
     </div>
