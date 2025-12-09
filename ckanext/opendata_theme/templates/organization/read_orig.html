@@ -1,44 +1,12 @@
 {% extends "organization/read_base.html" %}
-{# {% extends "page-organization.html" %} #}
 {% set dataset_type = h.default_package_type() %}
 
-{% block pre_primary %}
-<div class="rtds-grid rtds-gap-6 rtds-mt-8 rtds-mb-12">
-  <div class="rtds-flex">
-    <a href="javascript:history.back()" class="rtds-text-link rtds-content-03 rtds-text-link--s">
-      <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-flex-shrink-0 rtds-flex-grow-0" aria-hidden="true" focusable="false" role="img">
-        <use href="/icons.svg#solid--arrow-left" />
-      </svg>
-      {{ _('Go back') }}
-    </a>
-  </div>
-
-  {% if h.check_access('organization_update', {'id': group_dict.id}) %}
-    <a class="rtds-btn rtds-btn--s rtds-btn--primary rtds-w-fit" href="{{ h.url_for(group_type ~ '.edit', id=group_dict.name) }}">
-      {{ _('Manage') }}
-      <svg class="rtds-icon rtds-fill-current rtds-w-2 rtds-h-2 md:rtds-w-4 md:rtds-h-4 lg:rtds-w-6 lg:rtds-h-6 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
-        <use href="/icons.svg#mini--wrench" />
-      </svg>
-    </a>
+{% block page_primary_action %}
+  {% if h.check_access('package_create', {'owner_org': group_dict.id}) %}
+    {% snippet 'snippets/add_dataset.html', group=group_dict.id %}
   {% endif %}
-
-  <div class="rtds-mb-2">
-    <img class="rtds-max-h-[100px]" src="{{ organization.image_display_url }}" width="" height="" alt="{{ organization.name }}" />
-  </div>
-  <h1 class="rtds-heading-1 rtds-mb-6">{{ organization.title or organization.name }}</h1>
-  {% block description %}
-  {% if organization.description %}
-  <p>
-    {{ h.markdown_extract(organization.description, 180) }}
-  </p>
-  {% else %}
-  <p>{{ h.humanize_entity_type('organization', organization.type, 'no description') or _('There is no description for this organization') }}</p>
-  {% endif %}
-  {% endblock %}
-</div>
 {% endblock %}
 
-{# La parte qui sotto è tratta dall'originale #}
 {% block primary_content_inner %}
     {% block groups_search_form %}
       {% set facets = {
