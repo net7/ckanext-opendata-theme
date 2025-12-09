@@ -5,9 +5,9 @@
   <div class="rtds-container-xs rtds-hero--fullimg rtds-grid rtds-gap-6 lg:rtds-gap-16 xl:rtds-gap-32 rtds-justify-center rtds-content-center rtds-text-center rtds-content-inverse rtds-col-span-full rtds-bg-cover rtds-bg-center" style="background-image: url('/images/hero-background.png');">
     <div class="rtds-hero__content rtds-grid rtds-gap-8 rtds-max-w-[962px]">
       <h1 class="rtds-heading-1">
-        {{ _('Open Data Toscana: open public data') }}
+        {{ _('Open Data Toscana: public open data') }}<br>{{ _('For a more transparent public administration') }}
       </h1>
-      <p class="rtds-body-base lg:rtds-body-lg 2xl:rtds-body-2xl">{{ _('For a more transparent public administration, better services, and new opportunities for the region, citizens, and businesses.') }}</p>
+      {# <p class="rtds-body-base lg:rtds-body-lg 2xl:rtds-body-2xl">{{ _('For a more transparent public administration, better services, and new opportunities for the region, citizens, and businesses.') }}</p> #}
       <form role="search" class="rtds-flex rtds-gap-2 rtds-justify-center" method="get" action="{% url_for dataset_type ~ '.search' %}">
         <div class="rtds-input-field rtds-gap-1 rtds-flex-1 rtds-max-w-[720px]">
           <div class="rtds-input has-icon">
