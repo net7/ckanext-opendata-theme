@@ -96,4 +96,8 @@
     .rtds-color-brand-00 {
         color: var(--color-brand-00);
     }
+
+    .rtds-description a {
+        @apply hover:rtds-content-inverse;
+    }
 }

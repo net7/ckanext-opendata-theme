@@ -60,7 +60,7 @@ file.
         <h1 class="rtds-heading-1 rtds-max-w-5xl">{{ h.dataset_display_name(pkg) }}</h1>
         {% set description = h.get_translated(pkg, 'notes') %}
         {% if description|length > 500 %}
-          <div class="rtds-body-lg rtds-max-w-5xl" id="description-container">
+          <div class="rtds-description rtds-body-lg rtds-max-w-5xl" id="description-container">
             <div id="description-short">
               {{ description|truncate(500, True, '...')|safe }}
               <br />

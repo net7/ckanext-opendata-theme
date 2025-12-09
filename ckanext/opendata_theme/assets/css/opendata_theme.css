@@ -4971,6 +4971,11 @@ legend.rtds-facets__legend{
   object-fit:contain
 }
 
+.rtds-object-cover{
+  -o-object-fit:cover;
+  object-fit:cover
+}
+
 .rtds-object-left-top{
   -o-object-position:left top;
   object-position:left top
@@ -5449,6 +5454,14 @@ legend.rtds-facets__legend{
 
 .rtds-color-brand-00 {
   color: var(--color-brand-00);
+}
+
+.rtds-description a{
+  text-decoration-line:underline
+}
+
+.rtds-description a:hover {
+  color: var(--color-content-inverse);
 }
 
 /* CUSTOM UTILITIES */
