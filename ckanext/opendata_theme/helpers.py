@@ -5,6 +5,8 @@ from html.parser import HTMLParser
 import random
 from datetime import datetime
 import json
+import re
+import html
 
 
 def opendata_theme_hello():
@@ -30,6 +32,7 @@ def get_helpers():
         "get_theme_icon": get_theme_icon,
         "extract_themes": extract_themes,
         "get_theme_name": get_theme_name,
+        "render_markdown": render_markdown,
     }
 
 
@@ -624,4 +627,37 @@ def get_theme_name(theme_code):
     # Ottiene la stringa inglese e la traduce
     english_name = theme_names.get(theme_code, theme_code)
     return toolkit._(english_name)
+
+
+def render_markdown(text):
+    """
+    Converte testo con Markdown semplice e entità HTML in HTML formattato.
+    Gestisce:
+    - Link in formato [testo](url) 
+    - Entità HTML come &#8226; (bullet points)
+    - Line breaks
+    - URL automatici
+    
+    Args:
+        text (str): Testo da convertire
+        
+    Returns:
+        str: HTML formattato
+    """
+    if not text:
+        return ""
+    
+    # Decodifica entità HTML (es. &#8226; diventa •)
+    text = html.unescape(text)
+    
+    # Converte link Markdown [testo](url) in HTML
+    text = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2">\1</a>', text)
+    
+    # Converte URL semplici in link (solo se non sono già dentro tag <a>)
+    text = re.sub(r'(?<!href=")(?<!href=\")(?<!>)(https?://[^\s<>"]+)', r'<a href="\1">\1</a>', text)
+    
+    # Converte line breaks in <br>
+    text = text.replace('\n', '<br>')
+    
+    return text
 
