@@ -81,7 +81,7 @@ file.
         {% block primary_content %}
         <article class="module">
           {% block page_header %}
-          <header class="module-content page-header">
+          {# <header class="module-content page-header">
             {% if self.content_action() | trim %}
             <div class="content_action">
               {% block content_action %}{% endblock %}
@@ -90,7 +90,7 @@ file.
             <ul class="nav nav-tabs">
               {% block content_primary_nav %}{% endblock %}
             </ul>
-          </header>
+          </header> #}
           {% endblock %}
           <div class="module-content">
             {% if self.page_primary_action() | trim %}

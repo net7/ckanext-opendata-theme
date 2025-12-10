@@ -4586,6 +4586,10 @@ legend.rtds-facets__legend{
   max-height:var(--spacing-20)
 }
 
+.rtds-max-h-48{
+  max-height:var(--spacing-48)
+}
+
 .rtds-max-h-\[100px\]{
   max-height:100px
 }
@@ -5454,10 +5458,6 @@ legend.rtds-facets__legend{
 
 .rtds-color-brand-00 {
   color: var(--color-brand-00);
-}
-
-.rtds-description a{
-  text-decoration-line:underline
 }
 
 .rtds-description a:hover {

@@ -1,8 +1,11 @@
-{% extends "organization/read_base.html" %}
+{% extends "page-search.html" %}
+{# {% extends "organization/read_base.html" %} #}
 {# {% extends "page-organization.html" %} #}
 {% set dataset_type = h.default_package_type() %}
+{% set organization = group_dict %}
 
 {% block pre_primary %}
+
 <div class="rtds-grid rtds-gap-6 rtds-mt-8 rtds-mb-12">
   <div class="rtds-flex">
     <a href="javascript:history.back()" class="rtds-text-link rtds-content-03 rtds-text-link--s">
@@ -22,21 +25,30 @@
     </a>
   {% endif %}
 
-  <div class="rtds-mb-2">
-    <img class="rtds-max-h-[100px]" src="{{ organization.image_display_url }}" width="" height="" alt="{{ organization.name }}" />
+  <div class="rtds-grid rtds-gap-6">
+    <div class="rtds-bg-white rtds-rounded-lg rtds-p-2 rtds-w-fit">
+      <img class="rtds-max-h-48" src="{{ organization.image_display_url }}" width="" height="" alt="{{ organization.name }}" />
+      {# <img class="rtds-max-h-[100px]" src="{{ organization.image_display_url }}" width="" height="" alt="{{ organization.name }}" /> #}
+      {# <img class="rtds-w-full rtds-object-cover" src="http://localhost:5000/uploads/group/2016-10-12-135352.489839comune-firenze.png" width="" height="" alt="comune-di-firenze"> #}
+    </div>
+    <h1 class="rtds-heading-1 rtds-mb-6">{{ organization.title or organization.name }}</h1>
+    {% block description %}
+    {% if organization.description %}
+    <p>
+      {{ h.markdown_extract(organization.description, 180) }}
+    </p>
+    {% else %}
+    <p>{{ h.humanize_entity_type('organization', organization.type, 'no description') or _('There is no description for this organization') }}</p>
+    {% endif %}
+    {% endblock %}
   </div>
-  <h1 class="rtds-heading-1 rtds-mb-6">{{ organization.title or organization.name }}</h1>
-  {% block description %}
-  {% if organization.description %}
-  <p>
-    {{ h.markdown_extract(organization.description, 180) }}
-  </p>
-  {% else %}
-  <p>{{ h.humanize_entity_type('organization', organization.type, 'no description') or _('There is no description for this organization') }}</p>
-  {% endif %}
-  {% endblock %}
+
 </div>
+
 {% endblock %}
+
+
+
 
 {# La parte qui sotto è tratta dall'originale #}
 {% block primary_content_inner %}
@@ -67,13 +79,28 @@
   {% endblock %}
 {% endblock %}
 
-{% block organization_facets %}
-  <div class="filters">
+{% block secondary_content %}
+<div class="rtds-hidden lg:rtds-block">
+  <div class="rtds-grid rtds-bg-white rtds-rounded-lg rtds-px-6 rtds-py-4">
+    <div class="rtds-grid rtds-gap-4 rtds-pb-4 rtds-border-b rtds-border-gray-02">
+      <h2 class="rtds-heading-3">Filtri</h2>
+      <p class="rtds-text-sm rtds-content-03">Affina i risultati selezionando i filtri pertinenti. I risultati si aggiornano automaticamente</p>
+    </div>
+    <div>
+      {% for facet in facet_titles %}
+      {# {{ h.snippet('snippets/facet_list.html', title=facet_titles[facet], name=facet, search_facets=search_facets, facet_titles_loop=loop) }} #}
+      {{ h.snippet('snippets/facet_list.html', title=facet_titles[facet], name=facet, extras={'id':group_dict.id}, search_facets=search_facets) }}
+      {% endfor %}
+      {# <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a> #}
+    </div>
+  </div>
+</div>
+  {# <div class="filters">
     <div>
       {% for facet in facet_titles %}
         {{ h.snippet('snippets/facet_list.html', title=facet_titles[facet], name=facet, extras={'id':group_dict.id}, search_facets=search_facets) }}
       {% endfor %}
     </div>
     <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
-  </div>
+  </div> #}
 {% endblock %}
