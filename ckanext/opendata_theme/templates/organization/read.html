@@ -35,7 +35,7 @@
     {% block description %}
     {% if organization.description %}
     <p>
-      {{ h.markdown_extract(organization.description) }}
+      {{ h.render_markdown(organization.description) }}
     </p>
     {% else %}
     <p>{{ h.humanize_entity_type('organization', organization.type, 'no description') or _('There is no description for this organization') }}</p>
