@@ -69,7 +69,7 @@ Dictionary with search facets
             <div class="rtds-flex rtds-gap-2 rtds-items-center">
               <input id="checkbox{{ facet_titles_loop.index0 if facet_titles_loop else 0 }}{{ loop.index0 }}" {% if item.active %}checked="checked"{% endif %} name="checkbox{{ facet_titles_loop.index0 if facet_titles_loop else 0 }}{{ loop.index0 }}" class="" type="checkbox" data-module="opendata_theme_click" data-module-url="{{ href }}">
               <label class="rtds-input-checkbox__label rtds-facets__label" for="checkbox{{ facet_titles_loop.index0 if facet_titles_loop else 0 }}{{ loop.index0 }}">
-                <span class="rtds-facets__item-name">{{ label_truncated }}</span> <span class="rtds-facets__item-count">{{ count }}<span class="rtds-sr-only"> {{ _('results') }}</span></span>
+                <span class="rtds-facets__item-name">{{ label_truncated.replace('-', ' ').replace('_', ' ') }}</span> <span class="rtds-facets__item-count">{{ count }}<span class="rtds-sr-only"> {{ _('results') }}</span></span>
               </label>
             </div>
           </div>

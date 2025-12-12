@@ -33,7 +33,7 @@
           {% if field == 'dcat_theme' %}
             {{ h.get_theme_name(value) }}
           {% else %}
-            {{ value }}
+            {{ value.replace('-', ' ').replace('_', ' ') }}
           {% endif %}
           <button data-module="opendata_theme_click" data-module-url="{{ facets.remove_field(field, value) }}" class="rtds-chip__close rtds-w-5 rtds-h-5" aria-label="{{ _('Remove') }}">
             <svg class="rtds-icon rtds-fill-current rtds-w-5 rtds-h-5" aria-hidden="true" focusable="false" role="img">
