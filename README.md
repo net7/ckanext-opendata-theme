@@ -148,6 +148,25 @@ If ckanext-opendata-theme should be available on PyPI you can follow these steps
 
  ```ckan -c ckan.ini opendata delete-unused-tokens ckan_admin```
 
+### Comandi per la gestione degli utenti inattivi:
+
+* `ckan -c ckan.ini opendata inactive-users`
+* `ckan -c ckan.ini opendata inactive-users --months <numero_mesi>`
+* `ckan -c ckan.ini opendata inactive-users --delete`
+
+Questo comando trova tutti gli utenti che:
+- Non hanno dataset
+- Non hanno API token  
+- Non si sono autenticati da più di N mesi (default: 6)
+
+Es.: elencare utenti inattivi da 6 mesi, da 12 mesi, o eliminarli:
+
+```ckan -c ckan.ini opendata inactive-users```
+
+```ckan -c ckan.ini opendata inactive-users --months 12```
+
+```ckan -c ckan.ini opendata inactive-users --delete --yes```
+
 ### Comandi per la gestione delle organizzazioni:
 
 * `ckan -c ckan.ini opendata check-org-datasets <organization_id>`

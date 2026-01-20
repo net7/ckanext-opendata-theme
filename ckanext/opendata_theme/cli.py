@@ -719,6 +719,135 @@ def force_clean_org(organization_id, yes):
 
 
 @opendata.command()
+@click.option('--months', type=int, default=6, help='Numero di mesi di inattività (default: 6)')
+@click.option('--delete', 'do_delete', is_flag=True, help='Elimina gli utenti inattivi trovati')
+@click.option('-y', '--yes', is_flag=True, help='Conferma automaticamente l\'eliminazione senza chiedere')
+def inactive_users(months, do_delete, yes):
+    """Lista e gestisce utenti inattivi.
+    
+    Trova tutti gli utenti che:
+    - Non hanno dataset
+    - Non hanno API token
+    - Non si sono autenticati da più di N mesi (default: 6)
+    
+    Esempi:
+    - Lista utenti inattivi da 6 mesi: inactive-users
+    - Lista utenti inattivi da 12 mesi: inactive-users --months 12
+    - Elimina utenti inattivi da 6 mesi: inactive-users --delete -y
+    """
+    try:
+        from datetime import datetime, timedelta
+        import ckan.model as model
+        
+        context = {'ignore_auth': True}
+        
+        # Calcola la data limite (N mesi fa)
+        cutoff_date = datetime.now() - timedelta(days=months * 30)
+        
+        click.echo(f"\n🔍 Ricerca utenti inattivi da più di {months} mesi (prima del {cutoff_date.strftime('%Y-%m-%d')})")
+        click.echo("=" * 80)
+        
+        # Query SQL per trovare utenti inattivi
+        sql_query = """
+        SELECT u.id, u.name, u.fullname, u.email, u.created, u.last_active, u.state,
+               COALESCE(dataset_count, 0) as dataset_count,
+               COALESCE(token_count, 0) as token_count
+        FROM "user" u
+        LEFT JOIN (
+            SELECT p.creator_user_id, COUNT(*) as dataset_count
+            FROM package p
+            WHERE p.state = 'active'
+            GROUP BY p.creator_user_id
+        ) datasets ON u.id = datasets.creator_user_id
+        LEFT JOIN (
+            SELECT at.user_id, COUNT(*) as token_count
+            FROM api_token at
+            GROUP BY at.user_id
+        ) tokens ON u.id = tokens.user_id
+        WHERE u.state = 'active'
+          AND u.sysadmin = false
+          AND (u.last_active IS NULL OR u.last_active < %s)
+          AND COALESCE(dataset_count, 0) = 0
+          AND COALESCE(token_count, 0) = 0
+        ORDER BY u.last_active ASC NULLS FIRST, u.created ASC
+        """
+        
+        result = model.Session.execute(sql_query, (cutoff_date,))
+        inactive_users_list = []
+        
+        for row in result:
+            user_info = {
+                'id': row.id,
+                'name': row.name,
+                'fullname': row.fullname or row.name,
+                'email': row.email,
+                'created': row.created,
+                'last_active': row.last_active,
+                'state': row.state,
+                'dataset_count': int(row.dataset_count or 0),
+                'token_count': int(row.token_count or 0)
+            }
+            inactive_users_list.append(user_info)
+        
+        # Mostra risultati
+        if not inactive_users_list:
+            click.echo(f"\n✅ Nessun utente inattivo trovato con i criteri specificati")
+            return
+        
+        # Header
+        if do_delete:
+            click.echo(f"\n❌ Utenti inattivi da eliminare ({len(inactive_users_list)} trovati):")
+        else:
+            click.echo(f"\n📋 Utenti inattivi trovati ({len(inactive_users_list)}):")
+        
+        click.echo("=" * 80)
+        
+        # Lista utenti
+        for user in inactive_users_list:
+            last_active_str = "Mai" if not user['last_active'] else user['last_active'].strftime('%Y-%m-%d')
+            created_str = user['created'].strftime('%Y-%m-%d') if user['created'] else "Sconosciuto"
+            
+            click.echo(f"👤 {user['name']} - {user['fullname']}")
+            click.echo(f"   📧 Email: {user['email'] or 'Non specificata'}")
+            click.echo(f"   📅 Creato: {created_str}")
+            click.echo(f"   🕒 Ultimo accesso: {last_active_str}")
+            click.echo(f"   📊 Dataset: {user['dataset_count']}, Token: {user['token_count']}")
+            click.echo(f"   🆔 ID: {user['id']}")
+            click.echo("")
+        
+        # Riepilogo
+        click.echo(f"📊 Trovati {len(inactive_users_list)} utenti inattivi")
+        
+        # Esegui eliminazione se richiesta
+        if do_delete:
+            if not inactive_users_list:
+                return
+            
+            # Chiedi conferma
+            if not yes and not click.confirm(f'\n⚠️  Vuoi eliminare {len(inactive_users_list)} utenti inattivi?'):
+                click.echo('Operazione annullata')
+                return
+            
+            # Elimina utenti
+            success_count = 0
+            
+            for user in inactive_users_list:
+                try:
+                    # Usa l'API di CKAN per eliminare l'utente
+                    toolkit.get_action('user_delete')(
+                        context, {'id': user['id']})
+                    success_count += 1
+                    click.echo(f"✅ Eliminato: {user['name']}")
+                except Exception as e:
+                    click.echo(f"❌ Errore nell'eliminazione di {user['name']}: {str(e)}", err=True)
+            
+            click.echo(f"\n📊 Operazione completata: {success_count}/{len(inactive_users_list)} utenti eliminati")
+        
+    except Exception as e:
+        click.echo(f"Errore: {str(e)}", err=True)
+
+
+@opendata.command()
 @click.option('--from', 'from_count', type=int, help='Numero minimo di dataset (>=)')
 @click.option('--to', 'to_count', type=int, help='Numero massimo di dataset (<=)')
 @click.option('--org', 'organization_id', help='Filtra per una specifica organizzazione (ID o nome)')
