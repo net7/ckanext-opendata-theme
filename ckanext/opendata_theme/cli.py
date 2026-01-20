@@ -772,13 +772,13 @@ def inactive_users(months, do_delete, yes):
         ) tokens ON u.id = tokens.user_id
         WHERE u.state = 'active'
           AND u.sysadmin = false
-          AND (u.last_active IS NULL OR u.last_active < %s)
+          AND (u.last_active IS NULL OR u.last_active < :cutoff_date)
           AND COALESCE(dataset_count, 0) = 0
           AND COALESCE(token_count, 0) = 0
         ORDER BY u.last_active ASC NULLS FIRST, u.created ASC
         """
         
-        result = model.Session.execute(sql_query, (cutoff_date,))
+        result = model.Session.execute(sql_query, {'cutoff_date': cutoff_date})
         inactive_users_list = []
         
         for row in result:
