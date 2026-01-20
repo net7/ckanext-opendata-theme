@@ -1,0 +1,14 @@
+/**
+ * FORM WITH VALIDATION
+ * FEEDBACK MESSAGE
+ *
+*/
+@layer components {
+    .rtds-form-feedback-msg.is-invalid {
+        @apply rtds-p-3 rtds-bg-error-light rtds-content-error rtds-font-bold rtds-border rtds-border-error-dark rtds-rounded-md;
+    }
+
+    .rtds-form-feedback-msg.is-success {
+        @apply rtds-p-3 rtds-bg-success-light rtds-content-success rtds-font-bold rtds-border rtds-border-success-dark rtds-rounded-md;
+    }
+}

@@ -15,14 +15,13 @@
         * using is and :focus-visible
     */
 
-    :is(a, button, input, select, textarea, summary,[tabindex="0"]) {
+    :is(a, button, input, select, textarea, summary, [tabindex="0"]) {
         @apply focus-visible:rtds-ring focus-visible:rtds-ring-offset-2 focus-visible:rtds-ring-offset-white focus-visible:rtds-ring-focusring focus-visible:rtds-shadow-[0_0_0_7px_rgba(255,255,255,1)] focus-visible:rtds-outline-none;
     }
 
     /* Remove all animations and transitions
     for people that prefer not to see them */
     @media (prefers-reduced-motion: reduce) {
-
         *,
         *::before,
         *::after {
@@ -32,4 +31,35 @@
             scroll-behavior: auto !important;
         }
     }
+
+    [placeholder] {
+        text-overflow: ellipsis;
+    }
 }
+
+/* Run time applied classes with Js, not compiled by Tailwind */
+.rtds-dialog-backdrop {
+    background-color: rgba(0, 0, 0, 0.25);
+    bottom: var(--spacing-0);
+    display: none;
+    height: 100%;
+    left: var(--spacing-0);
+    overflow-y: auto;
+    position: fixed;
+    right: var(--spacing-0);
+    top: var(--spacing-0);
+    width: 100%;
+    z-index: 40;
+}
+
+/* Bootstrap overwriting */
+label {
+    cursor: auto;
+}
+abbr[title],
+abbr[data-bs-original-title] {
+    text-decoration: none;
+    cursor: auto;
+    text-decoration-skip-ink: none;
+}
+/*  */

@@ -16,13 +16,14 @@
 {% set dataset_type = h.default_package_type() %}
 
 {% block info %}
+  <h3 class="rtds-heading-3">Ente</h3>
   {% block image %}
-  <section class="rtds-background-03 rtds-rounded-2xl rtds-p-4 rtds-w-fit rtds-pr-16">
-    {# <a href="{{ url }}"> #}
-      {# <img src="{{ organization.image_display_url or h.url_for_static('/base/images/placeholder-organization.png') }}" width="200" alt="{{ organization.name }}" /> #}
-      <img class="rtds-max-h-[100px] rtds-rounded-2xl" src="{{ organization.image_display_url }}" width="" height="" alt="{{ organization.name }}" />
-      {# </a> #}
+  <section class="rtds-background-03 rtds-rounded-2xl rtds-p-4 rtds-w-fit">
+    <div class="rtds-bg-white rtds-rounded-lg rtds-p-2">
+      <img class="rtds-w-full rtds-object-cover" src="{{ organization.image_display_url }}" width="" height="" alt="{{ organization.name }}">
+    </div>
   </section>
+        {# <img class="rtds-max-h-[90px]" src="{{ organization.image_display_url }}" width="" height="" alt="{{ organization.name }}" /> #}
   {% endblock %}
 
   <section class="rtds-grid rtds-gap-4 rtds-pr-16">
@@ -43,11 +44,8 @@
       {% block description %}
         {% if organization.description %}
           <p>
-            {{ h.markdown_extract(organization.description, 180) }}
-          </p>
-          <p>
             {% set organization_url = h.url_for(organization.type + '.about', id=organization.name) %}
-            <a href="{{ organization_url }}" class="rtds-action-link rtds-action-link--sm rtds-action-link--has-icon">
+            <a href="{{ url }}" class="rtds-action-link rtds-action-link--sm rtds-action-link--has-icon">
               {{ _('read more') }}
               <svg class="rtds-icon rtds-fill-current" aria-hidden="true" focusable="false" role="img">
                   <use href="/icons.svg#mini--arrow-small-right" />
@@ -91,6 +89,7 @@
     {% if qa and qa.openness_score > 0 %}
       <section class="rtds-py-4 rtds-grid rtds-gap-4 rtds-pr-16">
         <h3 class="rtds-body-lg rtds-font-bold">{{ _('Openness') }}</h3>
+        <span class="rtds-sr-only">{{ _('rating') }}: {{ qa.openness_score }} {{ _('out of') }} 5</span>
         <ul class="rtds-flex rtds-flex-wrap rtds-gap-2">
           {% for index in range(qa.openness_score) %}
           <li>

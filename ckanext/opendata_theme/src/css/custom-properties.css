@@ -213,12 +213,12 @@
     --color-button-inverted-hover: var(--color-neutral-50);     /* Pulsante invertito hover */
     --color-button-inverted-focus: var(--color-neutral-50);     /* Pulsante invertito focus */
     --color-button-inverted-active: var(--color-neutral-100);   /* Pulsante invertito attivo */
-    --color-button-inverted-text: var(--color-content-02);      /* Testo pulsante invertito */
+    --color-button-inverted-text: var(--color-primary-700);      /* Testo pulsante invertito */
     --color-button-inverted-text-hover: var(--color-content-01); /* Testo pulsante invertito hover */
     --color-button-inverted-text-focus: var(--color-content-02); /* Testo pulsante invertito focus */
-    --color-button-inverted-text-active: var(--color-content-02); /* Testo pulsante invertito attivo */
+    --color-button-inverted-text-active: var(--color-content-01); /* Testo pulsante invertito attivo */
     --color-button-text-inverted: transparent;                  /* Pulsante testo invertito */
-    --color-button-text-inverted-hover: rgba(0, 0, 0, 0.5);    /* Pulsante testo invertito hover */
+    --color-button-text-inverted-hover: rgba(0, 0, 0, 0.25);    /* Pulsante testo invertito hover */
     --color-button-text-inverted-focus: transparent;            /* Pulsante testo invertito focus */
     --color-button-text-inverted-active: rgba(0, 0, 0, 0.2);   /* Pulsante testo invertito attivo */
     --color-button-text-inverted-text: var(--color-content-inverse); /* Testo pulsante testo invertito */
@@ -251,9 +251,10 @@
     --color-background-09: var(--color-secondary-50);        /* Sfondo 09 */
     --color-background-primary: var(--color-primary-500);     /* Sfondo primario */
     --color-background-primary-light: var(--color-primary-50); /* Sfondo primario chiaro */
+    --color-background-primary-medium: var(--color-primary-700); /* Sfondo primario scuro */
+    --color-background-primary-dark: var(--color-primary-900); /* Sfondo primario scuro */
 
     --color-background-inverse: var(--color-neutral-50);      /* Sfondo invertito */
-    --color-background-primary-dark: var(--color-primary-900); /* Sfondo primario scuro */
     --color-background-secondary: var(--color-secondary-500); /* Sfondo secondario */
     --color-background-secondary-light: var(--color-secondary-200); /* Sfondo secondario chiaro */
     --color-background-secondary-dark: var(--color-secondary-900); /* Sfondo secondario scuro */
@@ -267,7 +268,7 @@
     --color-divide-gray-03: var(--color-neutral-600);         /* Divisore grigio 03 */
     --color-border-gray-04: var(--color-neutral-800);         /* Bordo grigio 04 */
     --color-divide-gray-04: var(--color-neutral-800);         /* Divisore grigio 04 */
-    --color-border-input: var(--color-neutral-700);           /* Bordo input */
+    --color-border-input: var(--color-border-gray-04);           /* Bordo input */
     --color-border-primary: var(--color-primary-500);         /* Bordo primario */
     --color-divide-primary: var(--color-primary-500);         /* Divisore primario */
     --color-border-secondary: var(--color-secondary-500);     /* Bordo secondario */

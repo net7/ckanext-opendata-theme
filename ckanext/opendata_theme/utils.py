@@ -4,11 +4,6 @@ import ckan.plugins.toolkit as t
 
 #render = base.render
 
-def credits_index(context=None):
-    data = t.request.params or {}
-    vars = {'data': data}
-    return t.render('credits.html', extra_vars=vars)
-
 def infog_index(context=None):
     data = t.request.params or {}
     vars = {'data': data}

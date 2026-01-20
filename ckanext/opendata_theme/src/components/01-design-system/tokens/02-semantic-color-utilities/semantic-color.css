@@ -309,13 +309,17 @@
     .rtds-background-primary-light {
         background-color: var(--color-background-primary-light);
     }
-    
-    .rtds-background-inverse {
-        background-color: var(--color-background-inverse);
+
+    .rtds-background-primary-medium {
+        background-color: var(--color-background-primary-medium);
     }
 
     .rtds-background-primary-dark {
         background-color: var(--color-background-primary-dark);
+    }
+    
+    .rtds-background-inverse {
+        background-color: var(--color-background-inverse);
     }
 
     .rtds-background-secondary {

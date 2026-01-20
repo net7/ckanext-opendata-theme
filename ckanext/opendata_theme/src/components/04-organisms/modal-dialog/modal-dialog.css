@@ -1,0 +1,81 @@
+/**
+ * MODAL DIALOG
+ *
+*/
+@layer components {
+    :where(.rtds-dialog) [role="dialog"] {
+        @apply rtds-flex rtds-flex-col rtds-bg-white md:rtds-rounded-md md:rtds-overflow-hidden rtds-min-h-[100vh] md:rtds-min-h-[13rem] md:rtds-max-h-[90vh] md:rtds-absolute md:rtds-shadow-lg md:rtds-left-[50vw] md:rtds-top-[50vh] md:-rtds-translate-x-[50%] md:-rtds-translate-y-[50%];
+    }
+
+    :where(.rtds-dialog-backdrop.is-active) [role="dialog"] {
+        @apply rtds-flex;
+    }
+
+    /* HEADER */
+    .rtds-dialog__header {
+        @apply rtds-flex rtds-justify-between rtds-px-4 rtds-py-3 lg:rtds-px-6 lg:rtds-py-4 rtds-gap-2 rtds-items-center rtds-border-b rtds-border-gray-01 rtds-bg-white;
+    }
+
+    :where(.rtds-modal-dialog--inverse) .rtds-dialog__header {
+        @apply rtds-background-primary rtds-content-inverse;
+    }
+
+    :where(.rtds-modal-dialog--s) .rtds-dialog__header {
+        @apply lg:rtds-px-4 lg:rtds-py-2;
+    }
+
+    .rtds-dialog__content {
+        @apply rtds-bg-white rtds-flex-1 rtds-overflow-y-auto;
+    }
+
+    .rtds-dialog__content:focus-visible {
+        box-shadow: inset 0 0 0 3px var(--tw-ring-color);
+    }
+
+    .rtds-dialog__content,
+    .rtds-dialog__actions {
+        @apply rtds-px-4 rtds-py-3 lg:rtds-px-6 lg:rtds-py-4;
+    }
+
+    .rtds-dialog__actions {
+        @apply rtds-pt-4 rtds-flex rtds-gap-2 sm:min-h-480:rtds-sticky rtds-bottom-0 rtds-border-t rtds-border-gray-01 rtds-bg-white;
+    }
+
+    :where(.rtds-modal-dialog--s) .rtds-dialog__actions {
+        @apply lg:rtds-p-4;
+    }
+
+    .rtds-dialog__actions .rtds-btn {
+        @apply rtds-flex-1 lg:rtds-flex-none;
+    }
+
+    .rtds-dialog__close-button {
+        @apply rtds-bg-transparent rtds-border-transparent focus:rtds-bg-transparent focus:rtds-border-transparent;
+    }
+
+    @media screen and (min-width: 768px) {
+        :where(.rtds-dialog) [role="dialog"] {
+            min-width: calc(768px - (15px * 2));
+            /* == breakpoint - left+right margin */
+        }
+    }
+
+    /* dialog::backdrop */
+    .rtds-dialog-backdrop {
+        @apply rtds-hidden rtds-fixed rtds-overflow-y-auto rtds-w-full rtds-h-full rtds-top-0 rtds-right-0 rtds-bottom-0 rtds-left-0 rtds-z-40 rtds-bg-black/25;
+    }
+
+
+    .rtds-dialog-backdrop.is-active {
+        @apply rtds-block;
+    }
+
+    .no-scroll {
+        overflow-y: auto !important;
+    }
+
+    /* this is added to the body when a dialog is open */
+    .has-dialog {
+        overflow: hidden !important;
+    }
+}

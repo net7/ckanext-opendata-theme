@@ -39,16 +39,14 @@
   </div>
 
   {% block page_pagination %}
-    {# {{ page.pager(q=q) }} #}
-    {% snippet 'snippets/pagination.html', pager=g.page %}
+  {# {{ page.pager(q=q) }} #}
+  {% snippet 'snippets/pagination.html', pager=g.page %}
   {% endblock %}
-</section>
 
-{% block package_search_results_api %}
-<section class="module">
-  <div class="module-content">
+  {% block package_search_results_api %}
+  <div class="rtds-article-body rtds-mt-10">
     {% block package_search_results_api_inner %}
-    <small>
+    <p>
       {% set api_link = h.link_to(_('API'), h.url_for('api.get_api', ver=3)) %}
       {% set api_doc_link = h.link_to(_('API Docs'), 'http://docs.ckan.org/en/{0}/api/'.format(g.ckan_doc_version)) %}
       {% if g.dumps_url -%}
@@ -61,11 +59,11 @@
       You can also access this registry using the {{ api_link }} (see {{ api_doc_link}}).
       {% endtrans %}
       {%- endif %}
-    </small>
+    </p>
     {% endblock %}
   </div>
+  {% endblock %}
 </section>
-{% endblock %}
 {% endblock %}
 
 {% block secondary_content %}
@@ -77,9 +75,7 @@
     </div>
     <div>
       {% for facet in facet_titles %}
-      <fieldset class="rtds-facets">
-        {{ h.snippet('snippets/facet_list.html', title=facet_titles[facet], name=facet, search_facets=search_facets, facet_titles_loop=loop) }}
-      </fieldset>
+      {{ h.snippet('snippets/facet_list.html', title=facet_titles[facet], name=facet, search_facets=search_facets, facet_titles_loop=loop) }}
       {% endfor %}
       {# <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a> #}
     </div>

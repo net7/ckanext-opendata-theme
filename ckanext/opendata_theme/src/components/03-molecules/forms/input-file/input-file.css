@@ -1,0 +1,23 @@
+/*
+ * @file
+ * Styles for the input file component.
+ */
+
+:where(.rtds-input) input[type="file"] {
+    @apply rtds-w-full;
+}
+
+::file-selector-button {
+    @apply rtds-btn rtds-btn--outlined rtds-transition-all rtds-cursor-pointer rtds-mr-4;
+}
+
+/*:where(.rtds-input) input[type="file"]::before {
+}*/
+
+:where(.rtds-input--sm) ::file-selector-button {
+    @apply rtds-btn--s;
+}
+
+:where(.rtds-input--lg) ::file-selector-button {
+    @apply rtds-btn--l;
+}

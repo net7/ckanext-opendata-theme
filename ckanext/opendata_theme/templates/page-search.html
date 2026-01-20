@@ -3,7 +3,7 @@
 {%- block page -%}
 
 {% block skip %}
-<div class="visually-hidden-focusable"><a href="#content">{{ _('Skip to main content') }}</a></div>
+<div class="visually-hidden-focusable"><a href="#mainContent">{{ _('Skip to main content') }}</a></div>
 {% endblock %}
 
 {#
@@ -17,7 +17,7 @@ file.
 
 {# The content block allows you to replace the content of the page if needed #}
 {%- block content %}
-{% block maintag %}<main class="rtds-flex rtds-background-02 rtds-pb-16">{% endblock %}
+{% block maintag %}<main id="mainContent" class="rtds-background-02 rtds-pb-16">{% endblock %}
   {% block main_content %}
   {% block flash %}
   {% endblock %}
@@ -81,7 +81,7 @@ file.
         {% block primary_content %}
         <article class="module">
           {% block page_header %}
-          <header class="module-content page-header">
+          {# <header class="module-content page-header">
             {% if self.content_action() | trim %}
             <div class="content_action">
               {% block content_action %}{% endblock %}
@@ -90,7 +90,7 @@ file.
             <ul class="nav nav-tabs">
               {% block content_primary_nav %}{% endblock %}
             </ul>
-          </header>
+          </header> #}
           {% endblock %}
           <div class="module-content">
             {% if self.page_primary_action() | trim %}

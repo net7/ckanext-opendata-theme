@@ -1,0 +1,38 @@
+{% extends "page-contact.html" %}
+
+{# {% block breadcrumb_content %}
+{{ super() }}
+<li>
+    <a href="{{ h.url_for('contact.form') }}">{{ _('Contact') }}</a>
+</li>
+{% endblock %} #}
+
+{% block secondary %}
+{% endblock %}
+
+{% block primary %}
+<section class="rtds-form rtds-grid rtds-background-primary-light">
+    <div class="rtds-container">
+        <div class="xl:rtds-bg-auto xl:rtds-bg-no-repeat" style="background-image: url('/images/bkg-send-form.png'); background-position: bottom 40% left -30px;">
+            <div class="rtds-background-primary-light xl:rtds-bg-transparent">
+                <div class="rtds-grid rtds-grid-cols-12">
+                    <div class="rtds-col-span-12 lg:rtds-col-span-8 lg:rtds-col-start-3 rtds-py-16">
+                        <div class="rtds-grid rtds-gap-12">
+                            <div class="rtds-grid rtds-gap-10 rtds-text-center lg:rtds-px-16">
+                                <h2 class="rtds-heading-2">Contribuisci anche tu</h2>
+                                <p>La Regione Toscana raccoglie e mette a disposizione una grande quantità di dati relativi a molteplici aspetti della vita pubblica e del territorio.
+                                    <br>Compila il modulo per inviare i tuoi dati. Ti contatteremo al più presto, per confermarti che la tua organizzazione è stata creata e i dataset inseriti. Dopodiché potrai accedere all'area riservata.
+                                </p>
+                            </div>
+                            <hr>
+                            {% block contact_form_content %}
+                            {% include "contact/snippets/form.html" %}
+                            {% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

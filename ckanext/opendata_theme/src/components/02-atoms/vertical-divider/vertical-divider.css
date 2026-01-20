@@ -1,0 +1,5 @@
+@layer components {
+    .rtds-vertical-divider {
+        @apply rtds-flex rtds-items-center rtds-justify-center;
+    }
+}

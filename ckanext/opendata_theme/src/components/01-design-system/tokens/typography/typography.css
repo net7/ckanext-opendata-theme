@@ -5,11 +5,11 @@
 /* Heading typography */
 @layer base {
     .rtds-heading-1 {
-        @apply rtds-font-heading rtds-font-bold rtds-text-2xl lg:rtds-text-3xl xl:rtds-text-4xl 2xl:rtds-text-5xl rtds-leading-none;
+        @apply rtds-font-heading rtds-font-bold rtds-text-3xl lg:rtds-text-4xl 2xl:rtds-text-5xl rtds-leading-normal md:rtds-leading-none;
     }
 
     .rtds-heading-2 {
-        @apply rtds-font-heading rtds-font-bold rtds-text-xl lg:rtds-text-2xl 2xl:rtds-text-3xl rtds-leading-none;
+        @apply rtds-font-heading rtds-font-bold rtds-text-2xl 2xl:rtds-text-3xl rtds-leading-normal 2xl:rtds-leading-none;
     }
     
     .rtds-heading-3 {

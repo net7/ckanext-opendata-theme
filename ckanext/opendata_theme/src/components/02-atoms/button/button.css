@@ -9,7 +9,7 @@
     }
 
     .rtds-btn--primary {
-        @apply rtds-button-primary rtds-content-02 hover:rtds-button-primary-hover focus:rtds-button-primary-hover active:rtds-button-primary-active;
+        @apply rtds-button-primary rtds-content-02 hover:rtds-content-02 hover:rtds-button-primary-hover hover:rtds-no-underline focus:rtds-button-primary-hover active:rtds-button-primary-active;
     }
 
     .rtds-btn--secondary {
@@ -29,7 +29,7 @@
     }
 
     .rtds-btn--text-inverted {
-        @apply rtds-button-text-inverted rtds-button-text-inverted-text hover:rtds-button-text-inverted-hover hover:rtds-button-text-inverted-text-hover focus:rtds-button-text-inverted-focus focus:rtds-button-text-inverted-text-focus active:rtds-button-text-inverted-active active:rtds-button-text-inverted-text-active;
+        @apply rtds-button-text-inverted rtds-button-text-inverted-text hover:rtds-button-text-inverted-hover focus:rtds-button-text-inverted-focus focus:rtds-button-text-inverted-text-focus active:rtds-button-text-inverted-active active:rtds-button-text-inverted-text-active;
     }
 
     /* UTILITY VARIANTS FOR SIZE MANAGING AND ICON MANAGING */
@@ -66,8 +66,13 @@
     }
 
     /* SPACING MANAGEMENT FOR BUTTON WITH ICON */
-    .rtds-btn--s:where(.rtds-btn--icon) {
+    .rtds-btn--s:where(.rtds-btn--icon),
+    .rtds-btn--s:where(.rtds-btn--icon-square) {
         @apply rtds-w-6 rtds-h-6;
+    }
+    .rtds-btn--s:where(.rtds-btn--icon-right),
+    .rtds-btn--s:where(.rtds-btn--icon-left) {
+        @apply rtds-gap-1.5;
     }
 
     .rtds-btn--s:where(.rtds-btn--icon-right) {
@@ -78,7 +83,8 @@
         @apply rtds-pl-3;
     }
 
-    .rtds-btn--l:where(.rtds-btn--icon) {
+    .rtds-btn--l:where(.rtds-btn--icon),
+    .rtds-btn--l:where(.rtds-btn--icon-square) {
         @apply rtds-w-12 rtds-h-12;
     }
     
@@ -91,7 +97,9 @@
     }
 
     .rtds-btn--s:where(.rtds-btn--icon),
-    .rtds-btn--l:where(.rtds-btn--icon) {
+    .rtds-btn--l:where(.rtds-btn--icon),
+    .rtds-btn--s:where(.rtds-btn--icon-square),
+    .rtds-btn--l:where(.rtds-btn--icon-square) {
         @apply rtds-px-0;
     }
 

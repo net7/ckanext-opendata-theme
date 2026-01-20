@@ -1,0 +1,65 @@
+{% import 'macros/form.html' as form %}
+{% asset 'ckanext-contact/main' %}
+
+{% set recaptcha_v3_key = h.get_recaptcha_v3_key() %}
+{% set recaptcha_v3_action = h.get_recaptcha_v3_action() %}
+
+{% block contact_form %}
+<form class="rtds-grid rtds-gap-8" method="post" enctype="multipart/form-data" data-module="form-contact" data-module-action="{{ recaptcha_v3_action }}" data-module-key="{{ recaptcha_v3_key }}">
+    <h3 class="rtds-body-lg rtds-font-bold rtds-text-center">Compila i campi sottostanti</h3>
+
+    {{ form.errors(error_summary) }}
+
+    {% block contact_form_fields %}
+    <div class="rtds-space-y-4">
+        <div class="rtds-grid lg:rtds-flex rtds-gap-4">
+            <div class="lg:rtds-w-1/2">
+                {{ form.input('organization_name', label=_('Nome organizzazione'), id='field-organization-name', type='text',
+                value=data.organization_name, error=errors.organization_name, is_required=true) }}
+            </div>
+            <div class="lg:rtds-w-1/2">
+                {{ form.input('organization_email', label=_('Email organizzazione'), id='field-organization-email', type='email',
+                value=data.organization_email, error=errors.organization_email, is_required=true) }}
+            </div>
+        </div>
+        <div class="rtds-grid lg:rtds-flex rtds-gap-4">
+            <div class="lg:rtds-w-1/2">
+                {{ form.input('user_name', label=_('Nome utente'), id='field-user-name', type='text',
+                value=data.user_name, error=errors.user_name, is_required=true) }}
+            </div>
+            <div class="lg:rtds-w-1/2">
+                {{ form.input('user_email', label=_('E-mail istituzionale utente'), id='field-user-email', type='email',
+                value=data.user_email, error=errors.user_email, is_required=true) }}
+            </div>
+        </div>
+        <div class="rtds-grid lg:rtds-flex rtds-gap-4">
+            <div class="lg:rtds-w-1/2">
+            {{ form.input('codice_ipa', label=_('Codice IPA'), id='field-ipa', type='text',
+            value=data.ipa, error=errors.codice_ipa, is_required=false) }}
+            </div>
+            <div class="lg:rtds-w-1/2">
+                {{ form.input('organization_logo', label='Carica il logo dell\'organizzazione <span class="rtds-font-normal">(Solo file .jpeg o .png fino a 1mb)</span>'|safe, id='field-organization-logo', type='file',
+                value='', error=errors.organization_logo, is_required=false, attrs={'accept': '.jpeg,.jpg,.png', 'data-max-size': '1048576'}) }}
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+    <hr>
+    {# if feedback #}
+    {# <div class="rtds-form-feedback">
+        <p class="rtds-form-feedback-sr rtds-sr-only" aria-live="assertive"><!-- js --></p>
+        <p class="rtds-form-feedback-msg" aria-hidden="true"></p>
+    </div> #}
+    {# endif #}
+    {% block contact_form_actions %}
+    <div class="rtds-form-actions rtds-grid rtds-justify-center">
+        <button class="rtds-btn rtds-btn--primary rtds-form-submit rtds-btn--icon-right rtds-group/button" type="submit" name="save">
+            {{ _('Invia dati') }}
+            <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 md:rtds-w-5 md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+                <use href="/icons.svg#mini--chevron-right" />
+            </svg>
+        </button>
+    </div>
+    {% endblock %}
+</form>
+{% endblock %}

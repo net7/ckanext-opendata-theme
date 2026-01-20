@@ -15,7 +15,7 @@ Example:
 {% set url_action = pkg.type ~ ('_resource.edit' if url_is_edit and can_edit else '_resource.read') %}
 {% set url = url or h.url_for(url_action, id=pkg.name, resource_id=res.id) %}
 
-<li class="rtds-py-4 rtds-border-t rtds-border-gray-01 rtds-grid md:rtds-flex md:rtds-flex-wrap rtds-justify-items-start md:rtds-justify-between rtds-items-center rtds-gap-4" data-id="{{ res.id }}">
+<li class="rtds-py-4 rtds-border-t rtds-border-gray-01 rtds-grid sm:rtds-flex sm:rtds-flex-wrap rtds-justify-items-start sm:rtds-justify-between rtds-items-center rtds-gap-4" data-id="{{ res.id }}">
   {% block resource_item_title %}
     {# <a class="rtds-truncate sm:rtds-overflow-auto rtds-w-full sm:rtds-w-auto" href="{{ url }}" title="{{ res.name or res.description }}"> #}
     <span class="rtds-truncate sm:rtds-overflow-auto rtds-w-full sm:rtds-w-auto">
@@ -24,7 +24,7 @@ Example:
     </span>
     {# </a> #}
     
-    <div class="md:rtds-grow md:rtds-flex md:rtds-justify-end">
+    <div class="sm:rtds-grow sm:rtds-flex sm:rtds-justify-end">
       {% if res.format %}
         <span class="rtds-chip rtds-chip--sm rtds-chip--tag" property="dc:format" data-format="{{ res.format.lower() or 'data' }}">{{ h.get_translated(res, 'format') }}</span>
       {% endif %}
@@ -32,26 +32,26 @@ Example:
     <div class="rtds-flex rtds-flex-wrap rtds-gap-4 rtds-items-center">
       {% block resource_item_explore %}
         {% if not url_is_edit %}
-          <a class="rtds-btn rtds-btn--s rtds-btn--only-text" href="{{ url }}">
+          <a class="rtds-action-link rtds-action-link--sm" href="{{ url }}">
             {% if res.has_views %}
-            {{ _('Preview') }}
+            {{ _('Preview') }} <span class="rtds-sr-only">{{ h.resource_display_name(res) | truncate(50) }}</span>
             {% else %}
-            {{ _('More information') }}
+            {{ _('More information') }} <span class="rtds-sr-only">{{ _('regarding') }} {{ h.resource_display_name(res) | truncate(50) }}</span>
             {% endif %}
           </a>
           {% if res.url and h.is_url(res.url) %}
             {% if res.has_views or res.url_type == 'upload' %}
-              <a class="rtds-btn rtds-btn--s rtds-btn--only-text" href="{{ res.url }}" target="_blank" rel="noreferrer">
-                {{ _('Go to resource') }}
+              <a class="rtds-action-link rtds-action-link--sm" href="{{ res.url }}" target="_blank" rel="noreferrer">
+                {{ _('Go to resource') }} <span class="rtds-sr-only"> {{ h.resource_display_name(res) | truncate(50) }}</span>
                 <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 md:rtds-w-5 md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
                   <use href="/icons.svg#mini--arrow-top-right-on-square" />
                 </svg>
               </a>
             {% else %}
-              <a class="rtds-btn rtds-btn--s rtds-btn--outlined" href="{{ res.url }}" target="_blank" rel="noreferrer">
-                {{ _('Download') }}
-                <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 md:rtds-w-5 md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
-                  <use href="/icons.svg#mini--chevron-down" />
+              <a class="rtds-btn rtds-btn--s rtds-btn--outlined rtds-btn--icon-right rtds-group/button" href="{{ res.url }}" target="_blank" rel="noreferrer">
+                {{ _('Download') }} <span class="rtds-sr-only"> {{ h.resource_display_name(res) | truncate(50) }}</span>
+                <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+                  <use href="/icons.svg#mini--arrow-down-tray" />
                 </svg>
               </a>
             {% endif %}
@@ -59,7 +59,7 @@ Example:
 
           {% if can_edit %}
             <a class="rtds-btn rtds-btn--s rtds-btn--only-text" href="{{ h.url_for(pkg.type ~ '_resource.edit', id=pkg.name, resource_id=res.id) }}">
-              {{ _('Edit') }}
+              {{ _('Edit') }} <span class="rtds-sr-only"> {{ h.resource_display_name(res) | truncate(50) }}</span>
               <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 md:rtds-w-5 md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
                 <use href="/icons.svg#mini--wrench" />
               </svg>

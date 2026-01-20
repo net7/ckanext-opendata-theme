@@ -92,4 +92,12 @@
     .rtds-block-full {
         @apply rtds-w-full;
     }
+
+    .rtds-color-brand-00 {
+        color: var(--color-brand-00);
+    }
+
+    .rtds-description a {
+        @apply hover:rtds-content-inverse;
+    }
 }

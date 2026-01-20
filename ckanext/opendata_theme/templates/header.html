@@ -8,13 +8,13 @@
 
         <div class="rtds-site-branding rtds-branding rtds-gap-4">
           <a class="rtds-site-logo rtds-logo--main rtds-logo--main rtds-w-max rtds-flex-initial" href="{{ h.url_for('home.index') }}">
-            <img class="rtds-w-auto rtds-h-full rtds-object-contain rtds-object-left-top" src="/images/marchio-rt.svg" alt="Opendata Toscana" width="248" height="81" />
+            <img class="rtds-w-auto rtds-h-full rtds-object-contain rtds-object-left-top" src="/images/marchio-rt.svg" alt="Regione Toscana" width="248" height="81" />
           </a>
         
           <div class="rtds-site-branding__secondary">
             <div class="rtds-site-logo rtds-logo--secondary rtds-logo--secondary rtds-w-auto">
               <a class="rtds-site-logo rtds-logo--main rtds-logo--main rtds-w-max rtds-flex-initial" href="{{ h.url_for('home.index') }}">
-                <img class="rtds-w-full rtds-h-full rtds-object-contain rtds-object-left-top" src="/images/logo-td.svg" alt="Opendata Toscana" width="160" height="33" />
+                <img class="rtds-w-full rtds-h-full rtds-object-contain rtds-object-left-top" src="/images/logo-td.svg" alt="Toscana Digitale" width="160" height="33" />
               </a>
             </div>
           </div>
@@ -63,6 +63,7 @@
             </ul>
           </div>
 
+          {#
           <!-- Search component -->
           <div class="rtds-hidden lg:rtds-block">
             <button type="button" id="searchModalTrigger" class="rtds-btn rtds-btn--outline rtds-btn--icon rtds-w-6 rtds-h-6 md:rtds-w-10 md:rtds-h-10 rtds-border-gray-03 hover:rtds-text-white focus:rtds-text-white active:rtds-text-white hover:rtds-button-primary-hover focus:rtds-button-primary-hover active:rtds-button-primary-hover">
@@ -108,6 +109,7 @@
               </div>
             </div>
           </div><!--/ END SEARCH WRAPPER -->
+            #}
         </div>
         <!--/ END TOP BAR UTILITIES -->
       </div>
@@ -118,7 +120,7 @@
       <div class="rtds-main-heading__container rtds-container rtds-mx-auto rtds-flex rtds-items-center rtds-flex-1">
         <div class="rtds-site-branding rtds-branding" style="--branding-max-width: 217px; --branding-max-width-xl: 326px;">
           <a class="rtds-site-logo rtds-logo--main rtds-logo--main rtds-w-auto" href="{{ h.url_for('home.index') }}">
-            <img class="rtds-w-full rtds-h-full rtds-object-contain rtds-object-left-top" src="/images/logo-open-data-toscana.svg" alt="Alt logo image" width="326" height="95" />
+            <img class="rtds-w-full rtds-h-full rtds-object-contain rtds-object-left-top" src="/images/logo-open-data-toscana.svg" alt="OpenData Toscana" width="326" height="95" />
           </a>
         </div>
 
@@ -126,17 +128,17 @@
           <nav class="rtds-primary-navigation lg:rtds-justify-end" aria-label="Principale" id="siteNavWrapper">
             <button type="button" class="rtds-btn rtds-btn--only-text rtds-rounded-0 lg:rtds-hidden rtds-ml-auto rtds-btn--icon rtds-group" aria-expanded="false" aria-controls="mainNavPanel" id="mobileNavToggle">
               <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 md:rtds-w-5
-      md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 rtds-m-0 rtds-p-0
-      rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform
-      group-hover:rtds-translate-none is-show-menu
-      group-aria-expanded:rtds-hidden" aria-hidden="true" focusable="false" role="img">
+                md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 rtds-m-0 rtds-p-0
+                rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform
+                group-hover:rtds-translate-none is-show-menu
+                group-aria-expanded:rtds-hidden" aria-hidden="true" focusable="false" role="img">
                 <use href="/icons.svg#mini--bars-3" />
               </svg>
               <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 md:rtds-w-5
-      md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 rtds-m-0 rtds-p-0 rtds-transition-all
-      rtds-duration-200 rtds-ease-out rtds-transform
-      group-hover:rtds-translate-none is-close-menu rtds-hidden
-      group-aria-expanded:rtds-inline-block" aria-hidden="true" focusable="false" role="img">
+                md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 rtds-m-0 rtds-p-0 rtds-transition-all
+                rtds-duration-200 rtds-ease-out rtds-transform
+                group-hover:rtds-translate-none is-close-menu rtds-hidden
+                group-aria-expanded:rtds-inline-block" aria-hidden="true" focusable="false" role="img">
                 <use href="/icons.svg#mini--x-mark" />
               </svg>
 
@@ -176,7 +178,7 @@
                   {% endif %}
 
                   <li class="rtds-primary-navigation__item">
-                    <a href="{{ h.url_for('home.about') }}" class="rtds-primary-navigation__first-level rtds-primary-navigation__link rtds-group rtds-text-base {{ h.is_current('projects', 'is-current') }}" {{ h.is_current('projects', 'aria-current="page"') }}>
+                    <a href="{{ h.url_for('home.about') }}" class="rtds-primary-navigation__first-level rtds-primary-navigation__link rtds-group rtds-text-base {{ h.is_current('projects', 'is-current') }}" {{ h.is_current('projects', 'aria-current=page') }}>
                       {{ _('Project') }}
                     </a>
                   </li>
@@ -188,7 +190,7 @@
                   </li>
                   #}
                   <li class="rtds-primary-navigation__item">
-                    <a href="{{ h.url_for('dataset.search') }}" class="rtds-primary-navigation__first-level rtds-primary-navigation__link rtds-group rtds-text-base {{ h.is_current('dataset', 'is-current') }}" {{ h.is_current('dataset', 'aria-current="page"') }}>
+                    <a href="{{ h.url_for('dataset.search') }}" class="rtds-primary-navigation__first-level rtds-primary-navigation__link rtds-group rtds-text-base {{ h.is_current('dataset', 'is-current') }}" {{ h.is_current('dataset', 'aria-current=page') }}>
                       {{ _('Data') }}
                     </a>
                   </li>
@@ -207,7 +209,7 @@
                       <input id="inputSearchMobile" class="rtds-rounded-l-lg rtds-rounded-r-none rtds-text-sm rtds-input-placeholder" type="search" placeholder="{{ _('Search') }}">
                     </div>
                   </div>
-                  <button type="button" class="rtds-btn rtds-btn--secondary rtds-btn--icon rtds-w-11 rtds-h-11 rtds-rounded-lg">
+                  <button type="button" class="rtds-btn rtds-btn--outline rtds-btn--icon rtds-w-11 rtds-h-11 rtds-rounded-lg">
                     <span class="rtds-sr-only">{{ _('Search') }}</span>
                     <svg class="rtds-icon rtds-fill-current rtds-w-5 rtds-h-5" aria-hidden="true" focusable="false" role="img">
                       <use href="/icons.svg#mini--magnifying-glass" />
@@ -222,22 +224,20 @@
 
         <div class="rtds-main-heading__actions rtds-grid lg:rtds-flex rtds-gap-3 lg:rtds-ml-2 rtds-px-2 rtds-py-4 lg:rtds-p-4 lg:rtds-pr-0">
           {% if c.userobj %}
-            <button type="button" class="rtds-btn rtds-btn--icon-right rtds-group/button rtds-btn--primary rtds-btn--s" data-module="opendata_theme_click" data-module-url="{{ h.url_for('user.read', id=c.userobj.name) }}">
+            <a href="{{ h.url_for('user.read', id=c.userobj.name) }}" class="rtds-btn rtds-btn--icon-right rtds-btn--primary rtds-btn--s rtds-group/button">
               {{ c.userobj.name }}
               <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
                 <use href="/icons.svg#mini--user" />
               </svg>
-            </button>
+            </a>
           {% endif %}
 
-          {#
-          <button type="button" class="rtds-btn rtds-btn--icon-right rtds-group/button rtds-btn--primary rtds-btn--s">
+          <a href="{{ h.url_for('contact.form') }}" class="rtds-btn rtds-btn--icon-right rtds-btn--primary rtds-btn--s rtds-group/button" title="{{ _('Send data') }}">
             {{ _('Send data') }}
             <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
               <use href="/icons.svg#mini--chevron-right" />
             </svg>
-          </button>
-          #}
+          </a>
         </div>
       </div>
     </div>

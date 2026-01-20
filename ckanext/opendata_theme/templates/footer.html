@@ -33,10 +33,6 @@
             </li>
 
             <li class="rtds-group md:rtds-border-r md:rtds-border-gray-01 md:last:rtds-border-r-0">
-              <a href="{{ h.url_for('opendata_theme_credits.index') }}" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-02 rtds-font-bold rtds-uppercase">{{ _('Credits') }}</a>
-            </li>
-
-            <li class="rtds-group md:rtds-border-r md:rtds-border-gray-01 md:last:rtds-border-r-0">
               <a href="{{ h.url_for('opendata_theme_report.index') }}" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-02 rtds-font-bold rtds-uppercase">{{ _('Reports') }}</a>
             </li>
 
@@ -81,11 +77,11 @@
 
   <!-- Footer bottom bar -->
   <div class="rtds-footer__bottom-bar rtds-py-6 lg:rtds-pt-0 rtds-border-t rtds-border-gray-01">
-    <div class="rtds-container rtds-grid rtds-gap-6 md:rtds-flex rtds-items-center rtds-justify-between">
+    <div class="rtds-container rtds-grid rtds-gap-6 md:rtds-flex md:rtds-flex-wrap rtds-items-center rtds-justify-between">
       <div class="rtds-footer__bottom-bar-left">
         <!-- Utilities and other -->
         <div class="-rtds-ml-4 rtds-flex rtds-gap-y-3 rtds-gap-x-5 md:rtds-gap-y-1 rtds-flex-wrap rtds-content-01">
-          <small class="rtds-py-1 rtds-px-4 md:rtds-py-4 rtds-content-04 rtds-text-sm rtds-font-bold">{{ _('VAT') }} 01386030488</small>
+          <small class="rtds-py-1 rtds-px-4 md:rtds-py-4 rtds-content-03 rtds-text-sm rtds-font-bold">{{ _('VAT') }} 01386030488</small>
         </div>
       </div>
 
@@ -95,23 +91,27 @@
 
           <!-- Legal notes and copyright
           <li class="rtds-group">
-            <a href="" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-04 rtds-font-bold">{{ _('Legal notes and copyright') }}</a>
+            <a href="" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-03 rtds-font-bold">{{ _('Legal notes and copyright') }}</a>
           </li>
           -->
           <li class="rtds-group">
-            <a href="https://www.regione.toscana.it/privacy" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-04 rtds-font-bold" target="_blank">{{ _('Privacy and cookies') }}</a>
+            <a href="https://www.regione.toscana.it/privacy" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-03 rtds-font-bold" target="_blank">{{ _('Privacy and cookies') }}</a>
+          </li>
+          <li class="rtds-group">
+            <a href="https://www.regione.toscana.it/-/accessibilita-e-uso-del-sito" class="rtds-link rtds-px-4 rtds-py-2 rtds-text-sm rtds-content-03 rtds-font-bold" target="_blank">{{ _('Accessibility') }}</a>
           </li>
         </ul>
       </nav>
 
-      <div class="rtds-footer__bottom-bar-right rtds-grid sm:rtds-flex rtds-flex-wrap rtds-gap-2 rtds-items-center rtds-px-2 md:rtds-px-0">
+      <div class="rtds-footer__bottom-bar-right rtds-grid sm:rtds-flex rtds-flex-wrap rtds-gap-6 lg:rtds-gap-12 rtds-items-center rtds-order-first md:rtds-order-last rtds-px-2 sm:rtds-px-0">
         <!-- Logos -->
-        <div class="rtds-site-logo rtds-w-40 rtds-h-auto md:rtds-w-44 lg:rtds-w-auto">
-          <img class="rtds-w-full rtds-h-full rtds-object-contain rtds-object-left-top" src="/images/loghi-coesione-ue-ri.png" srcset="/images/coesione-ue-ri-loghi-footer.png 1x, /images/coesione-ue-ri-loghi-footer@2x.png 2x" alt="Coesione Italia 21-27 - Cofinanziato dall'Unione Europea - Repubblica Italiana" width="220" height="65" />
+        <div class="rtds-site-logo rtds-w-40 rtds-h-auto md:rtds-w-44 lg:rtds-w-[500px] xl:rtds-w-[673px]">
+          {# <img class="rtds-w-full rtds-h-full rtds-object-contain rtds-object-left-top" src="/images/loghi-coesione-ue-ri.png" srcset="/images/coesione-ue-ri-loghi-footer.png 1x, /images/coesione-ue-ri-loghi-footer@2x.png 2x" alt="Coesione Italia 21-27 - Cofinanziato dall'Unione Europea - Repubblica Italiana" width="441" height="54" /> #}
+          <img class="rtds-w-full rtds-h-full rtds-object-contain rtds-object-left-top" src="/images/loghi-coesione-ue-ri.png" srcset="/images/coesione-ue-ri-loghi-footer.png 1x, /images/coesione-ue-ri-loghi-footer@2x.png 2x" alt="Coesione Italia 21-27 - Cofinanziato dall'Unione Europea - Repubblica Italiana" width="441" height="54" />
         </div>
-        <div class="rtds-site-logo rtds-w-40 rtds-h-auto md:rtds-w-44 lg:rtds-w-auto">
+        {# <div class="rtds-site-logo rtds-w-40 rtds-h-auto md:rtds-w-44 lg:rtds-w-auto rtds-order-first md:rtds-order-last">
           <img class="rtds-w-full rtds-h-full rtds-object-contain rtds-object-left-top" src="/images/regione-toscana-logo-footer.png" srcset="/images/regione-toscana-logo-footer.png 1x, /images/regione-toscana-logo-footer@2x.png 2x" alt="Regione Toscana" width="220" height="65" />
-        </div>
+        </div> #}
       </div>
     </div>
   </div>

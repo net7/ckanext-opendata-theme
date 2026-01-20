@@ -5,6 +5,8 @@ from html.parser import HTMLParser
 import random
 from datetime import datetime
 import json
+import re
+import html
 
 
 def opendata_theme_hello():
@@ -19,7 +21,6 @@ def get_helpers():
         "get_formatted_dataset_count": get_formatted_dataset_count,
         "get_formatted_view_count": get_formatted_view_count,
         "get_most_viewed_datasets": get_most_viewed_datasets,
-        "get_dataset_views": get_dataset_views,
         "get_all_organizations": get_all_organizations,
         "get_all_organizations_random": get_all_organizations_random,
         "get_home_organizations": get_home_organizations,
@@ -28,6 +29,10 @@ def get_helpers():
         "get_page_image": get_page_image,
         "format_date": format_date,
         "get_first_theme": get_first_theme,
+        "get_theme_icon": get_theme_icon,
+        "extract_themes": extract_themes,
+        "get_theme_name": get_theme_name,
+        "render_markdown": render_markdown,
     }
 
 
@@ -109,7 +114,8 @@ def get_formatted_view_count():
         sql = '''
             SELECT SUM(count) as total_count
             FROM tracking_summary
-            WHERE package_id IS NOT NULL AND package_id != '~~not~found~~'
+            WHERE package_id IS NOT NULL
+            AND package_id != '~~not~found~~'
             AND tracking_date >= CURRENT_DATE - INTERVAL '1 year'
         '''
         
@@ -179,9 +185,7 @@ def get_most_viewed_datasets(limit=4):
         for package_id in package_ids:
             
             try:
-                dataset = toolkit.get_action('package_show')({}, {'id': package_id})
-                dataset['view_count'] = get_dataset_views(package_id)
-                dataset['download_count'] = 0
+                dataset = toolkit.get_action('package_show')({}, {'id': package_id, 'include_tracking': True})
                 datasets.append(dataset)
             except toolkit.ObjectNotFound:
                 # Ignora i dataset che non esistono più
@@ -191,42 +195,6 @@ def get_most_viewed_datasets(limit=4):
     except Exception as e:
         # In caso di errore, ritorna una lista vuota
         return []
-
-
-def get_dataset_views(package_id):
-    """
-    Restituisce il numero di visualizzazioni per un dataset.
-    
-    Args:
-        package_id (str): L'ID del dataset di cui calcolare i download
-        
-    Returns:
-        int: Numero totale di visualizzazioni
-    """
-    try:
-        # Accesso diretto al database usando SQLAlchemy
-        from sqlalchemy import text
-        from ckan.model import Session
-        
-        if not package_id:
-            return 0
-            
-        sql = '''
-            SELECT SUM(count) as total_views
-            FROM tracking_summary
-            WHERE package_id = :package_id
-            AND tracking_type = 'page'
-        '''
-        
-        result = Session.execute(text(sql), {'package_id': package_id})
-        row = result.fetchone()
-        
-        if row and row.total_views:
-            return row.total_views
-        return 0
-    except Exception as e:
-        # In caso di errore, ritorna 0
-        return 0
 
 
 def get_all_organizations(limit=None):
@@ -274,35 +242,35 @@ def get_home_organizations():
     """
     Restituisce le organizzazioni per la homepage:
     
+     - Consorzio LaMMA Toscana
+     - Comune di Firenze
      - Comune di Arezzo
-     - Comune di Cantagallo
-     - Comune di Livorno
+     - Comune di Siena
      - Città Metropolitana di Firenze
-     - Comune di Montemurlo
+     - Comune di Livorno
+     - Comune di Montevarchi
      - Comune di Poggibonsi
+     - Comune di Piombino
      - Comune di Vernio
      - Comune di Vaiano
-     - Comune di Siena
-     - Comune di Firenze
-     - Consorzio LaMMA Toscana
-     - Comune di Piombino
-     - Comune di Montevarchi
+     - Comune di Cantagallo
+     - Comune di Montemurlo
     """
     try:
         organizations_names = [
+            'lamma-toscana',
+            'comune-di-firenze',
             'comune-di-arezzo',
-            'comune-di-cantagallo',
-            'comune-livorno',
+            'comune-di-siena',
             'citta-metropolitana-firenze',
-            'comune-di-montemurlo',
+            'comune-livorno',
+            'comune-di-montevarchi',
             'comune-di-poggibonsi',
+            'comune-di-piombino',
             'comune-di-vernio',
             'comune-di-vaiano',
-            'comune-di-siena',
-            'comune-di-firenze',
-            'lamma-toscana',
-            'comune-di-piombino',
-            'comune-di-montevarchi'
+            'comune-di-cantagallo',
+            'comune-di-montemurlo',
         ]
         organizations = []
         context = {'ignore_auth': True}
@@ -508,8 +476,7 @@ def get_first_theme(dataset_extras):
         if not dataset_extras:
             return None
             
-        # Trova il campo 'theme' negli extras
-        theme_extra = next((extra for extra in dataset_extras if extra.get('key') == 'theme'), None)
+        theme_extra = next((extra for extra in dataset_extras if extra.get('key', '').lower() == 'theme'), None)
         
         if not theme_extra or not theme_extra.get('value'):
             return None
@@ -539,3 +506,158 @@ def get_first_theme(dataset_extras):
     except Exception as e:
         # In caso di errore, ritorna None
         return None
+
+
+def extract_themes(pkg_extras, first_only=True):
+    """
+    Estrae i valori dei temi da pkg.extras
+    
+    Args:
+        pkg_extras: Lista degli extras del package, formato [{'key': 'theme', 'value': '["TRAN"]'}]
+        first_only (bool): Se True estrae solo il primo tema, se False estrae tutti i temi
+        
+    Returns:
+        str o list: Se first_only=True restituisce il codice del primo tema (es. "TRAN") o None se non trovato.
+                   Se first_only=False restituisce una lista di codici temi (es. ["TRAN", "ECON"]) o lista vuota se non trovati.
+    """
+    if not pkg_extras:
+        return None if first_only else []
+        
+    try:
+        for extra in pkg_extras:
+            if extra.get('key').lower() == 'theme':
+                theme_value = extra.get('value', '')
+                if theme_value:
+                    # Rimuove le parentesi quadre esterne
+                    clean_value = theme_value.strip('[]"\'')
+                    if clean_value:
+                        # Divide per virgola e pulisce ogni elemento
+                        themes = [theme.strip().strip('"\'') for theme in clean_value.split(',')]
+                        # Filtra elementi vuoti
+                        themes = [theme for theme in themes if theme]
+                        
+                        if first_only:
+                            # Restituisce solo il primo tema
+                            return themes[0] if themes else None
+                        else:
+                            # Restituisce tutti i temi
+                            return themes
+        
+        return None if first_only else []
+    except Exception as e:
+        return None if first_only else []
+
+
+
+
+def get_theme_icon(theme_code):
+    """
+    Restituisce l'icona SVG corretta per il codice tema specificato
+    
+    Args:
+        theme_code (str): Codice del tema (es. "TRAN", "ENVI", ecc.)
+        
+    Returns:
+        str: Nome dell'icona SVG (es. "outline--map")
+    """
+    theme_icons = {
+        'ENVI': 'outline--sun',                    # Ambiente
+        'REGI': 'outline--building-office',        # Regioni e città
+        'GOVE': 'outline--building-library',       # Governo e settore pubblico
+        'TECH': 'outline--beaker',                 # Scienza e tecnologia
+        'TRAN': 'outline--map',                    # Trasporti
+        'ECON': 'outline--presentation-chart-bar', # Economia e finanza
+        'ENER': 'outline--bolt',                   # Energia
+        'EDUC': 'outline--book-open',              # Educazione, cultura e sport
+        'SOCI': 'outline--user-group',             # Popolazione e società
+        'HEAL': 'heart-rate-pulse-graph',          # Salute
+        'AGRI': 'leaf--nature-environment-leaf-ecology-plant-plants-eco', # Agricoltura
+        'JUST': 'outline--scale',                  # Giustizia e sicurezza pubblica
+        'OP_DATPRO': 'outline--calendar-check',    # Dati provvisori
+    }
+    
+    # Restituisce l'icona corrispondente o un'icona di default
+    return theme_icons.get(theme_code, 'outline--sun')
+
+
+def get_theme_name(theme_code):
+    """
+    Restituisce il nome leggibile del tema a partire dal codice, utilizzando le traduzioni
+    
+    Args:
+        theme_code (str): Codice del tema (es. "ECON", "TRAN", ecc.)
+        
+    Returns:
+        str: Nome leggibile del tema tradotto (es. "Economy and finance" in inglese, "Economia e finanza" in italiano)
+    """
+    # Importa toolkit per accedere alle traduzioni
+    import ckan.plugins.toolkit as toolkit
+    
+    # 'ENVI': 'Ambiente',
+    # 'REGI': 'Regioni e città', 
+    # 'GOVE': 'Governo e settore pubblico',
+    # 'TECH': 'Scienza e tecnologia',
+    # 'TRAN': 'Trasporti',
+    # 'ECON': 'Economia e finanza',
+    # 'ENER': 'Energia',
+    # 'EDUC': 'Educazione, cultura e sport',
+    # 'SOCI': 'Popolazione e società',
+    # 'HEAL': 'Salute',
+    # 'AGRI': 'Agricoltura',
+    # 'JUST': 'Giustizia e sicurezza pubblica',
+    # 'OP_DATPRO': 'Dati provvisori'
+    
+    # Mappa dei codici tema alle stringhe inglesi (che verranno tradotte)
+    theme_names = {
+        'ENVI': 'Environment',
+        'REGI': 'Regions and cities', 
+        'GOVE': 'Government and public sector',
+        'TECH': 'Science and technology',
+        'TRAN': 'Transport',
+        'ECON': 'Economy and finance',
+        'ENER': 'Energy',
+        'EDUC': 'Education, culture and sport',
+        'SOCI': 'Population and society',
+        'HEAL': 'Health',
+        'AGRI': 'Agriculture',
+        'JUST': 'Justice and public safety',
+        'OP_DATPRO': 'Provisional data'
+    }
+    
+    # Ottiene la stringa inglese e la traduce
+    english_name = theme_names.get(theme_code, theme_code)
+    return toolkit._(english_name)
+
+
+def render_markdown(text):
+    """
+    Converte testo con Markdown semplice e entità HTML in HTML formattato.
+    Gestisce:
+    - Link in formato [testo](url) 
+    - Entità HTML come &#8226; (bullet points)
+    - Line breaks
+    - URL automatici
+    
+    Args:
+        text (str): Testo da convertire
+        
+    Returns:
+        str: HTML formattato
+    """
+    if not text:
+        return ""
+    
+    # Decodifica entità HTML (es. &#8226; diventa •)
+    text = html.unescape(text)
+    
+    # Converte link Markdown [testo](url) in HTML
+    text = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2">\1</a>', text)
+    
+    # Converte URL semplici in link (solo se non sono già dentro tag <a>)
+    text = re.sub(r'(?<!href=")(?<!href=\")(?<!>)(https?://[^\s<>"]+)', r'<a href="\1">\1</a>', text)
+    
+    # Converte line breaks in <br>
+    text = text.replace('\n', '<br>')
+    
+    return text
+

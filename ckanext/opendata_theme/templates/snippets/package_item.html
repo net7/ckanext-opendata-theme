@@ -45,7 +45,7 @@ Example:
           <li>
             <span class="rtds-chip rtds-chip--sm rtds-chip--tag">
               <span class="rtds-sr-only">{{ _('Category:') }} </span>
-              <a href="{{ h.url_for(package.type ~ '.read', id=package.name) }}" data-format="{{ resource.lower() }}">{{ resource }}</a>
+              {{ resource }}
             </span>
           </li>
           {% endfor %}

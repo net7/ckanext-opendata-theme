@@ -1,8 +1,8 @@
 
 <section class="rtds-info rtds-bg-gradient-02 rtds-py-10 lg:rtds-py-20">
-  <div class="rtds-container-xs rtds-grid rtds-gap-5 lg:rtds-gap-10">
-    <h2 class="rtds-heading-2 rtds-content-inverse">Informazioni sempre aggiornate</h2>
-    <ul role="list" class="rtds-grid rtds-gap-4 md:rtds-grid-cols-2 lg:rtds-grid-cols-3">
+  <div class="rtds-container-xs rtds-grid rtds-gap-8 lg:rtds-gap-10">
+    <h2 class="rtds-heading-2 rtds-content-inverse">{{ _('Featured') }}</h2>
+    <ul role="list" class="rtds-grid sm:rtds-flex rtds-gap-4">
       <li class="rtds-col">
         <article class="rtds-card rtds-card--news is-card-fullclickable rtds-group/card">
           <picture class="rtds-card__image-wrapper">
@@ -11,7 +11,7 @@
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{{ h.url_for('dataset.search') }}?_groups_limit=0&dcat_theme=TRAN">Orari trasporto pubblico</a>
+                <a class="group-hover/card:rtds-underline" href="/dataset/rt-oraritb">{{ _('Public transport schedules') }}</a>
               </h3>
             </div>
           </div>
@@ -25,7 +25,7 @@
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{{ h.url_for('dataset.search') }}?groups=infrastrutture-e-trasporti">Centraline traffico</a>
+                <a class="group-hover/card:rtds-underline" href="/dataset/sistmontraf-centraline">{{ _('Traffic monitoring stations') }}</a>
               </h3>
             </div>
           </div>
@@ -39,7 +39,7 @@
           <div class="rtds-card__content">
             <div class="rtds-card__heading">
               <h3 class="rtds-card__title">
-                <a class="group-hover/card:rtds-underline" href="{{ h.url_for('dataset.search') }}?_groups_limit=0&groups=meteo">Meteo</a>
+                <a class="group-hover/card:rtds-underline" href="{{ h.url_for('dataset.search') }}?_groups_limit=0&groups=meteo">{{ _('Weather') }}</a>
               </h3>
             </div>
           </div>

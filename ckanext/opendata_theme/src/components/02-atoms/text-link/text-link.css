@@ -1,7 +1,7 @@
 /* LINK */
 @layer components {
     .rtds-text-link {
-        @apply rtds-inline-flex rtds-gap-2 rtds-p-2 rtds-items-center rtds-content-02 hover:rtds-underline hover:rtds-content-02 focus:rtds-content-02 active:rtds-content-01 rtds-text-sm md:rtds-text-base;
+        @apply rtds-inline-flex rtds-gap-2 rtds-items-center rtds-content-02 hover:rtds-underline hover:rtds-content-02 focus:rtds-content-02 active:rtds-content-01 rtds-text-sm md:rtds-text-base;
     }
 
     .rtds-text-link--has-cta {

@@ -68,7 +68,7 @@
     }
 
     .rtds-carousel .splide__pagination__page {
-        @apply rtds-w-2.5 rtds-h-2.5 rtds-opacity-100 rtds-background-05 hover:rtds-background-primary;
+        @apply rtds-w-2.5 rtds-h-2.5 rtds-opacity-100 rtds-background-05 hover:rtds-background-primary focus-visible:rtds-outline-focusring;
     }
 
     .rtds-carousel .splide__pagination__page.is-active {

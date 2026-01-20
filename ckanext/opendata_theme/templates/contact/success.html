@@ -1,0 +1,37 @@
+{% extends "contact/page.html" %}
+
+{% block primary_content %}
+<div class="rtds-grid rtds-grid-cols-12">
+  <div class="rtds-col-span-12 lg:rtds-col-span-8 lg:rtds-col-start-3 rtds-py-16 rtds-grid rtds-gap-6 rtds-place-content-center rtds-text-center">
+    <div class="rtds-color-brand-00">
+      <svg class="rtds-icon rtds-fill-current rtds-w-16 rtds-h-16 group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+        <use href="/icons.svg#outline--check-circle" />
+      </svg>
+    </div>
+    <h1 class="rtds-heading-2">Dati inviati con successo</h1>
+    <p class="rtds-body-lg">Le informazioni sono state ricevute. Riceverà presto una conferma.</p>
+    <div class="rtds-form-actions rtds-grid rtds-justify-center">
+      <button type="button" class="rtds-btn rtds-btn--outline rtds-btn--s rtds-btn--icon-right rtds-group/button" data-module="opendata_theme_click" data-module-url="{{ h.url_for('home.index') }}">
+        {{ _('Torna alla home') }}
+        <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 md:rtds-w-5 md:rtds-h-5 lg:rtds-w-6 lg:rtds-h-6 group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
+          <use href="/icons.svg#mini--chevron-right" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{# {% block secondary_content %}
+<div class="module module-narrow module-shallow">
+  <h2 class="module-heading">
+    <i class="fas fa-info-circle inline-icon-left"></i>
+    {{ _('Contact Us') }}
+  </h2>
+  <div class="module-content">
+    <p>
+      Questions? Comments? We are always glad to hear from you!
+    </p>
+  </div>
+</div>
+{% endblock %} #}

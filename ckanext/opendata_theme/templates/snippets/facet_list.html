@@ -37,11 +37,12 @@ Dictionary with search facets
 
 #}
 {% block facet_list %}
-{% set hide_empty = hide_empty or false %}
+{% set hide_empty = true %}
 {% with items = items or h.get_facet_items_dict(name, search_facets) %}
 {% if items or not hide_empty %}
 {% block facet_list_item %}
 <div class="rtds-grid rtds-py-6 rtds-gap-4 md:rtds-gap-6">
+  <fieldset class="rtds-facets">
   {% block facet_list_heading %}
     <legend class="rtds-facets__legend">
       <button type="button" class="rtds-facets__toggle rtds-group/facet" aria-expanded="true" aria-controls="facet-section-{{ facet_titles_loop.index0 if facet_titles_loop else 0 }}" id="facet-id-{{ facet_titles_loop.index0 if facet_titles_loop else 0 }}">
@@ -53,7 +54,7 @@ Dictionary with search facets
     </legend>
   {% endblock %}
   {% block facet_list_items %}
-  {% with items = items or h.get_facet_items_dict(name, search_facets) %}
+  {% with items = items or h.get_facet_items_dict(name, search_facets, 0) %}
   {% if items %}
     <div class="rtds-facets__content rtds-space-y-2 has-show-more" id="facet-section-{{ facet_titles_loop.index0 if facet_titles_loop else 0 }}" role="region" aria-labelledby="facet-id-{{ facet_titles_loop.index0 if facet_titles_loop else 0 }}">
       <ul class="rtds-facets__list rtds-space-y-2">
@@ -62,12 +63,13 @@ Dictionary with search facets
         {% set label = label_function(item) if label_function else item.display_name %}
         {% set label_truncated = label|truncate(50) if not label_function else label %}
         {% set count = count_label(item['count']) if count_label else ('%d' % item['count']) %}
-        <li class="rtds-facets__item">
+
+        <li class="rtds-facets__item {% if loop.index > 10 %}rtds-hidden{% endif %}">
           <div class="rtds-input rtds-input-field rtds-input-checkbox">
             <div class="rtds-flex rtds-gap-2 rtds-items-center">
               <input id="checkbox{{ facet_titles_loop.index0 if facet_titles_loop else 0 }}{{ loop.index0 }}" {% if item.active %}checked="checked"{% endif %} name="checkbox{{ facet_titles_loop.index0 if facet_titles_loop else 0 }}{{ loop.index0 }}" class="" type="checkbox" data-module="opendata_theme_click" data-module-url="{{ href }}">
               <label class="rtds-input-checkbox__label rtds-facets__label" for="checkbox{{ facet_titles_loop.index0 if facet_titles_loop else 0 }}{{ loop.index0 }}">
-                <span class="rtds-facets__item-name">{{ label_truncated }}</span> <span class="rtds-facets__item-count">{{ count }}<span class="rtds-sr-only"> risultati</span></span>
+                <span class="rtds-facets__item-name">{{ label_truncated.replace('-', ' ').replace('_', ' ') }}</span> <span class="rtds-facets__item-count">{{ count }}<span class="rtds-sr-only"> {{ _('results') }}</span></span>
               </label>
             </div>
           </div>
@@ -76,20 +78,22 @@ Dictionary with search facets
       </ul>
       {% if h.get_param_int('_%s_limit' % name) %}
         {% if h.has_more_facets(name, search_facets) %}
-          <button data-module="opendata_theme_click" data-module-url="{{ h.remove_url_param('_%s_limit' % name, replace=0, extras=extras, alternative_url=alternative_url) }}" type="button" class="rtds-w-full rtds-btn rtds-btn--s rtds-btn--inverted rtds-btn--icon-right rtds-group/button rtds-justify-center rtds-btn--show-more rtds-facets__show-more" aria-expanded="false">
-            <span class="rtds-sr-only">{{ title }}</span>
-            <span class="rtds-btn__label-show">{{ _('Show More {facet_type}').format(facet_type=title) }}</span>
-            <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 group-aria-expanded/button:-rtds-rotate-180 rtds-icon rtds-fill-current rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-scale-200" aria-hidden="true" focusable="false" role="img">
-              <use href="/icons.svg#outline--chevron-down"></use>
-            </svg>
-          </button>
+        <button data-module="opendata_theme_toggle" data-module-target="#facet-section-{{ facet_titles_loop.index0 if facet_titles_loop else 0 }}" type="button" class="rtds-w-full rtds-btn rtds-btn--s rtds-btn--inverted rtds-btn--icon-right rtds-group/button rtds-justify-center rtds-btn--show-more rtds-facets__show-more" aria-expanded="false">
+          <span class="rtds-sr-only">{{ title }}</span>
+          <span class="rtds-btn__label-show">{{ _('Show More {facet_type}').format(facet_type=title) }}</span>
+          <span class="rtds-btn__label-hide rtds-hidden">{{ _('Show Only Popular {facet_type}').format(facet_type=title) }}</span>
+          <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 group-aria-expanded/button:-rtds-rotate-180 rtds-icon rtds-fill-current rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-scale-200" aria-hidden="true" focusable="false" role="img">
+            <use href="/icons.svg#outline--chevron-down"></use>
+          </svg>
+        </button>
         {% endif %}
       {% else %}
-        <button data-module="opendata_theme_click" data-module-url="{{ h.remove_url_param('_%s_limit' % name, extras=extras, alternative_url=alternative_url) }}" type="button" class="rtds-w-full rtds-btn rtds-btn--s rtds-btn--inverted rtds-btn--icon-right rtds-group/button rtds-justify-center rtds-btn--show-more rtds-facets__show-more" aria-expanded="false">
+        <button data-module="opendata_theme_toggle" data-module-target="#facet-section-{{ facet_titles_loop.index0 if facet_titles_loop else 0 }}" type="button" class="rtds-w-full rtds-btn rtds-btn--s rtds-btn--inverted rtds-btn--icon-right rtds-group/button rtds-justify-center rtds-btn--show-more rtds-facets__show-more" aria-expanded="false">
           <span class="rtds-sr-only">{{ title }}</span>
-          <span class="rtds-btn__label-show">{{ _('Show Only Popular {facet_type}').format(facet_type=title) }}</span>
+          <span class="rtds-btn__label-show">{{ _('Show All {facet_type}').format(facet_type=title) }}</span>
+          <span class="rtds-btn__label-hide rtds-hidden">{{ _('Show More {facet_type}').format(facet_type=title) }}</span>
           <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 group-aria-expanded/button:-rtds-rotate-180 rtds-icon rtds-fill-current rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-scale-200" aria-hidden="true" focusable="false" role="img">
-            <use href="/icons.svg#outline--chevron-up"></use>
+            <use href="/icons.svg#outline--chevron-down"></use>
           </svg>
         </button>
       {% endif %}
@@ -99,6 +103,7 @@ Dictionary with search facets
   {% endif %}
   {% endwith %}
   {% endblock %}
+  </fieldset>
 </div>
 {% endblock %}
 {% endif %}

@@ -67,10 +67,12 @@ ckanext/opendata_theme/src/components/02-atoms/chip/chip.css
 ckanext/opendata_theme/src/components/02-atoms/icon/icon.css
 ckanext/opendata_theme/src/components/02-atoms/link/link.css
 ckanext/opendata_theme/src/components/02-atoms/text-link/text-link.css
+ckanext/opendata_theme/src/components/02-atoms/vertical-divider/vertical-divider.css
 ckanext/opendata_theme/src/components/03-molecules/card/card.css
 ckanext/opendata_theme/src/components/03-molecules/card/card.js
 ckanext/opendata_theme/src/components/03-molecules/forms/input-checkbox/input-checkbox.css
 ckanext/opendata_theme/src/components/03-molecules/forms/input-field/input-field.css
+ckanext/opendata_theme/src/components/03-molecules/forms/input-file/input-file.css
 ckanext/opendata_theme/src/components/03-molecules/pagination/pagination.css
 ckanext/opendata_theme/src/components/03-molecules/primary-navigation/primary-navigation.css
 ckanext/opendata_theme/src/components/03-molecules/secondary-navigation/secondary-navigation.css
@@ -80,10 +82,12 @@ ckanext/opendata_theme/src/components/04-organisms/carousel/carousel.css
 ckanext/opendata_theme/src/components/04-organisms/carousel/carousel.js
 ckanext/opendata_theme/src/components/04-organisms/facets/facets.css
 ckanext/opendata_theme/src/components/04-organisms/facets/facets.js
+ckanext/opendata_theme/src/components/04-organisms/form-with-validation/form-with-validation.css
 ckanext/opendata_theme/src/components/04-organisms/header/header.css
 ckanext/opendata_theme/src/components/04-organisms/header/header.js
 ckanext/opendata_theme/src/components/04-organisms/hero/hero.css
 ckanext/opendata_theme/src/components/04-organisms/main-heading/main-heading.css
+ckanext/opendata_theme/src/components/04-organisms/modal-dialog/modal-dialog.css
 ckanext/opendata_theme/src/components/04-organisms/side-navigation/side-navigation.css
 ckanext/opendata_theme/src/components/04-organisms/slider/slider.css
 ckanext/opendata_theme/src/components/04-organisms/tablist/tablist.js
@@ -93,10 +97,11 @@ ckanext/opendata_theme/src/css/custom-properties.css
 ckanext/opendata_theme/src/css/main.css
 ckanext/opendata_theme/src/css/splide.min.css
 ckanext/opendata_theme/templates/base.html
-ckanext/opendata_theme/templates/credits.html
 ckanext/opendata_theme/templates/footer.html
 ckanext/opendata_theme/templates/header.html
 ckanext/opendata_theme/templates/infografica.html
+ckanext/opendata_theme/templates/page-access.html
+ckanext/opendata_theme/templates/page-contact.html
 ckanext/opendata_theme/templates/page-detail.html
 ckanext/opendata_theme/templates/page-list.html
 ckanext/opendata_theme/templates/page-organization.html
@@ -112,6 +117,10 @@ ckanext/opendata_theme/templates/ckanext_pages/page.html
 ckanext/opendata_theme/templates/ckanext_pages/pages_list.html
 ckanext/opendata_theme/templates/ckanext_pages/snippets/page_item.html
 ckanext/opendata_theme/templates/ckanext_pages/snippets/pages_list.html
+ckanext/opendata_theme/templates/contact/form.html
+ckanext/opendata_theme/templates/contact/page.html
+ckanext/opendata_theme/templates/contact/success.html
+ckanext/opendata_theme/templates/contact/snippets/form.html
 ckanext/opendata_theme/templates/group/index.html
 ckanext/opendata_theme/templates/group/read.html
 ckanext/opendata_theme/templates/group/snippets/group_item.html
@@ -129,6 +138,9 @@ ckanext/opendata_theme/templates/home/snippets/organizations.html
 ckanext/opendata_theme/templates/home/snippets/promoted.html
 ckanext/opendata_theme/templates/home/snippets/search.html
 ckanext/opendata_theme/templates/home/snippets/themes.html
+ckanext/opendata_theme/templates/macros/form/checkbox.html
+ckanext/opendata_theme/templates/macros/form/input.html
+ckanext/opendata_theme/templates/macros/form/input_block.html
 ckanext/opendata_theme/templates/organization/about.html
 ckanext/opendata_theme/templates/organization/index.html
 ckanext/opendata_theme/templates/organization/read.html
@@ -142,6 +154,7 @@ ckanext/opendata_theme/templates/package/read_base.html
 ckanext/opendata_theme/templates/package/resource_read.html
 ckanext/opendata_theme/templates/package/search.html
 ckanext/opendata_theme/templates/package/snippets/additional_info.html
+ckanext/opendata_theme/templates/package/snippets/dcatapit_additional_info.html
 ckanext/opendata_theme/templates/package/snippets/info.html
 ckanext/opendata_theme/templates/package/snippets/resource_item.html
 ckanext/opendata_theme/templates/package/snippets/resource_view.html
@@ -160,6 +173,9 @@ ckanext/opendata_theme/templates/snippets/search_form.html
 ckanext/opendata_theme/templates/snippets/search_result_text.html
 ckanext/opendata_theme/templates/snippets/social.html
 ckanext/opendata_theme/templates/snippets/tag_list.html
+ckanext/opendata_theme/templates/user/login.html
+ckanext/opendata_theme/templates/user/logout_first.html
+ckanext/opendata_theme/templates/user/snippets/login_form.html
 ckanext/opendata_theme/tests/__init__.py
 ckanext/opendata_theme/tests/test_helpers.py
 ckanext/opendata_theme/tests/test_plugin.py
