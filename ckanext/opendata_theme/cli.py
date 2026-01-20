@@ -750,7 +750,17 @@ def inactive_users(months, do_delete, yes):
         # Calcola la data limite (N mesi fa)
         cutoff_date = datetime.now() - timedelta(days=months * 30)
         
-        click.echo(f"\n🔍 Ricerca utenti inattivi da più di {months} mesi (prima del {cutoff_date.strftime('%Y-%m-%d')})")
+        # Prima conta il totale degli utenti attivi (non sysadmin)
+        total_users_query = """
+        SELECT COUNT(*) as total_users
+        FROM "user" u
+        WHERE u.state = 'active' AND u.sysadmin = false
+        """
+        total_result = model.Session.execute(total_users_query)
+        total_users = total_result.fetchone().total_users
+        
+        click.echo(f"\nRicerca utenti inattivi da più di {months} mesi (prima del {cutoff_date.strftime('%Y-%m-%d')})")
+        click.echo(f"Totale utenti attivi (non admin): {total_users}")
         click.echo("=" * 80)
         
         # Query SQL per trovare utenti inattivi
@@ -797,14 +807,14 @@ def inactive_users(months, do_delete, yes):
         
         # Mostra risultati
         if not inactive_users_list:
-            click.echo(f"\n✅ Nessun utente inattivo trovato con i criteri specificati")
+            click.echo(f"\nNessun utente inattivo trovato con i criteri specificati")
             return
         
         # Header
         if do_delete:
-            click.echo(f"\n❌ Utenti inattivi da eliminare ({len(inactive_users_list)} trovati):")
+            click.echo(f"\nUtenti inattivi da eliminare ({len(inactive_users_list)} trovati):")
         else:
-            click.echo(f"\n📋 Utenti inattivi trovati ({len(inactive_users_list)}):")
+            click.echo(f"\nUtenti inattivi trovati ({len(inactive_users_list)}):")
         
         click.echo("=" * 80)
         
@@ -813,16 +823,17 @@ def inactive_users(months, do_delete, yes):
             last_active_str = "Mai" if not user['last_active'] else user['last_active'].strftime('%Y-%m-%d')
             created_str = user['created'].strftime('%Y-%m-%d') if user['created'] else "Sconosciuto"
             
-            click.echo(f"👤 {user['name']} - {user['fullname']}")
-            click.echo(f"   📧 Email: {user['email'] or 'Non specificata'}")
-            click.echo(f"   📅 Creato: {created_str}")
-            click.echo(f"   🕒 Ultimo accesso: {last_active_str}")
-            click.echo(f"   📊 Dataset: {user['dataset_count']}, Token: {user['token_count']}")
-            click.echo(f"   🆔 ID: {user['id']}")
+            click.echo(f"{user['name']} - {user['fullname']}")
+            click.echo(f"   Email: {user['email'] or 'Non specificata'}")
+            click.echo(f"   Creato: {created_str}")
+            click.echo(f"   Ultimo accesso: {last_active_str}")
+            click.echo(f"   Dataset: {user['dataset_count']}, Token: {user['token_count']}")
+            click.echo(f"   ID: {user['id']}")
             click.echo("")
         
         # Riepilogo
-        click.echo(f"📊 Trovati {len(inactive_users_list)} utenti inattivi")
+        percentage = (len(inactive_users_list) / total_users * 100) if total_users > 0 else 0
+        click.echo(f"Trovati {len(inactive_users_list)} utenti inattivi su {total_users} totali ({percentage:.1f}%)")
         
         # Esegui eliminazione se richiesta
         if do_delete:
@@ -830,7 +841,7 @@ def inactive_users(months, do_delete, yes):
                 return
             
             # Chiedi conferma
-            if not yes and not click.confirm(f'\n⚠️  Vuoi eliminare {len(inactive_users_list)} utenti inattivi?'):
+            if not yes and not click.confirm(f'\nVuoi eliminare {len(inactive_users_list)} utenti inattivi?'):
                 click.echo('Operazione annullata')
                 return
             
@@ -843,11 +854,11 @@ def inactive_users(months, do_delete, yes):
                     toolkit.get_action('user_delete')(
                         context, {'id': user['id']})
                     success_count += 1
-                    click.echo(f"✅ Eliminato: {user['name']}")
+                    click.echo(f"Eliminato: {user['name']}")
                 except Exception as e:
-                    click.echo(f"❌ Errore nell'eliminazione di {user['name']}: {str(e)}", err=True)
+                    click.echo(f"Errore nell'eliminazione di {user['name']}: {str(e)}", err=True)
             
-            click.echo(f"\n📊 Operazione completata: {success_count}/{len(inactive_users_list)} utenti eliminati")
+            click.echo(f"\nOperazione completata: {success_count}/{len(inactive_users_list)} utenti eliminati")
         
     except Exception as e:
         click.echo(f"Errore: {str(e)}", err=True)
