@@ -223,7 +223,7 @@
         </div>
 
         <div class="rtds-main-heading__actions rtds-grid lg:rtds-flex rtds-gap-3 lg:rtds-ml-2 rtds-px-2 rtds-py-4 lg:rtds-p-4 lg:rtds-pr-0">
-          {% if c.userobj %}
+          {% if c.userobj and c.userobj.name %}
             <a href="{{ h.url_for('user.read', id=c.userobj.name) }}" class="rtds-btn rtds-btn--icon-right rtds-btn--primary rtds-btn--s rtds-group/button">
               {{ c.userobj.name }}
               <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-transition-all rtds-duration-200 rtds-ease-out rtds-transform group-hover/button:rtds-translate-x-1" aria-hidden="true" focusable="false" role="img">
