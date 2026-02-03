@@ -5,7 +5,7 @@
   <div class="rtds-container-sm">
 
     <div class="rtds-wrapper-title lg:rtds-text-center rtds-mb-8">
-      <h2 class="rtds-heading-2">Dati acquisiti da {{ count_organizations }} Enti toscani. Eccone alcuni:</h2>
+      <h2 class="rtds-heading-2">{{_('Data acquired from {count} Tuscany entities. Here are some:').format(count=count_organizations)}}</h2>
     </div>
 
     <div class="rtds-carousel splide" aria-label="Titolo sezione">
@@ -14,13 +14,13 @@
           <svg class="rtds-icon rtds-fill-current rtds-carousel__arrow-svg" aria-hidden="true" focusable="false" role="img">
             <use href="/icons.svg#mini--chevron-right" />
           </svg>
-          <span class="rtds-sr-only">Precedente</span>
+          <span class="rtds-sr-only">{{_('Previous')}}</span>
         </button>
         <button class="rtds-carousel__arrow rtds-carousel__arrow--next splide__arrow splide__arrow--next">
           <svg class="rtds-icon rtds-fill-current rtds-carousel__arrow-svg" aria-hidden="true" focusable="false" role="img">
             <use href="/icons.svg#mini--chevron-right" />
           </svg>
-          <span class="rtds-sr-only">Successiva</span>
+          <span class="rtds-sr-only">{{_('Next')}}</span>
         </button>
       </div>
 

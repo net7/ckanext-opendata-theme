@@ -211,6 +211,12 @@ Es.: controllare tutti i dataset (inclusi quelli eliminati), elencare i dataset 
 
 ```ckan -c ckan.ini opendata delete-organization my-org -y```
 
+### Comandi per la gestione dei harvest sources:
+
+ ```docker exec -it ckan-db psql -U ckan_default -d ckan_default -c "SELECT id, url, title, active, created FROM harvest_source WHERE title = 'nome_harvest';" ```
+
+ ```docker exec -it ckan-db psql -U ckan_default -d ckan_default -c "DELETE FROM harvest_source WHERE title = 'nome_harvest';" ```
+
 ## License
 
 [AGPL](https://www.gnu.org/licenses/agpl-3.0.en.html)

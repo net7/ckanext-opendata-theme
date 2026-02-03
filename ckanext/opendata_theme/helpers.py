@@ -298,13 +298,14 @@ def get_home_organizations():
 
 def count_organizations():
     """
-    Restituisce il numero di organizzazioni disponibili nel sistema
+    Restituisce il numero di organizzazioni con almeno un dataset
     """
     try:
         context = {'ignore_auth': True}
         data_dict = {'all_fields': True, 'include_users': False, 'include_extras': True}
         organizations = toolkit.get_action('organization_list')(context, data_dict)
-        return len(organizations)
+        organizations_with_datasets = [org for org in organizations if org.get('package_count', 0) > 0]
+        return len(organizations_with_datasets)
     except Exception as e:
         raise ValueError(f"Errore nel recupero delle organizzazioni: {str(e)}")
 
