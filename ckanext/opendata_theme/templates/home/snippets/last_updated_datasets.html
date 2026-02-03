@@ -1,12 +1,12 @@
 {% set dataset_type = h.default_package_type() %}
-{% set most_viewed = h.get_most_viewed_datasets(4) %}
+{% set last_updated = h.get_last_updated_datasets(4) %}
 
 {# Dati BEGIN #}
 <section class="rtds-dati rtds-py-4 lg:rtds-py-8 rtds-background-01">
     <div class="rtds-container-xs rtds-grid rtds-gap-6 lg:rtds-gap-10">
         <div class="rtds-grid rtds-gap-6 lg:rtds-gap-10">
             <div class="rtds-flex rtds-flex-wrap rtds-items-center rtds-gap-2">
-                <h2 class="rtds-heading-2">{{ _('Most consulted datasets') }}</h2>
+                <h2 class="rtds-heading-2">{{ _('Last updated datasets') }}</h2>
                 <div class="rtds-vertical-divider rtds-w-4 md:rtds-w-8 lg:rtds-w-12 sm:rtds-ms-2">
                     <img class="rtds-w-full rtds-h-auto" src="/images/vertical-divider.svg" alt="">
                 </div>
@@ -20,11 +20,11 @@
                     </a>
                 </div>
             </div>
-            <p class="rtds-body-base lg:rtds-body-lg">{{ _('Consult the most relevant data for your sector') }}</p>
+            <p class="rtds-body-base lg:rtds-body-lg">{{ _('Consult the last updated datasets') }}</p>
         </div>
         <ul role="list" class="rtds-grid rtds-gap-8 md:rtds-grid-cols-2">
-            {% if most_viewed %}
-            {% for dataset in most_viewed %}
+            {% if last_updated %}
+            {% for dataset in last_updated %}
             <li class="rtds-col">
                 <article class="rtds-card rtds-card--dati rtds-bg-transparent">
                     <div class="rtds-card__content">
@@ -63,7 +63,7 @@
                     <div class="rtds-card__content">
                         <div class="rtds-card__heading">
                             <h3 class="rtds-card__title">
-                                <a href="">{{ _('No datasets viewed recently') }}</a>
+                                <a href="">{{ _('No datasets updated recently') }}</a>
                             </h3>
                         </div>
                     </div>

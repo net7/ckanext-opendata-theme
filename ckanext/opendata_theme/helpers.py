@@ -21,6 +21,7 @@ def get_helpers():
         "get_formatted_dataset_count": get_formatted_dataset_count,
         "get_formatted_view_count": get_formatted_view_count,
         "get_most_viewed_datasets": get_most_viewed_datasets,
+        "get_last_updated_datasets": get_last_updated_datasets,
         "get_all_organizations": get_all_organizations,
         "get_all_organizations_random": get_all_organizations_random,
         "get_home_organizations": get_home_organizations,
@@ -196,6 +197,49 @@ def get_most_viewed_datasets(limit=4):
         # In caso di errore, ritorna una lista vuota
         return []
 
+
+def get_last_updated_datasets(limit=4):
+    """
+    Recupera i dataset più aggiornati in base alla data di aggiornamento (metadata_modified).
+    
+    Args:
+        limit (int): Numero massimo di dataset da restituire (default: 4)
+        
+    Returns:
+        list: Lista di dizionari contenenti i dataset più recentemente aggiornati
+    """
+    try:
+        # Ottieni i dataset più aggiornati dal database
+        from sqlalchemy import text
+        from ckan.model import Session, Package
+        
+        sql = '''
+            SELECT id
+            FROM package
+            WHERE state = 'active'
+            AND metadata_modified IS NOT NULL
+            ORDER BY metadata_modified DESC
+            LIMIT :limit
+        '''
+        
+        result = Session.execute(text(sql), {'limit': limit})
+        package_ids = [row.id for row in result]
+        
+        # Recupera i dettagli completi dei dataset
+        datasets = []
+        for package_id in package_ids:
+            try:
+                dataset = toolkit.get_action('package_show')({}, {'id': package_id, 'include_tracking': True})
+                datasets.append(dataset)
+            except toolkit.ObjectNotFound:
+                # Ignora i dataset che non esistono più
+                continue
+                
+        return datasets
+    except Exception as e:
+        # In caso di errore, ritorna una lista vuota
+        return []
+    
 
 def get_all_organizations(limit=None):
     """
