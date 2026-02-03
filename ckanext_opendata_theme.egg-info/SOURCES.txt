@@ -132,6 +132,7 @@ ckanext/opendata_theme/templates/home/layout3.html
 ckanext/opendata_theme/templates/home/snippets/about_text.html
 ckanext/opendata_theme/templates/home/snippets/featured_group.html
 ckanext/opendata_theme/templates/home/snippets/info.html
+ckanext/opendata_theme/templates/home/snippets/last_updated_datasets.html
 ckanext/opendata_theme/templates/home/snippets/most_viewed_datasets.html
 ckanext/opendata_theme/templates/home/snippets/news.html
 ckanext/opendata_theme/templates/home/snippets/organizations.html
