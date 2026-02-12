@@ -67,6 +67,7 @@ class OpendataThemePlugin(plugins.SingletonPlugin):
             'get_formatted_view_count': helpers.get_formatted_view_count,
             'get_most_viewed_datasets': helpers.get_most_viewed_datasets,
             'get_last_updated_datasets': helpers.get_last_updated_datasets,
+            'get_current_package_notes': helpers.get_current_package_notes,
             'opendata_theme_get_helpers': helpers.get_helpers,
             'get_all_organizations': helpers.get_all_organizations,
             'get_all_organizations_random': helpers.get_all_organizations_random,   

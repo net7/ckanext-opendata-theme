@@ -142,6 +142,7 @@ ckanext/opendata_theme/templates/home/snippets/themes.html
 ckanext/opendata_theme/templates/macros/form/checkbox.html
 ckanext/opendata_theme/templates/macros/form/input.html
 ckanext/opendata_theme/templates/macros/form/input_block.html
+ckanext/opendata_theme/templates/macros/form/markdown.html
 ckanext/opendata_theme/templates/organization/about.html
 ckanext/opendata_theme/templates/organization/index.html
 ckanext/opendata_theme/templates/organization/read.html
@@ -157,6 +158,7 @@ ckanext/opendata_theme/templates/package/search.html
 ckanext/opendata_theme/templates/package/snippets/additional_info.html
 ckanext/opendata_theme/templates/package/snippets/dcatapit_additional_info.html
 ckanext/opendata_theme/templates/package/snippets/info.html
+ckanext/opendata_theme/templates/package/snippets/package_basic_fields.html
 ckanext/opendata_theme/templates/package/snippets/resource_item.html
 ckanext/opendata_theme/templates/package/snippets/resource_view.html
 ckanext/opendata_theme/templates/package/snippets/resources_list.html
