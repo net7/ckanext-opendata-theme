@@ -380,6 +380,53 @@ def list_org_datasets(organization_id):
 
 
 @opendata.command()
+def list_datasets_missing_identifier():
+    """Lista tutti i dataset attivi con campo identifier mancante o vuoto."""
+    try:
+        import ckan.model as model
+
+        # Query per trovare i dataset attivi senza extra "identifier"
+        # oppure con extra "identifier" vuoto o solo spazi
+        sql_query = """
+        SELECT p.id, p.name, p.title, p.state,
+               pe.value AS identifier
+        FROM package p
+        LEFT JOIN package_extra pe
+          ON pe.package_id = p.id
+         AND pe.key = 'identifier'
+        WHERE p.state = 'active'
+          AND (pe.id IS NULL OR pe.value IS NULL OR trim(pe.value) = '')
+        ORDER BY p.name
+        """
+
+        result = model.Session.execute(sql_query)
+        rows = result.fetchall()
+
+        if not rows:
+            click.echo("\nTutti i dataset attivi hanno un campo identifier valorizzato.")
+            return
+
+        click.echo("\nDataset attivi con campo identifier mancante o vuoto:")
+        click.echo("=" * 80)
+
+        for row in rows:
+            title = row.title or row.name
+            identifier = row.identifier if hasattr(row, "identifier") else None
+            identifier_display = identifier if identifier is not None and identifier.strip() != "" else "(vuoto / mancante)"
+
+            click.echo(f"- {row.name} ({row.id})")
+            click.echo(f"  Titolo: {title}")
+            click.echo(f"  Stato: {row.state}")
+            click.echo(f"  Identifier: {identifier_display}")
+            click.echo("")
+
+        click.echo(f"Totale dataset trovati: {len(rows)}")
+
+    except Exception as e:
+        click.echo(f"Errore: {str(e)}", err=True)
+
+
+@opendata.command()
 @click.argument('organization_id')
 @click.option('-y', '--yes', is_flag=True, help='Conferma automaticamente l\'eliminazione senza chiedere')
 def delete_org_datasets(organization_id, yes):
