@@ -35,7 +35,7 @@
         <div class="rtds-grid lg:rtds-flex rtds-gap-4">
             <div class="lg:rtds-w-1/2">
             {{ form.input('codice_ipa', label=_('Codice IPA'), id='field-ipa', type='text',
-            value=data.ipa, error=errors.codice_ipa, is_required=false) }}
+            value=data.ipa, error=errors.codice_ipa, is_required=true) }}
             </div>
             <div class="lg:rtds-w-1/2">
                 {{ form.input('organization_logo', label='Carica il logo dell\'organizzazione <span class="rtds-font-normal">(Solo file .jpeg o .png fino a 1mb)</span>'|safe, id='field-organization-logo', type='file',

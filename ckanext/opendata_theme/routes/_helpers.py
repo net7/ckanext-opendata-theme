@@ -238,13 +238,8 @@ def submit():
             f'  Email organizzazione: {data_dict["organization_email"]}',
             f'  Nome utente: {data_dict["user_name"]}',
             f'  Email utente: {data_dict["user_email"]}',
+            f'  Codice IPA: {data_dict["codice_ipa"]}',
         ]
-        
-        # Add IPA code if present
-        if data_dict.get('codice_ipa'):
-            body_parts.append(f'  Codice IPA: {data_dict["codice_ipa"]}')
-        else:
-            body_parts.append('  Codice IPA: Non specificato')
             
         # Add logo information if present
         if saved_logo_path:
