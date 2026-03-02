@@ -26,4 +26,10 @@ Example:
   {% block login_button %}
   <button class="rtds-btn rtds-btn--primary" type="submit">{{ _('Login') }}</button>
   {% endblock %}
+
+  {% block help_forgotten %}
+  <div class="rtds-grid-col-span-6 rtds-text-center rtds-mt-4">
+    <a class="rtds-text-sm rtds-text-gray-04 rtds-underline" href="{{ h.url_for('user.request_reset') }}">{{ _('Forgot your password?') }}</a>
+  </div>
+  {% endblock %}
 </div>

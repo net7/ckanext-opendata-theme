@@ -33,8 +33,25 @@ def get_helpers():
         "get_theme_icon": get_theme_icon,
         "extract_themes": extract_themes,
         "get_theme_name": get_theme_name,
-        "render_markdown": render_markdown,
+        "get_current_package_notes": get_current_package_notes,
     }
+
+
+def get_current_package_notes(package_id_or_name):
+    """
+    Restituisce le note del package (descrizione) con una chiamata fresca a package_show,
+    usando la stessa logica di get_translated della pagina di lettura.
+    Utile nel form di edit per evitare valori obsoleti passati dal contesto della view.
+    """
+    if not package_id_or_name:
+        return ""
+    try:
+        pkg = toolkit.get_action("package_show")(
+            {"for_view": True}, {"id": package_id_or_name}
+        )
+        return toolkit.h.get_translated(pkg, "notes") or pkg.get("notes") or ""
+    except Exception:
+        return ""
 
 
 def convert_coordinates(x: float, y: float, source_crs: str = 'EPSG:3003') -> tuple:
