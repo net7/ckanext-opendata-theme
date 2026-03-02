@@ -8,7 +8,26 @@
 <form class="rtds-grid rtds-gap-8" method="post" enctype="multipart/form-data" data-module="form-contact" data-module-action="{{ recaptcha_v3_action }}" data-module-key="{{ recaptcha_v3_key }}">
     <h3 class="rtds-body-lg rtds-font-bold rtds-text-center">Compila i campi sottostanti</h3>
 
-    {{ form.errors(error_summary) }}
+    {% if error_summary %}
+    {% set field_labels = {
+        'organization_name': 'Nome organizzazione',
+        'organization_email': 'Email organizzazione',
+        'codice_ipa': 'Codice IPA',
+        'user_name': 'Nome utente',
+        'user_email': 'E-mail istituzionale utente',
+        'organization_logo': 'Logo organizzazione'
+    } %}
+    {% set message_labels = {
+        'Missing value': 'valore mancante'
+    } %}
+    {% set ns = namespace(translated={}) %}
+    {% for key, value in error_summary.items() %}
+        {% set label = field_labels.get(key, key) %}
+        {% set msg = message_labels.get(value, value) %}
+        {% set _ = ns.translated.update({label: msg}) %}
+    {% endfor %}
+    {{ form.errors(ns.translated) }}
+    {% endif %}
 
     {% block contact_form_fields %}
     <div class="rtds-space-y-4">
