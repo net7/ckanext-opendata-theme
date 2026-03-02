@@ -101,7 +101,7 @@ def validate(data_dict):
     """
     errors = {}
     error_summary = {}
-    optional_fields = {'codice_ipa', 'organization_logo'}
+    optional_fields = {'organization_logo'}
     recaptcha_error = None
 
     # check each field to see if it has a value and if not, show and error
