@@ -1,6 +1,14 @@
 {# {% extends "package/read_base.html" %} #}
 {% extends "page-two-cols.html" %}
 
+{% block primary_content_before %}
+  {% if h.plugin_loaded('related_datasets') %}
+    <div class="rtds-grid rtds-mb-6 rtds-gap-4 rtds-py-8 rtds-px-4 rtds-bg-white rtds-rounded-xl">
+      {% snippet "package/snippets/related_datasets_display.html", pkg_dict=pkg %}
+    </div>
+  {% endif %}
+{% endblock %}
+
 {% block primary_content_inner %}
   {{ super() }}
   {% block package_description %}
@@ -10,17 +18,6 @@
         {{ _('Private') }}
       </span>
     {% endif %}
-    {# <h1>
-      {% block page_heading %}
-        {{ h.dataset_display_name(pkg) }}
-        {% if pkg.state.startswith('draft') %}
-          [{{ _('Draft') }}]
-        {% endif %}
-        {% if pkg.state == 'deleted' %}
-          [{{ _('Deleted') }}]
-        {% endif %}
-      {% endblock %}
-    </h1> #}
     {% block package_notes %}
       {% if pkg.notes %}
         {# <div class="notes embedded-content">
@@ -28,8 +25,6 @@
         </div> #}
       {% endif %}
     {% endblock %}
-    {# FIXME why is this here? seems wrong #}
-    {# <span class="insert-comment-thread"></span> #}
   {% endblock %}
 
   {% block package_resources %}

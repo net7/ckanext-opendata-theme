@@ -140,6 +140,9 @@ file.
                     {#
                   </header> #}
                   {% endblock %}
+
+                  {% block primary_content_before %}{% endblock %}
+
                   <div class="rtds-grid rtds-gap-4 rtds-py-8 rtds-px-4 rtds-bg-white rtds-rounded-xl">
                     {% if self.page_primary_action() | trim %}
                     <div class="page_primary_action">
@@ -149,8 +152,6 @@ file.
                     {% block primary_content_inner %}
                     {% endblock %}
                   </div>
-                  {#
-                </article> #}
                 {% endblock %}
               </div>
               {% endblock %}

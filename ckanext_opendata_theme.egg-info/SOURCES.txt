@@ -156,6 +156,7 @@ ckanext/opendata_theme/templates/package/read_base.html
 ckanext/opendata_theme/templates/package/resource_read.html
 ckanext/opendata_theme/templates/package/search.html
 ckanext/opendata_theme/templates/package/snippets/additional_info.html
+ckanext/opendata_theme/templates/package/snippets/dataset_card.html
 ckanext/opendata_theme/templates/package/snippets/dcatapit_additional_info.html
 ckanext/opendata_theme/templates/package/snippets/info.html
 ckanext/opendata_theme/templates/package/snippets/package_basic_fields.html
