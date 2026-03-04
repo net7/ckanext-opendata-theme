@@ -80,6 +80,7 @@ class OpendataThemePlugin(plugins.SingletonPlugin):
             'extract_themes': helpers.extract_themes,
             'get_theme_icon': helpers.get_theme_icon,
             'get_theme_name': helpers.get_theme_name,
+            'get_org_defaults_for_dataset': helpers.get_org_defaults_for_dataset,
         }
 
     # IValidators

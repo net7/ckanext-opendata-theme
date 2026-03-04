@@ -691,6 +691,31 @@ def get_theme_name(theme_code):
     return toolkit._(english_name)
 
 
+def get_org_defaults_for_dataset(org_id):
+    if not org_id:
+        return {}
+    try:
+        org = toolkit.get_action('organization_show')(
+            {'ignore_auth': True},
+            {'id': org_id, 'include_extras': True}
+        )
+        org_email = ''
+        for extra in org.get('extras', []):
+            if extra.get('key') == 'email':
+                org_email = extra.get('value', '')
+                break
+        org_title = org.get('title', '')
+        defaults = {
+            'author': org_title,
+            'author_email': org_email,
+            'maintainer': org_title,
+            'maintainer_email': org_email,
+        }
+        return defaults
+    except Exception:
+        return {}
+
+
 def render_markdown(text):
     """
     Converte testo con Markdown semplice e entità HTML in HTML formattato.

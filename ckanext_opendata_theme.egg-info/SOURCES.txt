@@ -159,6 +159,7 @@ ckanext/opendata_theme/templates/package/snippets/additional_info.html
 ckanext/opendata_theme/templates/package/snippets/dcatapit_additional_info.html
 ckanext/opendata_theme/templates/package/snippets/info.html
 ckanext/opendata_theme/templates/package/snippets/package_basic_fields.html
+ckanext/opendata_theme/templates/package/snippets/package_metadata_fields.html
 ckanext/opendata_theme/templates/package/snippets/resource_item.html
 ckanext/opendata_theme/templates/package/snippets/resource_view.html
 ckanext/opendata_theme/templates/package/snippets/resources_list.html
