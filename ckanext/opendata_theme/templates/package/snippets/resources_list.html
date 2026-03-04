@@ -10,6 +10,26 @@
 
   #}
 
+{% block related_datasets_to %}
+<div class="rtds-grid xl:rtds-flex rtds-gap-6 xl:rtds-gap-8">
+  <div class="rtds-page-main rtds-transition-all rtds-duration-300 rtds-grow xl:rtds-shrink-0 xl:rtds-w-2/3">
+    <section id="dataset-resources" class="rtds-pb-4 rtds-pt-4 md:rtds-px-6 rtds-grid rtds-gap-8 rtds-border-b rtds-border-gray-03">
+      <h3 class="rtds-heading-3">{{ _('Altro ') }}</h3>
+    </section>
+  </div>
+</div>
+{% endblock %}
+
+{% block related_datasets_from %}
+  <div class="rtds-grid xl:rtds-flex rtds-gap-6 xl:rtds-gap-8">
+    <div class="rtds-page-main rtds-transition-all rtds-duration-300 rtds-grow xl:rtds-shrink-0 xl:rtds-w-2/3">
+      <section id="dataset-resources" class="rtds-pb-4 rtds-pt-4 md:rtds-px-6 rtds-grid rtds-gap-8 rtds-border-b rtds-border-gray-03">
+        <h3 class="rtds-heading-3">{{ _('Altro ') }}</h3>
+      </section>
+    </div>
+  </div>
+{% endblock %}
+  
 <section id="dataset-resources" class="rtds-pb-4 rtds-pt-4 md:rtds-px-6 rtds-grid rtds-gap-8 rtds-border-b rtds-border-gray-03">
   <h3 class="rtds-heading-3">{{ _('Data and Resources') }}</h3>
   {% block resource_list %}
