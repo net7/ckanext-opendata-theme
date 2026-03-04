@@ -3,9 +3,7 @@
 
 {% block primary_content_before %}
   {% if h.plugin_loaded('related_datasets') %}
-    <div class="rtds-grid rtds-mb-6 rtds-gap-4 rtds-py-8 rtds-px-4 rtds-bg-white rtds-rounded-xl">
-      {% snippet "package/snippets/related_datasets_display.html", pkg_dict=pkg %}
-    </div>
+    {% snippet "package/snippets/related_datasets_display.html", pkg_dict=pkg %}
   {% endif %}
 {% endblock %}
 
