@@ -228,10 +228,10 @@ def submit():
         saved_logo_path = None
         if data_dict.get('organization_logo') and hasattr(data_dict['organization_logo'], 'filename'):
             saved_logo_path = save_uploaded_file(
-                data_dict['organization_logo'], 
+                data_dict['organization_logo'],
                 data_dict.get('organization_name')
             )
-        
+
         body_parts = [
             'Richiesta di registrazione inviata da:',
             f'  Nome organizzazione: {data_dict["organization_name"]}',
@@ -240,14 +240,23 @@ def submit():
             f'  Email utente: {data_dict["user_email"]}',
             f'  Codice IPA: {data_dict["codice_ipa"]}',
         ]
-            
-        # Add logo information if present
+
+        # Build attachments list and add logo info to body
+        email_attachments = []
         if saved_logo_path:
             original_filename = data_dict['organization_logo'].filename
-            body_parts.append(f'  Logo organizzazione: {original_filename} (salvato in: {saved_logo_path})')
+            body_parts.append(f'  Logo organizzazione: {original_filename} (allegato)')
+            # Re-open the saved file to attach it to the email
+            try:
+                storage_path = get_storage_path()
+                full_path = os.path.join(storage_path, saved_logo_path)
+                email_attachments.append((original_filename, open(full_path, 'rb')))
+            except Exception as e:
+                log.error(f'Errore nell\'aprire il file per allegarlo alla mail: {str(e)}')
+                body_parts.append(f'  (allegato non disponibile, salvato in: {saved_logo_path})')
         else:
             body_parts.append('  Logo organizzazione: Non fornito')
-            
+
         mail_dict = {
             'recipient_email': toolkit.config.get(
                 'ckanext.contact.mail_to', toolkit.config.get('email_to')
@@ -258,6 +267,7 @@ def submit():
             'subject': build_subject(organization_name=data_dict.get('organization_name')),
             'body': '\n'.join(body_parts),
             'headers': {'reply-to': data_dict['organization_email']},
+            'attachments': email_attachments,
         }
 
         # allow other plugins to modify the mail_dict
