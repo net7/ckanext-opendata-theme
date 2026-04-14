@@ -1470,5 +1470,113 @@ def rebuild_docker():
         click.echo(f"❌ Errore generale: {str(e)}", err=True)
 
 
+@opendata.command('check-harvest-sources')
+@click.option('--timeout', default=15, show_default=True, help='Timeout per ogni richiesta in secondi')
+@click.option('--only-errors', is_flag=True, help='Mostra solo gli endpoint non raggiungibili')
+def check_harvest_sources(timeout, only_errors):
+    """Verifica la raggiungibilità di tutti gli endpoint harvester attivi.
+
+    Legge gli URL dal DB e testa la connessione HTTP/HTTPS verso ciascuno.
+    Utile per identificare gli endpoint da sbloccare a livello firewall.
+    """
+    import requests
+    import urllib3
+    from urllib.parse import urlparse
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+    from ckan import model
+
+    sources = (
+        model.Session.query(model.Package)
+        .filter(model.Package.type == 'harvest')
+        .filter(model.Package.state == 'active')
+        .all()
+    )
+
+    if not sources:
+        # fallback diretto sulla tabella harvest_source
+        try:
+            rows = model.Session.execute(
+                "SELECT title, url FROM harvest_source WHERE active = true ORDER BY title"
+            ).fetchall()
+        except Exception:
+            rows = []
+        sources_data = [{'title': r[0], 'url': r[1]} for r in rows]
+    else:
+        sources_data = []
+        for s in sources:
+            url = s.extras.get('url') if hasattr(s, 'extras') else None
+            if not url:
+                try:
+                    extras = {e.key: e.value for e in s.extra_members}
+                    url = extras.get('url', '')
+                except Exception:
+                    url = ''
+            sources_data.append({'title': s.title or s.name, 'url': url})
+
+    if not sources_data:
+        click.echo("Nessuna harvest source trovata nel DB.", err=True)
+        return
+
+    ok_count = 0
+    err_count = 0
+    err_hosts = []
+
+    click.echo(f"\nVerifica {len(sources_data)} harvest source (timeout={timeout}s)\n")
+    click.echo(f"{'STATO':<8} {'HOST':<45} TITOLO")
+    click.echo("-" * 90)
+
+    for src in sources_data:
+        title = src['title'] or '(senza titolo)'
+        url = (src['url'] or '').strip()
+        if not url:
+            click.echo(f"{'SKIP':<8} {'(url vuoto)':<45} {title}")
+            continue
+
+        parsed = urlparse(url)
+        host = parsed.netloc or url
+
+        try:
+            resp = requests.head(url, timeout=timeout, verify=False,
+                                 allow_redirects=True,
+                                 headers={'User-Agent': 'ckan-harvest-checker/1.0'})
+            # alcuni server non supportano HEAD, prova GET parziale
+            if resp.status_code in (405, 501):
+                resp = requests.get(url, timeout=timeout, verify=False,
+                                    stream=True,
+                                    headers={'User-Agent': 'ckan-harvest-checker/1.0'})
+                resp.close()
+            status = f"HTTP {resp.status_code}"
+            ok = resp.status_code < 500
+        except requests.exceptions.ConnectTimeout:
+            status = 'TIMEOUT'
+            ok = False
+        except requests.exceptions.ConnectionError as e:
+            status = 'CONN ERR'
+            ok = False
+        except Exception as e:
+            status = str(e)[:20]
+            ok = False
+
+        if ok:
+            ok_count += 1
+            if not only_errors:
+                click.echo(f"{'OK ' + status:<8} {host:<45} {title}")
+        else:
+            err_count += 1
+            err_hosts.append({'host': host, 'url': url, 'title': title, 'status': status})
+            click.echo(click.style(f"{'KO ' + status:<8} {host:<45} {title}", fg='red'))
+
+    click.echo("-" * 90)
+    click.echo(f"\nRisultato: {ok_count} OK, {err_count} KO su {len(sources_data)} sorgenti\n")
+
+    if err_hosts:
+        click.echo("Endpoint NON raggiungibili (da comunicare per apertura firewall):")
+        for e in err_hosts:
+            parsed = urlparse(e['url'])
+            port = parsed.port or (443 if parsed.scheme == 'https' else 80)
+            click.echo(f"  - {e['host']}:{port}  ({e['status']})  →  {e['title']}")
+
+
 def get_commands():
     return [opendata]
