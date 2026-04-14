@@ -1485,33 +1485,48 @@ def check_harvest_sources(timeout, only_errors):
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
     from ckan import model
+    from sqlalchemy import text
 
-    sources = (
-        model.Session.query(model.Package)
-        .filter(model.Package.type == 'harvest')
-        .filter(model.Package.state == 'active')
-        .all()
-    )
+    sources_data = []
 
-    if not sources:
-        # fallback diretto sulla tabella harvest_source
+    # Prova prima con il modello HarvestSource dell'estensione
+    try:
+        from ckanext.harvest.model import HarvestSource
+        hs_list = (
+            model.Session.query(HarvestSource)
+            .filter(HarvestSource.active == True)
+            .order_by(HarvestSource.title)
+            .all()
+        )
+        for hs in hs_list:
+            sources_data.append({'title': hs.title or hs.name, 'url': hs.url or ''})
+    except Exception:
+        pass
+
+    # Fallback: query diretta sulla tabella harvest_source
+    if not sources_data:
         try:
             rows = model.Session.execute(
-                "SELECT title, url FROM harvest_source WHERE active = true ORDER BY title"
+                text("SELECT title, url FROM harvest_source WHERE active = true ORDER BY title")
             ).fetchall()
+            sources_data = [{'title': r[0], 'url': r[1] or ''} for r in rows]
         except Exception:
-            rows = []
-        sources_data = [{'title': r[0], 'url': r[1]} for r in rows]
-    else:
-        sources_data = []
-        for s in sources:
-            url = s.extras.get('url') if hasattr(s, 'extras') else None
-            if not url:
-                try:
-                    extras = {e.key: e.value for e in s.extra_members}
-                    url = extras.get('url', '')
-                except Exception:
-                    url = ''
+            pass
+
+    # Ultimo fallback: Package type=harvest + PackageExtra key=url
+    if not sources_data:
+        packages = (
+            model.Session.query(model.Package)
+            .filter(model.Package.type == 'harvest')
+            .filter(model.Package.state == 'active')
+            .all()
+        )
+        for s in packages:
+            try:
+                extras = {e.key: e.value for e in s.extra_members}
+                url = extras.get('url', '')
+            except Exception:
+                url = ''
             sources_data.append({'title': s.title or s.name, 'url': url})
 
     if not sources_data:
