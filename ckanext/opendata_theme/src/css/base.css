@@ -62,4 +62,13 @@ abbr[data-bs-original-title] {
     cursor: auto;
     text-decoration-skip-ink: none;
 }
+
+/* CKAN resource-reorder compat: reset negative margins from Bootstrap theme */
+.resource-list {
+    margin: 0;
+    padding-left: 2.5rem; /* spazio per le maniglie (position:absolute; left:-31px) */
+}
+.resource-list.reordering .resource-item {
+    padding-left: 0; /* Tailwind gestisce il padding interno */
+}
 /*  */

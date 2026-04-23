@@ -15,7 +15,7 @@ Example:
 {% set url_action = pkg.type ~ ('_resource.edit' if url_is_edit and can_edit else '_resource.read') %}
 {% set url = url or h.url_for(url_action, id=pkg.name, resource_id=res.id) %}
 
-<li class="rtds-py-4 rtds-border-t rtds-border-gray-01 rtds-grid sm:rtds-flex sm:rtds-flex-wrap rtds-justify-items-start sm:rtds-justify-between rtds-items-center rtds-gap-4" data-id="{{ res.id }}">
+<li class="resource-item rtds-py-4 rtds-border-t rtds-border-gray-01 rtds-grid sm:rtds-flex sm:rtds-flex-wrap rtds-justify-items-start sm:rtds-justify-between rtds-items-center rtds-gap-4" data-id="{{ res.id }}">
   {% block resource_item_title %}
     {# <a class="rtds-truncate sm:rtds-overflow-auto rtds-w-full sm:rtds-w-auto" href="{{ url }}" title="{{ res.name or res.description }}"> #}
     <span class="rtds-truncate sm:rtds-overflow-auto rtds-w-full sm:rtds-w-auto">
