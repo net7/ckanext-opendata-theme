@@ -57,9 +57,40 @@ error=errors.title, classes=['control-full', 'control-large'], attrs={'data-modu
   </div>
   {% endblock %}
 
+  {% block package_basic_fields_groups %}
+  {% set groups_available = h.groups_available() %}
+  {% if groups_available %}
+  <div class="form-group control-full groups-selector-wrap">
+    <label class="form-label">{{ _('Groups') }}</label>
+    <div class="controls">
+      {% set current_group_ids = data.groups | map(attribute='id') | list if data.groups else [] %}
+      {# Include group_id pre-selection from URL (e.g. creating from a group page) #}
+      {% if data.group_id and data.group_id not in current_group_ids %}
+        {% set current_group_ids = current_group_ids + [data.group_id] %}
+      {% endif %}
+      <div style="display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 4px;">
+      {% for group in groups_available %}
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <input type="checkbox"
+                 id="group-chk-{{ group.id }}"
+                 name="groups__{{ loop.index0 }}__id"
+                 value="{{ group.id }}"
+                 style="width: 16px; height: 16px; min-width: 16px; border: 1px solid #999; appearance: checkbox; -webkit-appearance: checkbox; box-shadow: none; margin: 0; padding: 0;"
+                 {% if group.id in current_group_ids %}checked="checked"{% endif %} />
+          <span onclick="document.getElementById('group-chk-{{ group.id }}').click()"
+                style="margin: 0; cursor: pointer; white-space: nowrap; user-select: none;">{{ group.display_name }}</span>
+        </div>
+      {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% endblock %}
+
   {% block package_basic_fields_org %}
-  {# if we have a default group then this wants remembering #}
-  {% if data.group_id %}
+  {# Legacy single-group pre-selection (e.g. creating from a group page).
+     Only needed when the groups selector above is not rendered. #}
+  {% if data.group_id and not h.groups_available() %}
   <input type="hidden" name="groups__0__id" value="{{ data.group_id }}" />
   {% endif %}
 
