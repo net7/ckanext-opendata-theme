@@ -61,6 +61,7 @@ error=errors.title, classes=['control-full', 'control-large'], attrs={'data-modu
   {% set groups_available = h.groups_available() %}
   {% if groups_available %}
   <div class="form-group control-full groups-selector-wrap">
+    <div id="groups-field-anchor"></div>
     <label class="form-label">{{ _('Groups') }}</label>
     <div class="controls">
       {% set current_group_ids = data.groups | map(attribute='id') | list if data.groups else [] %}
