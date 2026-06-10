@@ -1,0 +1,31 @@
+ /**
+ * REPORT LIST
+ *
+*/
+@layer components {
+    .rtds-report-item {
+        @apply rtds-py-4 rtds-border-b rtds-border-neutral-200 last:rtds-border-b-0;
+    }
+
+    .rtds-report-item h4 {
+        @apply rtds-font-heading rtds-font-bold rtds-mb-1;
+        font-size: 0.9375rem;
+    }
+
+    .rtds-report-item h4 a {
+        @apply rtds-text-primary-700 rtds-no-underline hover:rtds-underline hover:rtds-text-primary-800;
+    }
+
+    .rtds-report-item p {
+        @apply rtds-text-sm rtds-text-neutral-800 rtds-m-0;
+    }
+
+    .rtds-generated-note {
+        @apply rtds-flex rtds-items-center rtds-gap-1 rtds-text-neutral-800 rtds-mb-4;
+        font-size: 0.78rem;
+    }
+
+    .rtds-generated-note .rtds-icon {
+        @apply rtds-w-3.5 rtds-h-3.5 rtds-shrink-0;
+    }
+}

@@ -1,65 +1,41 @@
-{% extends "page.html" %}
-
-{% block navReport %} class="pulsante active" {{ super() }} {% endblock %}
-{% block navReportMobile %} class="pulsante active" {{ super() }} {% endblock %}
+{% extends "page-search.html" %}
 
 {% block subtitle %}{{ _('Report') }}{% endblock %}
 
-{% block breadcrumb_content %}
-  <li class="active">{% link_for _('Report'), named_route='home.about' %}</li>
-{% endblock %}
-
-{% block primary %}
-<div class="rtds-container">
-  <div class="rtds-grid xl:rtds-flex rtds-gap-6 xl:rtds-gap-8">
-    <section class="module-content">
-      <div class="ckanext-pages-content rtds-container rtds-px-10 rtds-py-6">
-        <h1 class="rtds-heading-1">{{ _('Report') }}</h1>
-      </div>
-      <div class="dataset">
-        <div id="reports" class="row">
-          {% for report in reports %}
-            {% if loop.index0%4==0 %}<div class="clearfix visible-lg"></div>{% endif %}
-            {% if loop.index0%3==0 %}<div class="clearfix visible-md clearfix-ie7"></div>{% endif %}
-            {% if loop.index0%2==0 %}<div class="clearfix visible-sm"></div>{% endif %}
-            <div class="col-lg-3 col-md-4 col-sm-6">
-              {% set report_url=h.url_for('report.view', report_name=report.name, **h.report__explicit_default_options(report.name)) %}
-              <div class="report-summary">
-                <a href="{{ report_url }}" class="report-header">
-                  <div class="report-title">{{ report.title }}</div>
-                </a>
-                <div class="report-body">
-                  <div class="report-description">{{ report.description }}</div>
-                  <div class="clearfix clearfix-ie7"> &nbsp;</div>
-                  <a class="view-report-link" href="{{ report_url }}">
-                    {{ _('Vedi Report') }}
-                  </a>
-                </div>
-              </div>
-            </div>
-            <hr />
-          {% endfor %}
-        </div>
-      </div>
-      
-      <div class="module module-narrow module-shallow">
-        <h2 class="module-heading">
-          <i class="icon-info-sign"></i>
-          Data Quality e Report
-        </h2>
-        <div class="module-content">
-          <p>
-            I report sono generati automaticamente ogni giorno.
-          </p>
-          <p>
-            Si ringrazia <a href="http://data.gov.uk">Data Gov UK</a> per il supporto ed i suggerimenti nella costruzione dei report.
-          </p>
-        </div>
-      </div>
-    </section>
+{% block pre_primary %}
+<div class="rtds-grid rtds-gap-4 rtds-mt-8 rtds-mb-12">
+  <div class="rtds-flex">
+    <a href="javascript:history.back()" class="rtds-text-link rtds-content-03 rtds-text-link--s">
+      <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-flex-shrink-0 rtds-flex-grow-0" aria-hidden="true" focusable="false" role="img">
+        <use href="../../icons.svg#solid--arrow-left" />
+      </svg>
+      {{ _('Go back') }}
+    </a>
   </div>
+  <h1 class="rtds-heading-1">{{ _('Report') }}</h1>
 </div>
 {% endblock %}
 
 {% block secondary %}{% endblock %}
 
+{% block primary %}
+<div class="lg:rtds-col-span-12">
+  <section class="rtds-bg-white rtds-rounded-lg rtds-shadow-md rtds-px-6 rtds-py-4">
+    <div id="reports" class="rtds-report-list">
+      {% for report in reports %}
+        {% set report_url=h.url_for('report.view', report_name=report.name, **h.report__explicit_default_options(report.name)) %}
+        <div class="rtds-report-item">
+          <h4><a href="{{ report_url }}">{{ report.title }}</a></h4>
+          <p>{{ report.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+    <p class="rtds-generated-note">
+      <svg class="rtds-icon" aria-hidden="true">
+        <use href="/icons.svg#outline--clock" />
+      </svg>
+      {{ _('I report vengono generati automaticamente ogni giorno.') }}
+    </p>
+  </section>
+</div>
+{% endblock %}

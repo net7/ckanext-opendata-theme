@@ -3280,6 +3280,55 @@ body.rtds-overflow-hidden .rtds-primary-navigation__backdrop{
   }
 }
 
+.rtds-report-item{
+  border-bottom-width:1px;
+  border-color:var(--color-neutral-200);
+  padding-top:var(--spacing-4);
+  padding-bottom:var(--spacing-4)
+}
+
+.rtds-report-item:last-child{
+  border-bottom-width:0px
+}
+
+.rtds-report-item h4{
+  margin-bottom:var(--spacing-1);
+  font-family:var(--fontfamily-heading), sans-serif;
+  font-weight:700;
+  font-size: 0.9375rem
+}
+
+.rtds-report-item h4 a{
+  color:var(--color-primary-700);
+  text-decoration-line:none
+}
+
+.rtds-report-item h4 a:hover{
+  color:var(--color-primary-800);
+  text-decoration-line:underline
+}
+
+.rtds-report-item p{
+  margin:var(--spacing-0);
+  font-size:var(--fontsize-text-sm);
+  color:var(--color-neutral-800)
+}
+
+.rtds-generated-note{
+  margin-bottom:var(--spacing-4);
+  display:flex;
+  align-items:center;
+  gap:var(--spacing-1);
+  color:var(--color-neutral-800);
+  font-size: 0.78rem
+}
+
+.rtds-generated-note .rtds-icon{
+  height:var(--spacing-3-5);
+  width:var(--spacing-3-5);
+  flex-shrink:0
+}
+
 .rtds-tab{
   display:flex;
   justify-content:center;
@@ -4329,6 +4378,11 @@ legend.rtds-facets__legend{
 */
 
 /**
+ * REPORT LIST
+ *
+*/
+
+/**
  * PRIMARY NAVIGATION
  *
 */
@@ -5170,6 +5224,12 @@ legend.rtds-facets__legend{
   box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
 }
 
+.rtds-shadow-md{
+  --tw-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+}
+
 .rtds-shadow-none{
   --tw-shadow:0 0 #0000;
   --tw-shadow-colored:0 0 #0000;
@@ -5824,6 +5884,10 @@ legend.rtds-facets__legend{
 }
 
 @media (min-width: 1024px){
+  .lg\:rtds-col-span-12{
+    grid-column:span 12 / span 12
+  }
+
   .lg\:rtds-col-span-4{
     grid-column:span 4 / span 4
   }

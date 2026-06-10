@@ -144,6 +144,15 @@ ckanext/opendata_theme/templates/macros/form/checkbox.html
 ckanext/opendata_theme/templates/macros/form/input.html
 ckanext/opendata_theme/templates/macros/form/input_block.html
 ckanext/opendata_theme/templates/macros/form/markdown.html
+ckanext/opendata_theme/templates/odt/design-system.css
+ckanext/opendata_theme/templates/odt/report.html
+ckanext/opendata_theme/templates/odt/report_datasets_no_risorse.html
+ckanext/opendata_theme/templates/odt/report_html_datasets.html
+ckanext/opendata_theme/templates/odt/report_licenze.html
+ckanext/opendata_theme/templates/odt/report_openness.html
+ckanext/opendata_theme/templates/odt/report_pdf_datasets.html
+ckanext/opendata_theme/templates/odt/.claude/launch.json
+ckanext/opendata_theme/templates/odt/.claude/settings.local.json
 ckanext/opendata_theme/templates/organization/about.html
 ckanext/opendata_theme/templates/organization/index.html
 ckanext/opendata_theme/templates/organization/read.html

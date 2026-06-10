@@ -1,6 +1,7 @@
-{% extends 'page-detail.html' %} 
+{% extends 'page-detail.html' %}
 
 {% block subtitle %}{{ c.page.title }}{% endblock %}
+
 {% block pre_primary %}
     <div class="rtds-grid rtds-gap-4 rtds-mt-8 rtds-mb-12">
       <div class="rtds-flex">
@@ -16,48 +17,37 @@
 {% endblock %}
 
 {% block primary %}
-  {# <section class="module-content"> #}
-
-    {% block ckanext_pages_actions %}
-      {# {% if h.check_access('ckanext_pages_update') %}
-          {% asset 'pages/main-css' %}
-          {% link_for _('Edit'), named_route='pages.edit', page=c.page.name, class_='btn btn-primary pull-right', icon='edit' %}
-          {% link_for _('Revisions'), named_route='pages.pages_revisions', page=c.page.name, class_='btn btn-primary pull-right me-2', icon='eye' %}
-      {% endif %} #}
-    {% endblock %}
-    {# <div class="rtds-grid rtds-gap-4 rtds-mt-8 rtds-mb-12">
-      <h1 class="rtds-heading-1">{{ c.page.title }}</h1>
-    </div> #}
-      {% block ckanext_pages_content %}
-      <div class="rtds-grid rtds-grid-cols-12">
-        <div class="rtds-col-span-12 md:rtds-col-span-9 xl:rtds-col-span-7 rtds-grid rtds-gap-8">
-        {% if c.page.content %}
-          {% set editor = h.pages_get_wysiwyg_editor() %}
-          <picture class="rtds-card__image-wrapper">
-            <img class="rtds-card__image_ rtds-text-center rtds-h-full" alt="" src="{{ h.get_page_image(c.page.content) }}" />
-          </picture>
-          <div class="rtds-article-body">
-          {% if editor %}
-            {{c.page.content|safe}}
-          {% else %}
-            {{ h.render_content(c.page.content) }}
-          {% endif %}
-          </div>
-          <hr>
-          <div class="rtds-grid rtds-gap-2">
-            <span>Creato il <time datetime="{{ h.format_date(c.page.created, 'ymd') }}">{{ h.format_date(c.page.created, 'dmmy') }}</time></span>
-            {% if c.page.updated %}
-              <span>Aggiornamento al <time datetime="{{ h.format_date(c.page.updated, 'ymd') }}">{{ h.format_date(c.page.updated, 'dmmy') }}</time></span>
-            {% endif %}
-          </div>
+  {% block ckanext_pages_actions %}{% endblock %}
+  {% block ckanext_pages_content %}
+  <section class="rtds-bg-white rtds-rounded-lg rtds-shadow-md rtds-px-6 rtds-py-4">
+    <div class="rtds-grid rtds-grid-cols-12">
+      <div class="rtds-col-span-12 md:rtds-col-span-9 xl:rtds-col-span-7 rtds-grid rtds-gap-8">
+      {% if c.page.content %}
+        {% set editor = h.pages_get_wysiwyg_editor() %}
+        <picture class="rtds-card__image-wrapper">
+          <img class="rtds-text-center rtds-h-full" alt="" src="{{ h.get_page_image(c.page.content) }}" />
+        </picture>
+        <div class="rtds-article-body">
+        {% if editor %}
+          {{c.page.content|safe}}
         {% else %}
-          <p class="empty">{{ _('This page currently has no content') }}</p>
+          {{ h.render_content(c.page.content) }}
         {% endif %}
         </div>
+        <hr>
+        <div class="rtds-grid rtds-gap-2 rtds-text-sm rtds-content-03">
+          <span>Creato il <time datetime="{{ h.format_date(c.page.created, 'ymd') }}">{{ h.format_date(c.page.created, 'dmmy') }}</time></span>
+          {% if c.page.updated %}
+            <span>Aggiornamento al <time datetime="{{ h.format_date(c.page.updated, 'ymd') }}">{{ h.format_date(c.page.updated, 'dmmy') }}</time></span>
+          {% endif %}
+        </div>
+      {% else %}
+        <p class="empty">{{ _('This page currently has no content') }}</p>
+      {% endif %}
       </div>
-
-      {% endblock %}
-  {# </section> #}
+    </div>
+  </section>
+  {% endblock %}
 {% endblock %}
 
 {% block secondary %}{% endblock %}
