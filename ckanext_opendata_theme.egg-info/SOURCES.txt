@@ -76,6 +76,7 @@ ckanext/opendata_theme/src/components/03-molecules/forms/input-file/input-file.c
 ckanext/opendata_theme/src/components/03-molecules/pagination/pagination.css
 ckanext/opendata_theme/src/components/03-molecules/primary-navigation/primary-navigation.css
 ckanext/opendata_theme/src/components/03-molecules/report-list/report-list.css
+ckanext/opendata_theme/src/components/03-molecules/report-table/report-table.css
 ckanext/opendata_theme/src/components/03-molecules/secondary-navigation/secondary-navigation.css
 ckanext/opendata_theme/src/components/03-molecules/tab/tab.css
 ckanext/opendata_theme/src/components/04-organisms/bottom-bar/bottom-bar.css
@@ -175,6 +176,10 @@ ckanext/opendata_theme/templates/package/snippets/resource_item.html
 ckanext/opendata_theme/templates/package/snippets/resource_view.html
 ckanext/opendata_theme/templates/package/snippets/resources_list.html
 ckanext/opendata_theme/templates/package/snippets/tags.html
+ckanext/opendata_theme/templates/report/openness.html
+ckanext/opendata_theme/templates/report/option_include_sub_organizations.html
+ckanext/opendata_theme/templates/report/option_organization.html
+ckanext/opendata_theme/templates/report/view.html
 ckanext/opendata_theme/templates/snippets/facet_list.html
 ckanext/opendata_theme/templates/snippets/license.html
 ckanext/opendata_theme/templates/snippets/local_friendly_datetime.html

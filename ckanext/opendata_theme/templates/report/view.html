@@ -1,0 +1,96 @@
+{# Override di ckanext-report/ckanext/report/templates/report/view.html #}
+{% extends "page-search.html" %}
+
+{% block title %}{{ report.title }} - {{ _('Report') }} - {{ super() }}{% endblock %}
+
+{% block pre_primary %}
+<div class="rtds-grid rtds-gap-4 rtds-mt-8 rtds-mb-12">
+  <div class="rtds-flex">
+    <a href="javascript:history.back()" class="rtds-text-link rtds-content-03 rtds-text-link--s">
+      <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-flex-shrink-0 rtds-flex-grow-0" aria-hidden="true" focusable="false" role="img">
+        <use href="/icons.svg#solid--arrow-left" />
+      </svg>
+      {{ _('Torna indietro') }}
+    </a>
+  </div>
+  <h1 class="rtds-heading-1">{{ report.title }}</h1>
+  {% if report.description %}
+  <p class="rtds-text-neutral-800 rtds-text-base">{{ report.description }}</p>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block secondary %}{% endblock %}
+
+{% block primary %}
+<div class="lg:rtds-col-span-12">
+  {% set type = 'asset' if h.check_ckan_version(min_version="2.9.0", max_version="3.0.0") else 'resource' %}
+  {% include 'report/report_js_' ~ type ~ '.html' %}
+
+  {% if options %}
+  <div class="rtds-filter-box rtds-mb-6">
+    <form method="get" action="">
+      {% for key, value in options.items() %}
+        {% if key in options_html %}
+          {{ options_html[key]|safe }}
+        {% else %}
+          <input type="hidden" name="{{ key }}" value="{{ value }}"/>
+        {% endif %}
+      {% endfor %}
+      <div style="margin-left: auto;">
+        <button type="submit" class="rtds-btn rtds-btn--primary">
+          <svg class="rtds-icon rtds-w-4 rtds-h-4" aria-hidden="true" focusable="false">
+            <use href="/icons.svg#solid--funnel" />
+          </svg>
+          {{ _('Applica filtro') }}
+        </button>
+      </div>
+    </form>
+  </div>
+  {% endif %}
+
+  {% if c.userobj and c.userobj.sysadmin %}
+  <div class="rtds-refresh-box rtds-mb-6">
+    <p class="rtds-refresh-box__text">
+      {{ _('Come amministratore di sistema puoi rigenerare questo report su richiesta.') }}
+    </p>
+    <form action="" method="POST">
+      <button type="submit" class="rtds-btn rtds-btn--secondary">
+        {{ _('Rigenera report') }}
+      </button>
+    </form>
+  </div>
+  {% endif %}
+
+  {% if are_some_results %}
+  <div class="rtds-download-group rtds-mb-4">
+    <span class="rtds-download-group__label">{{ _('Scarica lista completa:') }}</span>
+    <div class="rtds-download-item">
+      <span class="rtds-chip-format rtds-chip-format--json">json</span>
+      <a href="{{ h.report__relative_url_for(format='json') }}" class="rtds-download-link">{{ _('Scarica') }}</a>
+    </div>
+    <div class="rtds-download-item">
+      <span class="rtds-chip-format rtds-chip-format--csv">csv</span>
+      <a href="{{ h.report__relative_url_for(format='csv') }}" class="rtds-download-link">{{ _('Scarica') }}</a>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if report_date %}
+  <p class="rtds-generated-note rtds-mb-6">
+    <svg class="rtds-icon" aria-hidden="true">
+      <use href="/icons.svg#outline--clock" />
+    </svg>
+    {{ _('Report generato il:') }} {{ h.report__render_datetime(report_date, '%d/%m/%Y %H:%M') }}
+  </p>
+  {% endif %}
+
+  <section class="rtds-bg-white rtds-rounded-lg rtds-shadow-md rtds-px-6 rtds-py-4">
+    {% if not are_some_results %}
+      <p class="rtds-text-neutral-700">{{ _('No results found.') }}</p>
+    {% else %}
+      {% snippet report_template, table=data['table'], data=data, report_name=report_name, options=options %}
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

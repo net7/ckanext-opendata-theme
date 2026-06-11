@@ -2031,6 +2031,28 @@ abbr[data-bs-original-title] {
   border-color: var(--color-button-primary-active);
 }
 
+.rtds-btn--secondary{
+  --tw-text-opacity:1;
+  color:rgb(255 255 255 / var(--tw-text-opacity, 1));
+  background-color: var(--color-button-secondary);
+  border-color: var(--color-button-secondary)
+}
+
+.rtds-btn--secondary:hover {
+  background-color: var(--color-button-secondary-hover);
+  border-color: var(--color-button-secondary-hover);
+}
+
+.rtds-btn--secondary:focus {
+  background-color: var(--color-button-secondary-hover);
+  border-color: var(--color-button-secondary-hover);
+}
+
+.rtds-btn--secondary:active {
+  background-color: var(--color-button-secondary-active);
+  border-color: var(--color-button-secondary-active);
+}
+
 .rtds-btn--only-text{
   background-color:transparent;
   color: var(--color-button-only-text);
@@ -4383,6 +4405,254 @@ legend.rtds-facets__legend{
 */
 
 /**
+ * REPORT TABLE
+ * Componente per le pagine di dettaglio dei report
+ */
+
+/* Filter box */
+
+.rtds-filter-box {
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.rtds-filter-box form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.rtds-filter-box__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.rtds-filter-box__label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-neutral-900);
+}
+
+.rtds-filter-box__select {
+  border-radius: 0.375rem;
+  border: 1px solid var(--color-neutral-300);
+  padding: 0.5rem 2.25rem 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  color: var(--color-neutral-900);
+  background-color: #ffffff;
+  min-width: 12rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1L6 7L11 1' stroke='%23686A72' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+}
+
+.rtds-filter-box__select:focus {
+  outline: none;
+  border-color: var(--color-focusring);
+  box-shadow: 0 0 0 2px var(--color-focusring);
+}
+
+.rtds-filter-box__checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.rtds-filter-box__checkbox-row input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--color-neutral-400);
+  cursor: pointer;
+  accent-color: var(--color-primary-700);
+}
+
+.rtds-filter-box__checkbox-label {
+  font-size: 0.875rem;
+  color: var(--color-neutral-900);
+  cursor: pointer;
+}
+
+/* Stats box */
+
+.rtds-stats-box {
+  background-color: var(--color-neutral-50);
+  border-radius: 0.375rem;
+  border: 1px solid var(--color-neutral-200);
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.rtds-stats-box__main {
+  font-weight: 700;
+  color: var(--color-neutral-900);
+  margin-bottom: 0.25rem;
+  font-size: 1rem;
+}
+
+.rtds-stats-box p {
+  font-size: 0.875rem;
+  color: var(--color-neutral-800);
+  margin: 0 0 0.25rem;
+}
+
+.rtds-stats-box__note {
+  font-size: 0.875rem;
+  color: var(--color-neutral-600);
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* Download group */
+
+.rtds-download-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.rtds-download-group__label {
+  font-size: 0.8rem;
+  color: var(--color-neutral-800);
+}
+
+.rtds-download-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rtds-chip-format {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.65rem;
+  padding: 0.15rem 0.45rem;
+  line-height: 1.4;
+}
+
+.rtds-chip-format--json {
+  background-color: var(--color-primary-100);
+  color: var(--color-primary-800);
+}
+
+.rtds-chip-format--csv {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.rtds-download-link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--color-primary-700);
+}
+
+.rtds-download-link:hover {
+  text-decoration: underline;
+  color: var(--color-primary-800);
+}
+
+/* Table wrapper */
+
+.rtds-table-wrapper {
+  overflow-x: auto;
+  width: 100%;
+}
+
+/* Report table */
+
+.rtds-report-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.rtds-report-table thead tr {
+  background-color: var(--color-neutral-900);
+  color: #ffffff;
+}
+
+.rtds-report-table thead th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  white-space: nowrap;
+  font-size: 0.8125rem;
+}
+
+.rtds-report-table tbody tr {
+  border-bottom: 1px solid var(--color-neutral-200);
+}
+
+.rtds-report-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.rtds-report-table tbody tr:hover {
+  background-color: var(--color-neutral-50);
+}
+
+.rtds-report-table tbody td {
+  padding: 0.75rem 1rem;
+  color: var(--color-neutral-900);
+  font-size: 0.875rem;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.rtds-report-table tbody td a {
+  color: var(--color-primary-700);
+  text-decoration: none;
+}
+
+.rtds-report-table tbody td a:hover {
+  color: var(--color-primary-800);
+  text-decoration: underline;
+}
+
+.rtds-table-count {
+  font-size: 0.875rem;
+  color: var(--color-neutral-700);
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+/* Refresh sysadmin box */
+
+.rtds-refresh-box {
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-neutral-200);
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.rtds-refresh-box__text {
+  font-size: 0.875rem;
+  color: var(--color-neutral-800);
+  margin: 0;
+}
+
+/**
  * PRIMARY NAVIGATION
  *
 */
@@ -5199,6 +5469,14 @@ legend.rtds-facets__legend{
 
 .rtds-uppercase{
   text-transform:uppercase
+}
+
+.rtds-text-neutral-700{
+  color:var(--color-neutral-700)
+}
+
+.rtds-text-neutral-800{
+  color:var(--color-neutral-800)
 }
 
 .rtds-text-white{

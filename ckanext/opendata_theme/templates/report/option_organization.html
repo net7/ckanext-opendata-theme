@@ -1,0 +1,17 @@
+{#
+Override di ckanext-report/ckanext/report/templates/report/option_organization.html
+value - Value of this option
+default - Default value for this option
+#}
+<div class="rtds-filter-box__field">
+  <label for="option-organization" class="rtds-filter-box__label">{{ _('Organizzazione') }}</label>
+  {% set offer_organization_index = (default == None) %}
+  <select id="option-organization" name="organization" class="rtds-filter-box__select js-auto-submit">
+    {% if offer_organization_index %}
+      <option value="" {% if value == None %}selected="selected"{% endif %}>-- {{ _('Indice di tutte le organizzazioni') }} --</option>
+    {% endif %}
+    {% for org_name, org_title in h.report__organization_list() %}
+      <option value="{{ org_name }}" {% if value == org_name %}selected="selected"{% endif %}>{{ org_title }}</option>
+    {% endfor %}
+  </select>
+</div>

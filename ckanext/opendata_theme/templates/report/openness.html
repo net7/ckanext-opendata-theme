@@ -1,0 +1,92 @@
+{# Override di ckanext-qa/ckanext/qa/templates/report/openness.html #}
+{% if c.options['organization'] == None %}
+
+  <div class="rtds-stats-box">
+    <p class="rtds-stats-box__main">Dataset con punteggio: {{ c.data['num_packages_scored'] }} / {{ c.data['num_packages'] }}</p>
+    {% if c.data.get('total_score_counts') %}
+    <p>Distribuzione punteggi —
+      N/D: {{ c.data['total_score_counts'].get('null', 0) }}
+      {% for n in range(6) %}
+        | {{ n }}★: {{ c.data['total_score_counts'].get(n|string, 0) }}
+      {% endfor %}
+    </p>
+    {% endif %}
+    <p class="rtds-stats-box__note">La lista completa dei dataset è scaricabile in formato JSON e CSV</p>
+  </div>
+
+  <div class="rtds-table-wrapper">
+    <table class="rtds-report-table tablesorter" id="report-table" aria-label="Report openness per organizzazione">
+      <thead>
+        <tr>
+          <th scope="col">Organizzazione</th>
+          <th scope="col">N/D</th>
+          {% for n in range(6) %}
+            <th scope="col">{{ n }}★</th>
+          {% endfor %}
+          <th scope="col">Stelle tot.</th>
+          <th scope="col">Media</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in c.data['table'] %}
+        <tr>
+          <td>{{ h.link_to(row['organization_title'], h.url_for('report.org', report_name='openness', organization=row['organization_name'])) }}</td>
+          <td>{{ row.get('null', 0) }}</td>
+          {% for n in range(6) %}
+            <td>{{ row.get(n|string, 0) }}</td>
+          {% endfor %}
+          <td>{{ row['total_stars'] }}</td>
+          <td>{{ row['average_stars'] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+{% else %}
+
+  <div class="rtds-stats-box">
+    <p class="rtds-stats-box__main">Media punteggio: {{ c.data.get('average_stars', '—') }}</p>
+    <p>Stelle totali: {{ c.data.get('total_stars', '—') }}</p>
+    <p>Dataset con punteggio: {{ c.data['num_packages_scored'] }} / {{ c.data['num_packages'] }}</p>
+    {% if c.data.get('score_counts') %}
+    <p>Distribuzione —
+      N/D: {{ c.data['score_counts'].get('null', 0) }}
+      {% for n in range(6) %}
+        | {{ n }}★: {{ c.data['score_counts'].get(n|string, 0) }}
+      {% endfor %}
+    </p>
+    {% endif %}
+    <p class="rtds-stats-box__note">La lista completa dei dataset è scaricabile in formato JSON e CSV</p>
+  </div>
+
+  <div class="rtds-table-wrapper">
+    <table class="rtds-report-table tablesorter" id="report-table" aria-label="Report openness dataset">
+      <thead>
+        <tr>
+          <th scope="col">Dataset</th>
+          <th scope="col">Note</th>
+          {% if c.options.get('include_sub_organizations') %}
+            <th scope="col">Organizzazione</th>
+          {% endif %}
+          <th scope="col">Punteggio</th>
+          <th scope="col">Motivazione</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in c.data['table'] %}
+        <tr>
+          <td><a href="{{ h.url_for('dataset.read', id=row['dataset_name']) }}">{{ row['dataset_title'] }}</a></td>
+          <td>{{ row['dataset_notes'] or '—' }}</td>
+          {% if c.options.get('include_sub_organizations') %}
+            <td>{{ h.link_to(row['organization_title'], h.url_for('report.org', report_name='openness', organization=row['organization_name'])) }}</td>
+          {% endif %}
+          <td>{{ row['openness_score'] }}</td>
+          <td title="{{ row['openness_score_reason'] }}">{{ row['openness_score_reason']|truncate(150) if row['openness_score_reason'] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+{% endif %}

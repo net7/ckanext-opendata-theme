@@ -1,0 +1,15 @@
+{#
+Override di ckanext-report/ckanext/report/templates/report/option_include_sub_organizations.html
+value - Value of this option
+#}
+<div class="rtds-filter-box__checkbox-row">
+  <input type="checkbox"
+         id="option-include-sub-organizations"
+         name="include_sub_organizations"
+         value="1"
+         class="js-auto-submit"
+         {{ 'checked="checked"' if value }} />
+  <label for="option-include-sub-organizations" class="rtds-filter-box__checkbox-label">
+    {{ _('Includi risultati dalle sotto-organizzazioni') }}
+  </label>
+</div>
