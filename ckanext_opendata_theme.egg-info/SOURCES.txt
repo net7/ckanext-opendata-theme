@@ -75,6 +75,7 @@ ckanext/opendata_theme/src/components/03-molecules/forms/input-field/input-field
 ckanext/opendata_theme/src/components/03-molecules/forms/input-file/input-file.css
 ckanext/opendata_theme/src/components/03-molecules/pagination/pagination.css
 ckanext/opendata_theme/src/components/03-molecules/primary-navigation/primary-navigation.css
+ckanext/opendata_theme/src/components/03-molecules/report-list/report-list.css
 ckanext/opendata_theme/src/components/03-molecules/secondary-navigation/secondary-navigation.css
 ckanext/opendata_theme/src/components/03-molecules/tab/tab.css
 ckanext/opendata_theme/src/components/04-organisms/bottom-bar/bottom-bar.css
@@ -190,6 +191,8 @@ ckanext/opendata_theme/templates/snippets/tag_list.html
 ckanext/opendata_theme/templates/user/login.html
 ckanext/opendata_theme/templates/user/logout_first.html
 ckanext/opendata_theme/templates/user/snippets/login_form.html
+ckanext/opendata_theme/templates_overrides/snippets/source_item.html
+ckanext/opendata_theme/templates_overrides/source/search.html
 ckanext/opendata_theme/tests/__init__.py
 ckanext/opendata_theme/tests/test_helpers.py
 ckanext/opendata_theme/tests/test_plugin.py
