@@ -6,6 +6,7 @@ module.exports = {
         // './src/templates/**/*.{html,njk,js,yml}',
         './src/css/**/*.css',
         './templates/**/*.html',
+        './templates_overrides/**/*.html',
     ],
     theme: {
         screens: {

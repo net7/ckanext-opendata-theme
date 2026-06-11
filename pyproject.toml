@@ -28,6 +28,7 @@ Homepage = "https://github.com/net7/ckanext-opendata-theme"
 
 [project.entry-points."ckan.plugins"]
 opendata_theme = "ckanext.opendata_theme.plugin:OpendataThemePlugin"
+opendata_theme_overrides = "ckanext.opendata_theme.plugin:OpendataThemeOverridesPlugin"
 
 [project.entry-points."babel.extractors"]
 ckan = "ckan.lib.extract:extract_ckan"

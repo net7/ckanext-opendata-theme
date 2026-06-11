@@ -1,10 +1,6 @@
-{% extends "page-detail.html" %}
+{% extends "page-search.html" %}
 
 {% block subtitle %}{{ _('About') }}{% endblock %}
-
-{% block breadcrumb_content %}
-{# <li class="active">{% link_for _('About'), named_route='home.about' %}</li> #}
-{% endblock %}
 
 {% block pre_primary %}
 <div class="rtds-grid rtds-gap-4 rtds-mt-8 rtds-mb-12">
@@ -20,87 +16,82 @@
 </div>
 {% endblock %}
 
+{% block secondary_content %}
+<div class="rtds-grid rtds-bg-white rtds-rounded-lg rtds-px-6 rtds-py-4">
+  <nav class="rtds-side-navigation rtds-side-navigation--anchor is-anchor-navigation" aria-labelledby="sidebarLabel" id="sideNav" tabindex="-1">
 
-{% block primary %}
-  <div class="rtds-grid rtds-gap-16 md:rtds-gap-0 md:rtds-grid-cols-12">
-      {% block about %}
-      <div class="md:rtds-col-span-4">
-        <aside class="rtds-sidebar">
-          <nav class="rtds-side-navigation rtds-side-navigation--anchor is-anchor-navigation" aria-labelledby="sidebarLabel" id="sideNav" tabindex="-1">
-        
-            <span id="sidebarLabel" class="rtds-side-navigation__title rtds-sr-only">
-              <span class="rtds-block rtds-font-medium">Indice della pagina</span>
+    <span id="sidebarLabel" class="rtds-side-navigation__title rtds-sr-only">
+      <span class="rtds-block rtds-font-medium">Indice della pagina</span>
+    </span>
+
+    <button class="rtds-side-navigation__list-toggle rtds-nav-list-toggle md:rtds-hidden rtds-btn rtds-btn--icon-right rtds-btn--only-text rtds-btn--small rtds-group" aria-expanded="false" aria-controls="sideNavList">
+      <span class="rtds-grid rtds-gap-2 rtds-text-left">
+        <span>Indice della pagina</span>
+      </span>
+      <svg class="rtds-icon rtds-fill-current rtds-w-5 rtds-h-5" aria-hidden="true" focusable="false" role="img">
+        <use href="../../icons.svg#mini--chevron-up" />
+      </svg>
+    </button>
+
+    <ul class="rtds-nav-list rtds-side-navigation__list has-nav-dropdown" id="sideNavList">
+      <li class="rtds-side-navigation__item is-first-level">
+        <span class="rtds-side-navigation__first-level-label is-current">
+          <a href="#open-data-rt" class="rtds-side-navigation__link rtds-nav-link is-current">
+            <span class="rtds-side-navigation__label">
+              Gli Open Data della Regione Toscana
             </span>
-        
-            <button class="rtds-side-navigation__list-toggle rtds-nav-list-toggle md:rtds-hidden rtds-btn rtds-btn--icon-right rtds-btn--only-text rtds-btn--small rtds-group" aria-expanded="false" aria-controls="sideNavList">
-              <span class="rtds-grid rtds-gap-2 rtds-text-left">
-                <span>Indice della pagina</span>
-              </span>
-              <svg class="rtds-icon rtds-fill-current rtds-w-5 rtds-h-5" aria-hidden="true" focusable="false" role="img">
-                <use href="../../icons.svg#mini--chevron-up" />
-              </svg>
-            </button>
-        
-            <ul class="rtds-nav-list rtds-side-navigation__list has-nav-dropdown" id="sideNavList">
-              <li class="rtds-side-navigation__item is-first-level">
-                <span class="rtds-side-navigation__first-level-label is-current">
-                  <a href="#open-data-rt" class="rtds-side-navigation__link rtds-nav-link is-current">
-                    <span class="rtds-side-navigation__label">
-                      Gli Open Data della Regione Toscana
-                    </span>
-                  </a>
-                </span>
-              </li>
-              <li class="rtds-side-navigation__item is-first-level">
-                <span class="rtds-side-navigation__first-level-label">
-                  <a href="#come" class="rtds-side-navigation__link rtds-nav-link">
-                    <span class="rtds-side-navigation__label">
-                      Come funziona
-                    </span>
-                  </a>
-                </span>
-              </li>
-              <li class="rtds-side-navigation__item is-first-level">
-                <span class="rtds-side-navigation__first-level-label">
-                  <a href="#open-knowledge" class="rtds-side-navigation__link rtds-nav-link">
-                    <span class="rtds-side-navigation__label">
-                      Open data e Open Knowledge Foundation
-                    </span>
-                  </a>
-                </span>
-              </li>
-              <li class="rtds-side-navigation__item is-first-level">
-                <span class="rtds-side-navigation__first-level-label">
-                  <a href="#ckan" class="rtds-side-navigation__link rtds-nav-link">
-                    <span class="rtds-side-navigation__label">
-                      A proposito di CKAN
-                    </span>
-                  </a>
-                </span>
-              </li>
-              <li class="rtds-side-navigation__item is-first-level">
-                <span class="rtds-side-navigation__first-level-label">
-                  <a href="#credits" class="rtds-side-navigation__link rtds-nav-link">
-                    <span class="rtds-side-navigation__label">
-                      Credits
-                    </span>
-                  </a>
-                </span>
-              </li>
-            </ul>
-          </nav>
-        </aside>
-      </div>
-
-      <div class="md:rtds-col-span-7">
-          {% if g.site_about %}
-            {{ h.render_markdown(g.site_about) }}
-          {% else %}
-            {% snippet 'home/snippets/about_text.html' %}
-          {% endif %}
-      </div>
-      {% endblock %}
-  </div>
+          </a>
+        </span>
+      </li>
+      <li class="rtds-side-navigation__item is-first-level">
+        <span class="rtds-side-navigation__first-level-label">
+          <a href="#come" class="rtds-side-navigation__link rtds-nav-link">
+            <span class="rtds-side-navigation__label">
+              Come funziona
+            </span>
+          </a>
+        </span>
+      </li>
+      <li class="rtds-side-navigation__item is-first-level">
+        <span class="rtds-side-navigation__first-level-label">
+          <a href="#open-knowledge" class="rtds-side-navigation__link rtds-nav-link">
+            <span class="rtds-side-navigation__label">
+              Open data e Open Knowledge Foundation
+            </span>
+          </a>
+        </span>
+      </li>
+      <li class="rtds-side-navigation__item is-first-level">
+        <span class="rtds-side-navigation__first-level-label">
+          <a href="#ckan" class="rtds-side-navigation__link rtds-nav-link">
+            <span class="rtds-side-navigation__label">
+              A proposito di CKAN
+            </span>
+          </a>
+        </span>
+      </li>
+      <li class="rtds-side-navigation__item is-first-level">
+        <span class="rtds-side-navigation__first-level-label">
+          <a href="#credits" class="rtds-side-navigation__link rtds-nav-link">
+            <span class="rtds-side-navigation__label">
+              Credits
+            </span>
+          </a>
+        </span>
+      </li>
+    </ul>
+  </nav>
+</div>
 {% endblock %}
 
-{% block secondary %}{% endblock %}
+{% block primary_content %}
+<section class="rtds-bg-white rtds-rounded-lg rtds-shadow-md rtds-px-6 rtds-py-4">
+  <div class="rtds-article-body">
+    {% if g.site_about %}
+      {{ h.render_markdown(g.site_about) }}
+    {% else %}
+      {% snippet 'home/snippets/about_text.html' %}
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

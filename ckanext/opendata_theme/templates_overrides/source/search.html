@@ -1,0 +1,65 @@
+{% extends "page-search.html" %}
+
+{% block subtitle %}{{ _("Harvest sources") }}{% endblock %}
+
+{% block pre_primary %}
+<div class="rtds-grid rtds-gap-4 rtds-mt-8 rtds-mb-12">
+  <div class="rtds-flex">
+    <a href="javascript:history.back()" class="rtds-text-link rtds-content-03 rtds-text-link--s">
+      <svg class="rtds-icon rtds-fill-current rtds-w-4 rtds-h-4 rtds-flex-shrink-0 rtds-flex-grow-0" aria-hidden="true" focusable="false" role="img">
+        <use href="../../icons.svg#solid--arrow-left" />
+      </svg>
+      {{ _('Go back') }}
+    </a>
+  </div>
+  <h1 class="rtds-heading-1">{{ _('Harvest Sources') }}</h1>
+</div>
+{% endblock %}
+
+{% block primary_content %}
+<section>
+  <div class="rtds-grid">
+    {% block page_primary_action %}
+    <div class="page_primary_action">
+      {{ h.snippet('snippets/add_source_button.html', dataset_type=c.dataset_type) }}
+    </div>
+    {% endblock %}
+
+    {% set facets = {
+      'fields': c.fields_grouped,
+      'search': c.search_facets,
+      'titles': c.facet_titles,
+      'translated_fields': c.translated_fields,
+      'remove_field': c.remove_field }
+    %}
+    {% set sorting = [
+      (_('Relevance'), 'score desc, metadata_modified desc'),
+      (_('Name Ascending'), 'title_string asc'),
+      (_('Name Descending'), 'title_string desc'),
+      (_('Last Modified'), 'metadata_modified desc'),
+      (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ]
+    %}
+    {% snippet 'snippets/search_form.html', form_id='source-search-form', type='harvest', query=c.q, sorting=sorting, sorting_selected=c.sort_by_selected, count=c.page.item_count, facets=facets, show_empty=request.args, error=c.query_error, placeholder=_("Search harvest sources..."), no_bottom_border=true if c.page.items %}
+
+    {{ h.snippet('snippets/source_list.html', sources=c.page.items, show_organization=true, list_class='rtds-grid rtds-gap-4') }}
+  </div>
+
+  {% snippet 'snippets/pagination.html', pager=c.page %}
+</section>
+{% endblock %}
+
+{% block secondary_content %}
+<div class="rtds-hidden lg:rtds-block">
+  <div class="rtds-grid rtds-bg-white rtds-rounded-lg rtds-px-6 rtds-py-4">
+    <div class="rtds-grid rtds-gap-4 rtds-pb-4 rtds-border-b rtds-border-gray-02">
+      <h2 class="rtds-heading-3">Filtri</h2>
+      <p class="rtds-text-sm rtds-content-03">Affina i risultati selezionando i filtri pertinenti. I risultati si aggiornano automaticamente</p>
+    </div>
+    <div>
+      {% for facet in c.facet_titles %}
+      {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet, search_facets=c.search_facets, facet_titles_loop=loop) }}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

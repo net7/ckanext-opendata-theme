@@ -88,3 +88,20 @@ class OpendataThemePlugin(plugins.SingletonPlugin):
     # def get_validators(self):
     #     return validators.get_validators()
     
+
+
+class OpendataThemeOverridesPlugin(plugins.SingletonPlugin):
+    """Override di template di estensioni caricate prima del tema (es. harvest).
+
+    In ckan.plugins vince il template del plugin elencato per primo: questo
+    plugin va messo in testa alla lista, così i template presenti in
+    templates_overrides/ vincono su quelli delle altre estensioni senza
+    cambiare la precedenza di tutto il resto del tema.
+    """
+
+    plugins.implements(plugins.IConfigurer)
+
+    # IConfigurer
+
+    def update_config(self, config_):
+        toolkit.add_template_directory(config_, "templates_overrides")

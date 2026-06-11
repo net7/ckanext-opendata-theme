@@ -1,0 +1,60 @@
+{#
+Displays a single harvest source result as a card, aligned with package_item.html.
+
+source         - A source to display.
+truncate       - The length to truncate the description to (default: 180)
+truncate_title - The length to truncate the title to (default: 80).
+within_organization - If true links to the harvest admin page.
+show_organization - Boolean on whether to show the related organization
+
+Example:
+
+  {% snippet 'snippets/source_item.html', source=sources[0] %}
+
+#}
+{% set truncate = truncate or 180 %}
+{% set truncate_title = truncate_title or 80 %}
+{% set title = source.title or source.name %}
+{% set url = h.url_for('harvest_admin', id=source.name) if within_organization else h.url_for('harvest.read', id=source.name) %}
+
+{% block source_item %}
+<li>
+  {% block content %}
+  <article class="rtds-card rtds-card--information-02 is-card-fullclickable rtds-group/card">
+    <div class="rtds-card__content">
+      {% block heading %}
+      <div class="rtds-card__heading">
+        <h3 class="rtds-card__title">
+          <a class="group-hover/card:rtds-underline" href="{{ url }}">{{ title|truncate(truncate_title) }}</a>
+          {% if source.get('state', '').startswith('draft') %}
+            <span class="rtds-chip rtds-chip--sm">{{ _('Draft') }}</span>
+          {% elif source.get('state', '').startswith('deleted') %}
+            <span class="rtds-chip rtds-chip--sm">{{ _('Deleted') }}</span>
+          {% endif %}
+        </h3>
+      </div>
+      {% endblock %}
+
+      {% block notes %}
+      <div class="rtds-card__description">
+        {% if source.notes %}
+          <p>{{ source.notes|truncate(truncate) }}</p>
+        {% else %}
+          <p class="empty">{{ _('There is no description for this harvest source') }}</p>
+        {% endif %}
+      </div>
+      {% endblock %}
+
+      <p class="rtds-text-sm rtds-content-03 rtds-m-0">
+        {% if source.status %}
+          {{ _('Datasets') }}: {{ source.status.total_datasets }}
+        {% endif %}
+        {% if not within_organization and source.organization %}
+          &mdash; {{ _('Organization') }}: {{ h.link_to(source.organization.title or source.organization.name, h.url_for('organization.read', id=source.organization.name)) }}
+        {% endif %}
+      </p>
+    </div>
+  </article>
+  {% endblock %}
+</li>
+{% endblock %}

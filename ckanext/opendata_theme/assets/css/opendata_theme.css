@@ -4833,10 +4833,6 @@ legend.rtds-facets__legend{
   gap:var(--spacing-14)
 }
 
-.rtds-gap-16{
-  gap:var(--spacing-16)
-}
-
 .rtds-gap-2{
   gap:var(--spacing-2)
 }
@@ -5729,10 +5725,6 @@ legend.rtds-facets__legend{
     grid-column:span 4 / span 4
   }
 
-  .md\:rtds-col-span-7{
-    grid-column:span 7 / span 7
-  }
-
   .md\:rtds-col-span-8{
     grid-column:span 8 / span 8
   }
@@ -5797,10 +5789,6 @@ legend.rtds-facets__legend{
     scroll-margin:var(--spacing-0)
   }
 
-  .md\:rtds-grid-cols-12{
-    grid-template-columns:repeat(12, minmax(0, 1fr))
-  }
-
   .md\:rtds-grid-cols-2{
     grid-template-columns:repeat(2, minmax(0, 1fr))
   }
@@ -5815,10 +5803,6 @@ legend.rtds-facets__legend{
 
   .md\:rtds-justify-between{
     justify-content:space-between
-  }
-
-  .md\:rtds-gap-0{
-    gap:var(--spacing-0)
   }
 
   .md\:rtds-gap-2{
