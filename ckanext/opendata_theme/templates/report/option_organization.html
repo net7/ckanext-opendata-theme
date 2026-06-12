@@ -6,7 +6,7 @@ default - Default value for this option
 <div class="rtds-filter-box__field">
   <label for="option-organization" class="rtds-filter-box__label">{{ _('Organizzazione') }}</label>
   {% set offer_organization_index = (default == None) %}
-  <select id="option-organization" name="organization" class="rtds-filter-box__select js-auto-submit">
+  <select id="option-organization" name="organization" class="rtds-filter-box__select">
     {% if offer_organization_index %}
       <option value="" {% if value == None %}selected="selected"{% endif %}>-- {{ _('Indice di tutte le organizzazioni') }} --</option>
     {% endif %}

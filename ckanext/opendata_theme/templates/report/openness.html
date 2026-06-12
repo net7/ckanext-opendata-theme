@@ -35,7 +35,7 @@
   </div>
 
   <div class="rtds-table-wrapper">
-    <table class="rtds-report-table tablesorter" id="report-table" aria-label="Report openness per organizzazione">
+    <table class="rtds-report-table tablesorter" id="report-table-openness" aria-label="Report openness per organizzazione">
       <thead>
         <tr>
           <th scope="col">Organizzazione</th>
@@ -64,6 +64,7 @@
       </tbody>
     </table>
   </div>
+  <p class="rtds-table-count">Mostrati <strong>{{ c.data['table']|length }}</strong> di <strong>{{ c.data['table']|length }}</strong> organizzazioni</p>
   {% endif %}
 
 {% else %}

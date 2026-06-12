@@ -97,4 +97,35 @@
     {% endif %}
   </section>
 </div>
+<script>
+(function () {
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('table.rtds-report-table').forEach(function (table) {
+      var headers = table.querySelectorAll('thead th');
+      var sortState = {};
+      headers.forEach(function (th, colIdx) {
+        th.style.cursor = 'pointer';
+        th.addEventListener('click', function () {
+          var asc = sortState[colIdx] !== true;
+          sortState = {};
+          sortState[colIdx] = asc;
+          var tbody = table.querySelector('tbody');
+          var rows = Array.from(tbody.querySelectorAll('tr'));
+          rows.sort(function (a, b) {
+            var aVal = (a.cells[colIdx] ? a.cells[colIdx].textContent.trim() : '');
+            var bVal = (b.cells[colIdx] ? b.cells[colIdx].textContent.trim() : '');
+            var aNum = parseFloat(aVal.replace(',', '.'));
+            var bNum = parseFloat(bVal.replace(',', '.'));
+            if (!isNaN(aNum) && !isNaN(bNum)) return asc ? aNum - bNum : bNum - aNum;
+            return asc ? aVal.localeCompare(bVal, 'it') : bVal.localeCompare(aVal, 'it');
+          });
+          rows.forEach(function (r) { tbody.appendChild(r); });
+          headers.forEach(function (h2) { h2.removeAttribute('data-sort'); });
+          th.setAttribute('data-sort', asc ? 'asc' : 'desc');
+        });
+      });
+    });
+  });
+})();
+</script>
 {% endblock %}

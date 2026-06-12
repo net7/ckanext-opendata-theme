@@ -4433,14 +4433,14 @@ legend.rtds-facets__legend{
 }
 
 .rtds-filter-box__label {
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  color: var(--color-neutral-900);
+  color: var(--color-neutral-800);
 }
 
 .rtds-filter-box__select {
   border-radius: 0.375rem;
-  border: 1px solid var(--color-neutral-300);
+  border: 1px solid var(--color-neutral-800);
   padding: 0.5rem 2.25rem 0.5rem 0.75rem;
   font-size: 0.875rem;
   color: var(--color-neutral-900);
@@ -4477,8 +4477,8 @@ legend.rtds-facets__legend{
 }
 
 .rtds-filter-box__checkbox-label {
-  font-size: 0.875rem;
-  color: var(--color-neutral-900);
+  font-size: 0.8rem;
+  color: var(--color-neutral-800);
   cursor: pointer;
 }
 
@@ -4512,6 +4512,7 @@ legend.rtds-facets__legend{
 
 .rtds-stats-box__note {
   font-size: 0.8rem;
+  font-weight: 400;
   color: var(--color-neutral-900);
   font-style: italic;
   margin: 0;
@@ -4562,8 +4563,8 @@ legend.rtds-facets__legend{
 }
 
 .rtds-chip-format--csv {
-  background-color: #d1fae5;
-  color: #065f46;
+  background-color: var(--color-primary-100);
+  color: var(--color-primary-800);
 }
 
 .rtds-download-link {
@@ -4615,6 +4616,16 @@ legend.rtds-facets__legend{
 
 .rtds-report-table thead th:first-child {
   text-align: left;
+}
+
+.rtds-report-table thead th[data-sort]::after {
+  content: " ↑";
+  font-size: 0.65rem;
+  color: var(--color-neutral-600);
+}
+
+.rtds-report-table thead th[data-sort="desc"]::after {
+  content: " ↓";
 }
 
 .rtds-report-table tbody tr:nth-child(odd) td {
@@ -4740,9 +4751,9 @@ legend.rtds-facets__legend{
 }
 
 .rtds-score-label {
-  font-size: 0.8125rem;
+  font-size: 0.9rem;
   color: var(--color-neutral-900);
-  min-width: 8rem;
+  min-width: 9rem;
   white-space: nowrap;
 }
 
@@ -4773,7 +4784,7 @@ legend.rtds-facets__legend{
 
 .rtds-stars {
   letter-spacing: 1px;
-  font-size: 1rem;
+  font-size: 1.2rem;
   vertical-align: middle;
 }
 
@@ -4782,7 +4793,7 @@ legend.rtds-facets__legend{
 }
 
 .rtds-star--empty {
-  color: var(--color-neutral-300);
+  color: var(--color-neutral-600);
 }
 
 /* Generated note */
@@ -4791,8 +4802,8 @@ legend.rtds-facets__legend{
   display: flex;
   align-items: center;
   gap: 0.375rem;
-  font-size: 0.8125rem;
-  color: var(--color-neutral-600);
+  font-size: 0.78rem;
+  color: var(--color-neutral-800);
   margin-bottom: 1.5rem;
 }
 
