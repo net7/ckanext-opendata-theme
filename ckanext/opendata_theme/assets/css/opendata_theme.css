@@ -4485,31 +4485,42 @@ legend.rtds-facets__legend{
 /* Stats box */
 
 .rtds-stats-box {
-  background-color: var(--color-neutral-50);
-  border-radius: 0.375rem;
-  border: 1px solid var(--color-neutral-200);
-  padding: 1rem 1.5rem;
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-neutral-400);
+  padding: 1.0625rem 1.5625rem;
   margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .rtds-stats-box__main {
   font-weight: 700;
-  color: var(--color-neutral-900);
-  margin-bottom: 0.25rem;
-  font-size: 1rem;
+  color: var(--color-primary-700);
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
 }
 
 .rtds-stats-box p {
   font-size: 0.875rem;
-  color: var(--color-neutral-800);
-  margin: 0 0 0.25rem;
+  color: var(--color-neutral-900);
+  margin: 0;
+  line-height: 1.6;
 }
 
 .rtds-stats-box__note {
-  font-size: 0.875rem;
-  color: var(--color-neutral-600);
-  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--color-neutral-900);
   font-style: italic;
+  margin: 0;
+}
+
+.rtds-stats-box__note::before {
+  content: "N.B. ";
+  font-weight: 700;
+  font-style: normal;
 }
 
 /* Download group */
@@ -4536,12 +4547,12 @@ legend.rtds-facets__legend{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0.25rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-size: 0.65rem;
-  padding: 0.15rem 0.45rem;
+  border-radius: 1.25rem;
+  font-weight: 600;
+  text-transform: lowercase;
+  letter-spacing: 0.03em;
+  font-size: 0.72rem;
+  padding: 0.1875rem 0.625rem;
   line-height: 1.4;
 }
 
@@ -4570,8 +4581,12 @@ legend.rtds-facets__legend{
 /* Table wrapper */
 
 .rtds-table-wrapper {
-  overflow-x: auto;
+  border: 1px solid var(--color-neutral-300);
+  border-radius: 0.375rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
   width: 100%;
+  overflow-x: auto;
 }
 
 /* Report table */
@@ -4580,44 +4595,58 @@ legend.rtds-facets__legend{
   width: 100%;
   border-collapse: collapse;
   font-size: 0.875rem;
+  margin-bottom: 0;
 }
 
 .rtds-report-table thead tr {
-  background-color: var(--color-neutral-900);
-  color: #ffffff;
+  background-color: #ffffff;
+  color: var(--color-neutral-900);
+  border-bottom: 2px solid var(--color-neutral-200);
 }
 
 .rtds-report-table thead th {
-  padding: 0.75rem 1rem;
-  text-align: left;
-  font-weight: 600;
+  padding: 0.875rem 1rem;
+  text-align: right;
+  font-weight: 700;
   white-space: nowrap;
   font-size: 0.8125rem;
+  color: var(--color-neutral-900);
 }
 
-.rtds-report-table tbody tr {
-  border-bottom: 1px solid var(--color-neutral-200);
+.rtds-report-table thead th:first-child {
+  text-align: left;
 }
 
-.rtds-report-table tbody tr:last-child {
-  border-bottom: none;
+.rtds-report-table tbody tr:nth-child(odd) td {
+  background-color: #ffffff;
 }
 
-.rtds-report-table tbody tr:hover {
+.rtds-report-table tbody tr:nth-child(even) td {
   background-color: var(--color-neutral-50);
 }
 
+.rtds-report-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
 .rtds-report-table tbody td {
-  padding: 0.75rem 1rem;
+  padding: 0.875rem 1rem;
   color: var(--color-neutral-900);
   font-size: 0.875rem;
+  border-bottom: 1px solid var(--color-neutral-200);
+  text-align: right;
   overflow-wrap: break-word;
   word-break: break-word;
+}
+
+.rtds-report-table tbody td:first-child {
+  text-align: left;
 }
 
 .rtds-report-table tbody td a {
   color: var(--color-primary-700);
   text-decoration: none;
+  font-weight: 600;
 }
 
 .rtds-report-table tbody td a:hover {
@@ -4626,9 +4655,9 @@ legend.rtds-facets__legend{
 }
 
 .rtds-table-count {
-  font-size: 0.875rem;
-  color: var(--color-neutral-700);
-  margin-top: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--color-neutral-800);
+  margin-top: 0.75rem;
   margin-bottom: 0;
 }
 
@@ -4650,6 +4679,127 @@ legend.rtds-facets__legend{
   font-size: 0.875rem;
   color: var(--color-neutral-800);
   margin: 0;
+}
+
+/* Licence type badge */
+
+.rtds-licence-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.125rem 0.5rem;
+  white-space: nowrap;
+}
+
+.rtds-licence-badge--open {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.rtds-licence-badge--partial {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.rtds-licence-badge--closed {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+/* Distribution progress bar */
+
+.rtds-prog-wrap {
+  width: 100%;
+  min-width: 60px;
+  background-color: var(--color-neutral-200);
+  border-radius: 2px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.rtds-prog-fill {
+  height: 100%;
+  background-color: var(--color-primary-500);
+  border-radius: 2px;
+  min-width: 2px;
+}
+
+/* Openness score distribution bars */
+
+.rtds-score-bars {
+  margin-bottom: 1.5rem;
+}
+
+.rtds-score-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.rtds-score-label {
+  font-size: 0.8125rem;
+  color: var(--color-neutral-900);
+  min-width: 8rem;
+  white-space: nowrap;
+}
+
+.rtds-score-bar-wrap {
+  flex: 1;
+  background-color: var(--color-neutral-200);
+  border-radius: 3px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.rtds-score-bar {
+  height: 100%;
+  border-radius: 3px;
+  background-color: var(--color-primary-500);
+  min-width: 2px;
+}
+
+.rtds-score-count {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-neutral-700);
+  min-width: 3rem;
+  text-align: right;
+}
+
+/* Star rating display */
+
+.rtds-stars {
+  letter-spacing: 1px;
+  font-size: 1rem;
+  vertical-align: middle;
+}
+
+.rtds-star--filled {
+  color: #f59e0b;
+}
+
+.rtds-star--empty {
+  color: var(--color-neutral-300);
+}
+
+/* Generated note */
+
+.rtds-generated-note {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  color: var(--color-neutral-600);
+  margin-bottom: 1.5rem;
+}
+
+.rtds-generated-note .rtds-icon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
 }
 
 /**

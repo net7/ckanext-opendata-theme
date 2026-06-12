@@ -63,6 +63,10 @@
   {% endif %}
 
   {% if are_some_results %}
+    {% snippet report_template, table=data['table'], data=data, report_name=report_name, options=options, section='stats' %}
+  {% endif %}
+
+  {% if are_some_results %}
   <div class="rtds-download-group rtds-mb-4">
     <span class="rtds-download-group__label">{{ _('Scarica lista completa:') }}</span>
     <div class="rtds-download-item">
@@ -89,7 +93,7 @@
     {% if not are_some_results %}
       <p class="rtds-text-neutral-700">{{ _('No results found.') }}</p>
     {% else %}
-      {% snippet report_template, table=data['table'], data=data, report_name=report_name, options=options %}
+      {% snippet report_template, table=data['table'], data=data, report_name=report_name, options=options, section='table' %}
     {% endif %}
   </section>
 </div>
