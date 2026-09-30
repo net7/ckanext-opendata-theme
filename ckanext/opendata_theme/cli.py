@@ -1593,5 +1593,36 @@ def check_harvest_sources(timeout, only_errors):
             click.echo(f"  - {e['host']}:{port}  ({e['status']})  →  {e['title']}")
 
 
+@opendata.command()
+@click.option('--no-concurrently', is_flag=True,
+              help='Aggiorna bloccando le letture (serve al primo popolamento)')
+def refresh_views_summary(no_concurrently):
+    """Aggiorna la vista materializzata dei totali di visualizzazione.
+
+    La homepage ordina i dataset piu consultati leggendo
+    package_views_summary invece di aggregare tracking_summary a ogni
+    richiesta. Va rilanciato dopo `ckan tracking update` (vedi ckan/crontab).
+    """
+    from sqlalchemy import text
+    from ckan.model import Session
+
+    mode = '' if no_concurrently else 'CONCURRENTLY '
+    try:
+        Session.execute(text('REFRESH MATERIALIZED VIEW %spackage_views_summary'
+                             % mode))
+        Session.commit()
+    except Exception as e:
+        Session.rollback()
+        click.echo(click.style(
+            'Errore nel refresh di package_views_summary: %s' % e, fg='red'))
+        click.echo('Se la vista non esiste, crearla con '
+                   'vista_totali_visualizzazioni.sql')
+        raise SystemExit(1)
+
+    righe = Session.execute(
+        text('SELECT count(*) FROM package_views_summary')).scalar()
+    click.echo('package_views_summary aggiornata: %s dataset' % righe)
+
+
 def get_commands():
     return [opendata]

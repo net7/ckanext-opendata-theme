@@ -93,6 +93,13 @@ def is_current(blueprint_name, attribute_value):
 
 def get_formatted_dataset_count():
     """
+    Numero di dataset formattato, con cache applicativa.
+    """
+    return _cached('datasets', 'dataset_count', _get_formatted_dataset_count_uncached)
+
+
+def _get_formatted_dataset_count_uncached():
+    """
     Restituisce il numero di dataset formattato come "+X mila" se maggiore di 1000,
     altrimenti restituisce il numero esatto con separatore delle migliaia.
     """
@@ -170,93 +177,253 @@ def get_formatted_view_count():
         return f"+0"
 
 
-def get_most_viewed_datasets(limit=4):
+def _get_current_lang():
     """
-    Recupera i dataset più consultati in base alle statistiche di visualizzazione.
-    
-    Args:
-        limit (int): Numero massimo di dataset da restituire (default: 4)
-        
-    Returns:
-        list: Lista di dizionari contenenti i dataset più consultati
+    Restituisce il codice della lingua corrente (es. 'it'), con fallback su 'it'.
+
+    Serve a leggere le traduzioni da package_multilang senza passare da
+    package_show.
     """
     try:
-        # Ottieni i dataset più visualizzati dal database
+        lang = toolkit.request.environ.get('CKAN_LANG')
+        if lang:
+            return lang
+    except Exception:
+        pass
+    try:
+        from ckan.common import config
+        return config.get('ckan.locale_default') or 'it'
+    except Exception:
+        return 'it'
+
+
+# Colonne comuni alle due liste di dataset della homepage.
+#
+# Il titolo passa da package_multilang quando la traduzione esiste (LEFT JOIN +
+# COALESCE): sostituire package_show con una query diretta su package.title
+# mostrerebbe i titoli non tradotti. Il tema resta il valore grezzo dell'extra
+# 'theme', che viene poi passato a extract_themes() per usare esattamente la
+# stessa logica di parsing di prima.
+_DATASET_CARD_COLUMNS = '''
+            p.name AS name,
+            COALESCE(pm.text, p.title) AS title,
+            pe.value AS theme_raw,
+            pa.value AS themes_aggregate_raw
+'''
+
+_DATASET_CARD_JOINS = '''
+            LEFT JOIN package_multilang pm
+                   ON pm.package_id = p.id
+                  AND pm.field = 'title'
+                  AND pm.lang = :lang
+            LEFT JOIN package_extra pe
+                   ON pe.package_id = p.id
+                  AND pe.key = 'theme'
+                  AND pe.state = 'active'
+            LEFT JOIN package_extra pa
+                   ON pa.package_id = p.id
+                  AND pa.key = 'themes_aggregate'
+                  AND pa.state = 'active'
+'''
+
+
+def _resolve_theme(theme_raw, themes_aggregate_raw):
+    """
+    Ricava il codice del tema con la stessa precedenza usata da dcatapit.
+
+    dcatapit non salva l'extra 'theme' a database: lo sintetizza in
+    package_show a partire da 'themes_aggregate' (vedi
+    ckanext/dcatapit/plugin.py, after_show). Saltando package_show dobbiamo
+    replicare quella precedenza:
+
+      1. extra 'theme', se presente
+      2. primo tema di 'themes_aggregate'
+      3. 'GOVE' come default, come fa dcatapit quando l'aggregato manca
+    """
+    if theme_raw:
+        theme = extract_themes([{'key': 'theme', 'value': theme_raw}])
+        if theme:
+            return theme
+
+    if themes_aggregate_raw:
+        try:
+            aggregate = json.loads(themes_aggregate_raw)
+        except (ValueError, TypeError):
+            aggregate = None
+        if aggregate:
+            for entry in aggregate:
+                if isinstance(entry, dict) and entry.get('theme'):
+                    return entry['theme']
+
+    return 'GOVE'
+
+
+def _build_dataset_cards(rows):
+    """
+    Converte le righe della query nella forma attesa dai template della
+    homepage: name, title, theme (codice), views.
+    """
+    cards = []
+    for row in rows:
+        cards.append({
+            'name': row.name,
+            'title': row.title,
+            'theme': _resolve_theme(row.theme_raw, row.themes_aggregate_raw),
+            'views': int(row.views or 0),
+        })
+    return cards
+
+
+def get_most_viewed_datasets(limit=4):
+    """
+    Dataset più consultati, con cache applicativa.
+
+    Args:
+        limit (int): Numero massimo di dataset da restituire (default: 4)
+
+    Returns:
+        list: Lista di dizionari con chiavi name, title, theme, views
+    """
+    return _cached('datasets', 'most_viewed:%s:%s' % (limit, _get_current_lang()),
+                   lambda: _get_most_viewed_datasets_uncached(limit))
+
+
+def _get_most_viewed_datasets_uncached(limit=4):
+    """
+    Recupera i dataset più consultati in base alle statistiche di
+    visualizzazione.
+
+    Una sola query: name, titolo tradotto, tema e totale visualizzazioni. Non
+    carica i package completi, quindi il costo non dipende dal numero di
+    risorse dei dataset (il più visto ne ha oltre 900).
+
+    Args:
+        limit (int): Numero massimo di dataset da restituire (default: 4)
+
+    Returns:
+        list: Lista di dizionari con chiavi name, title, theme, views
+    """
+    try:
         from sqlalchemy import text
-        from ckan.model import Session, Package
-        
+        from ckan.model import Session
+
+        # I totali arrivano dalla vista materializzata package_views_summary,
+        # aggiornata da `ckan opendata refresh-views-summary`. Aggregare
+        # tracking_summary in linea costa ~0,8 s e cresce con la tabella.
         sql = '''
-            SELECT package_id, SUM(count) as total_views
-            FROM tracking_summary
-            WHERE package_id IS NOT NULL
-            AND package_id != '~~not~found~~'
-            GROUP BY package_id
-            ORDER BY total_views DESC
+            SELECT {columns}, agg.views AS views
+            FROM {fonte} agg
+            JOIN package p
+              ON p.id = agg.package_id
+             AND p.state = 'active'
+             AND p.private = false
+            {joins}
+            ORDER BY agg.views DESC
             LIMIT :limit
         '''
-        
-        result = Session.execute(text(sql), {'limit': limit})
-        package_ids = [row.package_id for row in result]
-        
-        # Recupera i dettagli completi dei dataset
-        datasets = []
-        for package_id in package_ids:
-            
-            try:
-                dataset = toolkit.get_action('package_show')({}, {'id': package_id, 'include_tracking': True})
-                datasets.append(dataset)
-            except toolkit.ObjectNotFound:
-                # Ignora i dataset che non esistono più
-                continue
-                
-        return datasets
-    except Exception as e:
-        # In caso di errore, ritorna una lista vuota
+        fonte_materializzata = 'package_views_summary'
+        fonte_diretta = '''(
+                SELECT package_id, SUM(count) AS views
+                FROM tracking_summary
+                WHERE package_id IS NOT NULL
+                  AND package_id != '~~not~found~~'
+                GROUP BY package_id
+            )'''
+        params = {'limit': limit, 'lang': _get_current_lang()}
+
+        try:
+            rows = Session.execute(
+                text(sql.format(columns=_DATASET_CARD_COLUMNS,
+                                joins=_DATASET_CARD_JOINS,
+                                fonte=fonte_materializzata)), params
+            ).fetchall()
+        except Exception:
+            # La vista non esiste ancora (primo avvio dopo il rilascio): si
+            # ricalcola, piu lentamente ma con lo stesso risultato.
+            Session.rollback()
+            import logging
+            logging.getLogger(__name__).warning(
+                "package_views_summary non disponibile, ricalcolo i totali da "
+                "tracking_summary: creare la vista con "
+                "vista_totali_visualizzazioni.sql")
+            rows = Session.execute(
+                text(sql.format(columns=_DATASET_CARD_COLUMNS,
+                                joins=_DATASET_CARD_JOINS,
+                                fonte=fonte_diretta)), params
+            ).fetchall()
+
+        return _build_dataset_cards(rows)
+    except Exception:
+        import logging
+        logging.getLogger(__name__).exception(
+            "Errore nel recupero dei dataset piu visti")
         return []
 
 
 def get_last_updated_datasets(limit=4):
     """
-    Recupera i dataset più aggiornati in base alla data di aggiornamento (metadata_modified).
-    
+    Dataset aggiornati di recente, con cache applicativa.
+
     Args:
         limit (int): Numero massimo di dataset da restituire (default: 4)
-        
+
     Returns:
-        list: Lista di dizionari contenenti i dataset più recentemente aggiornati
+        list: Lista di dizionari con chiavi name, title, theme, views
+    """
+    return _cached('datasets', 'last_updated:%s:%s' % (limit, _get_current_lang()),
+                   lambda: _get_last_updated_datasets_uncached(limit))
+
+
+def _get_last_updated_datasets_uncached(limit=4):
+    """
+    Recupera i dataset più recentemente aggiornati in base a
+    metadata_modified.
+
+    Stessa forma di get_most_viewed_datasets: i dataset vengono prima
+    selezionati e limitati, poi arricchiti con traduzione e tema.
+
+    Args:
+        limit (int): Numero massimo di dataset da restituire (default: 4)
+
+    Returns:
+        list: Lista di dizionari con chiavi name, title, theme, views
     """
     try:
-        # Ottieni i dataset più aggiornati dal database
         from sqlalchemy import text
-        from ckan.model import Session, Package
-        
+        from ckan.model import Session
+
         sql = '''
-            SELECT id
-            FROM package
-            WHERE state = 'active'
-            AND metadata_modified IS NOT NULL
-            ORDER BY metadata_modified DESC
-            LIMIT :limit
-        '''
-        
-        result = Session.execute(text(sql), {'limit': limit})
-        package_ids = [row.id for row in result]
-        
-        # Recupera i dettagli completi dei dataset
-        datasets = []
-        for package_id in package_ids:
-            try:
-                dataset = toolkit.get_action('package_show')({}, {'id': package_id, 'include_tracking': True})
-                datasets.append(dataset)
-            except toolkit.ObjectNotFound:
-                # Ignora i dataset che non esistono più
-                continue
-                
-        return datasets
-    except Exception as e:
-        # In caso di errore, ritorna una lista vuota
+            WITH recenti AS (
+                SELECT id
+                FROM package
+                WHERE state = 'active'
+                  AND private = false
+                  AND metadata_modified IS NOT NULL
+                ORDER BY metadata_modified DESC
+                LIMIT :limit
+            )
+            SELECT {columns}, COALESCE(v.views, 0) AS views
+            FROM recenti
+            JOIN package p ON p.id = recenti.id
+            {joins}
+            LEFT JOIN LATERAL (
+                SELECT SUM(count) AS views
+                FROM tracking_summary ts
+                WHERE ts.package_id = p.id
+            ) v ON true
+            ORDER BY p.metadata_modified DESC
+        '''.format(columns=_DATASET_CARD_COLUMNS, joins=_DATASET_CARD_JOINS)
+
+        rows = Session.execute(
+            text(sql), {'limit': limit, 'lang': _get_current_lang()}
+        ).fetchall()
+        return _build_dataset_cards(rows)
+    except Exception:
+        import logging
+        logging.getLogger(__name__).exception(
+            "Errore nel recupero dei dataset aggiornati di recente")
         return []
-    
+
 
 def get_all_organizations(limit=None):
     """
@@ -301,74 +468,139 @@ def get_all_organizations_random(limit=10):
 
 def get_home_organizations():
     """
-    Restituisce le organizzazioni per la homepage:
-    
-     - Consorzio LaMMA Toscana
-     - Comune di Firenze
-     - Comune di Arezzo
-     - Comune di Siena
-     - Città Metropolitana di Firenze
-     - Comune di Livorno
-     - Comune di Montevarchi
-     - Comune di Poggibonsi
-     - Comune di Piombino
-     - Comune di Vernio
-     - Comune di Vaiano
-     - Comune di Cantagallo
-     - Comune di Montemurlo
+    Organizzazioni del carosello della homepage, con cache applicativa.
+
+    Returns:
+        list: Lista di dizionari con chiavi name, title, image_display_url
     """
+    return _cached('organizations', 'home_orgs:%s' % _get_current_lang(),
+                   _get_home_organizations_uncached)
+
+
+def _get_home_organizations_uncached():
+    """
+    Restituisce le organizzazioni mostrate nel carosello della homepage.
+
+    Una sola query per tutti gli enti dell'elenco. Il template usa soltanto
+    name, title e image_display_url: organization_show caricava molto altro
+    (130 query per 13 enti, oltre 600 con include_datasets).
+
+    L'ordine dell'elenco viene mantenuto; gli enti non trovati sono saltati
+    silenziosamente, come faceva la versione precedente.
+    """
+    organizations_names = [
+        'lamma-toscana',
+        'comune-di-firenze',
+        'comune-di-arezzo',
+        'comune-di-siena',
+        'citta-metropolitana-firenze',
+        'comune-livorno',
+        'comune-di-montevarchi',
+        'comune-di-poggibonsi',
+        'comune-di-piombino',
+        'comune-di-vernio',
+        'comune-di-vaiano',
+        'comune-di-cantagallo',
+        'comune-di-montemurlo',
+    ]
     try:
-        organizations_names = [
-            'lamma-toscana',
-            'comune-di-firenze',
-            'comune-di-arezzo',
-            'comune-di-siena',
-            'citta-metropolitana-firenze',
-            'comune-livorno',
-            'comune-di-montevarchi',
-            'comune-di-poggibonsi',
-            'comune-di-piombino',
-            'comune-di-vernio',
-            'comune-di-vaiano',
-            'comune-di-cantagallo',
-            'comune-di-montemurlo',
-        ]
-        organizations = []
-        context = {'ignore_auth': True}
-        
-        for org_name in organizations_names:
-            try:
-                org = toolkit.get_action('organization_show')(
-                    context, {'id': org_name, 'include_datasets': True})
-                organizations.append(org)
-            except toolkit.ObjectNotFound:
-                # Organizzazione non trovata, salta silenziosamente
-                continue
-            except toolkit.NotAuthorized:
-                # Utente non autorizzato, salta silenziosamente
-                continue
-        
-        return organizations
-    except Exception as e:
-        # Log dell'errore ma non interrompere il caricamento della pagina
+        from sqlalchemy import text
+        from ckan.model import Session
+
+        sql = """
+            SELECT g.name AS name,
+                   COALESCE(gm.text, g.title) AS title,
+                   g.image_url AS image_url
+            FROM "group" g
+            LEFT JOIN group_multilang gm
+                   ON gm.group_id = g.id
+                  AND gm.field = 'title'
+                  AND gm.lang = :lang
+            WHERE g.is_organization = true
+              AND g.state = 'active'
+              AND g.name = ANY(:names)
+        """
+        rows = Session.execute(
+            text(sql),
+            {'names': organizations_names, 'lang': _get_current_lang()}
+        ).fetchall()
+
+        by_name = {
+            row.name: {
+                'name': row.name,
+                'title': row.title,
+                'image_display_url': _group_image_display_url(row.image_url),
+            }
+            for row in rows
+        }
+        # Rispetta l'ordine dell'elenco sopra, non quello del database.
+        return [by_name[name] for name in organizations_names if name in by_name]
+    except Exception:
         import logging
-        log = logging.getLogger(__name__)
-        log.error(f"Errore nel recupero delle organizzazioni: {str(e)}")
+        logging.getLogger(__name__).exception(
+            "Errore nel recupero delle organizzazioni della homepage")
         return []
+
+
+def _group_image_display_url(image_url):
+    """
+    Costruisce image_display_url come fa group_dictize di CKAN: l'URL assoluto
+    resta com'è, il nome di un file caricato diventa un URL sotto
+    uploads/group/.
+    """
+    if not image_url:
+        return image_url
+    if image_url.startswith('http'):
+        return image_url
+    try:
+        return toolkit.h.url_for_static(
+            'uploads/group/%s' % image_url, qualified=True)
+    except Exception:
+        return image_url
 
 
 def count_organizations():
     """
-    Restituisce il numero di organizzazioni con almeno un dataset
+    Numero di organizzazioni con almeno un dataset, con cache applicativa.
+
+    Returns:
+        int
+    """
+    return _cached('organizations', 'count_orgs', _count_organizations_uncached)
+
+
+def _count_organizations_uncached():
+    """
+    Restituisce il numero di organizzazioni con almeno un dataset attivo e
+    pubblico.
+
+    Una sola query di conteggio: organization_list(all_fields=True,
+    include_extras=True) caricava tutte le organizzazioni con extras e
+    package_count (197 query, ~1,1 s) solo per contarne una parte.
     """
     try:
-        context = {'ignore_auth': True}
-        data_dict = {'all_fields': True, 'include_users': False, 'include_extras': True}
-        organizations = toolkit.get_action('organization_list')(context, data_dict)
-        organizations_with_datasets = [org for org in organizations if org.get('package_count', 0) > 0]
-        return len(organizations_with_datasets)
-    except Exception as e:
-        raise ValueError(f"Errore nel recupero delle organizzazioni: {str(e)}")
+        from sqlalchemy import text
+        from ckan.model import Session
+
+        sql = """
+            SELECT count(*)
+            FROM "group" g
+            WHERE g.is_organization = true
+              AND g.state = 'active'
+              AND EXISTS (
+                  SELECT 1
+                  FROM package p
+                  WHERE p.owner_org = g.id
+                    AND p.state = 'active'
+                    AND p.private = false
+              )
+        """
+        return Session.execute(text(sql)).scalar() or 0
+    except Exception:
+        import logging
+        logging.getLogger(__name__).exception(
+            "Errore nel conteggio delle organizzazioni")
+        return 0
 
 
 def get_recent_news(number=4):
@@ -470,6 +702,117 @@ def format_date(date_input, format='dmy'):
         return f"{year}-{month}-{day}"
     
     return None
+
+
+# --- Cache applicativa della homepage -------------------------------------
+#
+# Le utility _get_from_redis_cache / _set_redis_cache trattano solo stringhe
+# (fanno .decode('utf-8') sul valore) e aprono una connessione nuova a ogni
+# chiamata: vanno bene per il contatore testuale di get_formatted_view_count,
+# non per liste di dizionari. Qui sopra ci mettiamo un livello che serializza in
+# JSON e riusa una sola connessione.
+#
+# La cache è un accorgimento di latenza, non il rimedio a una query lenta: i
+# dati pesanti sono già pre-aggregati in package_views_summary. Per questo i TTL
+# di default sono corti, a vantaggio della freschezza.
+
+_HOMEPAGE_CACHE_PREFIX = 'opendata_theme:homepage:'
+
+# Secondi. Sovrascrivibili da ckan.ini con le chiavi indicate.
+_CACHE_TTL_DEFAULTS = {
+    # ckanext.opendata_theme.cache_ttl.datasets
+    'datasets': 300,
+    # ckanext.opendata_theme.cache_ttl.organizations
+    'organizations': 3600,
+}
+
+_redis_connection = None
+_redis_unavailable_logged = False
+
+
+def _get_shared_redis_connection():
+    """
+    Restituisce una connessione Redis riusata tra le chiamate, o None se non è
+    possibile crearla.
+
+    Il caso "None" viene segnalato nei log una volta sola: senza questo
+    avviso una configurazione sbagliata di ckan.redis.url spegnerebbe la cache
+    in silenzio, perché la homepage continuerebbe a funzionare ricalcolando
+    tutto a ogni richiesta.
+    """
+    global _redis_connection, _redis_unavailable_logged
+    if _redis_connection is None:
+        _redis_connection = _get_redis_connection()
+        if _redis_connection is None and not _redis_unavailable_logged:
+            _redis_unavailable_logged = True
+            import logging
+            from ckan.common import config
+            logging.getLogger(__name__).warning(
+                "Cache della homepage disattivata: nessuna connessione Redis "
+                "(ckan.redis.url = %r). La homepage funziona comunque, ma "
+                "ricalcola i dati a ogni richiesta.",
+                config.get('ckan.redis.url'))
+    return _redis_connection
+
+
+def _get_cache_ttl(kind):
+    """
+    TTL in secondi per una famiglia di dati della homepage.
+
+    Un TTL a 0 (o negativo) disattiva la cache per quella famiglia, il che
+    permette di spegnerla da configurazione senza toccare il codice.
+    """
+    try:
+        from ckan.common import config
+        value = config.get(
+            'ckanext.opendata_theme.cache_ttl.%s' % kind)
+        if value not in (None, ''):
+            return int(value)
+    except Exception:
+        pass
+    return _CACHE_TTL_DEFAULTS.get(kind, 0)
+
+
+def _cached(kind, key, producer):
+    """
+    Restituisce il valore in cache per `key`, altrimenti lo calcola con
+    `producer` e lo memorizza.
+
+    Se Redis non risponde o il contenuto non è leggibile, il valore viene
+    ricalcolato e restituito comunque: la homepage non deve dipendere dalla
+    disponibilità della cache.
+    """
+    ttl = _get_cache_ttl(kind)
+    if ttl <= 0:
+        return producer()
+
+    full_key = _HOMEPAGE_CACHE_PREFIX + key
+    log = None
+    try:
+        connection = _get_shared_redis_connection()
+        if connection is not None:
+            cached = connection.get(full_key)
+            if cached:
+                return json.loads(cached)
+    except Exception:
+        import logging
+        log = logging.getLogger(__name__)
+        log.warning("Cache della homepage non leggibile (%s), "
+                    "ricalcolo i dati", full_key, exc_info=True)
+
+    value = producer()
+
+    try:
+        connection = _get_shared_redis_connection()
+        if connection is not None:
+            connection.setex(full_key, ttl, json.dumps(value))
+    except Exception:
+        import logging
+        (log or logging.getLogger(__name__)).warning(
+            "Cache della homepage non scrivibile (%s)", full_key,
+            exc_info=True)
+
+    return value
 
 
 def _get_redis_connection():

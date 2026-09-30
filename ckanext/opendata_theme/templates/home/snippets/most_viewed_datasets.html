@@ -37,7 +37,7 @@
                     <div class="rtds-card__footer">
                         <div class="rtds-card__footer-inner">
                             <div class="rtds-card__metadata">
-                                {% set first_theme = h.extract_themes(dataset.extras) %}
+                                {% set first_theme = dataset.theme %}
                                 {% if first_theme %}
                                 {% set theme_icon = h.get_theme_icon(first_theme) %}
                                 {% set theme_name = h.get_theme_name(first_theme) %}
@@ -49,7 +49,7 @@
                                 </a>
                                 <span class="rtds-border-r rtds-border-gray-04 rtds-h-4 rtds-my-3 rtds-mr-2 -rtds-ml-2"></span>
                                 {% endif %}
-                                <span class="rtds-whitespace-nowrap">{{ _('Visualizations') }}: {{ dataset.tracking_summary.total }}</span>
+                                <span class="rtds-whitespace-nowrap">{{ _('Visualizations') }}: {{ dataset.views }}</span>
                             </div>
                         </div>
                     </div>
